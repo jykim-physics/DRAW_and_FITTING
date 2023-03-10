@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import ROOT
 
-def get_pd(file:str, tree=str, base_filter=str, variables=list):
+def get_pd(file, tree=str, base_filter=str, variables=list):
     
     tree=tree
     f = file

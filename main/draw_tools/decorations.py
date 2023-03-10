@@ -43,3 +43,6 @@ def watermark(t=None,logo="Belle II", px=0.033, py=0.915, fontsize=16, alpha=0.8
              #          fontproperties=font,
              # bbox={'facecolor':'#377eb7', 'alpha':0.1, 'pad':10}
              )  
+    
+def lumi(l="$5\; \mathrm{pb}^{-1}$", px=0.033, py=0.839,  *args, **kwargs):
+    plt.text(px, py, "$\int\,L\,\mathrm{dt}\;=\;$" + l, transform=plt.gca().transAxes, *args, **kwargs )
