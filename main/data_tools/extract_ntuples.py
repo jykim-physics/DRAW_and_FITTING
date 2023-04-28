@@ -34,3 +34,22 @@ def get_np(file:str, tree=str, base_filter=str, variables=list):
         np_array = ROOT_df_start.AsNumpy(variables)
     
     return np_array
+
+def get_pd_file_list(file_list=list, tree=str, base_filter=str, variables=list):
+
+    tree=tree
+    base_filter  = base_filter 
+    
+    names = ROOT.std.vector('string')()
+    for n in file_list: names.push_back(n)
+
+    ROOT_df_start = ROOT.RDataFrame(tree, names)    
+    col_dict  = ROOT_df_start.AsNumpy(variables)
+    
+    if base_filter !=None:
+        ROOT_df_filtered  = ROOT_df_start.Filter(base_filter)                            
+        col_dict  = ROOT_df_filtered.AsNumpy(variables)
+    
+    pd_df  = pd.DataFrame(col_dict)
+    
+    return pd_df
