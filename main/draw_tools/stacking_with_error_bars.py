@@ -18,7 +18,7 @@ from main.draw_tools.decorations import b2helix, watermark
 from main.data_tools.error_bars import make_data_weight
 
 
-def MC_stack_plot(data, var, scale, xrange, nbins, xlabel="", labels=list,title="", unit = "GeV/c^2",save_repo='',force_range=tuple):
+def MC_stack_plot(data, var, scale, xrange, nbins, xlabel="", labels=list,title="", unit = "GeV/c^2",save_repo='',force_range=tuple, ncol=2):
  
     data_list  = data
 
@@ -68,7 +68,7 @@ def MC_stack_plot(data, var, scale, xrange, nbins, xlabel="", labels=list,title=
     ax.set_position([box.x0, box.y0, box.width , box.height])
     # Put a legend to the right of the current axis
     # ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))   
-    plt.legend(loc='upper right',prop={'size':13}, ncol = 2)
+    plt.legend(loc='upper right',prop={'size':13}, ncol = ncol)
         
     watermark(t="",logo="MC15ri")
     ax.set_title(title)
@@ -84,7 +84,7 @@ def MC_stack_plot(data, var, scale, xrange, nbins, xlabel="", labels=list,title=
         #ax.set_ylim(0,sum_w[0]*1.2)
         ax.set_xlim(*xrange)
 
-    plt.xlabel(xlabel + r'$\; [\mathrm{' + unit + r'}]$');
+    plt.xlabel(xlabel + r'$\; \mathrm{' + unit + r'}$');
     plt.ylabel('Entries'+' /' + '$(' + ' '  + "{0:.4f}".format(bin_width).rstrip('0').rstrip('.') + '\mathrm{' + unit  + '})$');
     plt.savefig(save_repo)
     plt.tight_layout()

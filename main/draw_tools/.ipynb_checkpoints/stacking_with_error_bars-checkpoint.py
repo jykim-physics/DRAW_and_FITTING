@@ -84,7 +84,7 @@ def MC_stack_plot(data, var, scale, xrange, nbins, xlabel="", labels=list,title=
         #ax.set_ylim(0,sum_w[0]*1.2)
         ax.set_xlim(*xrange)
 
-    plt.xlabel(xlabel + r'$\; [\mathrm{' + unit + r'}]$');
+    plt.xlabel(xlabel + r'$\; \mathrm{' + unit + r'}$');
     plt.ylabel('Entries'+' /' + '$(' + ' '  + "{0:.4f}".format(bin_width).rstrip('0').rstrip('.') + '\mathrm{' + unit  + '})$');
     plt.savefig(save_repo)
     plt.tight_layout()
