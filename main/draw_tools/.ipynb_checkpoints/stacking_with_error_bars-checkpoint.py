@@ -6,19 +6,19 @@ import math
 from scipy import stats
 
 try:
-#     plt.style.use('belle2')
-    plt.style.use('belle2_serif')
-#     plt.style.use('belle2_modern')
+    # plt.style.use('belle2')
+    # plt.style.use('belle2_serif')
+    plt.style.use('belle2_modern')
 except OSError:
     print("Please install belle2 matplotlib style")   
 px = 1/plt.rcParams['figure.dpi']
 
 from main.data_tools.extract_ntuples import get_pd, get_np
-from main.draw_tools.decorations import b2helix, watermark
+from main.draw_tools.decorations import b2helix, watermark, lumi
 from main.data_tools.error_bars import make_data_weight
 
 
-def MC_stack_plot(data, var, scale, xrange, nbins, xlabel="", labels=list,title="", unit = "GeV/c^2",save_repo='',force_range=tuple):
+def MC_stack_plot(data, var, scale, xrange, nbins, xlabel="", labels=list,title="", unit = "GeV/c^2",save_repo='',force_range=tuple, ncol=2, luminosity="$5\; \mathrm{pb}^{-1}$"):
  
     data_list  = data
 
@@ -68,12 +68,12 @@ def MC_stack_plot(data, var, scale, xrange, nbins, xlabel="", labels=list,title=
     ax.set_position([box.x0, box.y0, box.width , box.height])
     # Put a legend to the right of the current axis
     # ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))   
-    plt.legend(loc='upper right',prop={'size':13}, ncol = 2)
+    plt.legend(loc='upper right',prop={'size':13}, ncol = ncol)
         
-    watermark(t="",logo="MC15ri")
+    # watermark(t="",logo="MC15ri")
+    lumi(l=luminosity, px=0.033, py=0.839)
     ax.set_title(title)
 
-    
     if sum_w[0]*1.2 == 0:
         pass
         ax.set_xlim(*force_range)
