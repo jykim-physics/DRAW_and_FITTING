@@ -1,0 +1,27 @@
+# Editor temporaries #
+# ################## #
+.#*
+*~
+*#
+*.swp
+.ipynb_checkpoints/
+-
+._*
+
+# Editor configuration #
+# #################### #
+.dir-locals.el
+.project
+.idea
+.vscode
+.gdb_history
+
+# Python byte code #
+# ################ #
+*.py[cod]
+
+# egg-info #
+# ################ #
+*.egg-info
+
+.nfs*
