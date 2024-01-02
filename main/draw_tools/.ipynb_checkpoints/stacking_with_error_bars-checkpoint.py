@@ -71,7 +71,9 @@ def MC_stack_plot(data, var, scale, xrange, nbins, xlabel="", labels=list,title=
     plt.legend(loc='upper right',prop={'size':13}, ncol = ncol)
         
     # watermark(t="",logo="MC15ri")
-    lumi(l=luminosity, px=0.033, py=0.839)
+    # lumi(l=luminosity, px=0.033, py=0.839)
+    lumi(l=luminosity, px=0.033, py=0.90)
+
     ax.set_title(title)
 
     if sum_w[0]*1.2 == 0:
@@ -87,7 +89,7 @@ def MC_stack_plot(data, var, scale, xrange, nbins, xlabel="", labels=list,title=
     plt.xlabel(xlabel + r'$\; \mathrm{' + unit + r'}$');
     plt.ylabel('Entries'+' /' + '$(' + ' '  + "{0:.4f}".format(bin_width).rstrip('0').rstrip('.') + '\mathrm{' + unit  + '})$');
     plt.savefig(save_repo)
-    plt.tight_layout()
+    # plt.tight_layout()
     #plt.show()
 
 def MC_stack_plot_density(data, var, scale, xrange, nbins, xlabel="", labels=list,title="", unit = "GeV/c^2",save_repo='',force_range=tuple):
