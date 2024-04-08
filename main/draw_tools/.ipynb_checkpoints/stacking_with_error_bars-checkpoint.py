@@ -48,7 +48,7 @@ def MC_stack_plot(data, var, scale, xrange, nbins, xlabel="", labels=list,title=
     print('fitst_bin_entries=' + str(sum_w[0]))
     sum_w2 = np.sum(\
                 np.array([stats.binned_statistic(np_only_list,np_only_list2**2, statistic="sum", bins=xbins)[0]]), axis=0)
-    
+    fig = plt.figure(figsize=(10, 6))
     plt.hist(data_list, bins=xbins, histtype='stepfilled', stacked=True,label=labels,color=colors,edgecolor='black', weights = weights)
       
     ax = plt.gca()
