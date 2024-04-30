@@ -1,0 +1,139 @@
+
+Applying BELLE2 style settings...
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #1 because Dp_M cannot accommodate the value 1.60315
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #2 because Dp_M cannot accommodate the value 1.72113
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #3 because Dp_M cannot accommodate the value 1.64412
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #6 because Dp_M cannot accommodate the value 1.63823
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping ...
+[#0] WARNING:DataHandling -- RooTreeDataStore::loadValues(data) Ignored 386395 out-of-range events
+[#0] WARNING:InputArguments -- The parameter 'alphaL' with range [0, 10] of the RooCrystalBall 'CB_left' exceeds the safe range of (0, inf). Advise to limit its range.
+[#0] WARNING:InputArguments -- The parameter 'alphaR' with range [0, 10] of the RooCrystalBall 'CB_left' exceeds the safe range of (0, inf). Advise to limit its range.
+[#0] WARNING:InputArguments -- The parameter 'nL' with range [0, 10] of the RooCrystalBall 'CB_left' exceeds the safe range of (0, inf). Advise to limit its range.
+[#0] WARNING:InputArguments -- The parameter 'nR' with range [0, 10] of the RooCrystalBall 'CB_left' exceeds the safe range of (0, inf). Advise to limit its range.
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'fit' created with bounds [1.75,1.95]
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:Fitting -- RooAbsOptTestStatistic::ctor(nll_CB_left_data) constructing test statistic for sub-range named fit
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'NormalizationRangeForfit' created with bounds [1.75,1.95]
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'fit_nll_CB_left_data' created with bounds [1.75,1.95]
+[#1] INFO:Fitting -- RooAbsOptTestStatistic::ctor(nll_CB_left_data) fixing interpretation of coefficients of any RooAddPdf to full domain of observables 
+[#1] INFO:Eval -- RooAbsTestStatistic::initMPMode: started 4 remote server process.
+ **********
+ **    1 **SET PRINT           1
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 alphaL       1.00000e+00  5.00000e-01    0.00000e+00  1.00000e+01
+     2 alphaR       1.00000e+00  5.00000e-01    0.00000e+00  1.00000e+01
+     3 mean         1.86000e+00  1.00000e-02    1.80000e+00  1.90000e+00
+     4 nL           1.00000e+00  5.00000e-01    0.00000e+00  1.00000e+01
+     5 nR           1.00000e+00  5.00000e-01    0.00000e+00  1.00000e+01
+     6 sigma        2.00000e-02  9.50000e-03    1.00000e-03  1.00000e-01
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           1
+ **********
+ **********
+ **    5 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **    6 **MIGRAD        3000           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-272052 FROM MIGRAD    STATUS=INITIATE       67 CALLS          68 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  alphaL       1.00000e+00   5.00000e-01   0.00000e+00  -7.43931e+03
+   2  alphaR       1.00000e+00   5.00000e-01   0.00000e+00   2.61725e+04
+   3  mean         1.86000e+00   1.00000e-02   0.00000e+00  -2.91202e+04
+   4  nL           2.74426e-04   5.00000e-01  -6.20517e-03  -5.17977e+00
+   5  nR           1.00000e+00   5.00000e-01   0.00000e+00   1.18456e+04
+   6  sigma        2.00000e-02   9.50000e-03   0.00000e+00  -7.19299e+03
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ FCN=-281161 FROM MIGRAD    STATUS=CONVERGED     435 CALLS         436 TOTAL
+                     EDM=9.01708e-05    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   2.2 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  alphaL       1.46480e+00   5.44364e-03   1.06807e-05  -6.12244e+00
+   2  alphaR       1.69681e+00   1.67675e-02   1.59953e-05   9.38875e+00
+   3  mean         1.86915e+00   4.13039e-05   2.07657e-07  -7.17800e+00
+   4  nL           2.09210e-11   3.20486e-05   5.88978e-06** at limit **
+   5  nR           5.69540e-02   7.21747e-03   5.51921e-05  -4.60727e+00
+   6  sigma        7.21723e-03   6.48877e-05  -1.13669e-05   2.21787e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  6    ERR DEF=0.5
+  2.963e-05  1.850e-05  2.781e-08 -1.618e-11 -6.509e-07 -2.018e-07 
+  1.850e-05  2.812e-04  1.137e-07 -4.926e-11  1.148e-04  1.027e-07 
+  2.781e-08  1.137e-07  1.706e-09 -1.771e-13  3.905e-08 -1.073e-10 
+ -1.618e-11 -4.926e-11 -1.771e-13  2.682e-15 -1.562e-11 -2.259e-13 
+ -6.509e-07  1.148e-04  3.905e-08 -1.562e-11  5.209e-05  1.064e-07 
+ -2.018e-07  1.027e-07 -1.073e-10 -2.259e-13  1.064e-07  4.210e-09 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6
+        1  0.77150   1.000  0.203  0.124 -0.057 -0.017 -0.571
+        2  0.97363   0.203  1.000  0.164 -0.057  0.949  0.094
+        3  0.20196   0.124  0.164  1.000 -0.083  0.131 -0.040
+        4  0.15325  -0.057 -0.057 -0.083  1.000 -0.042 -0.067
+        5  0.97248  -0.017  0.949  0.131 -0.042  1.000  0.227
+        6  0.61829  -0.571  0.094 -0.040 -0.067  0.227  1.000
+ **********
+ **    7 **SET ERR         0.5
+ **********
+ **********
+ **    8 **SET PRINT           1
+ **********
+ **********
+ **    9 **HESSE        3000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-281161 FROM HESSE     STATUS=OK             46 CALLS         482 TOTAL
+                     EDM=0.00741268    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  alphaL       1.46480e+00   6.16773e-03   3.58912e-04  -7.85305e-01
+   2  alphaR       1.69681e+00   1.58184e-02   3.65438e-04  -7.21668e-01
+   3  mean         1.86915e+00   5.37987e-05   4.06279e-04   3.93135e-01
+   4  nL           2.09210e-11   2.90298e-05   1.24843e-03  -1.57080e+00
+                                 WARNING -   - ABOVE PARAMETER IS AT LIMIT.
+   5  nR           5.69540e-02   7.18558e-03   8.08933e-04  -1.72188e+00
+   6  sigma        7.21723e-03   8.30968e-05   8.17006e-04  -1.06420e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  6    ERR DEF=0.5
+  3.804e-05  3.975e-06  1.662e-08 -5.777e-12 -9.113e-06 -3.700e-07 
+  3.975e-06  2.502e-04  7.157e-08 -2.457e-14  1.070e-04  1.553e-07 
+  1.662e-08  7.157e-08  2.894e-09  3.719e-15  2.247e-08 -9.693e-10 
+ -5.777e-12 -2.457e-14  3.719e-15  2.429e-15  1.522e-13  3.851e-15 
+ -9.113e-06  1.070e-04  2.247e-08  1.522e-13  5.163e-05  1.810e-07 
+ -3.700e-07  1.553e-07 -9.693e-10  3.851e-15  1.810e-07  6.905e-09 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6
+        1  0.82692   1.000  0.041  0.050 -0.019 -0.206 -0.722
+        2  0.97156   0.041  1.000  0.084 -0.000  0.941  0.118
+        3  0.30134   0.050  0.084  1.000  0.001  0.058 -0.217
+        4  0.03169  -0.019 -0.000  0.001  1.000  0.000  0.001
+        5  0.97286  -0.206  0.941  0.058  0.000  1.000  0.303
+        6  0.76381  -0.722  0.118 -0.217  0.001  0.303  1.000
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+[#0] ERROR:InputArguments -- RooAbsRealLValue::frame(Dp_M) ERROR: unrecognized command:  
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f was fitted in a subrange and no explicit Range() and NormRange() was specified. Plotting / normalising in fit range. To override, do one of the following
+	- Clear the automatic fit range attribute: <pdf>.setStringAttribute("fitrange", nullptr);
+	- Explicitly specify the plotting range: Range("<rangeName>").
+	- Explicitly specify where to compute the normalisation: NormRange("<rangeName>").
+	The default (full) range can be denoted with Range("") / NormRange("").
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) only plotting range 'fit_nll_CB_left_data'
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f. curve is normalized using explicit choice of ranges 'fit_nll_CB_left_data'
+etapip_pipipi_rank==1
+163402.0

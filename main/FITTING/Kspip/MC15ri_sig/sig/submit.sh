@@ -2,12 +2,8 @@
 
 # Define a dictionary mapping job names to Python scripts and directories
 declare -A job_configs=(
-    ["MC15ri_etapip_gg"]="MC15ri_etapip_gg.py:/share/storage/jykim/plots/MC15ri/etapip/gg/"
-    ["MC15ri_etapip_pipipi"]="MC15ri_etapip_pipipi.py:/share/storage/jykim/plots/MC15ri/etapip/pipipi/"
-    ["MC15ri_etaeta_gg"]="MC15ri_etaeta_gg.py:/share/storage/jykim/plots/MC15ri/etaeta/gg/"
-    ["MC15ri_etaeta_gpi"]="MC15ri_etaeta_gpi.py:/share/storage/jykim/plots/MC15ri/etaeta/gpi/"
-    ["MC15ri_etaeta_pipi"]="MC15ri_etaeta_pipi.py:/share/storage/jykim/plots/MC15ri/etaeta/pipi/"
-    ["MC15ri_etaeta_gg_delM"]="MC15ri_etaeta_gg_delM.py:/share/storage/jykim/plots/MC15ri/etaeta/gg/"
+    ["MC15ri_Kspip"]="MC15ri_Kspip.py:/share/storage/jykim/plots/MC15ri/Kspip/"
+    ["MC15ri_Kspip_gauss"]="MC15ri_Kspip_gauss.py:/share/storage/jykim/plots/MC15ri/Kspip/"
 )
 
 # Iterate over the keys of the dictionary and submit jobs

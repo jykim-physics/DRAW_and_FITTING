@@ -1,0 +1,336 @@
+[INFO] Steering file: MC15ri_etapip_gg.py
+[INFO] Steering file: MC15ri_etapip_gg.py
+
+Applying BELLE2 style settings...
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+
+Applying BELLE2 style settings...
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+[#0] WARNING:InputArguments -- The parameter 'alphaL' with range [0, 10] of the RooCrystalBall 'CB_left' exceeds the safe range of (0, inf). Advise to limit its range.
+[#0] WARNING:InputArguments -- The parameter 'alphaL' with range [0, 10] of the RooCrystalBall 'CB_left' exceeds the safe range of (0, inf). Advise to limit its range.
+[#0] WARNING:InputArguments -- The parameter 'alphaR' with range [0, 10] of the RooCrystalBall 'CB_left' exceeds the safe range of (0, inf). Advise to limit its range.
+[#0] WARNING:InputArguments -- The parameter 'nL' with range [0, 10] of the RooCrystalBall 'CB_left' exceeds the safe range of (0, inf). Advise to limit its range.
+[#0] WARNING:InputArguments -- The parameter 'alphaR' with range [0, 10] of the RooCrystalBall 'CB_left' exceeds the safe range of (0, inf). Advise to limit its range.
+[#0] WARNING:InputArguments -- The parameter 'nR' with range [0, 10] of the RooCrystalBall 'CB_left' exceeds the safe range of (0, inf). Advise to limit its range.
+[#0] WARNING:InputArguments -- The parameter 'nL' with range [0, 10] of the RooCrystalBall 'CB_left' exceeds the safe range of (0, inf). Advise to limit its range.
+[#0] WARNING:InputArguments -- The parameter 'nR' with range [0, 10] of the RooCrystalBall 'CB_left' exceeds the safe range of (0, inf). Advise to limit its range.
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'fit' created with bounds [1.6,2.1]
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'fit' created with bounds [1.6,2.1]
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:Fitting -- RooAbsOptTestStatistic::ctor(nll_CB_left_data) constructing test statistic for sub-range named fit
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'NormalizationRangeForfit' created with bounds [1.6,2.1]
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'fit_nll_CB_left_data' created with bounds [1.6,2.1]
+[#1] INFO:Fitting -- RooAbsOptTestStatistic::ctor(nll_CB_left_data) constructing test statistic for sub-range named fit
+[#1] INFO:Fitting -- RooAbsOptTestStatistic::ctor(nll_CB_left_data) fixing interpretation of coefficients of any RooAddPdf to full domain of observables 
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'NormalizationRangeForfit' created with bounds [1.6,2.1]
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'fit_nll_CB_left_data' created with bounds [1.6,2.1]
+[#1] INFO:Fitting -- RooAbsOptTestStatistic::ctor(nll_CB_left_data) fixing interpretation of coefficients of any RooAddPdf to full domain of observables 
+[#1] INFO:Eval -- RooAbsTestStatistic::initMPMode: started 4 remote server process.
+[#1] INFO:Eval -- RooAbsTestStatistic::initMPMode: started 4 remote server process.
+ **********
+ **    1 **SET PRINT           1
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 alphaL       1.00000e+00  5.00000e-01    0.00000e+00  1.00000e+01
+     2 alphaR       1.00000e+00  5.00000e-01    0.00000e+00  1.00000e+01
+     3 mean         1.86000e+00  2.00000e-02    1.80000e+00  2.00000e+00
+     4 nL           1.00000e+00  5.00000e-01    0.00000e+00  1.00000e+01
+     5 nR           1.00000e+00  5.00000e-01    0.00000e+00  1.00000e+01
+     6 sigma        2.00000e-02  9.50000e-03    1.00000e-03  1.00000e-01
+     7 sigmaR       2.00000e-02  9.50000e-03    1.00000e-03  1.00000e-01
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           1
+ **********
+ **********
+ **********
+ **    5 **SET STR           1
+ **********
+ **    1 **SET PRINT           1
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **    6 **MIGRAD        3500           1
+ **********
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ PARAMETER DEFINITIONS:
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 alphaL       1.00000e+00  5.00000e-01    0.00000e+00  1.00000e+01
+     2 alphaR       1.00000e+00  5.00000e-01    0.00000e+00  1.00000e+01
+     3 mean         1.86000e+00  2.00000e-02    1.80000e+00  2.00000e+00
+     4 nL           1.00000e+00  5.00000e-01    0.00000e+00  1.00000e+01
+     5 nR           1.00000e+00  5.00000e-01    0.00000e+00  1.00000e+01
+ FCN=-5422.83 FROM MIGRAD    STATUS=INITIATE       28 CALLS          29 TOTAL
+     6 sigma        2.00000e-02  9.50000e-03    1.00000e-03  1.00000e-01
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+     7 sigmaR       2.00000e-02  9.50000e-03    1.00000e-03  1.00000e-01
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+ **********
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+ **    3 **SET ERR         0.5
+   1  alphaL       1.00000e+00   5.00000e-01   1.72186e-01   2.41728e+04
+ **********
+   2  alphaR       1.00000e+00   5.00000e-01   1.72186e-01   4.46179e+03
+   3  mean         1.86000e+00   2.00000e-02   2.21072e-01   3.52576e+03
+ **********
+   4  nL           1.00000e+00   5.00000e-01   1.72186e-01   1.77587e+04
+ **    4 **SET PRINT           1
+ **********
+   5  nR           1.00000e+00   5.00000e-01   1.72186e-01   4.37687e+03
+ **********
+   6  sigma        2.00000e-02   9.50000e-03   2.51381e-01  -6.99998e+03
+ **    5 **SET STR           1
+   7  sigmaR       2.00000e-02   9.50000e-03   2.51381e-01   8.67603e+02
+ **********
+                               ERR DEF= 0.5
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **    6 **MIGRAD        3500           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-5422.83 FROM MIGRAD    STATUS=INITIATE       28 CALLS          29 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  alphaL       1.00000e+00   5.00000e-01   1.72186e-01   2.41728e+04
+   2  alphaR       1.00000e+00   5.00000e-01   1.72186e-01   4.46179e+03
+   3  mean         1.86000e+00   2.00000e-02   2.21072e-01   3.52576e+03
+   4  nL           1.00000e+00   5.00000e-01   1.72186e-01   1.77587e+04
+   5  nR           1.00000e+00   5.00000e-01   1.72186e-01   4.37687e+03
+   6  sigma        2.00000e-02   9.50000e-03   2.51381e-01  -6.99998e+03
+   7  sigmaR       2.00000e-02   9.50000e-03   2.51381e-01   8.67603e+02
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ MINUIT WARNING IN HESSE   
+ ============== Negative diagonal element 4 in Error Matrix
+ MINUIT WARNING IN HESSE   
+ ============== 1.00752 added to diagonal of error matrix
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-11901.9 FROM HESSE     STATUS=OK             60 CALLS         630 TOTAL
+                     EDM=0.00172175    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  alphaL       1.86215e-02   1.63025e-02   1.07842e-03   1.00194e-01
+   2  alphaR       2.70300e-01   1.70641e-01   5.79882e-04   5.73688e-02
+   3  mean         1.84068e+00   9.01870e-03   3.60166e-03   1.22398e-02
+   4  nL           1.52229e+00   7.38998e+00   2.18691e-01  -9.76701e-03
+   5  nR           5.63985e-01   2.25605e-01   1.55757e-03  -4.00396e-02
+   6  sigma        5.98566e-02   3.77131e-02   3.04995e-02  -3.56015e-03
+   7  sigmaR       4.32637e-02   2.49182e-02   3.20754e-03   9.70527e-02
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ MINUIT WARNING IN HESSE   
+ ============== Negative diagonal element 4 in Error Matrix
+ MINUIT WARNING IN HESSE   
+ ============== 1.00752 added to diagonal of error matrix
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-11901.9 FROM HESSE     STATUS=OK             60 CALLS         630 TOTAL
+                     EDM=0.00172175    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  alphaL       1.86215e-02   1.63025e-02   1.07842e-03   1.00194e-01
+   2  alphaR       2.70300e-01   1.70641e-01   5.79882e-04   5.73688e-02
+   3  mean         1.84068e+00   9.01870e-03   3.60166e-03   1.22398e-02
+   4  nL           1.52229e+00   7.38998e+00   2.18691e-01  -9.76701e-03
+   5  nR           5.63985e-01   2.25605e-01   1.55757e-03  -4.00396e-02
+ MIGRAD FAILS TO FIND IMPROVEMENT
+   6  sigma        5.98566e-02   3.77131e-02   3.04995e-02  -3.56015e-03
+ MIGRAD TERMINATED WITHOUT CONVERGENCE.
+   7  sigmaR       4.32637e-02   2.49182e-02   3.20754e-03   9.70527e-02
+ FCN=-11902 FROM MIGRAD    STATUS=FAILED        815 CALLS         816 TOTAL
+                               ERR DEF= 0.5
+                     EDM=0.0213314    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  28.3 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  alphaL       2.01449e-02   1.74597e-02  -0.00000e+00  -4.42924e-01
+   2  alphaR       1.38641e-01   2.27012e-01  -0.00000e+00   4.34584e+00
+   3  mean         1.84480e+00   7.13448e-03  -0.00000e+00  -3.41083e-01
+   4  nL           1.15321e+00   1.50080e+00  -0.00000e+00   1.95606e-01
+   5  nR           5.65289e-01   2.08412e-01  -0.00000e+00   9.35149e-01
+   6  sigma        6.39276e-02   3.80334e-02  -0.00000e+00   1.30594e-02
+   7  sigmaR       2.11392e-02   3.05698e-02  -0.00000e+00  -9.09067e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  7    ERR DEF=0.5
+  3.050e-04 -8.083e-04 -7.820e-06  3.907e-03  1.476e-04  6.432e-04 -1.326e-04 
+ MIGRAD FAILS TO FIND IMPROVEMENT
+ -8.083e-04  5.220e-02 -7.221e-04 -1.362e-01 -2.189e-02 -2.574e-03  7.868e-03 
+ MIGRAD TERMINATED WITHOUT CONVERGENCE.
+ -7.820e-06 -7.221e-04  5.103e-05  2.332e-03 -3.036e-04  3.901e-05 -1.276e-04 
+ FCN=-11902 FROM MIGRAD    STATUS=FAILED        815 CALLS         816 TOTAL
+  3.907e-03 -1.362e-01  2.332e-03  2.441e+00  1.483e-01  7.387e-03 -1.773e-02 
+                     EDM=0.0213314    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  28.3 per cent
+  1.476e-04 -2.189e-02 -3.036e-04  1.483e-01  4.355e-02  4.032e-04 -2.356e-03 
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  6.432e-04 -2.574e-03  3.901e-05  7.387e-03  4.032e-04  1.940e-03 -4.041e-04 
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+ -1.326e-04  7.868e-03 -1.276e-04 -1.773e-02 -2.356e-03 -4.041e-04  1.214e-03 
+   1  alphaL       2.01449e-02   1.74597e-02  -0.00000e+00  -4.42924e-01
+   2  alphaR       1.38641e-01   2.27012e-01  -0.00000e+00   4.34584e+00
+   3  mean         1.84480e+00   7.13448e-03  -0.00000e+00  -3.41083e-01
+ERR MATRIX APPROXIMATE
+   4  nL           1.15321e+00   1.50080e+00  -0.00000e+00   1.95606e-01
+ PARAMETER  CORRELATION COEFFICIENTS  
+   5  nR           5.65289e-01   2.08412e-01  -0.00000e+00   9.35149e-01
+       NO.  GLOBAL      1      2      3      4      5      6      7
+        1  0.94097   1.000 -0.203 -0.063  0.143  0.041  0.836 -0.218
+   6  sigma        6.39276e-02   3.80334e-02  -0.00000e+00   1.30594e-02
+   7  sigmaR       2.11392e-02   3.05698e-02  -0.00000e+00  -9.09067e-01
+        2  0.99969  -0.203  1.000 -0.442 -0.381 -0.459 -0.256  0.988
+        3  0.86760  -0.063 -0.442  1.000  0.209 -0.204  0.124 -0.513
+                               ERR DEF= 0.5
+        4  0.72356   0.143 -0.381  0.209  1.000  0.455  0.107 -0.326
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  7    ERR DEF=0.5
+        5  0.98363   0.041 -0.459 -0.204  0.455  1.000  0.044 -0.324
+  3.050e-04 -8.083e-04 -7.820e-06  3.907e-03  1.476e-04  6.432e-04 -1.326e-04 
+ -8.083e-04  5.220e-02 -7.221e-04 -1.362e-01 -2.189e-02 -2.574e-03  7.868e-03 
+        6  0.92728   0.836 -0.256  0.124  0.107  0.044  1.000 -0.263
+ -7.820e-06 -7.221e-04  5.103e-05  2.332e-03 -3.036e-04  3.901e-05 -1.276e-04 
+  3.907e-03 -1.362e-01  2.332e-03  2.441e+00  1.483e-01  7.387e-03 -1.773e-02 
+        7  0.99966  -0.218  0.988 -0.513 -0.326 -0.324 -0.263  1.000
+  1.476e-04 -2.189e-02 -3.036e-04  1.483e-01  4.355e-02  4.032e-04 -2.356e-03 
+ ERR MATRIX APPROXIMATE
+  6.432e-04 -2.574e-03  3.901e-05  7.387e-03  4.032e-04  1.940e-03 -4.041e-04 
+ **********
+ **    7 **SET ERR         0.5
+ -1.326e-04  7.868e-03 -1.276e-04 -1.773e-02 -2.356e-03 -4.041e-04  1.214e-03 
+ **********
+ERR MATRIX APPROXIMATE
+ **********
+ PARAMETER  CORRELATION COEFFICIENTS  
+ **    8 **SET PRINT           1
+       NO.  GLOBAL      1      2      3      4      5      6      7
+ **********
+        1  0.94097   1.000 -0.203 -0.063  0.143  0.041  0.836 -0.218
+        2  0.99969  -0.203  1.000 -0.442 -0.381 -0.459 -0.256  0.988
+ **********
+        3  0.86760  -0.063 -0.442  1.000  0.209 -0.204  0.124 -0.513
+ **    9 **HESSE        3500
+        4  0.72356   0.143 -0.381  0.209  1.000  0.455  0.107 -0.326
+        5  0.98363   0.041 -0.459 -0.204  0.455  1.000  0.044 -0.324
+        6  0.92728   0.836 -0.256  0.124  0.107  0.044  1.000 -0.263
+        7  0.99966  -0.218  0.988 -0.513 -0.326 -0.324 -0.263  1.000
+ ERR MATRIX APPROXIMATE
+ **********
+ **********
+ **    7 **SET ERR         0.5
+ **********
+ **********
+ **    8 **SET PRINT           1
+ **********
+ **********
+ EIGENVALUES OF SECOND-DERIVATIVE MATRIX:
+        -5.7843e-02  9.6109e-04  2.9325e-02  8.5938e-02  5.0132e-01  1.0852e+00  5.3551e+00
+ MINUIT WARNING IN HESSE   
+ **    9 **HESSE        3500
+ ============== MATRIX FORCED POS-DEF BY ADDING 0.063198 TO DIAGONAL.
+ **********
+ FCN=-11902 FROM HESSE     STATUS=NOT POSDEF     56 CALLS         872 TOTAL
+                     EDM=0.0716893    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+  EXT PARAMETER                APPROXIMATE     INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  alphaL       2.01449e-02   6.18775e-02   1.08660e-03  -1.48100e+00
+   2  alphaR       1.38641e-01   2.41703e-02   4.45029e-04  -1.33476e+00
+   3  mean         1.84480e+00   7.01795e-03   3.33665e-03  -5.84729e-01
+   4  nL           1.15321e+00   7.78432e+00   5.00000e-01  -2.26376e+00
+ EIGENVALUES OF SECOND-DERIVATIVE MATRIX:
+   5  nR           5.65289e-01   1.17519e-01   1.46043e-03  -1.09068e+00
+   6  sigma        6.39276e-02   8.08895e-02   3.12340e-02   2.74707e-01
+   7  sigmaR       2.11392e-02   3.65845e-03   2.03774e-03  -6.34963e-01
+        -5.7843e-02  9.6109e-04  2.9325e-02  8.5938e-02  5.0132e-01  1.0852e+00  5.3551e+00
+                               ERR DEF= 0.5
+ MINUIT WARNING IN HESSE   
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  7    ERR DEF=0.5
+ ============== MATRIX FORCED POS-DEF BY ADDING 0.063198 TO DIAGONAL.
+ FCN=-11902 FROM HESSE     STATUS=NOT POSDEF     56 CALLS         872 TOTAL
+  3.853e-03 -5.920e-04  2.842e-04  1.898e+00  1.751e-03  4.698e-03  1.029e-04 
+                     EDM=0.0716893    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+  EXT PARAMETER                APPROXIMATE     INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+ -5.920e-04  5.843e-04 -2.715e-05 -3.216e-01 -1.520e-03 -6.905e-04  2.106e-05 
+   1  alphaL       2.01449e-02   6.18775e-02   1.08660e-03  -1.48100e+00
+  2.842e-04 -2.715e-05  4.937e-05  1.573e-01 -8.224e-05  3.418e-04  5.043e-06 
+   2  alphaR       1.38641e-01   2.41703e-02   4.45029e-04  -1.33476e+00
+  1.898e+00 -3.216e-01  1.573e-01  1.010e+03  9.384e-01  2.098e+00  5.594e-02 
+   3  mean         1.84480e+00   7.01795e-03   3.33665e-03  -5.84729e-01
+  1.751e-03 -1.520e-03 -8.224e-05  9.384e-01  1.382e-02  1.997e-03  1.839e-04 
+   4  nL           1.15321e+00   7.78432e+00   5.00000e-01  -2.26376e+00
+   5  nR           5.65289e-01   1.17519e-01   1.46043e-03  -1.09068e+00
+  4.698e-03 -6.905e-04  3.418e-04  2.098e+00  1.997e-03  7.096e-03  1.202e-04 
+   6  sigma        6.39276e-02   8.08895e-02   3.12340e-02   2.74707e-01
+  1.029e-04  2.106e-05  5.043e-06  5.594e-02  1.839e-04  1.202e-04  1.342e-05 
+   7  sigmaR       2.11392e-02   3.65845e-03   2.03774e-03  -6.34963e-01
+ERR MATRIX NOT POS-DEF
+                               ERR DEF= 0.5
+ PARAMETER  CORRELATION COEFFICIENTS  
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  7    ERR DEF=0.5
+  3.853e-03 -5.920e-04  2.842e-04  1.898e+00  1.751e-03  4.698e-03  1.029e-04 
+ -5.920e-04  5.843e-04 -2.715e-05 -3.216e-01 -1.520e-03 -6.905e-04  2.106e-05 
+       NO.  GLOBAL      1      2      3      4      5      6      7
+  2.842e-04 -2.715e-05  4.937e-05  1.573e-01 -8.224e-05  3.418e-04  5.043e-06 
+  1.898e+00 -3.216e-01  1.573e-01  1.010e+03  9.384e-01  2.098e+00  5.594e-02 
+  1.751e-03 -1.520e-03 -8.224e-05  9.384e-01  1.382e-02  1.997e-03  1.839e-04 
+  4.698e-03 -6.905e-04  3.418e-04  2.098e+00  1.997e-03  7.096e-03  1.202e-04 
+  1.029e-04  2.106e-05  5.043e-06  5.594e-02  1.839e-04  1.202e-04  1.342e-05 
+        1  0.99472   1.000 -0.395  0.652  0.962  0.240  0.898  0.453
+ERR MATRIX NOT POS-DEF
+ PARAMETER  CORRELATION COEFFICIENTS  
+        2  0.96217  -0.395  1.000 -0.160 -0.419 -0.535 -0.339  0.238
+       NO.  GLOBAL      1      2      3      4      5      6      7
+        3  0.86263   0.652 -0.160  1.000  0.704 -0.100  0.577  0.196
+        1  0.99472   1.000 -0.395  0.652  0.962  0.240  0.898  0.453
+        4  0.99420   0.962 -0.419  0.704  1.000  0.251  0.783  0.480
+        2  0.96217  -0.395  1.000 -0.160 -0.419 -0.535 -0.339  0.238
+        5  0.93106   0.240 -0.535 -0.100  0.251  1.000  0.202  0.427
+        3  0.86263   0.652 -0.160  1.000  0.704 -0.100  0.577  0.196
+        6  0.97099   0.898 -0.339  0.577  0.783  0.202  1.000  0.389
+        7  0.96068   0.453  0.238  0.196  0.480  0.427  0.389  1.000
+        4  0.99420   0.962 -0.419  0.704  1.000  0.251  0.783  0.480
+ ERR MATRIX NOT POS-DEF
+        5  0.93106   0.240 -0.535 -0.100  0.251  1.000  0.202  0.427
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+        6  0.97099   0.898 -0.339  0.577  0.783  0.202  1.000  0.389
+        7  0.96068   0.453  0.238  0.196  0.480  0.427  0.389  1.000
+ ERR MATRIX NOT POS-DEF
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+[#0] ERROR:InputArguments -- RooAbsRealLValue::frame(Dp_M) ERROR: unrecognized command:  
+[#0] ERROR:InputArguments -- RooAbsRealLValue::frame(Dp_M) ERROR: unrecognized command:  
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f was fitted in a subrange and no explicit Range() and NormRange() was specified. Plotting / normalising in fit range. To override, do one of the following
+	- Clear the automatic fit range attribute: <pdf>.setStringAttribute("fitrange", nullptr);
+	- Explicitly specify the plotting range: Range("<rangeName>").
+	- Explicitly specify where to compute the normalisation: NormRange("<rangeName>").
+	The default (full) range can be denoted with Range("") / NormRange("").
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) only plotting range 'fit_nll_CB_left_data'
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f. curve is normalized using explicit choice of ranges 'fit_nll_CB_left_data'
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f was fitted in a subrange and no explicit Range() and NormRange() was specified. Plotting / normalising in fit range. To override, do one of the following
+	- Clear the automatic fit range attribute: <pdf>.setStringAttribute("fitrange", nullptr);
+	- Explicitly specify the plotting range: Range("<rangeName>").
+	- Explicitly specify where to compute the normalisation: NormRange("<rangeName>").
+	The default (full) range can be denoted with Range("") / NormRange("").
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) only plotting range 'fit_nll_CB_left_data'
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f. curve is normalized using explicit choice of ranges 'fit_nll_CB_left_data'
+etapip_gg_rank==1 && Dp_isSignal!=1
+16425.0
+etapip_gg_rank==1 && Dp_isSignal!=1
+16425.0
