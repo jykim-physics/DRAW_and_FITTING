@@ -4,8 +4,8 @@ import glob
 import ctypes
 import os
 
-file_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/MC15ri_1ab_etapip_gg_cc_fit_tight_v2.png"
-fitresult_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/fitresult/MC15ri_1ab_etapip_gg_cc_fit_tight_v2.root"
+file_name = "/share/storage/jykim/plots/MC15ri/etaKp/gg/generic/MC15ri_1ab_etaKp_gg_fit_tight_v2_fitv0.png"
+fitresult_name = "/share/storage/jykim/plots/MC15ri/etaKp/gg/generic/fitresult/MC15ri_1ab_etaKp_gg_fit_tight_v2.root"
 dir_path = os.path.dirname(file_name)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
@@ -15,12 +15,13 @@ if not os.path.exists(dir_path):
     os.makedirs(dir_path)
 print("Directory created:", dir_path)
 
+
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
 
 base_file_loc =  '/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/'
 
-# loc_ccbar = base_file_loc + 'ccbar/tight_v2_240419_Kp_BCS_etapi0const_ccbar_output_02*.root'
+#loc_ccbar = base_file_loc + 'ccbar/tight_v2_240419_Kp_BCS_etapi0const_ccbar_output_02*.root'
 loc_ccbar = base_file_loc + 'ccbar/*.root'
 # loc_ccbar = base_file_loc + 'topo/resultfile/result_antiKstar/standard.root'
 loc_uubar = base_file_loc + 'uubar/*.root'
@@ -32,10 +33,10 @@ loc_taupair = base_file_loc + 'taupair/*.root'
 
 file_list = [loc_ccbar,loc_uubar,loc_uubar,loc_ssbar,loc_charged,loc_mixed,loc_taupair]
 #file_list = [loc_ccbar,loc_charged,loc_mixed]
-# file_list = [loc_ccbar]
+#file_list = [loc_ccbar]
 
 # Get the tree from the file
-tree_name = "etapip_gg"
+tree_name = "etapip_gg_K"
 
 mychain = ROOT.TChain(tree_name)
 
@@ -51,11 +52,11 @@ fit_var_name = "M(D^{+}) [GeV/c^{2}]"
 fit_range = (1.76, 2.05)
 rank_var = tree_name + "_rank"
 truth_var = "Dp_isSignal"
-charge_var = "Pip_charge"
+charge_var = "Kp_charge"
 
 # Cuts
 cuts = rank_var + "==1" 
-cuts += " && " + charge_var + "==-1"
+cuts += " && " + charge_var + "==1"
 
 # Create RooRealVar
 x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
@@ -154,9 +155,7 @@ frame.GetXaxis().CenterTitle(True)
 
 leg1 = ROOT.TLegend(0.2, 0.25, 0.45, 0.50)
 # leg1.SetFillColor(ROOT.kWhite)
-#leg1.SetFillColor(0)
 leg1.SetFillColorAlpha(ROOT.kWhite, 0)
-
     # leg1.SetHeader("The Legend title","C")
 leg1.AddEntry("data", "MC", "PE")
 leg1.AddEntry("Fitting", "Fit", "l")
@@ -216,3 +215,5 @@ canv.SaveAs(file_name)
 f = ROOT.TFile(fitresult_name, "RECREATE")
 r.Write("jykim")
 f.Close()
+
+
