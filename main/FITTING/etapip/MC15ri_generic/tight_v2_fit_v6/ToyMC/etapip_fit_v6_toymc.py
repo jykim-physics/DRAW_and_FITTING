@@ -306,8 +306,8 @@ n_recon_err_Acp = []
 
 def Acp_error_cal(Nsig, Nsig_cc, Nsig_err, Nsig_cc_err):
     Z = (Nsig - Nsig_cc)/(Nsig + Nsig_cc)
-    dsig = Z * (2*Nsig_cc/ (Nsig**2 - Nsig_cc*2) ) * Nsig_err
-    dsig_cc = Z * (2*Nsig/ (Nsig**2 - Nsig_cc*2) ) * Nsig_cc_err
+    dsig = Z * (2*Nsig_cc/ (Nsig**2 - Nsig_cc**2) ) * Nsig_err
+    dsig_cc = Z * (2*Nsig/ (Nsig**2 - Nsig_cc**2) ) * Nsig_cc_err
     
     dZ_square = dsig**2 + dsig_cc**2
     return math.sqrt(dZ_square)
