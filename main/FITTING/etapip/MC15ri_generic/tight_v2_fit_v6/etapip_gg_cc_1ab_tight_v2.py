@@ -61,7 +61,8 @@ cuts += " && " + charge_var + "==-1"
 
 # Create RooRealVar
 x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
-x.setBins(70)
+x.setRange("fitRange", fit_range[0], fit_range[1])
+x.setBins(200)
 chiProb_rank = ROOT.RooRealVar(rank_var, rank_var, 0, 30)
 Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 
@@ -140,7 +141,7 @@ Ds_gaussian = ROOT.RooGaussian("Ds_gaussian", "Gaussian PDF", x, Ds_mean_gaussia
 Ds_model = ROOT.RooFFTConvPdf("Ds_model", "Convolution of Johnson and Gaussian", x, Ds_johnson, Ds_gaussian)
 
 rhopeta_mean = ROOT.RooRealVar("rhopeta_mean", "mean", 1.75, 1.65, 1.8)
-rhopeta_sigma = ROOT.RooRealVar("rhopeta_sigma", "sigma", 0.03, 0.001, 0.05)
+rhopeta_sigma = ROOT.RooRealVar("rhopeta_sigma", "sigma", 0.03, 0.001, 0.08)
 rhopeta_model = ROOT.RooGaussian("rhopeta_model", "gauss", x, rhopeta_mean, rhopeta_sigma)
 
 x_bkg1_Cheby_c0 = ROOT.RooRealVar("x_bkg1_Cheby_c0", "c0",0.0, -1.0, 1.0)
@@ -160,7 +161,7 @@ nDs = ROOT.RooRealVar("nDs","# bkg events",N_total*0.8,0, N_total)
 extended_model = ROOT.RooAddPdf("extended_model", "x_model", ROOT.RooArgSet(sig_model,bkg_model, Ds_model, rhopeta_model), ROOT.RooArgSet(nsig, nbkg1, nDs, nbkg2))
 
 #r = extended_model.fitTo(data,NumCPU=4, Extended=ROOT.kTRUE,PrintLevel=-1, Save=1,SumW2Error=True)
-r = extended_model.fitTo(data,  RooFit.Extended(True), RooFit.PrintLevel(3), RooFit.Save(1),RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4))
+r = extended_model.fitTo(data,  ROOT.RooFit.Range("fitRange"), RooFit.Extended(True), RooFit.PrintLevel(3), RooFit.Save(1),RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4))
 #r = extended_model.fitTo(data, ROOT.RooFit.PrintLevel(-1), Save=1,SumW2Error=True)
 
 # Plot the result

@@ -14,28 +14,34 @@ tree_name = "etapip_gg"
 fit_variable = "Dp_M"
 fit_var_name = "M(D^{+}) [GeV/c^{2}]"
 fit_range = (1.78, 1.93)
+#fit_range = (1.76, 2.05)
 rank_var = tree_name + "_rank"
 truth_var = "Dp_isSignal"
+charge_var = "Pip_charge"
 cuts = rank_var + "==1" 
+cuts_Dp = cuts + " && Pip_charge==1"
+cuts_Dm = cuts + " && Pip_charge==-1"
 
 # Create a RooRealVar for the fitting variable
 x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
+x.setRange("fitRange", fit_range[0], fit_range[1])
 chiProb_rank = ROOT.RooRealVar(rank_var, rank_var, 0, 30)
 truth_var = ROOT.RooRealVar(truth_var, truth_var, 0, 30)
+Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
 mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_gg/240419_tight_v2_Kp_BCS_etapi0const/*.root")
-mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_gg_cc/240419_tight_v2_Kp_BCS_etapi0const/*.root")
+#mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_gg_cc/240419_tight_v2_Kp_BCS_etapi0const/*.root")
 
-#tree_name_cc = "etapip_gg"
-#mychain_cc = ROOT.TChain(tree_name_cc)
-#mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_gg_cc/240419_tight_v2_Kp_BCS_etapi0const/*.root")
+tree_name_cc = "etapip_gg"
+mychain_cc = ROOT.TChain(tree_name_cc)
+mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_gg_cc/240419_tight_v2_Kp_BCS_etapi0const/*.root")
 
 
 # data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")
 print(cuts)
-before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,chiProb_rank,truth_var), cuts)
+before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,chiProb_rank,truth_var, Pip_charge), cuts_Dp)
 
 
 w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)
@@ -43,11 +49,11 @@ w_1.setVal(1)
 before_data.addColumn(w_1)
 data = ROOT.RooDataSet(before_data.GetName(), before_data.GetTitle(),before_data, before_data.get(), '' ,  'w_1')
 
-#before_data_cc = ROOT.RooDataSet("data_cc","", mychain_cc, ROOT.RooArgSet(x,chiProb_rank,truth_var), cuts)
-#before_data_cc.addColumn(w_1)
-#data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),before_data_cc, before_data_cc.get(), '' ,  'w_1')
+before_data_cc = ROOT.RooDataSet("data_cc","", mychain_cc, ROOT.RooArgSet(x,chiProb_rank,truth_var, Pip_charge), cuts_Dm)
+before_data_cc.addColumn(w_1)
+data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),before_data_cc, before_data_cc.get(), '' ,  'w_1')
 
-#data.append(data_cc)
+data.append(data_cc)
 
 N_total = data.sumEntries()
 print(N_total)
@@ -89,7 +95,7 @@ fraction = ROOT.RooRealVar("fraction", "fraction", 0.5, 0.0, 1.0)
 #model = CB_lef
 
 # Perform the fit
-result = model.fitTo(data, ROOT.RooFit.Range(fit_range[0], fit_range[1]), ROOT.RooFit.NumCPU(4))
+result = model.fitTo(data, ROOT.RooFit.Range("fitRange"), ROOT.RooFit.NumCPU(4))
 #result.Print()
 
 # Plot the result

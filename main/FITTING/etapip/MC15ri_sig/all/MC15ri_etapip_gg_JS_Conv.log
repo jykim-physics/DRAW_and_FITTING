@@ -1,0 +1,186 @@
+000 (1530.000.000) 2024-06-18 13:57:01 Job submitted from host: <210.117.208.231:9618?addrs=210.117.208.231-9618&alias=login-0-0.cluster&noUDP&sock=schedd_1491_47cc>
+...
+001 (1530.000.000) 2024-06-18 13:57:02 Job executing on host: <210.117.208.239:9618?addrs=210.117.208.239-9618&alias=compute-1-0.yhep&noUDP&sock=startd_5083_17fc>
+	SlotName: slot1_1@compute-1-0.yhep
+	CondorScratchDir = "/var/lib/condor/execute/dir_113059"
+	Cpus = 2
+	Disk = 1287507
+	GPUs = 0
+	Memory = 4000
+...
+006 (1530.000.000) 2024-06-18 13:57:03 Image size of job updated: 146396
+	31  -  MemoryUsage of job (MB)
+	31736  -  ResidentSetSize of job (KB)
+...
+005 (1530.000.000) 2024-06-18 13:57:03 Job terminated.
+	(1) Normal termination (return value 1)
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 2         2 
+	   Disk (KB)            :      175      175   1287507 
+	   GPUs                 :                           0 
+	   Memory (MB)          :       31     4000      4000 
+	   TimeExecute (s)      :        1                    
+	   TimeSlotBusy (s)     :        2                    
+
+	Job terminated of its own accord at 2024-06-18T04:57:03Z with exit-code 1.
+...
+000 (1531.000.000) 2024-06-18 13:59:26 Job submitted from host: <210.117.208.231:9618?addrs=210.117.208.231-9618&alias=login-0-0.cluster&noUDP&sock=schedd_1491_47cc>
+...
+001 (1531.000.000) 2024-06-18 13:59:26 Job executing on host: <210.117.208.239:9618?addrs=210.117.208.239-9618&alias=compute-1-0.yhep&noUDP&sock=startd_5083_17fc>
+	SlotName: slot1_1@compute-1-0.yhep
+	CondorScratchDir = "/var/lib/condor/execute/dir_113124"
+	Cpus = 2
+	Disk = 1287507
+	GPUs = 0
+	Memory = 4000
+...
+006 (1531.000.000) 2024-06-18 13:59:35 Image size of job updated: 418352
+	409  -  MemoryUsage of job (MB)
+	418352  -  ResidentSetSize of job (KB)
+...
+006 (1531.000.000) 2024-06-18 14:00:43 Image size of job updated: 1939512
+	1595  -  MemoryUsage of job (MB)
+	1632792  -  ResidentSetSize of job (KB)
+...
+005 (1531.000.000) 2024-06-18 14:00:43 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:01:30, Sys 0 00:00:01  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:01:30, Sys 0 00:00:01  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :        0        2         2 
+	   Disk (KB)            :      175      175   1287507 
+	   GPUs                 :                           0 
+	   Memory (MB)          :     1595     4000      4000 
+	   TimeExecute (s)      :       77                    
+	   TimeSlotBusy (s)     :       77                    
+
+	Job terminated of its own accord at 2024-06-18T05:00:43Z with exit-code 0.
+...
+000 (1532.000.000) 2024-06-18 14:06:31 Job submitted from host: <210.117.208.231:9618?addrs=210.117.208.231-9618&alias=login-0-0.cluster&noUDP&sock=schedd_1491_47cc>
+...
+001 (1532.000.000) 2024-06-18 14:06:47 Job executing on host: <210.117.208.239:9618?addrs=210.117.208.239-9618&alias=compute-1-0.yhep&noUDP&sock=startd_5083_17fc>
+	SlotName: slot1_1@compute-1-0.yhep
+	CondorScratchDir = "/var/lib/condor/execute/dir_113261"
+	Cpus = 2
+	Disk = 1287507
+	GPUs = 0
+	Memory = 4000
+...
+006 (1532.000.000) 2024-06-18 14:06:55 Image size of job updated: 216960
+	212  -  MemoryUsage of job (MB)
+	216960  -  ResidentSetSize of job (KB)
+...
+006 (1532.000.000) 2024-06-18 14:07:38 Image size of job updated: 305168
+	212  -  MemoryUsage of job (MB)
+	216960  -  ResidentSetSize of job (KB)
+...
+005 (1532.000.000) 2024-06-18 14:07:38 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:01:11, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:01:11, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :        0        2         2 
+	   Disk (KB)            :      175      175   1287507 
+	   GPUs                 :                           0 
+	   Memory (MB)          :      212     4000      4000 
+	   TimeExecute (s)      :       51                    
+	   TimeSlotBusy (s)     :       52                    
+
+	Job terminated of its own accord at 2024-06-18T05:07:38Z with exit-code 0.
+...
+000 (1533.000.000) 2024-06-18 14:09:09 Job submitted from host: <210.117.208.231:9618?addrs=210.117.208.231-9618&alias=login-0-0.cluster&noUDP&sock=schedd_1491_47cc>
+...
+001 (1533.000.000) 2024-06-18 14:09:09 Job executing on host: <210.117.208.239:9618?addrs=210.117.208.239-9618&alias=compute-1-0.yhep&noUDP&sock=startd_5083_17fc>
+	SlotName: slot1_1@compute-1-0.yhep
+	CondorScratchDir = "/var/lib/condor/execute/dir_113333"
+	Cpus = 2
+	Disk = 1287507
+	GPUs = 0
+	Memory = 4000
+...
+006 (1533.000.000) 2024-06-18 14:09:18 Image size of job updated: 219896
+	215  -  MemoryUsage of job (MB)
+	219896  -  ResidentSetSize of job (KB)
+...
+006 (1533.000.000) 2024-06-18 14:10:06 Image size of job updated: 315540
+	215  -  MemoryUsage of job (MB)
+	219896  -  ResidentSetSize of job (KB)
+...
+005 (1533.000.000) 2024-06-18 14:10:06 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:01:28, Sys 0 00:00:01  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:01:28, Sys 0 00:00:01  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :     0.98        2         2 
+	   Disk (KB)            :   175         175   1287507 
+	   GPUs                 :                           0 
+	   Memory (MB)          :   215        4000      4000 
+	   TimeExecute (s)      :    57                       
+	   TimeSlotBusy (s)     :    57                       
+
+	Job terminated of its own accord at 2024-06-18T05:10:06Z with exit-code 0.
+...
+000 (1552.000.000) 2024-06-18 15:49:37 Job submitted from host: <210.117.208.231:9618?addrs=210.117.208.231-9618&alias=login-0-0.cluster&noUDP&sock=schedd_1491_47cc>
+...
+001 (1552.000.000) 2024-06-18 15:49:50 Job executing on host: <210.117.208.239:9618?addrs=210.117.208.239-9618&alias=compute-1-0.yhep&noUDP&sock=startd_5083_17fc>
+	SlotName: slot1_1@compute-1-0.yhep
+	CondorScratchDir = "/var/lib/condor/execute/dir_115159"
+	Cpus = 2
+	Disk = 1287507
+	GPUs = 0
+	Memory = 4000
+...
+006 (1552.000.000) 2024-06-18 15:50:01 Image size of job updated: 649952
+	635  -  MemoryUsage of job (MB)
+	649952  -  ResidentSetSize of job (KB)
+...
+006 (1552.000.000) 2024-06-18 15:51:05 Image size of job updated: 2187792
+	1842  -  MemoryUsage of job (MB)
+	1885300  -  ResidentSetSize of job (KB)
+...
+005 (1552.000.000) 2024-06-18 15:51:05 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:01:27, Sys 0 00:00:01  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:01:27, Sys 0 00:00:01  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 2         2 
+	   Disk (KB)            :      175      175   1287507 
+	   GPUs                 :                           0 
+	   Memory (MB)          :     1842     4000      4000 
+	   TimeExecute (s)      :       75                    
+	   TimeSlotBusy (s)     :       76                    
+
+	Job terminated of its own accord at 2024-06-18T06:51:05Z with exit-code 0.
+...

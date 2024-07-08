@@ -1,0 +1,115 @@
+[INFO] Steering file: MC15ri_rhopeta_Novo.py
+
+Applying BELLE2 style settings...
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+[#1] INFO:DataHandling -- RooAbsReal::attachToTree(iCascDcyBrP_Dsp_0) TTree Int_t branch iCascDcyBrP_Dsp_0 will be converted to double precision.
+[#1] INFO:DataHandling -- RooAbsReal::attachToTree(iCascDcyBrCcP_Dsp_0) TTree Int_t branch iCascDcyBrCcP_Dsp_0 will be converted to double precision.
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #0 because Dp_M cannot accommodate the value 1.9641
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #2 because Dp_M cannot accommodate the value 1.9175
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #6 because Dp_M cannot accommodate the value 2.00102
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #12 because Dp_M cannot accommodate the value 1.86947
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping ...
+[#0] WARNING:DataHandling -- RooTreeDataStore::loadValues(data) Ignored 552801 out-of-range events
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'fit' created with bounds [1.6,1.85]
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:Fitting -- RooAbsOptTestStatistic::ctor(nll_CB_left_data) constructing test statistic for sub-range named fit
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'NormalizationRangeForfit' created with bounds [1.6,1.85]
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'fit_nll_CB_left_data' created with bounds [1.6,1.85]
+[#1] INFO:Fitting -- RooAbsOptTestStatistic::ctor(nll_CB_left_data) fixing interpretation of coefficients of any RooAddPdf to full domain of observables 
+[#1] INFO:Eval -- RooAbsTestStatistic::initMPMode: started 4 remote server process.
+ **********
+ **    1 **SET PRINT           1
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 mean         1.70000e+00  1.00000e-02    1.65000e+00  1.75000e+00
+     2 sigma        1.00000e-02  4.50000e-03    1.00000e-03  2.00000e-01
+     3 tail         2.00000e-02  9.50000e-03    1.00000e-03  5.00000e-01
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           1
+ **********
+ **********
+ **    5 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **    6 **MIGRAD        1500           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=3.48767e+06 FROM MIGRAD    STATUS=INITIATE       14 CALLS          15 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  mean         1.70000e+00   1.00000e-02   2.01358e-01  -2.29235e+06
+   2  sigma        1.00000e-02   4.50000e-03   1.12549e-01  -3.79871e+07
+   3  tail         2.00000e-02   9.50000e-03   1.02901e-01   1.96020e+06
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-437651 FROM MIGRAD    STATUS=CONVERGED     311 CALLS         312 TOTAL
+                     EDM=7.97953e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  mean         1.71836e+00   2.45936e-04   1.23657e-03   1.92848e-01
+   2  sigma        7.38842e-02   2.98846e-04   5.59014e-04   2.88765e-01
+   3  tail         3.90507e-01   4.76159e-03   3.34188e-03  -2.56361e-02
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  3    ERR DEF=0.5
+  6.048e-08  5.976e-09  6.937e-07 
+  5.976e-09  8.931e-08  1.119e-06 
+  6.937e-07  1.119e-06  2.268e-05 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3
+        1  0.85904   1.000  0.081  0.592
+        2  0.91972   0.081  1.000  0.786
+        3  0.94831   0.592  0.786  1.000
+ **********
+ **    7 **SET ERR         0.5
+ **********
+ **********
+ **    8 **SET PRINT           1
+ **********
+ **********
+ **    9 **HESSE        1500
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-437651 FROM HESSE     STATUS=OK             16 CALLS         328 TOTAL
+                     EDM=7.96124e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  mean         1.71836e+00   2.46111e-04   4.94627e-05   3.75917e-01
+   2  sigma        7.38842e-02   2.99902e-04   2.23606e-05  -2.70793e-01
+   3  tail         3.90507e-01   4.75617e-03   1.33675e-04   5.95773e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  3    ERR DEF=0.5
+  6.057e-08  5.247e-09  6.864e-07 
+  5.247e-09  8.994e-08  1.120e-06 
+  6.864e-07  1.120e-06  2.263e-05 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3
+        1  0.85926   1.000  0.071  0.586
+        2  0.92031   0.071  1.000  0.785
+        3  0.94819   0.586  0.785  1.000
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+[#0] ERROR:InputArguments -- RooAbsRealLValue::frame(Dp_M) ERROR: unrecognized command:  
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f was fitted in a subrange and no explicit Range() and NormRange() was specified. Plotting / normalising in fit range. To override, do one of the following
+	- Clear the automatic fit range attribute: <pdf>.setStringAttribute("fitrange", nullptr);
+	- Explicitly specify the plotting range: Range("<rangeName>").
+	- Explicitly specify where to compute the normalisation: NormRange("<rangeName>").
+	The default (full) range can be denoted with Range("") / NormRange("").
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) only plotting range 'fit_nll_CB_left_data'
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f. curve is normalized using explicit choice of ranges 'fit_nll_CB_left_data'
+etapip_gg_rank==1 && ( (iCascDcyBrP_Dsp_0==1 && Pip_charge==1) || (iCascDcyBrCcP_Dsp_0==1 && Pip_charge==-1)) && abs(Pip_genMotherPDG)==213 && abs(etapip_Eta_genMotherPDG)==431
+282801.0

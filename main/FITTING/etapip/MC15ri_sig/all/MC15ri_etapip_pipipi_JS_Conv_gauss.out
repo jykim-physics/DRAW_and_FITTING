@@ -1,0 +1,198 @@
+[INFO] Steering file: MC15ri_etapip_pipipi_JS_Conv_gauss.py
+
+Applying BELLE2 style settings...
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #10 because Dp_M cannot accommodate the value 1.68953
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #13 because Dp_M cannot accommodate the value 1.70779
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #39 because Dp_M cannot accommodate the value 1.60655
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #44 because Dp_M cannot accommodate the value 1.72617
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping ...
+[#0] WARNING:DataHandling -- RooTreeDataStore::loadValues(data) Ignored 8205 out-of-range events
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data_cc) Skipping event #40 because Dp_M cannot accommodate the value 2.02242
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data_cc) Skipping event #60 because Dp_M cannot accommodate the value 2.05166
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data_cc) Skipping event #71 because Dp_M cannot accommodate the value 2.08628
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data_cc) Skipping event #100 because Dp_M cannot accommodate the value 1.74777
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data_cc) Skipping ...
+[#0] WARNING:DataHandling -- RooTreeDataStore::loadValues(data_cc) Ignored 8186 out-of-range events
+[#1] INFO:Caching -- Changing internal binning of variable 'Dp_M' in FFT 'johnson_gauss' from 100 to 930 to improve the precision of the numerical FFT. This can be done manually by setting an additional binning named 'cache'.
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'fit' created with bounds [1.76,1.95]
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:Fitting -- RooAbsOptTestStatistic::ctor(nll_CB_left_data) constructing test statistic for sub-range named fit
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'NormalizationRangeForfit' created with bounds [1.76,1.95]
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'fit_nll_CB_left_data' created with bounds [1.76,1.95]
+[#1] INFO:Fitting -- RooAbsOptTestStatistic::ctor(nll_CB_left_data) fixing interpretation of coefficients of any RooAddPdf to full domain of observables 
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'refrange_fft_johnson_gauss' created with bounds [1.76,1.95]
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(johnson_gauss) creating new cache 0xc051e90 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_pipipi_rank_Dp_isSignal_Pip_charge for nset (Dp_M,etapip_pipipi_rank,Dp_isSignal,Pip_charge) with code 0
+[#1] INFO:Eval -- RooAbsTestStatistic::initMPMode: started 4 remote server process.
+ **********
+ **    1 **SET PRINT           1
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 delta        1.00000e-01  4.95000e-02    1.00000e-03  1.00000e+01
+     2 fraction     5.00000e-01  1.00000e-01    0.00000e+00  1.00000e+00
+     3 gamma        1.00000e-01  4.95000e-02    1.00000e-03  1.00000e+01
+     4 mean_gaussian   0.00000e+00  2.00000e-01   -1.00000e+00  1.00000e+00
+     5 mean_johnson   1.86000e+00  1.00000e-02    1.80000e+00  1.90000e+00
+     6 sigma_gaussian   1.00000e-02  4.95000e-03    1.00000e-04  1.00000e+00
+     7 sigma_gaussian2   1.00000e-02  4.95000e-03    1.00000e-04  1.00000e+00
+     8 sigma_johnson   1.00000e-02  4.99500e-03    1.00000e-05  5.00000e-01
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           1
+ **********
+ **********
+ **    5 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **    6 **MIGRAD        4000           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(johnson_gauss) creating new cache 0xc497540 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_pipipi_rank_Dp_isSignal_Pip_charge for nset (Dp_M,etapip_pipipi_rank,Dp_isSignal,Pip_charge) with code 0 from preexisting content.[#1] INFO:Caching -- RooAbsCachedPdf::getCache(johnson_gauss) creating new cache 0xc497540 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_pipipi_rank_Dp_isSignal_Pip_charge for nset (Dp_M,etapip_pipipi_rank,Dp_isSignal,Pip_charge) with code 0 from preexisting content.[#1] INFO:Caching -- RooAbsCachedPdf::getCache(johnson_gauss) creating new cache 0xc497540 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_pipipi_rank_Dp_isSignal_Pip_charge for nset (Dp_M,etapip_pipipi_rank,Dp_isSignal,Pip_charge) with code 0 from preexisting content.[#1] INFO:Caching -- RooAbsCachedPdf::getCache(johnson_gauss) creating new cache 0xc497540 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_pipipi_rank_Dp_isSignal_Pip_charge for nset (Dp_M,etapip_pipipi_rank,Dp_isSignal,Pip_charge) with code 0 from preexisting content.
+
+
+
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(johnson_gauss) creating new cache 0xc4699f0 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_pipipi_rank_Dp_isSignal_Pip_charge for nset (Dp_M,etapip_pipipi_rank,Dp_isSignal,Pip_charge) with code 0 from preexisting content.[#1] INFO:Caching -- RooAbsCachedPdf::getCache(johnson_gauss) creating new cache 0xc4699f0 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_pipipi_rank_Dp_isSignal_Pip_charge for nset (Dp_M,etapip_pipipi_rank,Dp_isSignal,Pip_charge) with code 0 from preexisting content.[#1] INFO:Caching -- RooAbsCachedPdf::getCache(johnson_gauss) creating new cache 0xc4699f0 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_pipipi_rank_Dp_isSignal_Pip_charge for nset (Dp_M,etapip_pipipi_rank,Dp_isSignal,Pip_charge) with code 0 from preexisting content.[#1] INFO:Caching -- RooAbsCachedPdf::getCache(johnson_gauss) creating new cache 0xc4699f0 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_pipipi_rank_Dp_isSignal_Pip_charge for nset (Dp_M,etapip_pipipi_rank,Dp_isSignal,Pip_charge) with code 0 from preexisting content.
+
+
+
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (johnson_gauss,gaussian2)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (johnson_gauss,gaussian2)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (johnson_gauss,gaussian2)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (johnson_gauss,gaussian2)
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-412130 FROM MIGRAD    STATUS=INITIATE       73 CALLS          74 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  delta        7.15111e-01   4.95000e-02   3.41722e-01  -1.43994e+04
+   2  fraction     5.00000e-01   1.00000e-01   0.00000e+00   8.67125e+03
+   3  gamma        1.00000e-01   4.95000e-02   0.00000e+00   2.17827e+04
+   4  mean_gaussian   0.00000e+00   2.00000e-01   0.00000e+00  -2.18916e+06
+   5  mean_johnson   1.86000e+00   1.00000e-02   0.00000e+00  -4.05511e+05
+   6  sigma_gaussian   1.00000e-02   4.95000e-03   0.00000e+00   1.37795e+04
+   7  sigma_gaussian2   1.00000e-02   4.95000e-03   0.00000e+00  -7.21521e+04
+   8  sigma_johnson   1.00000e-02   4.99500e-03   0.00000e+00   3.11150e+04
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ FCN=-477101 FROM MIGRAD    STATUS=CONVERGED    1259 CALLS        1260 TOTAL
+                     EDM=4.36982e-05    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  11.7 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  delta        8.71551e-02   2.63166e-02  -4.12265e-04  -4.67628e-01
+   2  fraction     5.04332e-01   2.76907e-02  -8.67314e-04   7.37927e-01
+   3  gamma        5.12248e-01   1.22133e-01   8.50292e-04   3.33301e-01
+   4  mean_gaussian  -3.68165e-04   1.06244e-04  -1.16817e-06  -2.42563e+01
+   5  mean_johnson   1.86946e+00   1.61380e-05  -1.53795e-06   2.47895e+01
+   6  sigma_gaussian   7.97537e-03   2.54415e-04   4.95550e-05   3.47539e+00
+   7  sigma_gaussian2   4.85546e-03   7.95267e-05   1.56657e-05   2.23545e+00
+   8  sigma_johnson   4.65145e-05   3.21316e-05  -4.16831e-05   4.24849e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  8    ERR DEF=0.5
+  6.927e-04  4.274e-04 -3.084e-03  1.750e-06 -4.298e-08 -5.036e-06 -9.939e-07  5.965e-07 
+  4.274e-04  7.676e-04 -2.541e-03  2.146e-06  1.640e-07 -6.576e-06 -2.085e-06 -1.074e-07 
+ -3.084e-03 -2.541e-03  1.493e-02 -8.282e-06 -2.108e-07  2.687e-05  6.303e-06 -1.957e-06 
+  1.750e-06  2.146e-06 -8.282e-06  1.129e-08 -1.031e-10 -1.993e-08 -5.573e-09  7.063e-10 
+ -4.298e-08  1.640e-07 -2.108e-07 -1.031e-10  2.604e-10 -1.157e-09 -4.816e-10 -3.167e-10 
+ -5.036e-06 -6.576e-06  2.687e-05 -1.993e-08 -1.157e-09  6.473e-08  1.655e-08 -1.097e-09 
+ -9.939e-07 -2.085e-06  6.303e-06 -5.573e-09 -4.816e-10  1.655e-08  6.325e-09  5.501e-10 
+  5.965e-07 -1.074e-07 -1.957e-06  7.063e-10 -3.167e-10 -1.097e-09  5.501e-10  1.032e-09 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8
+        1  0.99707   1.000  0.586 -0.959  0.626 -0.101 -0.752 -0.475  0.705
+        2  0.99464   0.586  1.000 -0.751  0.729  0.367 -0.933 -0.946 -0.121
+        3  0.99394  -0.959 -0.751  1.000 -0.638 -0.107  0.864  0.649 -0.498
+        4  0.87358   0.626  0.729 -0.638  1.000 -0.060 -0.737 -0.660  0.207
+        5  0.93859  -0.101  0.367 -0.107 -0.060  1.000 -0.282 -0.375 -0.611
+        6  0.98003  -0.752 -0.933  0.864 -0.737 -0.282  1.000  0.818 -0.134
+        7  0.96391  -0.475 -0.946  0.649 -0.660 -0.375  0.818  1.000  0.215
+        8  0.99394   0.705 -0.121 -0.498  0.207 -0.611 -0.134  0.215  1.000
+ **********
+ **    7 **SET ERR         0.5
+ **********
+ **********
+ **    8 **SET PRINT           1
+ **********
+ **********
+ **    9 **HESSE        4000
+ **********
+ EIGENVALUES OF SECOND-DERIVATIVE MATRIX:
+        -2.1774e-02 -4.4216e-05  1.0878e-01  4.0857e-01  5.8259e-01  1.2866e+00  2.1223e+00  3.5130e+00
+ MINUIT WARNING IN HESSE   
+ ============== MATRIX FORCED POS-DEF BY ADDING 0.025287 TO DIAGONAL.
+ FCN=-477101 FROM HESSE     STATUS=NOT POSDEF     75 CALLS        1335 TOTAL
+                     EDM=0.0011986    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+  EXT PARAMETER                APPROXIMATE     INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  delta        8.71551e-02   2.43023e-02   1.03544e-03  -1.38488e+00
+   2  fraction     5.04332e-01   1.39758e-02   2.53742e-03   8.66357e-03
+   3  gamma        5.12248e-01   1.09302e-01   2.72531e-03  -1.11461e+00
+   4  mean_gaussian  -3.68165e-04   8.03715e-05   2.33917e-05  -3.68165e-04
+   5  mean_johnson   1.86946e+00   2.34001e-05   5.66561e-05   3.99855e-01
+   6  sigma_gaussian   7.97537e-03   1.26392e-04   2.46132e-04  -1.39307e+00
+   7  sigma_gaussian2   4.85546e-03   4.93412e-05   1.49832e-04  -1.43276e+00
+   8  sigma_johnson   4.65145e-05   2.56612e-05   3.89413e-04  -1.55370e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  8    ERR DEF=0.5
+  5.907e-04 -6.981e-05 -2.613e-03 -6.547e-07  4.880e-07 -1.738e-06  4.205e-07  5.734e-07 
+ -6.981e-05  1.954e-04  1.832e-04  6.881e-07 -1.304e-07 -9.723e-07 -5.837e-07 -1.722e-07 
+ -2.613e-03  1.832e-04  1.196e-02  3.138e-06 -2.213e-06  8.556e-06 -1.502e-06 -2.411e-06 
+ -6.547e-07  6.881e-07  3.138e-06  6.460e-09 -9.835e-10 -1.826e-09 -2.206e-09 -8.849e-10 
+  4.880e-07 -1.304e-07 -2.213e-06 -9.835e-10  5.476e-10 -1.101e-09  5.713e-10  4.570e-10 
+ -1.738e-06 -9.723e-07  8.556e-06 -1.826e-09 -1.101e-09  1.598e-08  1.394e-09 -1.073e-09 
+  4.205e-07 -5.837e-07 -1.502e-06 -2.206e-09  5.713e-10  1.394e-09  2.435e-09  7.182e-10 
+  5.734e-07 -1.722e-07 -2.411e-06 -8.849e-10  4.570e-10 -1.073e-09  7.182e-10  6.585e-10 
+ERR MATRIX NOT POS-DEF
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8
+        1  0.99667   1.000 -0.205 -0.983 -0.335  0.858 -0.566  0.351  0.919
+        2  0.98220  -0.205  1.000  0.120  0.613 -0.399 -0.550 -0.846 -0.480
+        3  0.99349  -0.983  0.120  1.000  0.357 -0.865  0.619 -0.278 -0.859
+        4  0.79749  -0.335  0.613  0.357  1.000 -0.523 -0.180 -0.556 -0.429
+        5  0.97331   0.858 -0.399 -0.865 -0.523  1.000 -0.372  0.495  0.761
+        6  0.93421  -0.566 -0.550  0.619 -0.180 -0.372  1.000  0.223 -0.331
+        7  0.90178   0.351 -0.846 -0.278 -0.556  0.495  0.223  1.000  0.567
+        8  0.99089   0.919 -0.480 -0.859 -0.429  0.761 -0.331  0.567  1.000
+ ERR MATRIX NOT POS-DEF
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+[#0] ERROR:InputArguments -- RooAbsRealLValue::frame(Dp_M) ERROR: unrecognized command:  
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f was fitted in a subrange and no explicit Range() and NormRange() was specified. Plotting / normalising in fit range. To override, do one of the following
+	- Clear the automatic fit range attribute: <pdf>.setStringAttribute("fitrange", nullptr);
+	- Explicitly specify the plotting range: Range("<rangeName>").
+	- Explicitly specify where to compute the normalisation: NormRange("<rangeName>").
+	The default (full) range can be denoted with Range("") / NormRange("").
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) only plotting range 'fit_nll_CB_left_data'
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f. curve is normalized using explicit choice of ranges 'fit_nll_CB_left_data'
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) directly selected PDF components: (johnson_gauss)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) indirectly selected PDF components: (johnson,gaussian)
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(johnson_gauss) creating new cache 0xfc805e0 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M for nset (Dp_M) with code 0
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f was fitted in a subrange and no explicit Range() and NormRange() was specified. Plotting / normalising in fit range. To override, do one of the following
+	- Clear the automatic fit range attribute: <pdf>.setStringAttribute("fitrange", nullptr);
+	- Explicitly specify the plotting range: Range("<rangeName>").
+	- Explicitly specify where to compute the normalisation: NormRange("<rangeName>").
+	The default (full) range can be denoted with Range("") / NormRange("").
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) only plotting range 'fit_nll_CB_left_data'
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f. curve is normalized using explicit choice of ranges 'fit_nll_CB_left_data'
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) directly selected PDF components: (gaussian2)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) indirectly selected PDF components: ()
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(johnson_gauss) creating new cache 0xfc805e0 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M for nset (Dp_M) with code 0 from preexisting content.
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f was fitted in a subrange and no explicit Range() and NormRange() was specified. Plotting / normalising in fit range. To override, do one of the following
+	- Clear the automatic fit range attribute: <pdf>.setStringAttribute("fitrange", nullptr);
+	- Explicitly specify the plotting range: Range("<rangeName>").
+	- Explicitly specify where to compute the normalisation: NormRange("<rangeName>").
+	The default (full) range can be denoted with Range("") / NormRange("").
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) only plotting range 'fit_nll_CB_left_data'
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f. curve is normalized using explicit choice of ranges 'fit_nll_CB_left_data'
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(johnson_gauss) creating new cache 0xfc805e0 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M for nset (Dp_M) with code 0 from preexisting content.
+etapip_pipipi_rank==1
+152953.0

@@ -1,0 +1,231 @@
+[INFO] Steering file: MC15ri_rhopeta_JS_conv.py
+
+Applying BELLE2 style settings...
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+[#1] INFO:DataHandling -- RooAbsReal::attachToTree(iCascDcyBrP_Dsp_0) TTree Int_t branch iCascDcyBrP_Dsp_0 will be converted to double precision.
+[#1] INFO:DataHandling -- RooAbsReal::attachToTree(iCascDcyBrCcP_Dsp_0) TTree Int_t branch iCascDcyBrCcP_Dsp_0 will be converted to double precision.
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #0 because Dp_M cannot accommodate the value 1.9641
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #2 because Dp_M cannot accommodate the value 1.9175
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #6 because Dp_M cannot accommodate the value 2.00102
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #16 because Dp_M cannot accommodate the value 1.94537
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping ...
+[#0] WARNING:DataHandling -- RooTreeDataStore::loadValues(data) Ignored 479250 out-of-range events
+[#1] INFO:Caching -- Changing internal binning of variable 'Dp_M' in FFT 'CB_left' from 100 to 930 to improve the precision of the numerical FFT. This can be done manually by setting an additional binning named 'cache'.
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'fit' created with bounds [1.6,1.87]
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:Fitting -- RooAbsOptTestStatistic::ctor(nll_CB_left_data) constructing test statistic for sub-range named fit
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'NormalizationRangeForfit' created with bounds [1.6,1.87]
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'fit_nll_CB_left_data' created with bounds [1.6,1.87]
+[#1] INFO:Fitting -- RooAbsOptTestStatistic::ctor(nll_CB_left_data) fixing interpretation of coefficients of any RooAddPdf to full domain of observables 
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'refrange_fft_CB_left' created with bounds [1.6,1.87]
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(CB_left) creating new cache 0x801d9c0 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Dp_isSignal_iCascDcyBrP_Dsp_0_iCascDcyBrCcP_Dsp_0_Pip_genMotherPDG_etapip_Eta_genMotherPDG_Pip_charge for nset (Dp_M,etapip_gg_rank,Dp_isSignal,iCascDcyBrP_Dsp_0,iCascDcyBrCcP_Dsp_0,Pip_genMotherPDG,etapip_Eta_genMotherPDG,Pip_charge) with code 0
+[#1] INFO:Eval -- RooAbsTestStatistic::initMPMode: started 4 remote server process.
+ **********
+ **    1 **SET PRINT           1
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 delta        1.00000e-01  4.95000e-02    1.00000e-03  1.00000e+01
+     2 gamma        1.00000e-01  4.95000e-02    1.00000e-03  1.00000e+01
+     3 mean_gaussian   0.00000e+00  2.00000e-01   -1.00000e+00  1.00000e+00
+     4 mean_johnson   1.70000e+00  2.00000e-02    1.60000e+00  1.80000e+00
+     5 sigma_gaussian   1.00000e-02  4.95000e-03    1.00000e-04  1.00000e+00
+     6 sigma_johnson   1.00000e-02  4.99500e-03    1.00000e-05  1.00000e+00
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           1
+ **********
+ **********
+ **    5 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **    6 **MIGRAD        3000           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(CB_left) creating new cache 0x619e0d0 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Dp_isSignal_iCascDcyBrP_Dsp_0_iCascDcyBrCcP_Dsp_0_Pip_genMotherPDG_etapip_Eta_genMotherPDG_Pip_charge for nset (Dp_M,etapip_gg_rank,Dp_isSignal,iCascDcyBrP_Dsp_0,iCascDcyBrCcP_Dsp_0,Pip_genMotherPDG,etapip_Eta_genMotherPDG,Pip_charge) with code 0 from preexisting content.[#1] INFO:Caching -- RooAbsCachedPdf::getCache(CB_left) creating new cache 0x619e0d0 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Dp_isSignal_iCascDcyBrP_Dsp_0_iCascDcyBrCcP_Dsp_0_Pip_genMotherPDG_etapip_Eta_genMotherPDG_Pip_charge for nset (Dp_M,etapip_gg_rank,Dp_isSignal,iCascDcyBrP_Dsp_0,iCascDcyBrCcP_Dsp_0,Pip_genMotherPDG,etapip_Eta_genMotherPDG,Pip_charge) with code 0 from preexisting content.[#1] INFO:Caching -- RooAbsCachedPdf::getCache(CB_left) creating new cache 0x619e0d0 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Dp_isSignal_iCascDcyBrP_Dsp_0_iCascDcyBrCcP_Dsp_0_Pip_genMotherPDG_etapip_Eta_genMotherPDG_Pip_charge for nset (Dp_M,etapip_gg_rank,Dp_isSignal,iCascDcyBrP_Dsp_0,iCascDcyBrCcP_Dsp_0,Pip_genMotherPDG,etapip_Eta_genMotherPDG,Pip_charge) with code 0 from preexisting content.[#1] INFO:Caching -- RooAbsCachedPdf::getCache(CB_left) creating new cache 0x619e0d0 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Dp_isSignal_iCascDcyBrP_Dsp_0_iCascDcyBrCcP_Dsp_0_Pip_genMotherPDG_etapip_Eta_genMotherPDG_Pip_charge for nset (Dp_M,etapip_gg_rank,Dp_isSignal,iCascDcyBrP_Dsp_0,iCascDcyBrCcP_Dsp_0,Pip_genMotherPDG,etapip_Eta_genMotherPDG,Pip_charge) with code 0 from preexisting content.
+
+
+
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-422823 FROM MIGRAD    STATUS=INITIATE       78 CALLS          79 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  delta        3.80891e-01   4.95000e-02   1.93010e-01  -7.32588e+03
+   2  gamma        1.00000e-01   4.95000e-02   0.00000e+00   4.59644e+03
+   3  mean_gaussian   0.00000e+00   2.00000e-01   0.00000e+00  -3.63337e+05
+   4  mean_johnson   1.70000e+00   2.00000e-02   0.00000e+00  -3.34764e+04
+   5  sigma_gaussian   4.22176e-02   4.95000e-03   0.00000e+00  -7.63637e+04
+   6  sigma_johnson   1.00000e-02   4.99500e-03   0.00000e+00  -5.09976e+03
+                               ERR DEF= 0.5
+ MINUIT WARNING IN MIGRAD  
+ ============== Negative diagonal element 4 in Error Matrix
+ MINUIT WARNING IN MIGRAD  
+ ============== Negative diagonal element 5 in Error Matrix
+ MINUIT WARNING IN MIGRAD  
+ ============== Negative diagonal element 6 in Error Matrix
+ MINUIT WARNING IN MIGRAD  
+ ============== 1 added to diagonal of error matrix
+RooMinimizerFcn: Minimized function has error status.
+Returning maximum FCN so far (-295034) to force MIGRAD to back out of this region. Error log follows.
+Parameter values: 	delta=1.17678	gamma=0.333402	mean_gaussian=0.897287	mean_johnson=1.6728	sigma_gaussian=0.00587813	sigma_johnson=0.883798
+RooNLLVar::nll_CB_left_data[ paramSet=(delta,gamma,mean_gaussian,mean_johnson,sigma_gaussian,sigma_johnson) ]
+     function value is NAN @ paramSet=(delta = 1.17678,gamma = 0.333402,mean_gaussian = 0.897287,mean_johnson = 1.6728,sigma_gaussian = 0.00587813,sigma_johnson = 0.883798)
+PID106024/RooRealMPFE::nll_CB_left_data_7d76730_MPFE3[ arg=nll_CB_left_data_GOF3 vars=(delta,gamma,mean_gaussian,mean_johnson,sigma_gaussian,sigma_johnson) ]
+     function value is NAN @ paramSet=(delta = 1.17678,gamma = 0.333402,mean_gaussian = 0.897287,mean_johnson = 1.6728,sigma_gaussian = 0.00587813,sigma_johnson = 0.883798)
+     function value is NAN @ paramSet=(delta = 1.17678,gamma = 0.333402,mean_gaussian = 0.897287,mean_johnson = 1.6728,sigma_gaussian = 0.00587813,sigma_johnson = 0.883798)
+     function value is NAN @ paramSet=(delta = 1.17678,gamma = 0.333402,mean_gaussian = 0.897287,mean_johnson = 1.6728,sigma_gaussian = 0.00587813,sigma_johnson = 0.883798)
+     function value is NAN @ paramSet=(delta = 1.17678,gamma = 0.333402,mean_gaussian = 0.897287,mean_johnson = 1.6728,sigma_gaussian = 0.00587813,sigma_johnson = 0.883798)
+     function value is NAN @ paramSet=(delta = 1.17678,gamma = 0.333402,mean_gaussian = 0.897287,mean_johnson = 1.6728,sigma_gaussian = 0.00587813,sigma_johnson = 0.883798)
+     function value is NAN @ paramSet=(delta = 1.17678,gamma = 0.333402,mean_gaussian = 0.897287,mean_johnson = 1.6728,sigma_gaussian = 0.00587813,sigma_johnson = 0.883798)
+     function value is NAN @ paramSet=(delta = 1.17678,gamma = 0.333402,mean_gaussian = 0.897287,mean_johnson = 1.6728,sigma_gaussian = 0.00587813,sigma_johnson = 0.883798)
+     function value is NAN @ paramSet=(delta = 1.17678,gamma = 0.333402,mean_gaussian = 0.897287,mean_johnson = 1.6728,sigma_gaussian = 0.00587813,sigma_johnson = 0.883798)
+
+ MIGRAD FAILS TO FIND IMPROVEMENT
+ MINUIT WARNING IN HESSE   
+ ============== Negative diagonal element 1 in Error Matrix
+ MINUIT WARNING IN HESSE   
+ ============== 58.0165 added to diagonal of error matrix
+ EIGENVALUES OF SECOND-DERIVATIVE MATRIX:
+        -1.4499e+01  4.4063e-01  9.3433e-01  9.9849e-01  7.0805e+00  1.1045e+01
+ MINUIT WARNING IN HESSE   
+ ============== MATRIX FORCED POS-DEF BY ADDING 14.510306 TO DIAGONAL.
+ FCN=-431239 FROM HESSE     STATUS=NOT POSDEF     48 CALLS         417 TOTAL
+                     EDM=1735.94    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  delta        1.74071e+00   7.08894e+00   6.96309e-02   4.98922e+00
+   2  gamma        6.97727e-01   2.49087e-01   4.64288e-02   6.80079e+00
+   3  mean_gaussian   1.79101e-02   5.70595e-05   5.80969e-05   3.71370e+02
+   4  mean_johnson   1.68653e+00   1.08328e-04   7.47605e-05  -3.79766e+03
+   5  sigma_gaussian   6.09574e-02   3.17188e-05   2.10398e-04  -2.63948e+03
+   6  sigma_johnson   8.20379e-05   2.13104e-02   4.59682e-03   1.26277e+02
+                               ERR DEF= 0.5
+ EIGENVALUES OF SECOND-DERIVATIVE MATRIX:
+        -4.7983e-01  8.6918e-01  9.9998e-01  1.0060e+00  1.0634e+00  2.5413e+00
+ MINUIT WARNING IN MIGRAD  
+ ============== MATRIX FORCED POS-DEF BY ADDING 0.482367 TO DIAGONAL.
+ MINUIT WARNING IN MIGRAD  
+ ============== Negative diagonal element 1 in Error Matrix
+ MINUIT WARNING IN MIGRAD  
+ ============== Negative diagonal element 2 in Error Matrix
+ MINUIT WARNING IN MIGRAD  
+ ============== Negative diagonal element 4 in Error Matrix
+ MINUIT WARNING IN MIGRAD  
+ ============== Negative diagonal element 5 in Error Matrix
+ MINUIT WARNING IN MIGRAD  
+ ============== Negative diagonal element 6 in Error Matrix
+ MINUIT WARNING IN MIGRAD  
+ ============== 3.08442 added to diagonal of error matrix
+RooMinimizerFcn: Minimized function has error status.
+Returning maximum FCN so far (-184989) to force MIGRAD to back out of this region. Error log follows.
+Parameter values: 	delta=3.09077	gamma=9.98009	mean_gaussian=-0.425039	mean_johnson=1.76802	sigma_gaussian=0.00707788	sigma_johnson=0.870185
+RooNLLVar::nll_CB_left_data[ paramSet=(delta,gamma,mean_gaussian,mean_johnson,sigma_gaussian,sigma_johnson) ]
+     function value is NAN @ paramSet=(delta = 3.09077,gamma = 9.98009,mean_gaussian = -0.425039,mean_johnson = 1.76802,sigma_gaussian = 0.00707788,sigma_johnson = 0.870185)
+PID106024/RooRealMPFE::nll_CB_left_data_7d76730_MPFE3[ arg=nll_CB_left_data_GOF3 vars=(delta,gamma,mean_gaussian,mean_johnson,sigma_gaussian,sigma_johnson) ]
+     function value is NAN @ paramSet=(delta = 3.09077,gamma = 9.98009,mean_gaussian = -0.425039,mean_johnson = 1.76802,sigma_gaussian = 0.00707788,sigma_johnson = 0.870185)
+     function value is NAN @ paramSet=(delta = 3.09077,gamma = 9.98009,mean_gaussian = -0.425039,mean_johnson = 1.76802,sigma_gaussian = 0.00707788,sigma_johnson = 0.870185)
+     function value is NAN @ paramSet=(delta = 3.09077,gamma = 9.98009,mean_gaussian = -0.425039,mean_johnson = 1.76802,sigma_gaussian = 0.00707788,sigma_johnson = 0.870185)
+     function value is NAN @ paramSet=(delta = 3.09077,gamma = 9.98009,mean_gaussian = -0.425039,mean_johnson = 1.76802,sigma_gaussian = 0.00707788,sigma_johnson = 0.870185)
+     function value is NAN @ paramSet=(delta = 3.09077,gamma = 9.98009,mean_gaussian = -0.425039,mean_johnson = 1.76802,sigma_gaussian = 0.00707788,sigma_johnson = 0.870185)
+     function value is NAN @ paramSet=(delta = 3.09077,gamma = 9.98009,mean_gaussian = -0.425039,mean_johnson = 1.76802,sigma_gaussian = 0.00707788,sigma_johnson = 0.870185)
+     function value is NAN @ paramSet=(delta = 3.09077,gamma = 9.98009,mean_gaussian = -0.425039,mean_johnson = 1.76802,sigma_gaussian = 0.00707788,sigma_johnson = 0.870185)
+     function value is NAN @ paramSet=(delta = 3.09077,gamma = 9.98009,mean_gaussian = -0.425039,mean_johnson = 1.76802,sigma_gaussian = 0.00707788,sigma_johnson = 0.870185)
+
+ MIGRAD FAILS TO FIND IMPROVEMENT
+ MIGRAD TERMINATED WITHOUT CONVERGENCE.
+ FCN=-431303 FROM MIGRAD    STATUS=FAILED        472 CALLS         473 TOTAL
+                     EDM=12654.5    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  delta        9.64203e+00   1.20686e+00  -0.00000e+00   7.76539e+00
+   2  gamma        3.58276e-01   5.68780e+00   0.00000e+00  -8.78883e+01
+   3  mean_gaussian   1.78959e-02   1.47917e+00   0.00000e+00  -3.42577e+04
+   4  mean_johnson   1.68660e+00   1.42358e-01  -0.00000e+00   2.65432e+03
+   5  sigma_gaussian   6.12832e-02   5.35062e-01  -0.00000e+00   4.12518e+03
+   6  sigma_johnson   1.70241e-02   7.23082e-01  -0.00000e+00   3.04303e+02
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  6    ERR DEF=0.5
+  1.726e+00  2.834e-01  1.136e-05 -7.053e-05 -3.235e-04  3.081e-02 
+  2.834e-01  5.291e+00 -1.616e-06  5.586e-06  2.596e-05 -2.425e-03 
+  1.136e-05 -1.616e-06  1.542e+00  2.740e-10  1.391e-09 -1.053e-07 
+ -7.053e-05  5.586e-06  2.740e-10  1.515e-02 -6.287e-09  6.001e-07 
+ -3.235e-04  2.596e-05  1.391e-09 -6.287e-09  8.857e-02  2.770e-06 
+  3.081e-02 -2.425e-03 -1.053e-07  6.001e-07  2.770e-06  2.553e-02 
+ERR MATRIX NOT POS-DEF
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6
+        1  0.17474   1.000  0.094  0.000 -0.000 -0.001  0.147
+        2  0.09603   0.094  1.000 -0.000  0.000  0.000 -0.007
+        3  0.00001   0.000 -0.000  1.000  0.000  0.000 -0.000
+        4  0.00045  -0.000  0.000  0.000  1.000 -0.000  0.000
+        5  0.00086  -0.001  0.000  0.000 -0.000  1.000  0.000
+        6  0.14823   0.147 -0.007 -0.000  0.000  0.000  1.000
+ ERR MATRIX NOT POS-DEF
+ **********
+ **    7 **SET ERR         0.5
+ **********
+ **********
+ **    8 **SET PRINT           1
+ **********
+ **********
+ **    9 **HESSE        3000
+ **********
+ MINUIT WARNING IN HESSE   
+ ============== Negative diagonal element 1 in Error Matrix
+ MINUIT WARNING IN HESSE   
+ ============== 20.4345 added to diagonal of error matrix
+ EIGENVALUES OF SECOND-DERIVATIVE MATRIX:
+        -4.3168e-01  6.2726e-03  2.4744e-01  7.3212e-01  1.0999e+00  4.3459e+00
+ MINUIT WARNING IN HESSE   
+ ============== MATRIX FORCED POS-DEF BY ADDING 0.436030 TO DIAGONAL.
+ FCN=-431303 FROM HESSE     STATUS=NOT POSDEF     40 CALLS         513 TOTAL
+                     EDM=9878.79    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+  EXT PARAMETER                APPROXIMATE     INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  delta        9.64203e+00   5.88806e+00   1.02777e-01   1.19008e+00
+   2  gamma        3.58276e-01   7.28036e-01   1.91520e-02  -1.19045e+00
+   3  mean_gaussian   1.78959e-02   1.02661e-03   5.79653e-05   1.78969e-02
+   4  mean_johnson   1.68660e+00   8.02906e-04   5.40047e-04  -1.34377e-01
+   5  sigma_gaussian   6.12832e-02   9.87190e-05   2.09254e-04  -1.07088e+00
+   6  sigma_johnson   1.70241e-02   5.74977e-03   7.74403e-03  -1.83242e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  6    ERR DEF=0.5
+  8.428e+01 -6.657e+00 -9.164e-03 -7.109e-03 -2.288e-04  4.614e-02 
+ -6.657e+00  5.597e-01  7.574e-04  5.912e-04  2.054e-05 -3.963e-03 
+ -9.164e-03  7.574e-04  1.054e-06  7.899e-07  2.813e-08 -5.442e-06 
+ -7.109e-03  5.912e-04  7.899e-07  6.447e-07  1.974e-08 -4.225e-06 
+ -2.288e-04  2.054e-05  2.813e-08  1.974e-08  9.745e-09 -1.379e-07 
+  4.614e-02 -3.963e-03 -5.442e-06 -4.225e-06 -1.379e-07  3.308e-05 
+ERR MATRIX NOT POS-DEF
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6
+        1  0.98564   1.000 -0.969 -0.972 -0.964 -0.252  0.874
+        2  0.99629  -0.969  1.000  0.986  0.984  0.278 -0.921
+        3  0.99447  -0.972  0.986  1.000  0.958  0.278 -0.922
+        4  0.99245  -0.964  0.984  0.958  1.000  0.249 -0.915
+        5  0.31452  -0.252  0.278  0.278  0.249  1.000 -0.243
+        6  0.94761   0.874 -0.921 -0.922 -0.915 -0.243  1.000
+ ERR MATRIX NOT POS-DEF
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+[#0] ERROR:InputArguments -- RooAbsRealLValue::frame(Dp_M) ERROR: unrecognized command:  
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f was fitted in a subrange and no explicit Range() and NormRange() was specified. Plotting / normalising in fit range. To override, do one of the following
+	- Clear the automatic fit range attribute: <pdf>.setStringAttribute("fitrange", nullptr);
+	- Explicitly specify the plotting range: Range("<rangeName>").
+	- Explicitly specify where to compute the normalisation: NormRange("<rangeName>").
+	The default (full) range can be denoted with Range("") / NormRange("").
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) only plotting range 'fit_nll_CB_left_data'
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f. curve is normalized using explicit choice of ranges 'fit_nll_CB_left_data'
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(CB_left) creating new cache 0xa060710 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M for nset (Dp_M) with code 0
+etapip_gg_rank==1 && ( (iCascDcyBrP_Dsp_0==1 && Pip_charge==1) || (iCascDcyBrCcP_Dsp_0==1 && Pip_charge==-1)) && abs(Pip_genMotherPDG)==213 && abs(etapip_Eta_genMotherPDG)==431
+283034.0

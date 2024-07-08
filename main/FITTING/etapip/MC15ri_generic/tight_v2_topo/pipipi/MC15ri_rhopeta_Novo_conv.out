@@ -1,0 +1,263 @@
+[INFO] Steering file: MC15ri_rhopeta_Novo_conv.py
+
+Applying BELLE2 style settings...
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+[#1] INFO:DataHandling -- RooAbsReal::attachToTree(iCascDcyBrP_Dsp_0) TTree Int_t branch iCascDcyBrP_Dsp_0 will be converted to double precision.
+[#1] INFO:DataHandling -- RooAbsReal::attachToTree(iCascDcyBrCcP_Dsp_0) TTree Int_t branch iCascDcyBrCcP_Dsp_0 will be converted to double precision.
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #0 because Dp_M cannot accommodate the value 1.87028
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #8 because Dp_M cannot accommodate the value 1.96179
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #19 because Dp_M cannot accommodate the value 1.90979
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #21 because Dp_M cannot accommodate the value 1.95924
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping ...
+[#0] WARNING:DataHandling -- RooTreeDataStore::loadValues(data) Ignored 204736 out-of-range events
+[#1] INFO:Caching -- Changing internal binning of variable 'Dp_M' in FFT 'CB_left' from 100 to 930 to improve the precision of the numerical FFT. This can be done manually by setting an additional binning named 'cache'.
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'fit' created with bounds [1.6,1.85]
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:Fitting -- RooAbsOptTestStatistic::ctor(nll_CB_left_data) constructing test statistic for sub-range named fit
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'NormalizationRangeForfit' created with bounds [1.6,1.85]
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'fit_nll_CB_left_data' created with bounds [1.6,1.85]
+[#1] INFO:Fitting -- RooAbsOptTestStatistic::ctor(nll_CB_left_data) fixing interpretation of coefficients of any RooAddPdf to full domain of observables 
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'refrange_fft_CB_left' created with bounds [1.6,1.85]
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(CB_left) creating new cache 0x6a4fc00 with pdf Novo_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_pipipi_rank_Dp_isSignal_iCascDcyBrP_Dsp_0_iCascDcyBrCcP_Dsp_0_Pip_genMotherPDG_etapip_Eta_genMotherPDG_Pip_charge for nset (Dp_M,etapip_pipipi_rank,Dp_isSignal,iCascDcyBrP_Dsp_0,iCascDcyBrCcP_Dsp_0,Pip_genMotherPDG,etapip_Eta_genMotherPDG,Pip_charge) with code 0
+[#1] INFO:Eval -- RooAbsTestStatistic::initMPMode: started 4 remote server process.
+ **********
+ **    1 **SET PRINT           1
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 mean         1.70000e+00  1.00000e-02    1.65000e+00  1.75000e+00
+     2 mean_gaussian   0.00000e+00  2.00000e-01   -1.00000e+00  1.00000e+00
+     3 sigma        5.00000e-02  9.90000e-03    1.00000e-03  1.00000e-01
+     4 sigma_gaussian   1.00000e-02  4.95000e-03    1.00000e-04  1.00000e+00
+     5 tail         2.00000e-01  7.99000e-02    1.00000e-03  8.00000e-01
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           1
+ **********
+ **********
+ **    5 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **    6 **MIGRAD        2500           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(CB_left) creating new cache 0x73e8a30 with pdf Novo_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_pipipi_rank_Dp_isSignal_iCascDcyBrP_Dsp_0_iCascDcyBrCcP_Dsp_0_Pip_genMotherPDG_etapip_Eta_genMotherPDG_Pip_charge for nset (Dp_M,etapip_pipipi_rank,Dp_isSignal,iCascDcyBrP_Dsp_0,iCascDcyBrCcP_Dsp_0,Pip_genMotherPDG,etapip_Eta_genMotherPDG,Pip_charge) with code 0 from preexisting content.[#1] INFO:Caching -- RooAbsCachedPdf::getCache(CB_left) creating new cache 0x73e8a30 with pdf Novo_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_pipipi_rank_Dp_isSignal_iCascDcyBrP_Dsp_0_iCascDcyBrCcP_Dsp_0_Pip_genMotherPDG_etapip_Eta_genMotherPDG_Pip_charge for nset (Dp_M,etapip_pipipi_rank,Dp_isSignal,iCascDcyBrP_Dsp_0,iCascDcyBrCcP_Dsp_0,Pip_genMotherPDG,etapip_Eta_genMotherPDG,Pip_charge) with code 0 from preexisting content.[#1] INFO:Caching -- RooAbsCachedPdf::getCache(CB_left) creating new cache 0x73e8a30 with pdf Novo_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_pipipi_rank_Dp_isSignal_iCascDcyBrP_Dsp_0_iCascDcyBrCcP_Dsp_0_Pip_genMotherPDG_etapip_Eta_genMotherPDG_Pip_charge for nset (Dp_M,etapip_pipipi_rank,Dp_isSignal,iCascDcyBrP_Dsp_0,iCascDcyBrCcP_Dsp_0,Pip_genMotherPDG,etapip_Eta_genMotherPDG,Pip_charge) with code 0 from preexisting content.[#1] INFO:Caching -- RooAbsCachedPdf::getCache(CB_left) creating new cache 0x73e8a30 with pdf Novo_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_pipipi_rank_Dp_isSignal_iCascDcyBrP_Dsp_0_iCascDcyBrCcP_Dsp_0_Pip_genMotherPDG_etapip_Eta_genMotherPDG_Pip_charge for nset (Dp_M,etapip_pipipi_rank,Dp_isSignal,iCascDcyBrP_Dsp_0,iCascDcyBrCcP_Dsp_0,Pip_genMotherPDG,etapip_Eta_genMotherPDG,Pip_charge) with code 0 from preexisting content.
+
+
+
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-160417 FROM MIGRAD    STATUS=INITIATE       47 CALLS          48 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  mean         1.70000e+00   1.00000e-02   0.00000e+00  -9.59255e+03
+   2  mean_gaussian   0.00000e+00   2.00000e-01   0.00000e+00  -2.21032e+05
+   3  sigma        5.00000e-02   9.90000e-03   0.00000e+00   5.30949e+02
+   4  sigma_gaussian   4.52254e-02   4.95000e-03   2.28801e-01   1.36038e+04
+   5  tail         2.00000e-01   7.99000e-02   0.00000e+00   2.48251e+03
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-165348 FROM MIGRAD    STATUS=CONVERGED     365 CALLS         366 TOTAL
+                     EDM=0.00014041    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  mean         1.72459e+00   1.59461e-03   1.23436e-03  -2.39751e-01
+   2  mean_gaussian   1.16135e-03   1.69262e-03   5.34973e-05  -7.08071e+00
+   3  sigma        7.47283e-02   5.29241e-04   1.24800e-03  -4.22428e-01
+   4  sigma_gaussian   5.91966e-03   7.46698e-04   1.30897e-03  -1.28641e+00
+   5  tail         5.03453e-01   1.14346e-02   1.87337e-03   2.93112e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  5    ERR DEF=0.5
+  2.544e-06 -2.588e-06 -9.635e-08 -7.435e-07 -4.446e-06 
+ -2.588e-06  2.865e-06  1.363e-07  9.331e-07  8.505e-06 
+ -9.635e-08  1.363e-07  2.801e-07  7.367e-08  4.269e-06 
+ -7.435e-07  9.331e-07  7.367e-08  5.576e-07  5.468e-06 
+ -4.446e-06  8.505e-06  4.269e-06  5.468e-06  1.308e-04 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5
+        1  0.99277   1.000 -0.959 -0.114 -0.624 -0.244
+        2  0.99365  -0.959  1.000  0.152  0.738  0.439
+        3  0.93200  -0.114  0.152  1.000  0.186  0.705
+        4  0.88068  -0.624  0.738  0.186  1.000  0.640
+        5  0.97431  -0.244  0.439  0.705  0.640  1.000
+ **********
+ **    7 **SET ERR         0.5
+ **********
+ **********
+ **    8 **SET PRINT           1
+ **********
+ **********
+ **    9 **HESSE        2500
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-165348 FROM HESSE     STATUS=OK             31 CALLS         397 TOTAL
+                     EDM=0.000139295    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  mean         1.72459e+00   1.71635e-03   4.93743e-05   5.14216e-01
+   2  mean_gaussian   1.16135e-03   1.78397e-03   2.13989e-06   1.16135e-03
+   3  sigma        7.47283e-02   5.27110e-04   4.99198e-05   5.11472e-01
+   4  sigma_gaussian   5.91966e-03   7.22530e-04   5.23588e-05  -1.41807e+00
+   5  tail         5.03453e-01   1.09053e-02   7.49348e-05   2.60645e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  5    ERR DEF=0.5
+  2.947e-06 -2.956e-06 -8.781e-08 -7.778e-07 -3.926e-06 
+ -2.956e-06  3.183e-06  1.161e-07  9.379e-07  7.539e-06 
+ -8.781e-08  1.161e-07  2.779e-07  5.546e-08  4.023e-06 
+ -7.778e-07  9.379e-07  5.546e-08  5.221e-07  4.700e-06 
+ -3.926e-06  7.539e-06  4.023e-06  4.700e-06  1.190e-04 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5
+        1  0.99377   1.000 -0.965 -0.097 -0.627 -0.210
+        2  0.99428  -0.965  1.000  0.123  0.728  0.387
+        3  0.93143  -0.097  0.123  1.000  0.146  0.700
+        4  0.87197  -0.627  0.728  0.146  1.000  0.596
+        5  0.97172  -0.210  0.387  0.700  0.596  1.000
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+[#0] ERROR:InputArguments -- RooAbsRealLValue::frame(Dp_M) ERROR: unrecognized command:  
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f was fitted in a subrange and no explicit Range() and NormRange() was specified. Plotting / normalising in fit range. To override, do one of the following
+	- Clear the automatic fit range attribute: <pdf>.setStringAttribute("fitrange", nullptr);
+	- Explicitly specify the plotting range: Range("<rangeName>").
+	- Explicitly specify where to compute the normalisation: NormRange("<rangeName>").
+	The default (full) range can be denoted with Range("") / NormRange("").
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) only plotting range 'fit_nll_CB_left_data'
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f. curve is normalized using explicit choice of ranges 'fit_nll_CB_left_data'
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(CB_left) creating new cache 0x5871fa0 with pdf Novo_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M for nset (Dp_M) with code 0
+etapip_pipipi_rank==1 && ( (iCascDcyBrP_Dsp_0==2 && Pip_charge==1) || (iCascDcyBrCcP_Dsp_0==2 && Pip_charge==-1)) && abs(Pip_genMotherPDG)==213 && abs(etapip_Eta_genMotherPDG)==431
+106529.0
+[#0] WARNING:DataHandling -- RooTreeDataStore::loadValues(data) Ignored 204736 out-of-range events
+[#1] INFO:Caching -- Changing internal binning of variable 'Dp_M' in FFT 'CB_left' from 100 to 930 to improve the precision of the numerical FFT. This can be done manually by setting an additional binning named 'cache'.
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'fit' created with bounds [1.6,1.85]
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:Fitting -- RooAbsOptTestStatistic::ctor(nll_CB_left_data) constructing test statistic for sub-range named fit
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'NormalizationRangeForfit' created with bounds [1.6,1.85]
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'fit_nll_CB_left_data' created with bounds [1.6,1.85]
+[#1] INFO:Fitting -- RooAbsOptTestStatistic::ctor(nll_CB_left_data) fixing interpretation of coefficients of any RooAddPdf to full domain of observables 
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'refrange_fft_CB_left' created with bounds [1.6,1.85]
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(CB_left) creating new cache 0x68e9f80 with pdf Novo_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_pipipi_rank_Dp_isSignal_iCascDcyBrP_Dsp_0_iCascDcyBrCcP_Dsp_0_Pip_genMotherPDG_etapip_Eta_genMotherPDG_Pip_charge for nset (Dp_M,etapip_pipipi_rank,Dp_isSignal,iCascDcyBrP_Dsp_0,iCascDcyBrCcP_Dsp_0,Pip_genMotherPDG,etapip_Eta_genMotherPDG,Pip_charge) with code 0
+[#1] INFO:Eval -- RooAbsTestStatistic::initMPMode: started 4 remote server process.
+ **********
+ **    1 **SET PRINT           1
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 mean         1.70000e+00  1.00000e-02    1.65000e+00  1.75000e+00
+     2 mean_gaussian   0.00000e+00  2.00000e-01   -1.00000e+00  1.00000e+00
+     3 sigma        5.00000e-02  9.90000e-03    1.00000e-03  1.00000e-01
+     4 sigma_gaussian   1.00000e-02  4.95000e-03    1.00000e-04  1.00000e+00
+     5 tail         2.00000e-01  7.99000e-02    1.00000e-03  8.00000e-01
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           1
+ **********
+ **********
+ **    5 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **    6 **MIGRAD        2500           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(CB_left) creating new cache 0x77d9000 with pdf Novo_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_pipipi_rank_Dp_isSignal_iCascDcyBrP_Dsp_0_iCascDcyBrCcP_Dsp_0_Pip_genMotherPDG_etapip_Eta_genMotherPDG_Pip_charge for nset (Dp_M,etapip_pipipi_rank,Dp_isSignal,iCascDcyBrP_Dsp_0,iCascDcyBrCcP_Dsp_0,Pip_genMotherPDG,etapip_Eta_genMotherPDG,Pip_charge) with code 0 from preexisting content.[#1] INFO:Caching -- RooAbsCachedPdf::getCache(CB_left) creating new cache 0x77d9000 with pdf Novo_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_pipipi_rank_Dp_isSignal_iCascDcyBrP_Dsp_0_iCascDcyBrCcP_Dsp_0_Pip_genMotherPDG_etapip_Eta_genMotherPDG_Pip_charge for nset (Dp_M,etapip_pipipi_rank,Dp_isSignal,iCascDcyBrP_Dsp_0,iCascDcyBrCcP_Dsp_0,Pip_genMotherPDG,etapip_Eta_genMotherPDG,Pip_charge) with code 0 from preexisting content.[#1] INFO:Caching -- RooAbsCachedPdf::getCache(CB_left) creating new cache 0x77d9000 with pdf Novo_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_pipipi_rank_Dp_isSignal_iCascDcyBrP_Dsp_0_iCascDcyBrCcP_Dsp_0_Pip_genMotherPDG_etapip_Eta_genMotherPDG_Pip_charge for nset (Dp_M,etapip_pipipi_rank,Dp_isSignal,iCascDcyBrP_Dsp_0,iCascDcyBrCcP_Dsp_0,Pip_genMotherPDG,etapip_Eta_genMotherPDG,Pip_charge) with code 0 from preexisting content.[#1] INFO:Caching -- RooAbsCachedPdf::getCache(CB_left) creating new cache 0x77d9000 with pdf Novo_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_pipipi_rank_Dp_isSignal_iCascDcyBrP_Dsp_0_iCascDcyBrCcP_Dsp_0_Pip_genMotherPDG_etapip_Eta_genMotherPDG_Pip_charge for nset (Dp_M,etapip_pipipi_rank,Dp_isSignal,iCascDcyBrP_Dsp_0,iCascDcyBrCcP_Dsp_0,Pip_genMotherPDG,etapip_Eta_genMotherPDG,Pip_charge) with code 0 from preexisting content.
+
+
+
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-160417 FROM MIGRAD    STATUS=INITIATE       47 CALLS          48 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  mean         1.70000e+00   1.00000e-02   0.00000e+00  -9.59255e+03
+   2  mean_gaussian   0.00000e+00   2.00000e-01   0.00000e+00  -2.21032e+05
+   3  sigma        5.00000e-02   9.90000e-03   0.00000e+00   5.30949e+02
+   4  sigma_gaussian   4.52254e-02   4.95000e-03   2.28801e-01   1.36038e+04
+   5  tail         2.00000e-01   7.99000e-02   0.00000e+00   2.48251e+03
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-165348 FROM MIGRAD    STATUS=CONVERGED     365 CALLS         366 TOTAL
+                     EDM=0.00014041    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  mean         1.72459e+00   1.59461e-03   1.23436e-03  -2.39751e-01
+   2  mean_gaussian   1.16135e-03   1.69262e-03   5.34973e-05  -7.08071e+00
+   3  sigma        7.47283e-02   5.29241e-04   1.24800e-03  -4.22428e-01
+   4  sigma_gaussian   5.91966e-03   7.46698e-04   1.30897e-03  -1.28641e+00
+   5  tail         5.03453e-01   1.14346e-02   1.87337e-03   2.93112e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  5    ERR DEF=0.5
+  2.544e-06 -2.588e-06 -9.635e-08 -7.435e-07 -4.446e-06 
+ -2.588e-06  2.865e-06  1.363e-07  9.331e-07  8.505e-06 
+ -9.635e-08  1.363e-07  2.801e-07  7.367e-08  4.269e-06 
+ -7.435e-07  9.331e-07  7.367e-08  5.576e-07  5.468e-06 
+ -4.446e-06  8.505e-06  4.269e-06  5.468e-06  1.308e-04 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5
+        1  0.99277   1.000 -0.959 -0.114 -0.624 -0.244
+        2  0.99365  -0.959  1.000  0.152  0.738  0.439
+        3  0.93200  -0.114  0.152  1.000  0.186  0.705
+        4  0.88068  -0.624  0.738  0.186  1.000  0.640
+        5  0.97431  -0.244  0.439  0.705  0.640  1.000
+ **********
+ **    7 **SET ERR         0.5
+ **********
+ **********
+ **    8 **SET PRINT           1
+ **********
+ **********
+ **    9 **HESSE        2500
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-165348 FROM HESSE     STATUS=OK             31 CALLS         397 TOTAL
+                     EDM=0.000139295    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  mean         1.72459e+00   1.71635e-03   4.93743e-05   5.14216e-01
+   2  mean_gaussian   1.16135e-03   1.78397e-03   2.13989e-06   1.16135e-03
+   3  sigma        7.47283e-02   5.27110e-04   4.99198e-05   5.11472e-01
+   4  sigma_gaussian   5.91966e-03   7.22530e-04   5.23588e-05  -1.41807e+00
+   5  tail         5.03453e-01   1.09053e-02   7.49348e-05   2.60645e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  5    ERR DEF=0.5
+  2.947e-06 -2.956e-06 -8.781e-08 -7.778e-07 -3.926e-06 
+ -2.956e-06  3.183e-06  1.161e-07  9.379e-07  7.539e-06 
+ -8.781e-08  1.161e-07  2.779e-07  5.546e-08  4.023e-06 
+ -7.778e-07  9.379e-07  5.546e-08  5.221e-07  4.700e-06 
+ -3.926e-06  7.539e-06  4.023e-06  4.700e-06  1.190e-04 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5
+        1  0.99377   1.000 -0.965 -0.097 -0.627 -0.210
+        2  0.99428  -0.965  1.000  0.123  0.728  0.387
+        3  0.93143  -0.097  0.123  1.000  0.146  0.700
+        4  0.87197  -0.627  0.728  0.146  1.000  0.596
+        5  0.97172  -0.210  0.387  0.700  0.596  1.000
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+[#0] ERROR:InputArguments -- RooAbsRealLValue::frame(Dp_M) ERROR: unrecognized command:  
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f was fitted in a subrange and no explicit Range() and NormRange() was specified. Plotting / normalising in fit range. To override, do one of the following
+	- Clear the automatic fit range attribute: <pdf>.setStringAttribute("fitrange", nullptr);
+	- Explicitly specify the plotting range: Range("<rangeName>").
+	- Explicitly specify where to compute the normalisation: NormRange("<rangeName>").
+	The default (full) range can be denoted with Range("") / NormRange("").
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) only plotting range 'fit_nll_CB_left_data'
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(CB_left) p.d.f. curve is normalized using explicit choice of ranges 'fit_nll_CB_left_data'
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(CB_left) creating new cache 0x858c7e0 with pdf Novo_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M for nset (Dp_M) with code 0
+etapip_pipipi_rank==1 && ( (iCascDcyBrP_Dsp_0==2 && Pip_charge==1) || (iCascDcyBrCcP_Dsp_0==2 && Pip_charge==-1)) && abs(Pip_genMotherPDG)==213 && abs(etapip_Eta_genMotherPDG)==431
+106529.0

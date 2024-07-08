@@ -1,0 +1,22 @@
+000 (1567.000.000) 2024-06-18 18:59:42 Job submitted from host: <210.117.208.231:9618?addrs=210.117.208.231-9618&alias=login-0-0.cluster&noUDP&sock=schedd_1491_47cc>
+...
+001 (1567.000.000) 2024-06-18 18:59:52 Job executing on host: <210.117.208.239:9618?addrs=210.117.208.239-9618&alias=compute-1-0.yhep&noUDP&sock=startd_117453_9131>
+	SlotName: slot101_1@compute-1-0.yhep
+	CondorScratchDir = "/var/lib/condor/execute/dir_117555"
+	Cpus = 7
+	Disk = 1287490
+	GPUs = 0
+	Memory = 4096
+...
+007 (1567.000.000) 2024-06-18 18:59:52 Shadow exception!
+	Error from slot101_1@compute-1-0.yhep: Failed to execute '/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v10/etapip_pipipi_1ab_tight_v2.py': (errno=13: 'Permission denied')
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+...
+012 (1567.000.000) 2024-06-18 18:59:52 Job was held.
+	Error from slot101_1@compute-1-0.yhep: Failed to execute '/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v10/etapip_pipipi_1ab_tight_v2.py': (errno=13: 'Permission denied')
+	Code 6 Subcode 13
+...
+009 (1567.000.000) 2024-06-18 19:33:43 Job was aborted.
+	via condor_rm (by user jykim)
+...
