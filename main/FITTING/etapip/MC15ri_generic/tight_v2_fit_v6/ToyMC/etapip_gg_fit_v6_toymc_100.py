@@ -32,23 +32,26 @@ ROOT.gROOT.SetBatch(True)
 # ROOT.SetBelle2Style()
 
 # base_file_loc =  '/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/'
-base_file_loc =  '/home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/'
+# base_file_loc =  '/home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/'
 
-#loc_ccbar = base_file_loc + 'ccbar/tight_v2_240419_Kp_BCS_etapi0const_ccbar_output_02*.root'
-loc_ccbar = base_file_loc + 'ccbar/*.root'
-# loc_ccbar = base_file_loc + 'topo/resultfile/result_etapip_gg'
-loc_ccbar = base_file_loc + 'topo/resultfile/result_etapip_gg/standard*.root'
+# base_file_loc = '/share/storage/jykim/storage_ghi/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const.root'
+base_file_loc = '/share/storage/jykim/storage_ghi/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const'
 
-loc_uubar = base_file_loc + 'uubar/*.root'
-loc_ddbar = base_file_loc + 'ddbar/*.root'
-loc_ssbar = base_file_loc + 'ssbar/*.root'
-loc_charged = base_file_loc + 'charged/*.root'
-loc_mixed = base_file_loc + 'mixed/*.root'
-loc_taupair = base_file_loc + 'taupair/*.root'
+# #loc_ccbar = base_file_loc + 'ccbar/tight_v2_240419_Kp_BCS_etapi0const_ccbar_output_02*.root'
+loc_ccbar = base_file_loc + '_ccbar.root'
+# # loc_ccbar = base_file_loc + 'topo/resultfile/result_etapip_gg'
+# loc_ccbar = base_file_loc + 'topo/resultfile/result_etapip_gg/standard*.root'
+
+loc_uubar = base_file_loc + '_uubar.root'
+loc_ddbar = base_file_loc + '_ddbar.root'
+loc_ssbar = base_file_loc + '_ssbar.root'
+loc_charged = base_file_loc + '_charged.root'
+loc_mixed = base_file_loc + '_mixed.root'
+loc_taupair = base_file_loc + '_taupair.root'
 
 file_list = [loc_ccbar,loc_uubar,loc_uubar,loc_ssbar,loc_charged,loc_mixed,loc_taupair]
 #file_list = [loc_ccbar,loc_charged,loc_mixed]
-# file_list = [loc_ccbar]
+# file_list = [base_file_loc]
 
 # Get the tree from the file
 tree_name = "etapip_gg"
@@ -453,7 +456,7 @@ extended_model_cc_gen = ROOT.RooAddPdf("extended_model_gen", "x_model", ROOT.Roo
 #r = extended_model.fitTo(data, ROOT.RooFit.PrintLevel(-1), Save=1,SumW2Error=True)
 
 # Parameters for the simulation
-n_iterations = 100
+n_iterations = 10
 N_total_input_Dp = nsig.getVal() + nbkg1.getVal() +  nbkg2.getVal() + nDs.getVal()
 N_total_input_Dm = nsig_cc.getVal() + nbkg1_cc.getVal() +  nbkg2_cc.getVal() + nDs_cc.getVal()
 
@@ -470,6 +473,7 @@ nsig_Dm_errors = []
 n_gen_Acp = []
 n_recon_Acp = []
 n_recon_err_Acp = []
+pull_Acp = []
 
 def Acp_error_cal(Nsig, Nsig_cc, Nsig_err, Nsig_cc_err):
     Z = (Nsig - Nsig_cc)/(Nsig + Nsig_cc)
@@ -521,6 +525,84 @@ for i in range(n_iterations):
 #pulls_Acp = [(val - Ngen) / err for Ngen, val, err in zip(n_gen_Acp, n_recon_Acp, n_recon_err_Acp)]
 
 # Save to a file
-output_json_file='v6_100_' + str(sys.argv[1]) + '.json'
-with open(output_json_file, 'w') as f:
-    json.dump({'n_gen_Acp': n_gen_Acp, 'n_recon_Acp': n_recon_Acp, 'n_recon_err_Acp': n_recon_err_Acp, 'n_gen_Dp': n_gen_Dp, 'n_gen_Dm': n_gen_Dm, 'n_gen_Dp_after': n_gen_Dp_after, 'n_gen_Dm_after': n_gen_Dm_after, 'nsig_Dp_values': nsig_Dp_values, 'nsig_Dp_errors': nsig_Dp_errors, 'nsig_Dm_values': nsig_Dm_values, 'nsig_Dm_errors': nsig_Dm_errors}, f)
+# output_json_file='v6_100_' + str(sys.argv[1]) + '.json'
+# with open(output_json_file, 'w') as f:
+#     json.dump({'n_gen_Acp': n_gen_Acp, 'n_recon_Acp': n_recon_Acp, 'n_recon_err_Acp': n_recon_err_Acp, 'n_gen_Dp': n_gen_Dp, 'n_gen_Dm': n_gen_Dm, 'n_gen_Dp_after': n_gen_Dp_after, 'n_gen_Dm_after': n_gen_Dm_after, 'nsig_Dp_values': nsig_Dp_values, 'nsig_Dp_errors': nsig_Dp_errors, 'nsig_Dm_values': nsig_Dm_values, 'nsig_Dm_errors': nsig_Dm_errors}, f)
+
+pulls_Acp = [(val - Ngen) / err for Ngen, val, err in zip(n_gen_Acp, n_recon_Acp, n_recon_err_Acp)]
+
+# Create a new ROOT file
+root_file_name='v6_100_' + str(sys.argv[1]) + '.root'
+
+root_file = ROOT.TFile(root_file_name, "RECREATE")
+
+# Create a TTree
+tree = ROOT.TTree("toymc", "Toy MC Tree")
+
+# Define arrays to hold the data for each branch
+n_gen_Dp_val = ROOT.std.vector('double')()
+n_gen_Dm_val = ROOT.std.vector('double')()
+n_gen_Dp_after_val = ROOT.std.vector('double')()
+n_gen_Dm_after_val = ROOT.std.vector('double')()
+nsig_Dp_values_val = ROOT.std.vector('double')()
+nsig_Dp_errors_val = ROOT.std.vector('double')()
+nsig_Dm_values_val = ROOT.std.vector('double')()
+nsig_Dm_errors_val = ROOT.std.vector('double')()
+
+n_gen_Acp_val = ROOT.std.vector('double')()
+n_recon_Acp_val = ROOT.std.vector('double')()
+n_recon_err_Acp_val = ROOT.std.vector('double')()
+pulls_Acp_val = ROOT.std.vector('double')()
+
+# Create branches
+tree.Branch("n_gen_Dp", n_gen_Dp_val)
+tree.Branch("n_gen_Dm", n_gen_Dm_val)
+tree.Branch("n_gen_Dp_after", n_gen_Dp_after_val)
+tree.Branch("n_gen_Dm_after", n_gen_Dm_after_val)
+tree.Branch("nsig_Dp_values", nsig_Dp_values_val)
+tree.Branch("nsig_Dp_errors", nsig_Dp_errors_val)
+tree.Branch("nsig_Dm_values", nsig_Dm_values_val)
+tree.Branch("nsig_Dm_errors", nsig_Dm_errors_val)
+
+tree.Branch("n_gen_Acp", n_gen_Acp_val)
+tree.Branch("n_recon_Acp", n_recon_Acp_val)
+tree.Branch("n_recon_err_Acp", n_recon_err_Acp_val)
+tree.Branch("pulls_Acp", pulls_Acp_val)
+
+# Fill the tree with data
+for i in range(len(n_gen_Dp)):
+    n_gen_Dp_val.clear()
+    n_gen_Dm_val.clear()
+    n_gen_Dp_after_val.clear()
+    n_gen_Dm_after_val.clear()
+    nsig_Dp_values_val.clear()
+    nsig_Dp_errors_val.clear()
+    nsig_Dm_values_val.clear()
+    nsig_Dm_errors_val.clear()
+
+    n_gen_Acp_val.clear()
+    n_recon_Acp_val.clear()
+    n_recon_err_Acp_val.clear()
+    pulls_Acp_val.clear()
+
+    n_gen_Dp_val.push_back(n_gen_Dp[i])
+    n_gen_Dm_val.push_back(n_gen_Dm[i])
+    n_gen_Dp_after_val.push_back(n_gen_Dp_after[i])
+    n_gen_Dm_after_val.push_back(n_gen_Dm_after[i])
+    nsig_Dp_values_val.push_back(nsig_Dp_values[i])
+    nsig_Dp_errors_val.push_back(nsig_Dp_errors[i])
+    nsig_Dm_values_val.push_back(nsig_Dm_values[i])
+    nsig_Dm_errors_val.push_back(nsig_Dm_errors[i])
+
+    n_gen_Acp_val.push_back(n_gen_Acp[i])
+    n_recon_Acp_val.push_back(n_recon_Acp[i])
+    n_recon_err_Acp_val.push_back(n_recon_err_Acp[i])
+    pulls_Acp_val.push_back(pulls_Acp[i])
+
+    tree.Fill()
+
+# Write the tree to the file
+tree.Write()
+
+# Close the file
+root_file.Close()
