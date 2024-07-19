@@ -109,17 +109,11 @@ print(N_total)
 #mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
 #sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.01, 0.00001, 1)
 
-# True+false fixed
-#mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.88082)
-#sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.00197121 )
-#gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.309290 )
-#delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.499782 )
-
-# MC matched fixed
-mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.88371)
-sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.0060692)
-gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.339939)
-delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.890541 )
+# True+false fixed 24.07.19
+mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.8805)
+sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.0028028)
+gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.32250)
+delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.59443 )
 
 
 mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
@@ -141,11 +135,11 @@ sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson and Gaussian
 #Ds_gamma = ROOT.RooRealVar("Ds_gamma", "gamma of Johnson", 0.1, 0.001, 1)
 #Ds_delta = ROOT.RooRealVar("Ds_delta", "delta of Johnson", 0.1, 0.001, 1)
 
-# ALL fixed
-Ds_mean_johnson = ROOT.RooRealVar("Ds_mean_johnson", "mean of Johnson", 1.99327)
-Ds_sigma_johnson = ROOT.RooRealVar("Ds_sigma_johnson", "sigma of Johnson", 0.00116443 )
-Ds_gamma = ROOT.RooRealVar("Ds_gamma", "gamma of Johnson", 0.340494 )
-Ds_delta = ROOT.RooRealVar("Ds_delta", "delta of Johnson", 0.404213 )
+# True+false fixed 24.07.19
+Ds_mean_johnson = ROOT.RooRealVar("Ds_mean_johnson", "mean of Johnson", 1.9934)
+Ds_sigma_johnson = ROOT.RooRealVar("Ds_sigma_johnson", "sigma of Johnson",  0.0016496)
+Ds_gamma = ROOT.RooRealVar("Ds_gamma", "gamma of Johnson",  0.35250)
+Ds_delta = ROOT.RooRealVar("Ds_delta", "delta of Johnson", 0.47138)
 
 Ds_mean_gaussian = ROOT.RooRealVar("Ds_mean_gaussian", "mean of Gaussian", 0, -1, 1)
 Ds_sigma_gaussian = ROOT.RooRealVar("Ds_sigma_gaussian", "sigma of Gaussian", 0.01, 0.00001, 1)
@@ -185,12 +179,11 @@ r = extended_model.fitTo(data,  RooFit.Extended(True), RooFit.PrintLevel(3), Roo
 
 
 #Gen_r#############################################################################
-# MC matched fixed
-mean_johnson_gen = ROOT.RooRealVar("mean_johnson_gen", "mean of Johnson", 1.88371)
-sigma_johnson_gen = ROOT.RooRealVar("sigma_johnson_gen", "sigma of Johnson", 0.0060692)
-gamma_gen = ROOT.RooRealVar("gamma_gen", "gamma of Johnson", 0.339939)
-delta_gen = ROOT.RooRealVar("delta_gen", "delta of Johnson", 0.890541 )
-
+# True+false fixed 24.07.19
+mean_johnson_gen = ROOT.RooRealVar("mean_johnson_gen", "mean of Johnson", 1.8805)
+sigma_johnson_gen = ROOT.RooRealVar("sigma_johnson_gen", "sigma of Johnson", 0.0028028)
+gamma_gen = ROOT.RooRealVar("gamma_gen", "gamma of Johnson", 0.32250)
+delta_gen = ROOT.RooRealVar("delta_gen", "delta of Johnson", 0.59443 )
 
 mean_gaussian_gen= ROOT.RooRealVar("mean_gaussian_gen", "mean of Gaussian", mean_gaussian.getVal(), -1, 1)
 sigma_gaussian_gen = ROOT.RooRealVar("sigma_gaussian_gen", "sigma of Gaussian", sigma_gaussian.getVal(), 0.00001, 1)
@@ -211,11 +204,12 @@ sig_model_gen = ROOT.RooFFTConvPdf("sig_model_gen", "Convolution of Johnson and 
 #Ds_gamma = ROOT.RooRealVar("Ds_gamma", "gamma of Johnson", 0.1, 0.001, 1)
 #Ds_delta = ROOT.RooRealVar("Ds_delta", "delta of Johnson", 0.1, 0.001, 1)
 
-# ALL fixed
-Ds_mean_johnson_gen = ROOT.RooRealVar("Ds_mean_johnson_gen", "mean of Johnson", 1.99327)
-Ds_sigma_johnson_gen = ROOT.RooRealVar("Ds_sigma_johnson_gen", "sigma of Johnson", 0.00116443 )
-Ds_gamma_gen = ROOT.RooRealVar("Ds_gamma_gen", "gamma of Johnson", 0.340494 )
-Ds_delta_gen = ROOT.RooRealVar("Ds_delta_gen", "delta of Johnson", 0.404213 )
+# True+false fixed 24.07.19
+Ds_mean_johnson_gen = ROOT.RooRealVar("Ds_mean_johnson_gen", "mean of Johnson", 1.9934)
+Ds_sigma_johnson_gen = ROOT.RooRealVar("Ds_sigma_johnson_gen", "sigma of Johnson",  0.0016496)
+Ds_gamma_gen = ROOT.RooRealVar("Ds_gamma_gen", "gamma of Johnson",  0.35250)
+Ds_delta_gen = ROOT.RooRealVar("Ds_delta_gen", "delta of Johnson", 0.47138)
+
 
 Ds_mean_gaussian_gen = ROOT.RooRealVar("Ds_mean_gaussian_gen", "mean of Gaussian", 0, -1, 1)
 Ds_sigma_gaussian_gen = ROOT.RooRealVar("Ds_sigma_gaussian_gen", "sigma of Gaussian", 0.01, 0.00001, 1)
@@ -307,17 +301,11 @@ print(N_total_cc)
 #gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.1, 0.001, 1)
 #delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.1, 0.001, 1)
 
-# True+false fixed
-#mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.88082)
-#sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.00197121 )
-#gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.309290 )
-#delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.499782 )
-
-# MC matched fixed
-mean_johnson_cc = ROOT.RooRealVar("mean_johnson_cc", "mean of Johnson", 1.88371)
-sigma_johnson_cc = ROOT.RooRealVar("sigma_johnson_cc", "sigma of Johnson", 0.0060692)
-gamma_cc = ROOT.RooRealVar("gamma_cc", "gamma of Johnson", 0.339939)
-delta_cc = ROOT.RooRealVar("delta_cc", "delta of Johnson", 0.890541 )
+# True+false fixed 24.07.19
+mean_johnson_cc = ROOT.RooRealVar("mean_johnson_cc", "mean of Johnson", 1.8805)
+sigma_johnson_cc = ROOT.RooRealVar("sigma_johnson_cc", "sigma of Johnson", 0.0028028)
+gamma_cc = ROOT.RooRealVar("gamma_cc", "gamma of Johnson", 0.32250)
+delta_cc = ROOT.RooRealVar("delta_cc", "delta of Johnson", 0.59443 )
 
 mean_gaussian_cc = ROOT.RooRealVar("mean_gaussian_cc", "mean of Gaussian", 0, -1, 1)
 sigma_gaussian_cc = ROOT.RooRealVar("sigma_gaussian_cc", "sigma of Gaussian", 0.01, 0.00001, 1)
@@ -346,11 +334,12 @@ sig_model_cc = ROOT.RooFFTConvPdf("sig_model_cc", "Convolution of Johnson and Ga
 #Ds_gamma = ROOT.RooRealVar("Ds_gamma", "gamma of Johnson", 0.1, 0.001, 1)
 #Ds_delta = ROOT.RooRealVar("Ds_delta", "delta of Johnson", 0.1, 0.001, 1)
 
-# ALL fixed
-Ds_mean_johnson_cc = ROOT.RooRealVar("Ds_mean_johnson_cc", "mean of Johnson", 1.99327)
-Ds_sigma_johnson_cc = ROOT.RooRealVar("Ds_sigma_johnson_cc", "sigma of Johnson", 0.00116443 )
-Ds_gamma_cc = ROOT.RooRealVar("Ds_gamma_cc", "gamma of Johnson", 0.340494 )
-Ds_delta_cc = ROOT.RooRealVar("Ds_delta_cc", "delta of Johnson", 0.404213 )
+# True+false fixed 24.07.19
+Ds_mean_johnson_cc = ROOT.RooRealVar("Ds_mean_johnson_cc", "mean of Johnson", 1.9934)
+Ds_sigma_johnson_cc = ROOT.RooRealVar("Ds_sigma_johnson_cc", "sigma of Johnson",  0.0016496)
+Ds_gamma_cc = ROOT.RooRealVar("Ds_gamma_cc", "gamma of Johnson",  0.35250)
+Ds_delta_cc = ROOT.RooRealVar("Ds_delta_cc", "delta of Johnson", 0.47138)
+
 
 Ds_mean_gaussian_cc = ROOT.RooRealVar("Ds_mean_gaussian_cc", "mean of Gaussian", 0, -1, 1)
 Ds_sigma_gaussian_cc = ROOT.RooRealVar("Ds_sigma_gaussian_cc", "sigma of Gaussian", 0.01, 0.00001, 1)
@@ -390,11 +379,14 @@ r_cc = extended_model_cc.fitTo(data_cc,  RooFit.Extended(True), RooFit.PrintLeve
 
 ###################################################
 #Gen_D-####################################################
-# MC matched fixed
-mean_johnson_cc_gen = ROOT.RooRealVar("mean_johnson_cc_gen", "mean of Johnson", 1.88371)
-sigma_johnson_cc_gen = ROOT.RooRealVar("sigma_johnson_cc_gen", "sigma of Johnson", 0.0060692)
-gamma_cc_gen = ROOT.RooRealVar("gamma_cc_gen", "gamma of Johnson", 0.339939)
-delta_cc_gen = ROOT.RooRealVar("delta_cc_gen", "delta of Johnson", 0.890541 )
+# True+false fixed 24.07.19
+mean_johnson_cc_gen = ROOT.RooRealVar("mean_johnson_cc_gen", "mean of Johnson", 1.8805)
+sigma_johnson_cc_gen = ROOT.RooRealVar("sigma_johnson_cc_gen", "sigma of Johnson", 0.0028028)
+gamma_cc_gen = ROOT.RooRealVar("gamma_cc_gen", "gamma of Johnson", 0.32250)
+delta_cc_gen = ROOT.RooRealVar("delta_cc_gen", "delta of Johnson", 0.59443 )
+
+
+
 
 mean_gaussian_cc_gen = ROOT.RooRealVar("mean_gaussian_cc_gen", "mean of Gaussian", 0, -1, 1)
 sigma_gaussian_cc_gen = ROOT.RooRealVar("sigma_gaussian_cc_gen", "sigma of Gaussian", 0.01, 0.00001, 1)
@@ -408,11 +400,11 @@ gaussian_cc_gen = ROOT.RooGaussian("gaussian_cc_gen", "Gaussian PDF", x, mean_ga
 # Convolute the Johnson distribution with Gaussian
 sig_model_cc_gen = ROOT.RooFFTConvPdf("sig_model_cc_gen", "Convolution of Johnson and Gaussian", x, johnson_cc_gen, gaussian_cc_gen)
 
-# ALL fixed
-Ds_mean_johnson_cc_gen = ROOT.RooRealVar("Ds_mean_johnson_cc_gen", "mean of Johnson", 1.99327)
-Ds_sigma_johnson_cc_gen = ROOT.RooRealVar("Ds_sigma_johnson_cc_gen", "sigma of Johnson", 0.00116443 )
-Ds_gamma_cc_gen = ROOT.RooRealVar("Ds_gamma_cc_gen", "gamma of Johnson", 0.340494 )
-Ds_delta_cc_gen = ROOT.RooRealVar("Ds_delta_cc_gen", "delta of Johnson", 0.404213 )
+# True+false fixed 24.07.19
+Ds_mean_johnson_cc_gen = ROOT.RooRealVar("Ds_mean_johnson_cc_gen", "mean of Johnson", 1.9934)
+Ds_sigma_johnson_cc_gen = ROOT.RooRealVar("Ds_sigma_johnson_cc_gen", "sigma of Johnson",  0.0016496)
+Ds_gamma_cc_gen = ROOT.RooRealVar("Ds_gamma_cc_gen", "gamma of Johnson",  0.35250)
+Ds_delta_cc_gen = ROOT.RooRealVar("Ds_delta_cc_gen", "delta of Johnson", 0.47138)
 
 Ds_mean_gaussian_cc_gen = ROOT.RooRealVar("Ds_mean_gaussian_cc_gen", "mean of Gaussian", Ds_mean_gaussian_cc.getVal(), -1, 1)
 Ds_sigma_gaussian_cc_gen = ROOT.RooRealVar("Ds_sigma_gaussian_cc_gen", "sigma of Gaussian", Ds_sigma_gaussian_cc.getVal(), 0.00001, 1)
