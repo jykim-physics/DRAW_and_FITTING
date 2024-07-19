@@ -1,0 +1,456 @@
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_ghi/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_ghi/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_uubar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_ghi/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_uubar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_ghi/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ssbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_ghi/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_charged.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_ghi/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_mixed.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_ghi/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_taupair.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_ghi/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_ghi/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_ghi/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_ghi/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+ *** Break *** segmentation violation
+
+
+
+===========================================================
+There was a crash.
+This is the entire stack trace of all threads:
+===========================================================
+#0  0x00002ad770e2360c in waitpid () from /lib64/libc.so.6
+#1  0x00002ad770da0f62 in do_system () from /lib64/libc.so.6
+#2  0x00002ad77142084c in TUnixSystem::Exec (shellcmd=<optimized out>, this=0x1c88570) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/core/unix/src/TUnixSystem.cxx:2120
+#3  TUnixSystem::StackTrace (this=0x1c88570) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/core/unix/src/TUnixSystem.cxx:2411
+#4  0x00002ad7740e6dd3 in (anonymous namespace)::do_trace (sig=1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/bindings/pyroot/cppyy/cppyy-backend/clingwrapper/src/clingwrapper.cxx:182
+#5  (anonymous namespace)::TExceptionHandlerImp::HandleException (this=<optimized out>, sig=1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/bindings/pyroot/cppyy/cppyy-backend/clingwrapper/src/clingwrapper.cxx:195
+#6  0x00002ad77141dcd1 in TUnixSystem::DispatchSignals (this=0x1c88570, sig=kSigSegmentationViolation) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/core/unix/src/TUnixSystem.cxx:3644
+#7  <signal handler called>
+#8  0x00002ad7724a6b10 in TBranch::Init (this=0x6d6d340, name=0x7ffdec83df39 "Dp_M", leaflist=0x7ffdec83e229 "Dp_M/D", compress=<optimized out>) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:431
+#9  0x00002ad7724a72bc in TBranch::TBranch (this=this
+entry=0x6d6d340, tree=tree
+entry=0x69189b0, name=name
+entry=0x7ffdec83df39 "Dp_M", address=address
+entry=0x691bad0, leaflist=leaflist
+entry=0x7ffdec83e229 "Dp_M/D", basketsize=basketsize
+entry=10485760, compress=-1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:243
+#10 0x00002ad77251ee2c in TTree::Branch (this=0x69189b0, name=0x7ffdec83df39 "Dp_M", address=0x691bad0, leaflist=0x7ffdec83e229 "Dp_M/D", bufsize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TTree.cxx:1969
+#11 0x00002ad78bc6de6a in RooAbsReal::attachToTree (this=this
+entry=0x691b830, t=..., bufSize=bufSize
+entry=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooAbsReal.cxx:3346
+#12 0x00002ad78be09236 in RooRealVar::attachToTree (this=0x691b830, t=..., bufSize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooRealVar.cxx:1105
+#13 0x00002ad78be453bb in RooTreeDataStore::loadValues (this=0x64e53c0, t=0x64eb1d0, select=0x7ffdec83e7f0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:478
+#14 0x00002ad78be48d47 in RooTreeDataStore::RooTreeDataStore (this=this
+entry=0x64e53c0, name=name
+entry=0x65eda08 "data", title=0x7ffdec83e770 "\030\364^q\327*", title
+entry=0x65eda48 "", vars=..., t=..., selExpr=selExpr
+entry=0x6611120 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:169
+#15 0x00002ad78bcfa238 in RooDataSet::RooDataSet (this=0x683cc00, name=0x65eda08 "data", title=0x65eda48 "", theTree=0x64eb1d0, vars=..., cuts=0x6611120 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooDataSet.cxx:786
+#16 0x00002ad78f641206 in ?? ()
+#17 0x0000000000000000 in ?? ()
+===========================================================
+
+
+The lines below might hint at the cause of the crash.
+You may get help by asking at the ROOT forum https://root.cern.ch/forum
+Only if you are really convinced it is a bug in ROOT then please submit a
+report at https://root.cern.ch/bugs Please post the ENTIRE stack trace
+from above as an attachment in addition to anything else
+that might help us fixing this issue.
+===========================================================
+#8  0x00002ad7724a6b10 in TBranch::Init (this=0x6d6d340, name=0x7ffdec83df39 "Dp_M", leaflist=0x7ffdec83e229 "Dp_M/D", compress=<optimized out>) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:431
+#9  0x00002ad7724a72bc in TBranch::TBranch (this=this
+entry=0x6d6d340, tree=tree
+entry=0x69189b0, name=name
+entry=0x7ffdec83df39 "Dp_M", address=address
+entry=0x691bad0, leaflist=leaflist
+entry=0x7ffdec83e229 "Dp_M/D", basketsize=basketsize
+entry=10485760, compress=-1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:243
+#10 0x00002ad77251ee2c in TTree::Branch (this=0x69189b0, name=0x7ffdec83df39 "Dp_M", address=0x691bad0, leaflist=0x7ffdec83e229 "Dp_M/D", bufsize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TTree.cxx:1969
+#11 0x00002ad78bc6de6a in RooAbsReal::attachToTree (this=this
+entry=0x691b830, t=..., bufSize=bufSize
+entry=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooAbsReal.cxx:3346
+#12 0x00002ad78be09236 in RooRealVar::attachToTree (this=0x691b830, t=..., bufSize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooRealVar.cxx:1105
+#13 0x00002ad78be453bb in RooTreeDataStore::loadValues (this=0x64e53c0, t=0x64eb1d0, select=0x7ffdec83e7f0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:478
+#14 0x00002ad78be48d47 in RooTreeDataStore::RooTreeDataStore (this=this
+entry=0x64e53c0, name=name
+entry=0x65eda08 "data", title=0x7ffdec83e770 "030364^q327*", title
+entry=0x65eda48 "", vars=..., t=..., selExpr=selExpr
+entry=0x6611120 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:169
+#15 0x00002ad78bcfa238 in RooDataSet::RooDataSet (this=0x683cc00, name=0x65eda08 "data", title=0x65eda48 "", theTree=0x64eb1d0, vars=..., cuts=0x6611120 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooDataSet.cxx:786
+#16 0x00002ad78f641206 in ?? ()
+#17 0x0000000000000000 in ?? ()
+===========================================================
+
+
+ *** Break *** segmentation violation
+
+
+
+===========================================================
+There was a crash.
+This is the entire stack trace of all threads:
+===========================================================
+#0  0x00002ad770e2360c in waitpid () from /lib64/libc.so.6
+#1  0x00002ad770da0f62 in do_system () from /lib64/libc.so.6
+#2  0x00002ad77142084c in TUnixSystem::Exec (shellcmd=<optimized out>, this=0x1c88570) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/core/unix/src/TUnixSystem.cxx:2120
+#3  TUnixSystem::StackTrace (this=0x1c88570) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/core/unix/src/TUnixSystem.cxx:2411
+#4  0x00002ad7740e6c53 in (anonymous namespace)::do_trace (sig=1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/bindings/pyroot/cppyy/cppyy-backend/clingwrapper/src/clingwrapper.cxx:182
+#5  (anonymous namespace)::TExceptionHandlerImp::HandleException (this=<optimized out>, sig=1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/bindings/pyroot/cppyy/cppyy-backend/clingwrapper/src/clingwrapper.cxx:201
+#6  0x00002ad77141dcd1 in TUnixSystem::DispatchSignals (this=0x1c88570, sig=kSigSegmentationViolation) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/core/unix/src/TUnixSystem.cxx:3644
+#7  <signal handler called>
+#8  0x00002ad7724a6b10 in TBranch::Init (this=0x6d6d340, name=0x7ffdec83df39 "Dp_M", leaflist=0x7ffdec83e229 "Dp_M/D", compress=<optimized out>) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:431
+#9  0x00002ad7724a72bc in TBranch::TBranch (this=this
+entry=0x6d6d340, tree=tree
+entry=0x69189b0, name=name
+entry=0x7ffdec83df39 "Dp_M", address=address
+entry=0x691bad0, leaflist=leaflist
+entry=0x7ffdec83e229 "Dp_M/D", basketsize=basketsize
+entry=10485760, compress=-1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:243
+#10 0x00002ad77251ee2c in TTree::Branch (this=0x69189b0, name=0x7ffdec83df39 "Dp_M", address=0x691bad0, leaflist=0x7ffdec83e229 "Dp_M/D", bufsize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TTree.cxx:1969
+#11 0x00002ad78bc6de6a in RooAbsReal::attachToTree (this=this
+entry=0x691b830, t=..., bufSize=bufSize
+entry=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooAbsReal.cxx:3346
+#12 0x00002ad78be09236 in RooRealVar::attachToTree (this=0x691b830, t=..., bufSize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooRealVar.cxx:1105
+#13 0x00002ad78be453bb in RooTreeDataStore::loadValues (this=0x64e53c0, t=0x64eb1d0, select=0x7ffdec83e7f0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:478
+#14 0x00002ad78be48d47 in RooTreeDataStore::RooTreeDataStore (this=this
+entry=0x64e53c0, name=name
+entry=0x65eda08 "data", title=0x7ffdec83e770 "\030\364^q\327*", title
+entry=0x65eda48 "", vars=..., t=..., selExpr=selExpr
+entry=0x6611120 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:169
+#15 0x00002ad78bcfa238 in RooDataSet::RooDataSet (this=0x683cc00, name=0x65eda08 "data", title=0x65eda48 "", theTree=0x64eb1d0, vars=..., cuts=0x6611120 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooDataSet.cxx:786
+#16 0x00002ad78f641206 in ?? ()
+#17 0x0000000000000000 in ?? ()
+===========================================================
+
+
+The lines below might hint at the cause of the crash.
+You may get help by asking at the ROOT forum https://root.cern.ch/forum
+Only if you are really convinced it is a bug in ROOT then please submit a
+report at https://root.cern.ch/bugs Please post the ENTIRE stack trace
+from above as an attachment in addition to anything else
+that might help us fixing this issue.
+===========================================================
+#8  0x00002ad7724a6b10 in TBranch::Init (this=0x6d6d340, name=0x7ffdec83df39 "Dp_M", leaflist=0x7ffdec83e229 "Dp_M/D", compress=<optimized out>) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:431
+#9  0x00002ad7724a72bc in TBranch::TBranch (this=this
+entry=0x6d6d340, tree=tree
+entry=0x69189b0, name=name
+entry=0x7ffdec83df39 "Dp_M", address=address
+entry=0x691bad0, leaflist=leaflist
+entry=0x7ffdec83e229 "Dp_M/D", basketsize=basketsize
+entry=10485760, compress=-1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:243
+#10 0x00002ad77251ee2c in TTree::Branch (this=0x69189b0, name=0x7ffdec83df39 "Dp_M", address=0x691bad0, leaflist=0x7ffdec83e229 "Dp_M/D", bufsize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TTree.cxx:1969
+#11 0x00002ad78bc6de6a in RooAbsReal::attachToTree (this=this
+entry=0x691b830, t=..., bufSize=bufSize
+entry=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooAbsReal.cxx:3346
+#12 0x00002ad78be09236 in RooRealVar::attachToTree (this=0x691b830, t=..., bufSize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooRealVar.cxx:1105
+#13 0x00002ad78be453bb in RooTreeDataStore::loadValues (this=0x64e53c0, t=0x64eb1d0, select=0x7ffdec83e7f0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:478
+#14 0x00002ad78be48d47 in RooTreeDataStore::RooTreeDataStore (this=this
+entry=0x64e53c0, name=name
+entry=0x65eda08 "data", title=0x7ffdec83e770 "030364^q327*", title
+entry=0x65eda48 "", vars=..., t=..., selExpr=selExpr
+entry=0x6611120 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:169
+#15 0x00002ad78bcfa238 in RooDataSet::RooDataSet (this=0x683cc00, name=0x65eda08 "data", title=0x65eda48 "", theTree=0x64eb1d0, vars=..., cuts=0x6611120 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooDataSet.cxx:786
+#16 0x00002ad78f641206 in ?? ()
+#17 0x0000000000000000 in ?? ()
+===========================================================
+
+
+Error in <TFile::TFile>: file /gpfs/home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC/home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /gpfs/home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC/home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_uubar.root does not exist
+Error in <TFile::TFile>: file /gpfs/home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC/home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_uubar.root does not exist
+Error in <TFile::TFile>: file /gpfs/home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC/home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ssbar.root does not exist
+Error in <TFile::TFile>: file /gpfs/home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC/home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_charged.root does not exist
+Error in <TFile::TFile>: file /gpfs/home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC/home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_mixed.root does not exist
+Error in <TFile::TFile>: file /gpfs/home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC/home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_taupair.root does not exist
+Error in <TFile::TFile>: file /gpfs/home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC/home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /gpfs/home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC/home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /gpfs/home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC/home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /gpfs/home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC/home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+ *** Break *** segmentation violation
+
+
+
+===========================================================
+There was a crash.
+This is the entire stack trace of all threads:
+===========================================================
+#0  0x00002b17e8e9b60c in waitpid () from /lib64/libc.so.6
+#1  0x00002b17e8e18f62 in do_system () from /lib64/libc.so.6
+#2  0x00002b17e949884c in TUnixSystem::Exec (shellcmd=<optimized out>, this=0x6da570) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/core/unix/src/TUnixSystem.cxx:2120
+#3  TUnixSystem::StackTrace (this=0x6da570) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/core/unix/src/TUnixSystem.cxx:2411
+#4  0x00002b17ec15edd3 in (anonymous namespace)::do_trace (sig=1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/bindings/pyroot/cppyy/cppyy-backend/clingwrapper/src/clingwrapper.cxx:182
+#5  (anonymous namespace)::TExceptionHandlerImp::HandleException (this=<optimized out>, sig=1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/bindings/pyroot/cppyy/cppyy-backend/clingwrapper/src/clingwrapper.cxx:195
+#6  0x00002b17e9495cd1 in TUnixSystem::DispatchSignals (this=0x6da570, sig=kSigSegmentationViolation) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/core/unix/src/TUnixSystem.cxx:3644
+#7  <signal handler called>
+#8  0x00002b17ea51eb10 in TBranch::Init (this=0x57cbdd0, name=0x7fff8e163619 "Dp_M", leaflist=0x7fff8e163909 "Dp_M/D", compress=<optimized out>) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:431
+#9  0x00002b17ea51f2bc in TBranch::TBranch (this=this
+entry=0x57cbdd0, tree=tree
+entry=0x507ffd0, name=name
+entry=0x7fff8e163619 "Dp_M", address=address
+entry=0x536f210, leaflist=leaflist
+entry=0x7fff8e163909 "Dp_M/D", basketsize=basketsize
+entry=10485760, compress=-1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:243
+#10 0x00002b17ea596e2c in TTree::Branch (this=0x507ffd0, name=0x7fff8e163619 "Dp_M", address=0x536f210, leaflist=0x7fff8e163909 "Dp_M/D", bufsize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TTree.cxx:1969
+#11 0x00002b1803ce5e6a in RooAbsReal::attachToTree (this=this
+entry=0x536ef70, t=..., bufSize=bufSize
+entry=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooAbsReal.cxx:3346
+#12 0x00002b1803e81236 in RooRealVar::attachToTree (this=0x536ef70, t=..., bufSize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooRealVar.cxx:1105
+#13 0x00002b1803ebd3bb in RooTreeDataStore::loadValues (this=0x5055c80, t=0x4f3f860, select=0x7fff8e163ed0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:478
+#14 0x00002b1803ec0d47 in RooTreeDataStore::RooTreeDataStore (this=this
+entry=0x5055c80, name=name
+entry=0x4f814a8 "data", title=0x7fff8e163e50 "\030tf\351\027+", title
+entry=0x4f814e8 "", vars=..., t=..., selExpr=selExpr
+entry=0x2d80c90 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:169
+#15 0x00002b1803d72238 in RooDataSet::RooDataSet (this=0x5290490, name=0x4f814a8 "data", title=0x4f814e8 "", theTree=0x4f3f860, vars=..., cuts=0x2d80c90 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooDataSet.cxx:786
+#16 0x00002b18076b9206 in ?? ()
+#17 0x0000000000000000 in ?? ()
+===========================================================
+
+
+The lines below might hint at the cause of the crash.
+You may get help by asking at the ROOT forum https://root.cern.ch/forum
+Only if you are really convinced it is a bug in ROOT then please submit a
+report at https://root.cern.ch/bugs Please post the ENTIRE stack trace
+from above as an attachment in addition to anything else
+that might help us fixing this issue.
+===========================================================
+#8  0x00002b17ea51eb10 in TBranch::Init (this=0x57cbdd0, name=0x7fff8e163619 "Dp_M", leaflist=0x7fff8e163909 "Dp_M/D", compress=<optimized out>) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:431
+#9  0x00002b17ea51f2bc in TBranch::TBranch (this=this
+entry=0x57cbdd0, tree=tree
+entry=0x507ffd0, name=name
+entry=0x7fff8e163619 "Dp_M", address=address
+entry=0x536f210, leaflist=leaflist
+entry=0x7fff8e163909 "Dp_M/D", basketsize=basketsize
+entry=10485760, compress=-1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:243
+#10 0x00002b17ea596e2c in TTree::Branch (this=0x507ffd0, name=0x7fff8e163619 "Dp_M", address=0x536f210, leaflist=0x7fff8e163909 "Dp_M/D", bufsize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TTree.cxx:1969
+#11 0x00002b1803ce5e6a in RooAbsReal::attachToTree (this=this
+entry=0x536ef70, t=..., bufSize=bufSize
+entry=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooAbsReal.cxx:3346
+#12 0x00002b1803e81236 in RooRealVar::attachToTree (this=0x536ef70, t=..., bufSize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooRealVar.cxx:1105
+#13 0x00002b1803ebd3bb in RooTreeDataStore::loadValues (this=0x5055c80, t=0x4f3f860, select=0x7fff8e163ed0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:478
+#14 0x00002b1803ec0d47 in RooTreeDataStore::RooTreeDataStore (this=this
+entry=0x5055c80, name=name
+entry=0x4f814a8 "data", title=0x7fff8e163e50 "030tf351027+", title
+entry=0x4f814e8 "", vars=..., t=..., selExpr=selExpr
+entry=0x2d80c90 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:169
+#15 0x00002b1803d72238 in RooDataSet::RooDataSet (this=0x5290490, name=0x4f814a8 "data", title=0x4f814e8 "", theTree=0x4f3f860, vars=..., cuts=0x2d80c90 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooDataSet.cxx:786
+#16 0x00002b18076b9206 in ?? ()
+#17 0x0000000000000000 in ?? ()
+===========================================================
+
+
+ *** Break *** segmentation violation
+
+
+
+===========================================================
+There was a crash.
+This is the entire stack trace of all threads:
+===========================================================
+#0  0x00002b17e8e9b60c in waitpid () from /lib64/libc.so.6
+#1  0x00002b17e8e18f62 in do_system () from /lib64/libc.so.6
+#2  0x00002b17e949884c in TUnixSystem::Exec (shellcmd=<optimized out>, this=0x6da570) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/core/unix/src/TUnixSystem.cxx:2120
+#3  TUnixSystem::StackTrace (this=0x6da570) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/core/unix/src/TUnixSystem.cxx:2411
+#4  0x00002b17ec15ec53 in (anonymous namespace)::do_trace (sig=1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/bindings/pyroot/cppyy/cppyy-backend/clingwrapper/src/clingwrapper.cxx:182
+#5  (anonymous namespace)::TExceptionHandlerImp::HandleException (this=<optimized out>, sig=1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/bindings/pyroot/cppyy/cppyy-backend/clingwrapper/src/clingwrapper.cxx:201
+#6  0x00002b17e9495cd1 in TUnixSystem::DispatchSignals (this=0x6da570, sig=kSigSegmentationViolation) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/core/unix/src/TUnixSystem.cxx:3644
+#7  <signal handler called>
+#8  0x00002b17ea51eb10 in TBranch::Init (this=0x57cbdd0, name=0x7fff8e163619 "Dp_M", leaflist=0x7fff8e163909 "Dp_M/D", compress=<optimized out>) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:431
+#9  0x00002b17ea51f2bc in TBranch::TBranch (this=this
+entry=0x57cbdd0, tree=tree
+entry=0x507ffd0, name=name
+entry=0x7fff8e163619 "Dp_M", address=address
+entry=0x536f210, leaflist=leaflist
+entry=0x7fff8e163909 "Dp_M/D", basketsize=basketsize
+entry=10485760, compress=-1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:243
+#10 0x00002b17ea596e2c in TTree::Branch (this=0x507ffd0, name=0x7fff8e163619 "Dp_M", address=0x536f210, leaflist=0x7fff8e163909 "Dp_M/D", bufsize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TTree.cxx:1969
+#11 0x00002b1803ce5e6a in RooAbsReal::attachToTree (this=this
+entry=0x536ef70, t=..., bufSize=bufSize
+entry=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooAbsReal.cxx:3346
+#12 0x00002b1803e81236 in RooRealVar::attachToTree (this=0x536ef70, t=..., bufSize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooRealVar.cxx:1105
+#13 0x00002b1803ebd3bb in RooTreeDataStore::loadValues (this=0x5055c80, t=0x4f3f860, select=0x7fff8e163ed0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:478
+#14 0x00002b1803ec0d47 in RooTreeDataStore::RooTreeDataStore (this=this
+entry=0x5055c80, name=name
+entry=0x4f814a8 "data", title=0x7fff8e163e50 "\030tf\351\027+", title
+entry=0x4f814e8 "", vars=..., t=..., selExpr=selExpr
+entry=0x2d80c90 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:169
+#15 0x00002b1803d72238 in RooDataSet::RooDataSet (this=0x5290490, name=0x4f814a8 "data", title=0x4f814e8 "", theTree=0x4f3f860, vars=..., cuts=0x2d80c90 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooDataSet.cxx:786
+#16 0x00002b18076b9206 in ?? ()
+#17 0x0000000000000000 in ?? ()
+===========================================================
+
+
+The lines below might hint at the cause of the crash.
+You may get help by asking at the ROOT forum https://root.cern.ch/forum
+Only if you are really convinced it is a bug in ROOT then please submit a
+report at https://root.cern.ch/bugs Please post the ENTIRE stack trace
+from above as an attachment in addition to anything else
+that might help us fixing this issue.
+===========================================================
+#8  0x00002b17ea51eb10 in TBranch::Init (this=0x57cbdd0, name=0x7fff8e163619 "Dp_M", leaflist=0x7fff8e163909 "Dp_M/D", compress=<optimized out>) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:431
+#9  0x00002b17ea51f2bc in TBranch::TBranch (this=this
+entry=0x57cbdd0, tree=tree
+entry=0x507ffd0, name=name
+entry=0x7fff8e163619 "Dp_M", address=address
+entry=0x536f210, leaflist=leaflist
+entry=0x7fff8e163909 "Dp_M/D", basketsize=basketsize
+entry=10485760, compress=-1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:243
+#10 0x00002b17ea596e2c in TTree::Branch (this=0x507ffd0, name=0x7fff8e163619 "Dp_M", address=0x536f210, leaflist=0x7fff8e163909 "Dp_M/D", bufsize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TTree.cxx:1969
+#11 0x00002b1803ce5e6a in RooAbsReal::attachToTree (this=this
+entry=0x536ef70, t=..., bufSize=bufSize
+entry=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooAbsReal.cxx:3346
+#12 0x00002b1803e81236 in RooRealVar::attachToTree (this=0x536ef70, t=..., bufSize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooRealVar.cxx:1105
+#13 0x00002b1803ebd3bb in RooTreeDataStore::loadValues (this=0x5055c80, t=0x4f3f860, select=0x7fff8e163ed0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:478
+#14 0x00002b1803ec0d47 in RooTreeDataStore::RooTreeDataStore (this=this
+entry=0x5055c80, name=name
+entry=0x4f814a8 "data", title=0x7fff8e163e50 "030tf351027+", title
+entry=0x4f814e8 "", vars=..., t=..., selExpr=selExpr
+entry=0x2d80c90 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:169
+#15 0x00002b1803d72238 in RooDataSet::RooDataSet (this=0x5290490, name=0x4f814a8 "data", title=0x4f814e8 "", theTree=0x4f3f860, vars=..., cuts=0x2d80c90 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooDataSet.cxx:786
+#16 0x00002b18076b9206 in ?? ()
+#17 0x0000000000000000 in ?? ()
+===========================================================
+
+
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Error in <TGClient::TGClient>: can't open display "ccw07:57.0", switching to batch mode...
+ In case you run from a remote ssh session, reconnect with ssh -Y
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_uubar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_uubar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ssbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_charged.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_mixed.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_taupair.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+ *** Break *** segmentation violation
+
+
+
+===========================================================
+There was a crash.
+This is the entire stack trace of all threads:
+===========================================================
+#0  0x00002adb4978760c in waitpid () from /lib64/libc.so.6
+#1  0x00002adb49704f62 in do_system () from /lib64/libc.so.6
+#2  0x00002adb49d8484c in TUnixSystem::Exec (shellcmd=<optimized out>, this=0xa3a570) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/core/unix/src/TUnixSystem.cxx:2120
+#3  TUnixSystem::StackTrace (this=0xa3a570) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/core/unix/src/TUnixSystem.cxx:2411
+#4  0x00002adb4ca4add3 in (anonymous namespace)::do_trace (sig=1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/bindings/pyroot/cppyy/cppyy-backend/clingwrapper/src/clingwrapper.cxx:182
+#5  (anonymous namespace)::TExceptionHandlerImp::HandleException (this=<optimized out>, sig=1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/bindings/pyroot/cppyy/cppyy-backend/clingwrapper/src/clingwrapper.cxx:195
+#6  0x00002adb49d81cd1 in TUnixSystem::DispatchSignals (this=0xa3a570, sig=kSigSegmentationViolation) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/core/unix/src/TUnixSystem.cxx:3644
+#7  <signal handler called>
+#8  0x00002adb4ae0ab10 in TBranch::Init (this=0x5c24f90, name=0x7ffd1324b549 "Dp_M", leaflist=0x7ffd1324b839 "Dp_M/D", compress=<optimized out>) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:431
+#9  0x00002adb4ae0b2bc in TBranch::TBranch (this=this
+entry=0x5c24f90, tree=tree
+entry=0x57c5620, name=name
+entry=0x7ffd1324b549 "Dp_M", address=address
+entry=0x5be85c0, leaflist=leaflist
+entry=0x7ffd1324b839 "Dp_M/D", basketsize=basketsize
+entry=10485760, compress=-1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:243
+#10 0x00002adb4ae82e2c in TTree::Branch (this=0x57c5620, name=0x7ffd1324b549 "Dp_M", address=0x5be85c0, leaflist=0x7ffd1324b839 "Dp_M/D", bufsize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TTree.cxx:1969
+#11 0x00002adb65ecae6a in RooAbsReal::attachToTree (this=this
+entry=0x5be8320, t=..., bufSize=bufSize
+entry=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooAbsReal.cxx:3346
+#12 0x00002adb66066236 in RooRealVar::attachToTree (this=0x5be8320, t=..., bufSize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooRealVar.cxx:1105
+#13 0x00002adb660a23bb in RooTreeDataStore::loadValues (this=0x54b6810, t=0x37a2dc0, select=0x7ffd1324be00) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:478
+#14 0x00002adb660a5d47 in RooTreeDataStore::RooTreeDataStore (this=this
+entry=0x54b6810, name=name
+entry=0x54ddcd8 "data", title=0x7ffd1324bd80 "\030\064\365I\333*", title
+entry=0x54ddd18 "", vars=..., t=..., selExpr=selExpr
+entry=0x53f9dc0 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:169
+#15 0x00002adb65f57238 in RooDataSet::RooDataSet (this=0x56ead20, name=0x54ddcd8 "data", title=0x54ddd18 "", theTree=0x37a2dc0, vars=..., cuts=0x53f9dc0 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooDataSet.cxx:786
+#16 0x00002adb69915206 in ?? ()
+#17 0x0000000000000000 in ?? ()
+===========================================================
+
+
+The lines below might hint at the cause of the crash.
+You may get help by asking at the ROOT forum https://root.cern.ch/forum
+Only if you are really convinced it is a bug in ROOT then please submit a
+report at https://root.cern.ch/bugs Please post the ENTIRE stack trace
+from above as an attachment in addition to anything else
+that might help us fixing this issue.
+===========================================================
+#8  0x00002adb4ae0ab10 in TBranch::Init (this=0x5c24f90, name=0x7ffd1324b549 "Dp_M", leaflist=0x7ffd1324b839 "Dp_M/D", compress=<optimized out>) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:431
+#9  0x00002adb4ae0b2bc in TBranch::TBranch (this=this
+entry=0x5c24f90, tree=tree
+entry=0x57c5620, name=name
+entry=0x7ffd1324b549 "Dp_M", address=address
+entry=0x5be85c0, leaflist=leaflist
+entry=0x7ffd1324b839 "Dp_M/D", basketsize=basketsize
+entry=10485760, compress=-1) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TBranch.cxx:243
+#10 0x00002adb4ae82e2c in TTree::Branch (this=0x57c5620, name=0x7ffd1324b549 "Dp_M", address=0x5be85c0, leaflist=0x7ffd1324b839 "Dp_M/D", bufsize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/tree/tree/src/TTree.cxx:1969
+#11 0x00002adb65ecae6a in RooAbsReal::attachToTree (this=this
+entry=0x5be8320, t=..., bufSize=bufSize
+entry=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooAbsReal.cxx:3346
+#12 0x00002adb66066236 in RooRealVar::attachToTree (this=0x5be8320, t=..., bufSize=10485760) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooRealVar.cxx:1105
+#13 0x00002adb660a23bb in RooTreeDataStore::loadValues (this=0x54b6810, t=0x37a2dc0, select=0x7ffd1324be00) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:478
+#14 0x00002adb660a5d47 in RooTreeDataStore::RooTreeDataStore (this=this
+entry=0x54b6810, name=name
+entry=0x54ddcd8 "data", title=0x7ffd1324bd80 "030064365I333*", title
+entry=0x54ddd18 "", vars=..., t=..., selExpr=selExpr
+entry=0x53f9dc0 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooTreeDataStore.cxx:169
+#15 0x00002adb65f57238 in RooDataSet::RooDataSet (this=0x56ead20, name=0x54ddcd8 "data", title=0x54ddd18 "", theTree=0x37a2dc0, vars=..., cuts=0x53f9dc0 "etapip_gg_rank==1", wgtVarName=0x0) at /cvmfs/belle.cern.ch/el7/externals/v02-00-03/src/root/roofit/roofitcore/src/RooDataSet.cxx:786
+#16 0x00002adb69915206 in ?? ()
+#17 0x0000000000000000 in ?? ()
+===========================================================
+
+
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_uubar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_uubar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ssbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_charged.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_mixed.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_taupair.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Error in <TFile::TFile>: file /home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const_ccbar.root does not exist
+Traceback (most recent call last):
+  File "/gpfs/home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC/etapip_gg_fit_v6_toymc_100.py", line 88, in <module>
+    before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,chiProb_rank,Pip_charge), cuts)
+TypeError: none of the 8 overloaded methods succeeded. Full details:
+  RooDataSet::RooDataSet(const char* name, const char* title, TTree* tree, const RooArgSet& vars, const RooFormulaVar& cutVar, const char* wgtVarName = 0) =>
+    TypeError: could not convert argument 5
+  RooDataSet::RooDataSet(const char* name, const char* title, RooDataSet* data, const RooArgSet& vars, const RooFormulaVar& cutVar, const char* wgtVarName = 0) =>
+    TypeError: could not convert argument 3
+  RooDataSet::RooDataSet(const char* name, const char* title, TTree* tree, const RooArgSet& vars, const char* cuts = 0, const char* wgtVarName = 0) =>
+    SegmentationViolation: segfault in C++; program state was reset
+  RooDataSet::RooDataSet(const char* name, const char* title, const RooArgSet& vars, const RooCmdArg& arg1, const RooCmdArg& arg2 = RooCmdArg(), const RooCmdArg& arg3 = RooCmdArg(), const RooCmdArg& arg4 = RooCmdArg(), const RooCmdArg& arg5 = RooCmdArg(), const RooCmdArg& arg6 = RooCmdArg(), const RooCmdArg& arg7 = RooCmdArg(), const RooCmdArg& arg8 = RooCmdArg()) =>
+    TypeError: could not convert argument 3
+  RooDataSet::RooDataSet(const char* name, const char* title, RooDataSet* data, const RooArgSet& vars, const char* cuts = 0, const char* wgtVarName = 0) =>
+    TypeError: could not convert argument 3
+  RooDataSet::RooDataSet(const RooDataSet& other, const char* newname = 0) =>
+    TypeError: takes at most 2 arguments (5 given)
+  RooDataSet::RooDataSet() =>
+    TypeError: takes at most 0 arguments (5 given)
+  RooDataSet::RooDataSet(const char* name, const char* title, const RooArgSet& vars, const char* wgtVarName = 0) =>
+    TypeError: takes at most 4 arguments (5 given)
+Error in <TGClient::TGClient>: can't open display "ccw07:57.0", switching to batch mode...
+ In case you run from a remote ssh session, reconnect with ssh -Y
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4

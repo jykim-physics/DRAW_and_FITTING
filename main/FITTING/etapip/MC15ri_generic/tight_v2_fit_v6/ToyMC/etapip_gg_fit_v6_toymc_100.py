@@ -35,7 +35,8 @@ ROOT.gROOT.SetBatch(True)
 # base_file_loc =  '/home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/'
 
 # base_file_loc = '/share/storage/jykim/storage_ghi/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const.root'
-base_file_loc = '/share/storage/jykim/storage_ghi/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const'
+#base_file_loc = '/share/storage/jykim/storage_ghi/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const'
+base_file_loc = '/home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const'
 
 # #loc_ccbar = base_file_loc + 'ccbar/tight_v2_240419_Kp_BCS_etapi0const_ccbar_output_02*.root'
 loc_ccbar = base_file_loc + '_ccbar.root'
@@ -456,7 +457,7 @@ extended_model_cc_gen = ROOT.RooAddPdf("extended_model_gen", "x_model", ROOT.Roo
 #r = extended_model.fitTo(data, ROOT.RooFit.PrintLevel(-1), Save=1,SumW2Error=True)
 
 # Parameters for the simulation
-n_iterations = 10
+n_iterations = 100
 N_total_input_Dp = nsig.getVal() + nbkg1.getVal() +  nbkg2.getVal() + nDs.getVal()
 N_total_input_Dm = nsig_cc.getVal() + nbkg1_cc.getVal() +  nbkg2_cc.getVal() + nDs_cc.getVal()
 
