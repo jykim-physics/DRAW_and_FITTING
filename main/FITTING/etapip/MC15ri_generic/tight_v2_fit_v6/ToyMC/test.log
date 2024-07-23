@@ -1,0 +1,1165 @@
+[INFO] Steering file: etapip_fit_v6_toymc_v2.py
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #1 because Dp_M cannot accommodate the value 1.70087
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #3 because Dp_M cannot accommodate the value 2.08217
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #4 because Dp_M cannot accommodate the value 1.72386
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping event #5 because Dp_M cannot accommodate the value 1.67622
+[#1] INFO:DataHandling -- RooTreeDataStore::loadValues(data) Skipping ...
+[#0] WARNING:DataHandling -- RooTreeDataStore::loadValues(data) Ignored 2341141 out-of-range events
+[#0] WARNING:InputArguments -- The parameter 'sigma_johnson' with range [-1e+30, 1e+30] of the RooJohnson 'johnson' exceeds the safe range of (0, inf). Advise to limit its range.
+[#0] WARNING:InputArguments -- The parameter 'delta' with range [-1e+30, 1e+30] of the RooJohnson 'johnson' exceeds the safe range of (0, inf). Advise to limit its range.
+[#1] INFO:Caching -- Changing internal binning of variable 'Dp_M' in FFT 'sig_model' from 70 to 930 to improve the precision of the numerical FFT. This can be done manually by setting an additional binning named 'cache'.
+[#0] WARNING:InputArguments -- The parameter 'Ds_sigma_johnson' with range [-1e+30, 1e+30] of the RooJohnson 'Ds_johnson' exceeds the safe range of (0, inf). Advise to limit its range.
+[#0] WARNING:InputArguments -- The parameter 'Ds_delta' with range [-1e+30, 1e+30] of the RooJohnson 'Ds_johnson' exceeds the safe range of (0, inf). Advise to limit its range.
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'refrange_fft_sig_model' created with bounds [1.76,2.05]
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(sig_model) creating new cache 0xc537c90 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0
+[#1] INFO:Eval -- RooRealVar::setRange(Dp_M) new range named 'refrange_fft_Ds_model' created with bounds [1.76,2.05]
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(Ds_model) creating new cache 0xc7d5b40 with pdf Ds_johnson_CONV_Ds_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0
+[#1] INFO:Eval -- RooAbsTestStatistic::initMPMode: started 15 remote server process.
+ **********
+ **    1 **SET PRINT           3
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 Ds_mean_gaussian   0.00000e+00  2.00000e-01   -1.00000e+00  1.00000e+00
+     2 Ds_sigma_gaussian   1.00000e-02  4.99500e-03    1.00000e-05  1.00000e+00
+     3 mean_gaussian   0.00000e+00  2.00000e-01   -1.00000e+00  1.00000e+00
+     4 nDs          9.46215e+05  1.18277e+05    0.00000e+00  1.18277e+06
+     5 nbkg1        9.46215e+05  1.18277e+05    0.00000e+00  1.18277e+06
+     6 nbkg2        2.36554e+05  1.18277e+05    0.00000e+00  1.18277e+06
+     7 nsig         1.18277e+04  5.91385e+03    0.00000e+00  9.46215e+05
+     8 rhopeta_mean   1.75000e+00  1.50000e-02    1.65000e+00  1.80000e+00
+     9 rhopeta_sigma   3.00000e-02  4.90000e-03    1.00000e-03  5.00000e-02
+    10 sigma_gaussian   1.00000e-02  4.99500e-03    1.00000e-05  1.00000e+00
+    11 x_bkg1_tau  -5.00000e-01  2.50000e-01   -2.00000e+01  0.00000e+00
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           3
+ **********
+ **********
+ **    5 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **    6 **MIGRAD        5500           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(sig_model) creating new cache 0xc537c90 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(Ds_model) creating new cache 0xc7d5b40 with pdf Ds_johnson_CONV_Ds_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#0] WARNING:Optimization -- RooAbsOptTestStatistic::optimizeConstantTerms(nll_extended_model_data_GOF1) WARNING Cache-and-track optimization (Optimize level 2) is only available for datasets implement in terms of RooVectorDataStore - ignoring this option for current dataset
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(sig_model) creating new cache 0xc537c90 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(sig_model) creating new cache 0xc537c90 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(Ds_model) creating new cache 0xc7d5b40 with pdf Ds_johnson_CONV_Ds_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#0] WARNING:Optimization -- RooAbsOptTestStatistic::optimizeConstantTerms(nll_extended_model_data_GOF2) WARNING Cache-and-track optimization (Optimize level 2) is only available for datasets implement in terms of RooVectorDataStore - ignoring this option for current dataset
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(Ds_model) creating new cache 0xc7d5b40 with pdf Ds_johnson_CONV_Ds_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#0] WARNING:Optimization -- RooAbsOptTestStatistic::optimizeConstantTerms(nll_extended_model_data_GOF0) WARNING Cache-and-track optimization (Optimize level 2) is only available for datasets implement in terms of RooVectorDataStore - ignoring this option for current dataset
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(sig_model) creating new cache 0xc537c90 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(sig_model) creating new cache 0xc537c90 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(Ds_model) creating new cache 0xc7d5b40 with pdf Ds_johnson_CONV_Ds_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#0] WARNING:Optimization -- RooAbsOptTestStatistic::optimizeConstantTerms(nll_extended_model_data_GOF5) WARNING Cache-and-track optimization (Optimize level 2) is only available for datasets implement in terms of RooVectorDataStore - ignoring this option for current dataset
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(sig_model) creating new cache 0xc537c90 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(Ds_model) creating new cache 0xc7d5b40 with pdf Ds_johnson_CONV_Ds_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#0] WARNING:Optimization -- RooAbsOptTestStatistic::optimizeConstantTerms(nll_extended_model_data_GOF3) WARNING Cache-and-track optimization (Optimize level 2) is only available for datasets implement in terms of RooVectorDataStore - ignoring this option for current dataset
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(Ds_model) creating new cache 0xc7d5b40 with pdf Ds_johnson_CONV_Ds_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#0] WARNING:Optimization -- RooAbsOptTestStatistic::optimizeConstantTerms(nll_extended_model_data_GOF4) WARNING Cache-and-track optimization (Optimize level 2) is only available for datasets implement in terms of RooVectorDataStore - ignoring this option for current dataset
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(sig_model) creating new cache 0xc8c91a0 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(Ds_model) creating new cache 0xc686ef0 with pdf Ds_johnson_CONV_Ds_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#0] WARNING:Optimization -- RooAbsOptTestStatistic::optimizeConstantTerms(nll_extended_model_data_GOF9) WARNING Cache-and-track optimization (Optimize level 2) is only available for datasets implement in terms of RooVectorDataStore - ignoring this option for current dataset
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(sig_model) creating new cache 0xc882510 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(sig_model) creating new cache 0xc72c320 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(Ds_model) creating new cache 0xc686ef0 with pdf Ds_johnson_CONV_Ds_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#0] WARNING:Optimization -- RooAbsOptTestStatistic::optimizeConstantTerms(nll_extended_model_data_GOF8) WARNING Cache-and-track optimization (Optimize level 2) is only available for datasets implement in terms of RooVectorDataStore - ignoring this option for current dataset
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(sig_model) creating new cache 0xc882510 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(Ds_model) creating new cache 0xc8661c0 with pdf Ds_johnson_CONV_Ds_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#0] WARNING:Optimization -- RooAbsOptTestStatistic::optimizeConstantTerms(nll_extended_model_data_GOF11) WARNING Cache-and-track optimization (Optimize level 2) is only available for datasets implement in terms of RooVectorDataStore - ignoring this option for current dataset
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(sig_model) creating new cache 0xc882510 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(Ds_model) creating new cache 0xc8661c0 with pdf Ds_johnson_CONV_Ds_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#0] WARNING:Optimization -- RooAbsOptTestStatistic::optimizeConstantTerms(nll_extended_model_data_GOF13) WARNING Cache-and-track optimization (Optimize level 2) is only available for datasets implement in terms of RooVectorDataStore - ignoring this option for current dataset
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(sig_model) creating new cache 0xc882510 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(Ds_model) creating new cache 0xc8661c0 with pdf Ds_johnson_CONV_Ds_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#0] WARNING:Optimization -- RooAbsOptTestStatistic::optimizeConstantTerms(nll_extended_model_data_GOF14) WARNING Cache-and-track optimization (Optimize level 2) is only available for datasets implement in terms of RooVectorDataStore - ignoring this option for current dataset
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(sig_model) creating new cache 0xc66f910 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(sig_model) creating new cache 0xc882510 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(Ds_model) creating new cache 0xc8661c0 with pdf Ds_johnson_CONV_Ds_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#0] WARNING:Optimization -- RooAbsOptTestStatistic::optimizeConstantTerms(nll_extended_model_data_GOF12) WARNING Cache-and-track optimization (Optimize level 2) is only available for datasets implement in terms of RooVectorDataStore - ignoring this option for current dataset
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(sig_model) creating new cache 0xcb2bc40 with pdf johnson_CONV_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(Ds_model) creating new cache 0xc72c320 with pdf Ds_johnson_CONV_Ds_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#0] WARNING:Optimization -- RooAbsOptTestStatistic::optimizeConstantTerms(nll_extended_model_data_GOF7) WARNING Cache-and-track optimization (Optimize level 2) is only available for datasets implement in terms of RooVectorDataStore - ignoring this option for current dataset
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(Ds_model) creating new cache 0xc8661c0 with pdf Ds_johnson_CONV_Ds_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#0] WARNING:Optimization -- RooAbsOptTestStatistic::optimizeConstantTerms(nll_extended_model_data_GOF10) WARNING Cache-and-track optimization (Optimize level 2) is only available for datasets implement in terms of RooVectorDataStore - ignoring this option for current dataset
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(Ds_model) creating new cache 0xc76e540 with pdf Ds_johnson_CONV_Ds_gaussian_CACHE_Obs[Dp_M]_NORM_Dp_M_etapip_gg_rank_Pip_charge for nset (Dp_M,etapip_gg_rank,Pip_charge) with code 0 from preexisting content.
+[#0] WARNING:Optimization -- RooAbsOptTestStatistic::optimizeConstantTerms(nll_extended_model_data_GOF6) WARNING Cache-and-track optimization (Optimize level 2) is only available for datasets implement in terms of RooVectorDataStore - ignoring this option for current dataset
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (johnson,Ds_johnson)
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (johnson,Ds_johnson)
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (johnson,Ds_johnson)
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (johnson,Ds_johnson)
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (johnson,Ds_johnson)
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (johnson,Ds_johnson)
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (johnson,Ds_johnson)
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (johnson,Ds_johnson)
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (johnson,Ds_johnson)
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (johnson,Ds_johnson)
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (johnson,Ds_johnson)
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (johnson,Ds_johnson)
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (johnson,Ds_johnson)
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (johnson,Ds_johnson)
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (johnson,Ds_johnson)
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-1.6789e+07 FROM MIGRAD    STATUS=INITIATE      159 CALLS         160 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -3.01991e-02   2.00000e-01   0.00000e+00  -3.28372e+05
+   2  Ds_sigma_gaussian   1.00000e-02   4.99500e-03   0.00000e+00   3.27309e+04
+   3  mean_gaussian   0.00000e+00   2.00000e-01   0.00000e+00   3.85437e+05
+   4  nDs          3.12550e+04   1.18277e+05   0.00000e+00  -7.30410e+04
+   5  nbkg1        9.46215e+05   1.18277e+05   0.00000e+00  -6.30543e+02
+   6  nbkg2        2.36554e+05   1.18277e+05   0.00000e+00   1.92984e+05
+   7  nsig         5.16002e+04   5.91385e+03   2.47324e-01  -1.40651e+03
+   8  rhopeta_mean   1.75000e+00   1.50000e-02   0.00000e+00  -4.63374e+04
+   9  rhopeta_sigma   3.00000e-02   4.90000e-03   0.00000e+00  -4.28853e+04
+  10  sigma_gaussian   1.00000e-02   4.99500e-03   0.00000e+00  -1.75330e+04
+  11  x_bkg1_tau  -5.00000e-01   2.50000e-01   0.00000e+00  -2.89362e+04
+                               ERR DEF= 0.5
+NO ERROR MATRIX       
+ FCN=-1.68301e+07 FROM MIGRAD    STATUS=PROGRESS      193 CALLS         194 TOTAL
+                     EDM=364701    STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.88187e-02   2.00000e-01   1.38099e-03  -9.42174e+05
+   2  Ds_sigma_gaussian   8.56160e-03   4.99500e-03  -1.50200e-02  -8.35701e+04
+   3  mean_gaussian  -4.20308e-03   2.00000e-01  -4.20310e-03   2.10594e+05
+   4  nDs          1.62937e+05   1.18277e+05   4.33947e-01   6.43375e+04
+   5  nbkg1        9.46562e+05   1.18277e+05   7.33914e-04   4.88393e+04
+   6  nbkg2        1.89520e+05   1.18277e+05  -1.03623e-01   1.02885e+05
+   7  nsig         5.19721e+04   5.91385e+03   1.72824e-03  -8.68834e+02
+   8  rhopeta_mean   1.77247e+00   1.50000e-02   3.45496e-01  -1.47817e+04
+   9  rhopeta_sigma   3.35417e-02   4.90000e-03   1.49710e-01  -1.32174e+04
+  10  sigma_gaussian   1.10140e-02   4.99500e-03   9.95212e-03   3.41056e+03
+  11  x_bkg1_tau  -3.62288e-01   2.50000e-01   4.75614e-02  -7.00805e+03
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 58.7 per cent
+ FCN=-1.68472e+07 FROM MIGRAD    STATUS=PROGRESS      225 CALLS         226 TOTAL
+                     EDM=14938.1    STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.27993e-02   2.00000e-01   6.02137e-03   3.29391e+05
+   2  Ds_sigma_gaussian   1.24381e-02   4.99500e-03   3.82126e-02   5.83263e+04
+   3  mean_gaussian  -1.00980e-02   2.00000e-01  -5.89507e-03  -7.00089e+04
+   4  nDs          9.68961e+04   1.18277e+05  -1.79950e-01  -2.89301e+04
+   5  nbkg1        9.11695e+05   1.18277e+05  -7.18615e-02   6.83389e+03
+   6  nbkg2        1.31571e+05   1.18277e+05  -1.43588e-01   2.02795e+04
+   7  nsig         5.25300e+04   5.91385e+03   2.58095e-03  -4.74569e+03
+   8  rhopeta_mean   1.79079e+00   1.50000e-02   3.84551e-01   2.18465e+03
+   9  rhopeta_sigma   3.72246e-02   4.90000e-03   1.64576e-01  -1.90646e+03
+  10  sigma_gaussian   1.14958e-02   4.99500e-03   4.56990e-03   1.14235e+04
+  11  x_bkg1_tau  -2.44777e-01   2.50000e-01   4.82863e-02  -1.30325e+01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 34.7 per cent
+ FCN=-1.68502e+07 FROM MIGRAD    STATUS=PROGRESS      254 CALLS         255 TOTAL
+                     EDM=2835.45    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  34.7 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.38233e-02   1.28608e-04  -1.02426e-03   2.69985e+05
+   2  Ds_sigma_gaussian   8.65746e-03   1.21928e-04  -3.71745e-02  -6.32832e+03
+   3  mean_gaussian  -8.62220e-03   2.12688e-04   1.47586e-03   2.00737e+04
+   4  nDs          1.08861e+05   8.32938e+02   3.59121e-02  -1.56132e+04
+   5  nbkg1        8.78620e+05   1.14637e+03  -6.52088e-02  -9.29435e+03
+   6  nbkg2        1.16538e+05   5.18244e+02  -4.15008e-02  -5.51167e+02
+   7  nsig         5.60095e+04   5.10774e+02   1.58170e-02  -7.15083e+03
+   8  rhopeta_mean   1.78857e+00   2.05894e-04  -5.84627e-02   2.41599e+03
+   9  rhopeta_sigma   3.74361e-02   8.08184e-05   9.85916e-03  -8.96971e+02
+  10  sigma_gaussian   9.30741e-03   1.48703e-04  -2.16101e-02  -1.58726e+03
+  11  x_bkg1_tau  -2.55561e-01   5.91005e-03  -4.85152e-03   1.88775e+03
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 20.2 per cent
+ FCN=-1.68511e+07 FROM MIGRAD    STATUS=PROGRESS      278 CALLS         279 TOTAL
+                     EDM=608.806    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  20.2 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.57817e-02   1.28582e-04  -1.95901e-03  -1.08493e+05
+   2  Ds_sigma_gaussian   1.00364e-02   1.03713e-04   1.43471e-02   1.50360e+03
+   3  mean_gaussian  -9.02362e-03   2.10767e-04  -4.01437e-04   2.01519e+04
+   4  nDs          1.26540e+05   9.06577e+02   4.99631e-02  -1.09070e+03
+   5  nbkg1        8.75149e+05   1.09599e+03  -6.70216e-03  -3.12606e+03
+   6  nbkg2        1.12192e+05   5.09287e+02  -1.24320e-02  -2.28030e+03
+   7  nsig         6.19529e+04   5.36726e+02   2.59894e-02  -2.07603e+03
+   8  rhopeta_mean   1.78557e+00   2.31517e-04  -7.12896e-02   2.44913e+03
+   9  rhopeta_sigma   3.75267e-02   8.06420e-05   4.24069e-03  -3.34760e+02
+  10  sigma_gaussian   8.86509e-03   1.44541e-04  -4.66448e-03  -8.78099e+03
+  11  x_bkg1_tau  -2.83053e-01   6.21169e-03  -1.19304e-02   2.93674e+03
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 13.4 per cent
+ FCN=-1.68513e+07 FROM MIGRAD    STATUS=PROGRESS      302 CALLS         303 TOTAL
+                     EDM=488.167    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  13.4 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.49262e-02   1.06205e-04   8.55844e-04   6.33948e+04
+   2  Ds_sigma_gaussian   1.01241e-02   1.01351e-04   8.78896e-04  -2.60998e+03
+   3  mean_gaussian  -9.69369e-03   2.10860e-04  -6.70091e-04  -1.16986e+04
+   4  nDs          1.34665e+05   9.78382e+02   2.19212e-02   8.45800e+03
+   5  nbkg1        8.78204e+05   1.07744e+03   5.89684e-03   2.27556e+03
+   6  nbkg2        1.11828e+05   5.04160e+02  -1.05260e-03   1.16663e+03
+   7  nsig         6.49458e+04   5.59186e+02   1.26467e-02  -1.48406e+03
+   8  rhopeta_mean   1.78262e+00   2.64090e-04  -6.39097e-02   2.08712e+03
+   9  rhopeta_sigma   3.76294e-02   8.04516e-05   4.81348e-03  -2.51145e+02
+  10  sigma_gaussian   1.00101e-02   1.45730e-04   1.18540e-02  -4.49204e+03
+  11  x_bkg1_tau  -3.20666e-01   6.64129e-03  -1.54323e-02   3.06200e+03
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 12.7 per cent
+ FCN=-1.68516e+07 FROM MIGRAD    STATUS=PROGRESS      328 CALLS         329 TOTAL
+                     EDM=297.727    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  12.7 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.56106e-02   7.73813e-05  -6.84664e-04  -1.05239e+05
+   2  Ds_sigma_gaussian   9.51541e-03   9.54769e-05  -6.17679e-03  -1.13651e+04
+   3  mean_gaussian  -1.01827e-02   2.10182e-04  -4.89025e-04  -2.14231e+04
+   4  nDs          1.29383e+05   7.11134e+02  -1.41826e-02   4.78461e+03
+   5  nbkg1        8.83321e+05   1.07779e+03   9.92116e-03   3.87533e+03
+   6  nbkg2        1.09035e+05   4.95786e+02  -8.11588e-03   6.29640e+03
+   7  nsig         7.10777e+04   5.98355e+02   2.50964e-02  -1.03798e+03
+   8  rhopeta_mean   1.77628e+00   3.35230e-04  -1.23299e-01   1.08084e+03
+   9  rhopeta_sigma   3.81247e-02   7.91907e-05   2.34292e-02  -2.59935e+02
+  10  sigma_gaussian   1.30384e-02   1.76938e-04   2.84469e-02   4.71085e+03
+  11  x_bkg1_tau  -4.20325e-01   7.84606e-03  -3.70382e-02   8.32750e+02
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 16.4 per cent
+ FCN=-1.68519e+07 FROM MIGRAD    STATUS=PROGRESS      352 CALLS         353 TOTAL
+                     EDM=136.073    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  16.4 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.51147e-02   6.92047e-05   4.96122e-04   4.05497e+03
+   2  Ds_sigma_gaussian   1.02726e-02   8.86997e-05   7.65602e-03   4.49856e+03
+   3  mean_gaussian  -9.17063e-03   2.04175e-04   1.01211e-03   3.95318e+04
+   4  nDs          1.29116e+05   7.12129e+02  -7.22746e-04   2.66049e+02
+   5  nbkg1        8.81143e+05   1.06354e+03  -4.23019e-03   2.81592e+03
+   6  nbkg2        1.02166e+05   4.76530e+02  -2.03695e-02   4.61372e+03
+   7  nsig         7.71005e+04   6.67608e+02   2.36984e-02   1.43506e+03
+   8  rhopeta_mean   1.76973e+00   4.62341e-04  -1.13901e-01  -5.41208e+01
+   9  rhopeta_sigma   3.86192e-02   8.01907e-05   2.37221e-02  -4.34306e+02
+  10  sigma_gaussian   1.37132e-02   1.94485e-04   5.87733e-03   1.77217e+03
+  11  x_bkg1_tau  -5.07003e-01   9.57670e-03  -2.88305e-02   6.21702e+02
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 15.9 per cent
+ FCN=-1.68519e+07 FROM MIGRAD    STATUS=PROGRESS      376 CALLS         377 TOTAL
+                     EDM=18.363    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  15.9 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.50740e-02   7.06520e-05   4.06501e-05   7.80622e+03
+   2  Ds_sigma_gaussian   1.01966e-02   8.80631e-05  -7.56115e-04   1.50900e+03
+   3  mean_gaussian  -1.05691e-02   1.86902e-04  -1.39851e-03  -1.02019e+04
+   4  nDs          1.29508e+05   7.12725e+02   1.06321e-03  -1.02850e+03
+   5  nbkg1        8.75884e+05   1.09751e+03  -1.01705e-02  -1.29774e+03
+   6  nbkg2        9.73979e+04   6.27361e+02  -1.45051e-02   1.77900e+03
+   7  nsig         7.82124e+04   7.08515e+02   4.28120e-03   8.34678e+02
+   8  rhopeta_mean   1.76682e+00   5.96318e-04  -4.75873e-02  -1.74729e+02
+   9  rhopeta_sigma   3.88775e-02   8.40189e-05   1.25357e-02  -3.22707e+02
+  10  sigma_gaussian   1.35953e-02   1.93097e-04  -1.01648e-03  -2.75564e+01
+  11  x_bkg1_tau  -5.56700e-01   1.13376e-02  -1.54487e-02   4.18525e+02
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX=  9.1 per cent
+ FCN=-1.6852e+07 FROM MIGRAD    STATUS=PROGRESS      400 CALLS         401 TOTAL
+                     EDM=50.21    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   9.1 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.51278e-02   7.05618e-05  -5.37754e-05  -1.29792e+04
+   2  Ds_sigma_gaussian   9.98742e-03   8.73313e-05  -2.09371e-03  -3.57024e+03
+   3  mean_gaussian  -9.89276e-03   1.65645e-04   6.76343e-04   2.23945e+04
+   4  nDs          1.30489e+05   7.15605e+02   2.65139e-03   1.14640e+03
+   5  nbkg1        8.81217e+05   1.01005e+03   1.03148e-02  -2.46851e+03
+   6  nbkg2        9.11758e+04   6.48594e+02  -1.94246e-02  -7.03366e+02
+   7  nsig         7.57220e+04   6.87054e+02  -9.62841e-03  -5.05493e+02
+   8  rhopeta_mean   1.76504e+00   6.08944e-04  -2.82364e-02  -2.26221e+02
+   9  rhopeta_sigma   3.92329e-02   8.40291e-05   1.74109e-02  -2.99417e+02
+  10  sigma_gaussian   1.36886e-02   1.93563e-04   8.03954e-04   1.68080e+03
+  11  x_bkg1_tau  -6.31904e-01   1.23710e-02  -2.21557e-02   1.16511e+03
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 12.5 per cent
+ FCN=-1.68522e+07 FROM MIGRAD    STATUS=PROGRESS      430 CALLS         431 TOTAL
+                     EDM=123.036    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  12.5 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.50550e-02   7.00147e-05   7.27970e-05  -4.73906e+04
+   2  Ds_sigma_gaussian   9.37555e-03   8.69134e-05  -6.25293e-03  -1.04958e+04
+   3  mean_gaussian  -9.61742e-03   1.55299e-04   2.75360e-04   3.09062e+04
+   4  nDs          1.26114e+05   6.51943e+02  -1.18951e-02   9.54950e+02
+   5  nbkg1        9.19823e+05   1.04814e+03   7.66156e-02  -1.02791e+03
+   6  nbkg2        6.87285e+04   8.23946e+02  -7.57755e-02  -2.20702e+01
+   7  nsig         6.71944e+04   6.96905e+02  -3.41225e-02   2.47762e+03
+   8  rhopeta_mean   1.75896e+00   6.71266e-04  -9.33248e-02   1.14521e+02
+   9  rhopeta_sigma   4.09239e-02   8.75985e-05   8.59494e-02   1.25345e+01
+  10  sigma_gaussian   1.23236e-02   1.75184e-04  -1.20562e-02   2.52577e+03
+  11  x_bkg1_tau  -1.09471e+00   1.98172e-02  -1.14889e-01  -8.57291e+02
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 24.1 per cent
+ FCN=-1.68522e+07 FROM MIGRAD    STATUS=PROGRESS      454 CALLS         455 TOTAL
+                     EDM=162.951    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  24.1 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.49420e-02   7.06954e-05   1.13067e-04  -4.59370e+04
+   2  Ds_sigma_gaussian   9.44305e-03   8.23027e-05   6.99602e-04  -6.04889e+03
+   3  mean_gaussian  -9.81086e-03   1.52961e-04  -1.93451e-04   1.47546e+04
+   4  nDs          1.23862e+05   7.20791e+02  -6.19507e-03  -8.02912e+02
+   5  nbkg1        9.44741e+05   3.26807e+03   5.15779e-02  -3.74912e+02
+   6  nbkg2        5.63832e+04   1.72544e+03  -4.66906e-02   1.71421e+03
+   7  nsig         5.74630e+04   1.11790e+03  -4.14906e-02   1.22930e+03
+   8  rhopeta_mean   1.75650e+00   7.89209e-04  -3.64916e-02   2.12705e+02
+   9  rhopeta_sigma   4.18669e-02   1.49890e-04   5.05964e-02   5.50399e+01
+  10  sigma_gaussian   1.08258e-02   2.18365e-04  -1.40167e-02   3.47012e+03
+  11  x_bkg1_tau  -1.39574e+00   4.95538e-02  -6.24018e-02  -3.28131e+03
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 37.8 per cent
+ FCN=-1.68523e+07 FROM MIGRAD    STATUS=PROGRESS      478 CALLS         479 TOTAL
+                     EDM=18.6495    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  37.8 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.48213e-02   7.08847e-05   1.20741e-04  -1.02802e+04
+   2  Ds_sigma_gaussian   9.72659e-03   8.31616e-05   2.91169e-03   1.50962e+03
+   3  mean_gaussian  -1.02043e-02   1.53731e-04  -3.93413e-04  -1.75566e+03
+   4  nDs          1.23515e+05   6.86870e+02  -9.57152e-04  -1.85889e+02
+   5  nbkg1        9.50919e+05   2.44358e+03   1.30923e-02  -2.83324e+01
+   6  nbkg2        5.52489e+04   1.23842e+03  -4.52302e-03   1.99106e+02
+   7  nsig         5.29133e+04   9.03102e+02  -2.05214e-02  -4.17102e+02
+   8  rhopeta_mean   1.75833e+00   6.64836e-04   2.71836e-02   3.55993e+02
+   9  rhopeta_sigma   4.18954e-02   1.13067e-04   1.56803e-03   1.03369e+02
+  10  sigma_gaussian   9.57684e-03   2.07406e-04  -1.24408e-02   1.49522e+03
+  11  x_bkg1_tau  -1.33271e+00   2.90194e-02   1.25010e-02  -2.10704e+02
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 21.3 per cent
+ FCN=-1.68523e+07 FROM MIGRAD    STATUS=PROGRESS      502 CALLS         503 TOTAL
+                     EDM=8.80802    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  21.3 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.46877e-02   7.21539e-05   1.33643e-04   1.00087e+04
+   2  Ds_sigma_gaussian   9.59410e-03   8.03821e-05  -1.35525e-03  -4.77349e+02
+   3  mean_gaussian  -1.03117e-02   1.55468e-04  -1.07471e-04  -7.63675e+03
+   4  nDs          1.23122e+05   6.87015e+02  -1.08811e-03   1.98477e+02
+   5  nbkg1        9.57162e+05   2.50505e+03   1.33655e-02   2.39677e+02
+   6  nbkg2        5.15530e+04   1.21623e+03  -1.50516e-02   4.68745e+02
+   7  nsig         5.17110e+04   9.30217e+02  -5.55959e-03   4.66034e+02
+   8  rhopeta_mean   1.75605e+00   6.42005e-04  -3.37316e-02   3.11288e+02
+   9  rhopeta_sigma   4.21461e-02   1.11986e-04   1.38577e-02   9.86290e+01
+  10  sigma_gaussian   8.89155e-03   2.21688e-04  -7.16973e-03  -5.65676e+02
+  11  x_bkg1_tau  -1.40191e+00   2.89233e-02  -1.37108e-02  -6.68472e+02
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 15.5 per cent
+ FCN=-1.68523e+07 FROM MIGRAD    STATUS=PROGRESS      527 CALLS         528 TOTAL
+                     EDM=7.29335    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  15.5 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47194e-02   7.00990e-05  -3.17541e-05   3.79603e+03
+   2  Ds_sigma_gaussian   9.62455e-03   7.87316e-05   3.12336e-04   4.36892e+02
+   3  mean_gaussian  -1.02559e-02   1.54557e-04   5.58459e-05   1.56649e+03
+   4  nDs          1.22907e+05   6.86875e+02  -5.95273e-04   2.71818e+01
+   5  nbkg1        9.57963e+05   2.45028e+03   1.72509e-03  -3.85126e+02
+   6  nbkg2        4.83896e+04   1.23542e+03  -1.32977e-02  -5.75465e+02
+   7  nsig         5.27836e+04   9.10919e+02   4.96285e-03   7.12493e+02
+   8  rhopeta_mean   1.74936e+00   8.17169e-04  -9.60089e-02   1.08660e+02
+   9  rhopeta_sigma   4.22885e-02   1.12272e-04   7.94839e-03   3.46052e+01
+  10  sigma_gaussian   9.11082e-03   2.04038e-04   2.32297e-03  -4.88901e+02
+  11  x_bkg1_tau  -1.40018e+00   2.79946e-02   3.38952e-04   2.33529e+02
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 20.9 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS      551 CALLS         552 TOTAL
+                     EDM=1.00787    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  20.9 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47186e-02   7.01936e-05   7.82138e-07  -2.81241e+03
+   2  Ds_sigma_gaussian   9.56353e-03   7.80382e-05  -6.26350e-04   4.76874e+02
+   3  mean_gaussian  -1.02457e-02   1.54783e-04   1.01313e-05   1.14077e+03
+   4  nDs          1.21940e+05   6.91682e+02  -2.68330e-03  -2.32810e+02
+   5  nbkg1        9.66255e+05   2.47636e+03   1.79962e-02  -1.43405e+02
+   6  nbkg2        4.41887e+04   1.44052e+03  -1.83202e-02  -1.14949e+02
+   7  nsig         4.99813e+04   8.20829e+02  -1.30701e-02  -2.33619e+01
+   8  rhopeta_mean   1.74555e+00   1.60176e-03  -5.32061e-02   5.87971e+01
+   9  rhopeta_sigma   4.25877e-02   1.19740e-04   1.69058e-02   1.48137e+01
+  10  sigma_gaussian   8.80900e-03   1.95003e-04  -3.20484e-03   7.96666e+01
+  11  x_bkg1_tau  -1.47652e+00   2.85822e-02  -1.47757e-02  -1.72296e+02
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 16.1 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS      575 CALLS         576 TOTAL
+                     EDM=0.0811219    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  16.1 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47023e-02   7.02052e-05   1.63328e-05   3.40741e+02
+   2  Ds_sigma_gaussian   9.51989e-03   8.01237e-05  -4.49168e-04  -1.57612e+02
+   3  mean_gaussian  -1.02920e-02   1.54593e-04  -4.62695e-05   2.86312e+01
+   4  nDs          1.21858e+05   7.02680e+02  -2.27987e-04   8.85528e+01
+   5  nbkg1        9.67389e+05   2.77342e+03   2.48296e-03  -4.85584e+01
+   6  nbkg2        4.35677e+04   1.57067e+03  -2.77790e-03  -1.57619e+02
+   7  nsig         4.98496e+04   8.74140e+02  -6.22430e-04  -2.79714e+01
+   8  rhopeta_mean   1.74399e+00   1.85747e-03  -2.15847e-02   2.34915e+01
+   9  rhopeta_sigma   4.26206e-02   1.26674e-04   1.87556e-03  -1.55121e+00
+  10  sigma_gaussian   8.78781e-03   1.98180e-04  -2.27027e-04   4.98419e+01
+  11  x_bkg1_tau  -1.47480e+00   2.89012e-02   3.28807e-04   7.80687e+01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 11.1 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS      600 CALLS         601 TOTAL
+                     EDM=0.0170371    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  11.1 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47022e-02   7.02442e-05   8.54913e-08   1.15282e+00
+   2  Ds_sigma_gaussian   9.52037e-03   8.02071e-05   4.92073e-06  -3.69238e+01
+   3  mean_gaussian  -1.02960e-02   1.55205e-04  -3.95496e-06   8.90351e+00
+   4  nDs          1.21765e+05   7.07085e+02  -2.57944e-04   2.07676e+01
+   5  nbkg1        9.67856e+05   2.85426e+03   1.02239e-03   9.52848e+00
+   6  nbkg2        4.33480e+04   1.60497e+03  -9.87554e-04  -6.15196e+01
+   7  nsig         4.98270e+04   8.75555e+02  -1.07222e-04   2.42650e+01
+   8  rhopeta_mean   1.74336e+00   2.08603e-03  -8.75618e-03   6.04510e+00
+   9  rhopeta_sigma   4.26424e-02   1.28952e-04   1.24073e-03  -1.00128e+01
+  10  sigma_gaussian   8.77995e-03   1.98465e-04  -8.42273e-05   3.10370e+01
+  11  x_bkg1_tau  -1.47883e+00   2.88367e-02  -7.70294e-04   1.46924e+01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX=  8.8 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS      625 CALLS         626 TOTAL
+                     EDM=0.00730828    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   8.8 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47043e-02   7.02387e-05  -2.04487e-06   3.26662e+01
+   2  Ds_sigma_gaussian   9.52646e-03   8.03148e-05   6.28113e-05   7.65705e+01
+   3  mean_gaussian  -1.02921e-02   1.55002e-04   3.84106e-06   1.89712e+02
+   4  nDs          1.21763e+05   7.09972e+02  -7.61998e-06  -2.85738e+01
+   5  nbkg1        9.67426e+05   2.70756e+03  -9.41662e-04   4.53571e+00
+   6  nbkg2        4.37050e+04   1.50264e+03   1.60353e-03   1.00207e+01
+   7  nsig         4.98830e+04   8.72847e+02   2.65152e-04  -7.33365e-01
+   8  rhopeta_mean   1.74348e+00   2.03653e-03   1.63103e-03  -4.40521e+00
+   9  rhopeta_sigma   4.26325e-02   1.25880e-04  -5.62148e-04  -1.68012e+01
+  10  sigma_gaussian   8.78014e-03   1.98504e-04   1.98798e-06  -6.89072e+00
+  11  x_bkg1_tau  -1.47405e+00   2.73520e-02   9.13142e-04  -5.22922e+00
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX=  6.7 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS      650 CALLS         651 TOTAL
+                     EDM=0.00298756    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   6.7 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47039e-02   7.04014e-05   3.77992e-07   2.77920e+01
+   2  Ds_sigma_gaussian   9.52320e-03   8.01624e-05  -3.36326e-05  -1.50817e+01
+   3  mean_gaussian  -1.02967e-02   1.54426e-04  -4.59965e-06  -8.14242e+01
+   4  nDs          1.21785e+05   7.09336e+02   6.13952e-05   1.42214e+00
+   5  nbkg1        9.67440e+05   2.97216e+03   2.95362e-05   2.78471e-01
+   6  nbkg2        4.36816e+04   1.79509e+03  -1.04905e-04  -3.68354e+00
+   7  nsig         4.98689e+04   8.80501e+02  -6.64949e-05  -2.28743e+00
+   8  rhopeta_mean   1.74355e+00   2.10200e-03   1.01330e-03   9.31036e-02
+   9  rhopeta_sigma   4.26380e-02   1.25474e-04   3.12488e-04  -1.41450e+01
+  10  sigma_gaussian   8.77831e-03   1.98470e-04  -1.95869e-05  -5.20470e+00
+  11  x_bkg1_tau  -1.47479e+00   2.97538e-02  -1.40962e-04  -9.17298e+00
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX=  4.3 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS      676 CALLS         677 TOTAL
+                     EDM=0.0395345    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   4.3 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47061e-02   7.03460e-05  -2.17286e-06  -1.03002e+02
+   2  Ds_sigma_gaussian   9.51543e-03   8.06792e-05  -8.00093e-05  -2.59420e+02
+   3  mean_gaussian  -1.03021e-02   1.54351e-04  -5.36861e-06  -4.69817e+02
+   4  nDs          1.21854e+05   7.14341e+02   1.92095e-04   7.13190e+01
+   5  nbkg1        9.66957e+05   2.96594e+03  -1.05715e-03  -1.60617e+01
+   6  nbkg2        4.40082e+04   1.78337e+03   1.46148e-03  -1.70737e+01
+   7  nsig         4.99378e+04   8.75660e+02   3.25581e-04  -2.20296e+01
+   8  rhopeta_mean   1.74373e+00   2.11265e-03   2.54988e-03   7.15156e+00
+   9  rhopeta_sigma   4.27525e-02   1.41588e-04   6.56023e-03  -1.07696e+01
+  10  sigma_gaussian   8.79337e-03   1.98016e-04   1.61418e-04   1.33580e+01
+  11  x_bkg1_tau  -1.47034e+00   2.91892e-02   8.51712e-04  -2.01875e+00
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 19.0 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS      699 CALLS         700 TOTAL
+                     EDM=0.100864    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  19.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47077e-02   7.05891e-05  -1.62742e-06  -2.11011e+02
+   2  Ds_sigma_gaussian   9.51264e-03   8.06350e-05  -2.88255e-05  -3.42635e+02
+   3  mean_gaussian  -1.03034e-02   1.54121e-04  -1.25847e-06  -6.67958e+02
+   4  nDs          1.21874e+05   7.09703e+02   5.58690e-05   9.10008e+01
+   5  nbkg1        9.66688e+05   3.10628e+03  -5.87812e-04  -1.22621e+01
+   6  nbkg2        4.42348e+04   1.96492e+03   1.01095e-03  -1.27675e+01
+   7  nsig         4.99741e+04   8.84199e+02   1.71391e-04  -2.70771e+01
+   8  rhopeta_mean   1.74353e+00   1.87431e-03  -2.82869e-03   9.37814e+00
+   9  rhopeta_sigma   4.29569e-02   6.04058e-04   1.18183e-02  -9.52294e+00
+  10  sigma_gaussian   8.80110e-03   1.99703e-04   8.28455e-05   2.43639e+01
+  11  x_bkg1_tau  -1.46733e+00   3.10938e-02   5.76620e-04  -7.62824e-01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 30.8 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS      724 CALLS         725 TOTAL
+                     EDM=0.638408    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  30.8 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47210e-02   7.09665e-05  -1.33563e-05  -9.04073e+02
+   2  Ds_sigma_gaussian   9.50077e-03   7.86315e-05  -1.22385e-04  -7.67476e+02
+   3  mean_gaussian  -1.02940e-02   1.53007e-04   9.30182e-06  -1.57665e+03
+   4  nDs          1.22005e+05   7.08449e+02   3.63476e-04   1.75281e+02
+   5  nbkg1        9.64393e+05   3.39819e+03  -5.01118e-03   4.78257e+01
+   6  nbkg2        4.62956e+04   2.39824e+03   9.08231e-03   1.21673e+02
+   7  nsig         5.02524e+04   8.95385e+02   1.31338e-03  -5.75622e+01
+   8  rhopeta_mean   1.73987e+00   3.26786e-03  -5.00690e-02   2.15036e+00
+   9  rhopeta_sigma   4.53240e-02   1.66729e-03   1.49603e-01  -1.00569e+01
+  10  sigma_gaussian   8.85703e-03   2.01118e-04   5.98221e-04   9.73455e+01
+  11  x_bkg1_tau  -1.44110e+00   3.47095e-02   5.05074e-03  -2.27261e+01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 25.0 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS      749 CALLS         750 TOTAL
+                     EDM=0.749175    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  25.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47250e-02   7.07241e-05  -3.92467e-06  -9.42061e+02
+   2  Ds_sigma_gaussian   9.50710e-03   7.73461e-05   6.53236e-05  -6.96368e+02
+   3  mean_gaussian  -1.02723e-02   1.53830e-04   2.17558e-05  -1.21051e+03
+   4  nDs          1.22041e+05   7.05936e+02   1.01326e-04   1.52254e+02
+   5  nbkg1        9.63604e+05   3.30977e+03  -1.71868e-03   6.14129e+01
+   6  nbkg2        4.70534e+04   2.33495e+03   3.29096e-03   2.01940e+02
+   7  nsig         5.02790e+04   8.73888e+02   1.25292e-04  -8.01996e+01
+   8  rhopeta_mean   1.73687e+00   4.35776e-03  -4.06007e-02  -1.45924e+01
+   9  rhopeta_sigma   4.67475e-02   1.86258e-03   1.06945e-01  -1.59250e+01
+  10  sigma_gaussian   8.85964e-03   1.96659e-04   2.78689e-05   9.81468e+01
+  11  x_bkg1_tau  -1.43235e+00   3.33221e-02   1.69492e-03  -3.72925e+01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 25.3 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS      774 CALLS         775 TOTAL
+                     EDM=2.40265    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  25.3 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47257e-02   7.03615e-05  -7.04146e-07  -9.26668e+02
+   2  Ds_sigma_gaussian   9.50951e-03   7.82838e-05   2.48044e-05  -6.60436e+02
+   3  mean_gaussian  -1.02659e-02   1.57790e-04   6.43719e-06  -1.04534e+03
+   4  nDs          1.22049e+05   7.05050e+02   2.17638e-05   1.42566e+02
+   5  nbkg1        9.63443e+05   3.15580e+03  -3.51278e-04   6.21206e+01
+   6  nbkg2        4.72116e+04   2.15937e+03   6.83846e-04   2.27021e+02
+   7  nsig         5.02757e+04   8.56092e+02  -1.54221e-05  -8.86210e+01
+   8  rhopeta_mean   1.73602e+00   6.24228e-03  -1.14778e-02  -2.06468e+01
+   9  rhopeta_sigma   4.71070e-02   2.53159e-03   3.02757e-02  -1.91962e+01
+  10  sigma_gaussian   8.85806e-03   1.93476e-04  -1.68667e-05   9.44456e+01
+  11  x_bkg1_tau  -1.43065e+00   3.06258e-02   3.29974e-04  -4.30909e+01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 61.2 per cent
+ MINUIT WARNING IN MIGRAD  
+ ============== Negative diagonal element 8 in Error Matrix
+ MINUIT WARNING IN MIGRAD  
+ ============== Negative diagonal element 9 in Error Matrix
+ MINUIT WARNING IN MIGRAD  
+ ============== 1.10558 added to diagonal of error matrix
+ EIGENVALUES OF SECOND-DERIVATIVE MATRIX:
+         9.6296e-01  9.9995e-01  9.9997e-01  9.9999e-01  1.0000e+00  1.0000e+00  1.0000e+00  1.0000e+00  1.0000e+00  1.0002e+00  1.0369e+00
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS      804 CALLS         805 TOTAL
+                     EDM=2.11623e+06    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  61.2 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47143e-02   6.76660e-01   1.13744e-05   1.40601e+03
+   2  Ds_sigma_gaussian   9.51029e-03   1.29439e-01   8.10654e-06  -6.33792e+02
+   3  mean_gaussian  -1.02530e-02   6.76831e-01   1.28310e-05  -4.78386e+02
+   4  nDs          1.22048e+05   2.43540e+05  -1.74995e-06   1.40465e+02
+   5  nbkg1        9.63442e+05   3.11151e+05  -7.62366e-07   6.19983e+01
+   6  nbkg2        4.72110e+04   1.56725e+05  -2.78683e-06   2.24803e+02
+   7  nsig         5.02759e+04   1.43657e+05   1.08778e-06  -8.84941e+01
+   8  rhopeta_mean   1.73602e+00   4.99741e-02   2.57093e-07  -2.10480e+01
+   9  rhopeta_sigma   4.71070e-02   7.50292e-03   2.25398e-07  -2.01143e+01
+  10  sigma_gaussian   8.85795e-03   1.29612e-01  -1.15927e-06   9.66271e+01
+  11  x_bkg1_tau  -1.43064e+00   3.48878e+00   5.28794e-07  -3.46633e+01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 33.7 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS      833 CALLS         834 TOTAL
+                     EDM=947733    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  33.7 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47231e-02   1.74841e-01  -8.79370e-06  -3.82990e+02
+   2  Ds_sigma_gaussian   9.51312e-03   1.29423e-01   2.91210e-05  -5.81567e+02
+   3  mean_gaussian  -1.02183e-02   6.61204e-01   3.47401e-05   1.07217e+03
+   4  nDs          1.22046e+05   2.43538e+05  -6.36526e-06   1.27825e+02
+   5  nbkg1        9.63441e+05   3.11152e+05  -2.79018e-06   6.19356e+01
+   6  nbkg2        4.72086e+04   1.56721e+05  -1.01613e-05   2.18644e+02
+   7  nsig         5.02768e+04   1.43658e+05   3.98220e-06  -8.59746e+01
+   8  rhopeta_mean   1.73602e+00   4.99741e-02   9.50992e-07  -2.20719e+01
+   9  rhopeta_sigma   4.71070e-02   7.50291e-03   8.44211e-07  -2.05706e+01
+  10  sigma_gaussian   8.85755e-03   1.29612e-01  -4.29406e-06   1.02357e+02
+  11  x_bkg1_tau  -1.43064e+00   3.48876e+00   1.75485e-06  -2.91219e+01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 20.4 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS      861 CALLS         862 TOTAL
+                     EDM=28521.3    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  20.4 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47239e-02   2.55557e-03  -8.31507e-07  -2.43984e+02
+   2  Ds_sigma_gaussian   9.54661e-03   1.29264e-01   3.44893e-04   1.17871e+02
+   3  mean_gaussian  -1.02319e-02   2.83793e-02  -1.36212e-05   4.77096e+02
+   4  nDs          1.22019e+05   2.43509e+05  -7.56004e-05  -2.73688e+01
+   5  nbkg1        9.63425e+05   3.11161e+05  -3.45450e-05   5.88190e+01
+   6  nbkg2        4.71799e+04   1.56674e+05  -1.24161e-04   1.94091e+02
+   7  nsig         5.02871e+04   1.43672e+05   4.87341e-05  -7.44840e+01
+   8  rhopeta_mean   1.73602e+00   4.99740e-02   1.20828e-05  -2.00505e+01
+   9  rhopeta_sigma   4.71071e-02   7.50276e-03   1.06898e-05  -1.96225e+01
+  10  sigma_gaussian   8.85241e-03   1.29612e-01  -5.48658e-05   7.12536e+01
+  11  x_bkg1_tau  -1.43054e+00   3.48860e+00   1.92926e-05  -7.57529e+00
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 14.5 per cent
+RooMinimizerFcn: Minimized function has error status.
+Returning maximum FCN so far (-1.46595e+07) to force MIGRAD to back out of this region. Error log follows.
+Parameter values: 	Ds_mean_gaussian=-0.0104965	Ds_sigma_gaussian=0.00154098	mean_gaussian=-0.134041	nDs=1.15415e+06	nbkg1=236184	nbkg2=1.17497e+06	nsig=265136	rhopeta_mean=1.65423	rhopeta_sigma=0.00275258	sigma_gaussian=0.901638	x_bkg1_tau=-0.661735
+RooNLLVar::nll_extended_model_data[ paramSet=(Ds_delta,Ds_gamma,Ds_mean_gaussian,Ds_mean_johnson,Ds_sigma_gaussian,Ds_sigma_johnson,delta,gamma,mean_gaussian,mean_johnson,nDs,nbkg1,nbkg2,nsig,rhopeta_mean,rhopeta_sigma,sigma_gaussian,sigma_johnson,x_bkg1_tau) ]
+     function value is NAN @ paramSet=(Ds_delta = 0.47138,Ds_gamma = 0.3525,Ds_mean_gaussian = -0.0104965,Ds_mean_johnson = 1.9934,Ds_sigma_gaussian = 0.00154098,Ds_sigma_johnson = 0.0016496,delta = 0.59443,gamma = 0.3225,mean_gaussian = -0.134041,mean_johnson = 1.8805,nDs = 1.15415e+06,nbkg1 = 236184,nbkg2 = 1.17497e+06,nsig = 265136,rhopeta_mean = 1.65423,rhopeta_sigma = 0.00275258,sigma_gaussian = 0.901638,sigma_johnson = 0.0028028,x_bkg1_tau = -0.661735)
+PID128124/RooRealMPFE::nll_extended_model_data_c530820_MPFE14[ arg=nll_extended_model_data_GOF14 vars=(Ds_delta,Ds_gamma,Ds_mean_gaussian,Ds_mean_johnson,Ds_sigma_gaussian,Ds_sigma_johnson,delta,gamma,mean_gaussian,mean_johnson,nDs,nbkg1,nbkg2,nsig,rhopeta_mean,rhopeta_sigma,sigma_gaussian,sigma_johnson,x_bkg1_tau) ]
+     p.d.f normalization integral is zero or negative: 0.000000 @ x=Dp_M=1.7604, mean=rhopeta_mean=1.65423, sigma=rhopeta_sigma=0.00275258
+     p.d.f normalization integral is zero or negative: 0.000000 @ x=Dp_M=1.76, mean=rhopeta_mean=1.65423, sigma=rhopeta_sigma=0.00275258
+     p.d.f normalization integral is zero or negative: 0.000000 @ x=Dp_M=1.76013, mean=rhopeta_mean=1.65423, sigma=rhopeta_sigma=0.00275258
+     p.d.f normalization integral is zero or negative: 0.000000 @ x=Dp_M=1.76033, mean=rhopeta_mean=1.65423, sigma=rhopeta_sigma=0.00275258
+     p.d.f normalization integral is zero or negative: 0.000000 @ x=Dp_M=1.76041, mean=rhopeta_mean=1.65423, sigma=rhopeta_sigma=0.00275258
+     p.d.f normalization integral is zero or negative: 0.000000 @ x=Dp_M=1.7602, mean=rhopeta_mean=1.65423, sigma=rhopeta_sigma=0.00275258
+     p.d.f normalization integral is zero or negative: 0.000000 @ x=Dp_M=1.7601, mean=rhopeta_mean=1.65423, sigma=rhopeta_sigma=0.00275258
+     p.d.f normalization integral is zero or negative: 0.000000 @ x=Dp_M=1.76038, mean=rhopeta_mean=1.65423, sigma=rhopeta_sigma=0.00275258
+     p.d.f normalization integral is zero or negative: 0.000000 @ x=Dp_M=1.7604, mean=rhopeta_mean=1.65423, sigma=rhopeta_sigma=0.00275258
+     p.d.f normalization integral is zero or negative: 0.000000 @ x=Dp_M=1.76037, mean=rhopeta_mean=1.65423, sigma=rhopeta_sigma=0.00275258
+     p.d.f normalization integral is zero or negative: 0.000000 @ x=Dp_M=1.76018, mean=rhopeta_mean=1.65423, sigma=rhopeta_sigma=0.00275258
+     p.d.f normalization integral is zero or negative: 0.000000 @ x=Dp_M=1.76013, mean=rhopeta_mean=1.65423, sigma=rhopeta_sigma=0.00275258
+    ... (remaining 7910 messages suppressed)
+
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS      888 CALLS         889 TOTAL
+                     EDM=6360.01    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  14.5 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47238e-02   1.86975e-03   1.00217e-07  -2.37304e+02
+   2  Ds_sigma_gaussian   9.54223e-03   1.62058e-02  -4.50778e-05   1.38715e+01
+   3  mean_gaussian  -1.02328e-02   5.70592e-03  -8.74812e-07   4.82294e+02
+   4  nDs          1.22024e+05   2.38847e+05   1.53199e-05  -2.53655e+01
+   5  nbkg1        9.63319e+05   3.11216e+05  -2.30586e-04  -3.71049e+01
+   6  nbkg2        4.70004e+04   1.56305e+05  -7.76086e-04   3.76721e+01
+   7  nsig         5.03505e+04   1.43742e+05   2.98626e-04  -8.36816e+00
+   8  rhopeta_mean   1.73603e+00   4.99733e-02   7.87787e-05  -1.04884e+01
+   9  rhopeta_sigma   4.71079e-02   7.50174e-03   7.25142e-05  -1.53230e+01
+  10  sigma_gaussian   8.82580e-03   1.29429e-01  -2.84467e-04  -8.31001e+01
+  11  x_bkg1_tau  -1.43028e+00   3.48674e+00   5.06414e-05   7.33557e+01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 15.8 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS      915 CALLS         916 TOTAL
+                     EDM=4932.88    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  15.8 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47229e-02   1.85242e-03   9.31305e-07  -2.36249e+02
+   2  Ds_sigma_gaussian   9.54619e-03   1.52650e-02   4.07884e-05   2.51997e+01
+   3  mean_gaussian  -1.02349e-02   5.70587e-03  -2.09878e-06   4.81386e+02
+   4  nDs          1.22082e+05   2.38509e+05   1.61008e-04   9.49813e+00
+   5  nbkg1        9.63387e+05   2.94042e+05   1.47755e-04  -3.44197e+01
+   6  nbkg2        4.68320e+04   1.29701e+05  -7.29695e-04  -1.57952e+01
+   7  nsig         5.04004e+04   1.40022e+05   2.34848e-04  -5.20431e+00
+   8  rhopeta_mean   1.73604e+00   4.99454e-02   1.22219e-04  -2.15703e+00
+   9  rhopeta_sigma   4.71096e-02   7.49875e-03   1.46276e-04  -1.18393e+01
+  10  sigma_gaussian   8.87003e-03   8.59871e-02   4.72611e-04   6.96928e+01
+  11  x_bkg1_tau  -1.43285e+00   3.34598e+00  -4.99396e-04   7.82925e+01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 15.9 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS      942 CALLS         943 TOTAL
+                     EDM=2822.68    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  15.9 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47213e-02   1.80006e-03   1.59764e-06  -2.29898e+02
+   2  Ds_sigma_gaussian   9.54691e-03   1.49121e-02   7.35476e-06   2.12095e+01
+   3  mean_gaussian  -1.02318e-02   3.22461e-03   3.12109e-06   4.83689e+02
+   4  nDs          1.22086e+05   2.34309e+05   1.09787e-05  -1.02862e+01
+   5  nbkg1        9.63514e+05   2.91947e+05   2.76596e-04  -2.82629e+00
+   6  nbkg2        4.67522e+04   9.39810e+04  -3.45938e-04   2.50259e+01
+   7  nsig         5.04366e+04   1.39231e+05   1.70416e-04   7.81573e+01
+   8  rhopeta_mean   1.73604e+00   4.98516e-02   8.28119e-05   1.20720e-01
+   9  rhopeta_sigma   4.71113e-02   7.49381e-03   1.44256e-04  -1.10559e+01
+  10  sigma_gaussian   8.85905e-03   1.92113e-02  -1.17278e-04   8.34868e+00
+  11  x_bkg1_tau  -1.43653e+00   3.31451e+00  -7.12271e-04   3.17356e+00
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 14.6 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS      969 CALLS         970 TOTAL
+                     EDM=2454.89    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  14.6 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47193e-02   1.44390e-03   1.98652e-06  -2.17074e+02
+   2  Ds_sigma_gaussian   9.54950e-03   1.49116e-02   2.66420e-05   2.09422e+01
+   3  mean_gaussian  -1.02267e-02   2.81580e-03   5.07139e-06   4.86583e+02
+   4  nDs          1.22118e+05   2.34211e+05   8.75813e-05  -1.88764e+01
+   5  nbkg1        9.63718e+05   2.86529e+05   4.42492e-04  -6.54777e+01
+   6  nbkg2        4.65482e+04   9.35557e+04  -8.86127e-04   1.12289e+01
+   7  nsig         5.02493e+04   7.99184e+04  -8.82340e-04  -3.62021e+00
+   8  rhopeta_mean   1.73605e+00   4.97597e-02   1.17272e-04   3.42068e+00
+   9  rhopeta_sigma   4.71154e-02   7.48632e-03   3.52243e-04  -1.00756e+01
+  10  sigma_gaussian   8.83077e-03   1.91611e-02  -3.02203e-04   9.33671e+00
+  11  x_bkg1_tau  -1.44193e+00   2.76751e+00  -1.04474e-03  -3.42529e+01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 17.2 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS      996 CALLS         997 TOTAL
+                     EDM=2321.73    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  17.2 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47190e-02   9.01217e-04   2.63001e-07  -2.08911e+02
+   2  Ds_sigma_gaussian   9.55112e-03   1.49113e-02   1.66880e-05   3.71870e+01
+   3  mean_gaussian  -1.02258e-02   1.20103e-03   9.23693e-07   4.88296e+02
+   4  nDs          1.22158e+05   2.32928e+05   1.11460e-04   6.33481e+01
+   5  nbkg1        9.63973e+05   2.34241e+05   5.57180e-04  -1.09432e+01
+   6  nbkg2        4.64572e+04   8.87763e+04  -3.95837e-04   1.09225e+01
+   7  nsig         5.01888e+04   5.60482e+04  -2.85047e-04   6.50891e+00
+   8  rhopeta_mean   1.73605e+00   4.96437e-02   2.38703e-05   6.37790e+00
+   9  rhopeta_sigma   4.71175e-02   7.48126e-03   1.82631e-04  -9.05553e+00
+  10  sigma_gaussian   8.81502e-03   1.91438e-02  -1.68493e-04  -1.31496e+01
+  11  x_bkg1_tau  -1.44289e+00   1.01358e+00  -1.87060e-04  -4.83768e+00
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 21.8 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS     1023 CALLS        1024 TOTAL
+                     EDM=74.0637    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  21.8 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47182e-02   6.50807e-04   8.52075e-07  -1.97858e+02
+   2  Ds_sigma_gaussian   9.54292e-03   6.49189e-03  -8.43463e-05   2.26144e+01
+   3  mean_gaussian  -1.02252e-02   7.81176e-04   5.84105e-07   4.90023e+02
+   4  nDs          1.22033e+05   9.77430e+04  -3.46939e-04  -2.67763e+00
+   5  nbkg1        9.64272e+05   2.23516e+05   6.50073e-04   8.06011e-01
+   6  nbkg2        4.63490e+04   8.55805e+04  -4.71068e-04   3.17979e+00
+   7  nsig         5.01235e+04   5.05091e+04  -3.08155e-04   4.02534e+00
+   8  rhopeta_mean   1.73605e+00   4.94765e-02  -1.83184e-05   1.01443e+01
+   9  rhopeta_sigma   4.71202e-02   7.47437e-03   2.36918e-04  -7.62555e+00
+  10  sigma_gaussian   8.80720e-03   6.09486e-03  -8.37598e-05  -4.79671e-01
+  11  x_bkg1_tau  -1.44371e+00   7.49538e-01  -1.58289e-04   1.77954e-01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 43.0 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS     1049 CALLS        1050 TOTAL
+                     EDM=57.8766    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  43.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47129e-02   2.38642e-04   5.29668e-06   2.29065e+02
+   2  Ds_sigma_gaussian   9.53896e-03   3.00939e-04  -4.07442e-05   2.63506e+01
+   3  mean_gaussian  -1.02283e-02   5.91462e-04  -3.10142e-06   5.68834e+02
+   4  nDs          1.21977e+05   4.00382e+03  -1.54314e-04  -5.88641e-01
+   5  nbkg1        9.65027e+05   5.16376e+04   1.64693e-03   5.09917e+00
+   6  nbkg2        4.57948e+04   3.87104e+04  -2.42190e-03   3.78721e+00
+   7  nsig         4.99885e+04   8.69797e+03  -6.37116e-04   7.71467e+00
+   8  rhopeta_mean   1.73501e+00   4.82626e-02  -1.40251e-02  -6.35141e-02
+   9  rhopeta_sigma   4.72181e-02   7.32548e-03   8.56434e-03  -1.05546e+01
+  10  sigma_gaussian   8.78773e-03   1.24091e-03  -2.08620e-04   7.70585e-01
+  11  x_bkg1_tau  -1.45124e+00   5.15570e-01  -1.45288e-03  -2.96193e+00
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 65.5 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS     1075 CALLS        1076 TOTAL
+                     EDM=44.0295    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  65.5 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47015e-02   1.67517e-04   1.14148e-05   2.78577e+03
+   2  Ds_sigma_gaussian   9.54154e-03   8.94980e-05   2.65188e-05   5.21828e+01
+   3  mean_gaussian  -1.02074e-02   3.19595e-04   2.09335e-05   1.21519e+03
+   4  nDs          1.22006e+05   8.41662e+02   7.82901e-05   6.91605e+00
+   5  nbkg1        9.64763e+05   4.73790e+03  -5.77040e-04   1.79754e+01
+   6  nbkg2        4.60559e+04   4.04886e+03   1.14256e-03   1.73384e+01
+   7  nsig         4.99976e+04   8.98984e+02   4.27525e-05   1.33978e+01
+   8  rhopeta_mean   1.73395e+00   1.43180e-02  -1.43354e-02  -9.41211e-01
+   9  rhopeta_sigma   4.77662e-02   6.39890e-03   5.08338e-02  -9.67146e+00
+  10  sigma_gaussian   8.78732e-03   2.03971e-04  -4.35145e-06   6.32891e-01
+  11  x_bkg1_tau  -1.44862e+00   4.78732e-02   5.04714e-04  -5.08200e-01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX=347.2 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS     1100 CALLS        1101 TOTAL
+                     EDM=14.6456    STRATEGY= 1  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47001e-02   6.38733e-05   1.35088e-06   3.20203e+03
+   2  Ds_sigma_gaussian   9.54242e-03   8.25995e-05   9.10561e-06   5.24097e+01
+   3  mean_gaussian  -1.02016e-02   1.51887e-04   5.79699e-06   1.30198e+03
+   4  nDs          1.22019e+05   7.54364e+02   3.77485e-05   7.84118e+00
+   5  nbkg1        9.64596e+05   3.22308e+03  -3.64520e-04   1.89006e+01
+   6  nbkg2        4.62274e+04   2.16189e+03   7.49210e-04   4.03745e+01
+   7  nsig         4.99844e+04   8.88659e+02  -6.23056e-05   4.44790e+00
+   8  rhopeta_mean   1.73281e+00   4.71438e-03  -1.51773e-02  -5.98422e+00
+   9  rhopeta_sigma   4.82457e-02   1.63122e-03   4.96105e-02  -1.14801e+01
+  10  sigma_gaussian   8.78452e-03   2.03915e-04  -3.00511e-05  -1.63153e+00
+  11  x_bkg1_tau  -1.44698e+00   3.33274e-02   3.17098e-04  -7.11466e+00
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX=197.5 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS     1127 CALLS        1128 TOTAL
+                     EDM=271.094    STRATEGY= 1  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.46997e-02   6.66685e-05   4.12792e-07   3.33040e+03
+   2  Ds_sigma_gaussian   9.54270e-03   8.39937e-05   2.82408e-06   5.24548e+01
+   3  mean_gaussian  -1.01998e-02   1.81724e-04   1.79413e-06   1.34319e+03
+   4  nDs          1.22023e+05   7.89799e+02   1.16869e-05   8.04174e+00
+   5  nbkg1        9.64544e+05   4.32202e+03  -1.12835e-04   1.90124e+01
+   6  nbkg2        4.62806e+04   3.66172e+03   2.31786e-04   5.17184e+01
+   7  nsig         4.99803e+04   9.15649e+02  -1.91954e-05  -6.88890e-02
+   8  rhopeta_mean   1.73246e+00   1.97553e-02  -4.69191e-03  -8.39561e+00
+   9  rhopeta_sigma   4.83828e-02   8.18314e-03   1.53599e-02  -1.35394e+01
+  10  sigma_gaussian   8.78365e-03   2.09335e-04  -9.26762e-06  -2.76619e+00
+  11  x_bkg1_tau  -1.44647e+00   4.36926e-02   9.81207e-05  -1.05916e+01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX=1549.7 per cent
+ MINUIT WARNING IN MIGRAD  
+ ============== Negative diagonal element 8 in Error Matrix
+ MINUIT WARNING IN MIGRAD  
+ ============== Negative diagonal element 9 in Error Matrix
+ MINUIT WARNING IN MIGRAD  
+ ============== 1.02639 added to diagonal of error matrix
+ EIGENVALUES OF SECOND-DERIVATIVE MATRIX:
+         9.9188e-01  9.9989e-01  9.9993e-01  9.9998e-01  1.0000e+00  1.0000e+00  1.0000e+00  1.0000e+00  1.0000e+00  1.0003e+00  1.0081e+00
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS     1160 CALLS        1161 TOTAL
+                     EDM=1.4817e+07    STRATEGY= 1  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47181e-02   6.56456e-01  -1.83475e-05  -4.12038e+02
+   2  Ds_sigma_gaussian   9.54267e-03   1.20561e-01  -2.88979e-07   3.63642e+01
+   3  mean_gaussian  -1.02072e-02   6.56623e-01  -7.39976e-06   1.02025e+03
+   4  nDs          1.22023e+05   2.36248e+05  -4.43042e-08   6.09239e+00
+   5  nbkg1        9.64544e+05   3.01279e+05  -1.04730e-07   1.91133e+01
+   6  nbkg2        4.62805e+04   1.50608e+05  -2.84945e-07   5.26706e+01
+   7  nsig         4.99803e+04   1.38981e+05   3.80141e-10   4.74326e-01
+   8  rhopeta_mean   1.73246e+00   4.89866e-02   4.66682e-08  -8.13263e+00
+   9  rhopeta_sigma   4.83828e-02   5.68670e-03   7.31580e-08  -1.39985e+01
+  10  sigma_gaussian   8.78366e-03   1.20749e-01   1.52398e-08  -3.96249e+00
+  11  x_bkg1_tau  -1.44647e+00   3.40189e+00   5.83403e-08  -2.04381e+01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX=777.6 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS     1189 CALLS        1190 TOTAL
+                     EDM=35287.5    STRATEGY= 1  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47161e-02   6.16365e-02   1.98486e-06   1.27426e+00
+   2  Ds_sigma_gaussian   9.54259e-03   1.20559e-01  -8.27585e-07   3.60953e+01
+   3  mean_gaussian  -1.02301e-02   6.54620e-01  -2.29770e-05  -4.64013e+00
+   4  nDs          1.22023e+05   2.36247e+05  -1.37252e-07   5.68049e+00
+   5  nbkg1        9.64544e+05   3.01279e+05  -4.18818e-07   1.88170e+01
+   6  nbkg2        4.62803e+04   1.50607e+05  -1.15310e-06   5.50443e+01
+   7  nsig         4.99803e+04   1.38981e+05  -9.37225e-09  -4.75160e-01
+   8  rhopeta_mean   1.73246e+00   4.89866e-02   1.80631e-07  -7.40560e+00
+   9  rhopeta_sigma   4.83828e-02   5.68670e-03   2.99940e-07  -1.37054e+01
+  10  sigma_gaussian   8.78366e-03   1.20749e-01   8.46266e-08  -9.01486e+00
+  11  x_bkg1_tau  -1.44647e+00   3.40188e+00   4.29515e-07  -2.42995e+01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX=391.8 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS     1217 CALLS        1218 TOTAL
+                     EDM=21943.9    STRATEGY= 1  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47159e-02   3.38648e-03   1.41489e-07  -1.47370e-01
+   2  Ds_sigma_gaussian   9.53726e-03   1.20560e-01  -5.48634e-05  -6.79926e+01
+   3  mean_gaussian  -1.02304e-02   5.38841e-03  -3.03670e-07   5.44393e-01
+   4  nDs          1.22020e+05   2.36245e+05  -8.63704e-06   2.07118e+01
+   5  nbkg1        9.64530e+05   3.01286e+05  -2.85969e-05   2.22232e+00
+   6  nbkg2        4.62611e+04   1.50577e+05  -8.36462e-05   3.46498e+01
+   7  nsig         4.99805e+04   1.38981e+05   7.15833e-07  -6.19534e+00
+   8  rhopeta_mean   1.73246e+00   4.89865e-02   1.13889e-05  -6.37540e+00
+   9  rhopeta_sigma   4.83830e-02   5.68640e-03   2.04049e-05  -1.33816e+01
+  10  sigma_gaussian   8.78494e-03   1.20745e-01   1.36649e-05  -4.89285e+00
+  11  x_bkg1_tau  -1.44628e+00   3.40165e+00   3.68981e-05  -1.29609e+01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX=201.1 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS     1244 CALLS        1245 TOTAL
+                     EDM=1811.64    STRATEGY= 1  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47162e-02   2.18075e-03  -2.77967e-07  -1.05910e+00
+   2  Ds_sigma_gaussian   9.54076e-03   2.09263e-02   3.60922e-05   1.70468e+01
+   3  mean_gaussian  -1.02312e-02   5.36184e-03  -7.59800e-07   3.34535e-01
+   4  nDs          1.22006e+05   2.34378e+05  -4.01574e-05  -8.46000e+00
+   5  nbkg1        9.64514e+05   2.98406e+05  -3.61370e-05  -1.87912e+01
+   6  nbkg2        4.62274e+04   1.48338e+05  -1.46791e-04   5.67469e-01
+   7  nsig         4.99826e+04   1.38827e+05   9.86396e-06  -1.31584e+01
+   8  rhopeta_mean   1.73247e+00   4.89846e-02   2.25296e-05  -4.52130e+00
+   9  rhopeta_sigma   4.83834e-02   5.68574e-03   4.25853e-05  -1.27818e+01
+  10  sigma_gaussian   8.78707e-03   1.20582e-01   2.28613e-05   1.07121e+00
+  11  x_bkg1_tau  -1.44596e+00   3.38621e+00   6.13563e-05   1.00665e+01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX=109.6 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS     1271 CALLS        1272 TOTAL
+                     EDM=688.645    STRATEGY= 1  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47161e-02   1.73854e-03   5.67116e-08  -4.34940e+00
+   2  Ds_sigma_gaussian   9.54066e-03   1.41245e-02  -1.06769e-06   1.61937e+01
+   3  mean_gaussian  -1.02314e-02   4.45422e-03  -2.22838e-07   8.25868e-02
+   4  nDs          1.22009e+05   2.26953e+05   1.02275e-05   5.24612e+00
+   5  nbkg1        9.64560e+05   2.70335e+05   1.00698e-04  -1.30923e+00
+   6  nbkg2        4.62040e+04   1.12801e+05  -1.02420e-04  -4.43966e+00
+   7  nsig         5.00023e+04   1.37524e+05   9.34486e-05   1.13974e+01
+   8  rhopeta_mean   1.73247e+00   4.89587e-02   4.52971e-05  -2.94683e+00
+   9  rhopeta_sigma   4.83843e-02   5.68378e-03   1.10252e-04  -1.23069e+01
+  10  sigma_gaussian   8.78782e-03   1.18855e-01   8.09136e-06  -6.51795e+00
+  11  x_bkg1_tau  -1.44608e+00   3.10390e+00  -2.31573e-05   1.57728e+01
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 64.4 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS     1299 CALLS        1300 TOTAL
+                     EDM=229.249    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  64.4 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47160e-02   1.61404e-03   1.62729e-07  -7.05896e+00
+   2  Ds_sigma_gaussian   9.54001e-03   1.37615e-02  -6.67274e-06   1.40149e+01
+   3  mean_gaussian  -1.02313e-02   4.14380e-03   8.51562e-08   1.45393e-01
+   4  nDs          1.21998e+05   2.15198e+05  -3.15352e-05  -5.77688e+00
+   5  nbkg1        9.64579e+05   2.46500e+05   4.20650e-05  -1.18329e+00
+   6  nbkg2        4.61934e+04   9.84125e+04  -4.60327e-05  -2.71960e+00
+   7  nsig         5.00018e+04   1.02416e+05  -2.69118e-06   1.12249e+01
+   8  rhopeta_mean   1.73247e+00   4.88889e-02   3.30587e-05  -2.46872e+00
+   9  rhopeta_sigma   4.83852e-02   5.68157e-03   9.59647e-05  -1.22214e+01
+  10  sigma_gaussian   8.79070e-03   1.14689e-01   3.07895e-05   6.17617e+00
+  11  x_bkg1_tau  -1.44639e+00   2.93932e+00  -5.89965e-05   9.06420e+00
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 41.9 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS     1326 CALLS        1327 TOTAL
+                     EDM=144.754    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  41.9 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47155e-02   1.26609e-03   4.49077e-07  -2.59042e+01
+   2  Ds_sigma_gaussian   9.54055e-03   1.14895e-02   5.54187e-06   1.48958e+01
+   3  mean_gaussian  -1.02297e-02   3.82352e-03   1.59570e-06  -7.58151e-01
+   4  nDs          1.22006e+05   1.81381e+05   2.15031e-05  -1.93558e+00
+   5  nbkg1        9.64663e+05   2.37849e+05   1.81513e-04  -5.56518e+00
+   6  nbkg2        4.61325e+04   9.73041e+04  -2.65871e-04  -7.88366e+00
+   7  nsig         4.99620e+04   8.81756e+04  -1.88095e-04   8.00965e+00
+   8  rhopeta_mean   1.73249e+00   4.88098e-02   1.93181e-04  -4.00650e-01
+   9  rhopeta_sigma   4.83907e-02   5.67157e-03   6.36470e-04  -1.15976e+01
+  10  sigma_gaussian   8.78052e-03   5.87762e-02  -1.09103e-04  -9.33311e+00
+  11  x_bkg1_tau  -1.44785e+00   2.82572e+00  -2.81821e-04   1.23074e+00
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 31.4 per cent
+ MIGRAD FAILS TO FIND IMPROVEMENT
+   START COVARIANCE MATRIX CALCULATION.
+ EIGENVALUES OF SECOND-DERIVATIVE MATRIX:
+         3.7610e-02  3.0884e-01  3.4398e-01  4.3690e-01  9.1582e-01  1.0039e+00  1.1442e+00  1.2161e+00  1.4801e+00  1.7690e+00  2.3436e+00
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-1.68524e+07 FROM HESSE     STATUS=OK            120 CALLS        1458 TOTAL
+                     EDM=0.00903272    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47155e-02   7.11562e-05   1.98398e-04  -2.54232e+01
+   2  Ds_sigma_gaussian   9.54055e-03   8.18448e-05   2.02752e-03   2.91983e+01
+   3  mean_gaussian  -1.02297e-02   1.52352e-04   4.24635e-04  -5.94387e+00
+   4  nDs          1.22006e+05   7.42537e+02   4.34890e-03  -3.43778e+00
+   5  nbkg1        9.64663e+05   2.98164e+03   6.60180e-03  -1.19946e+00
+   6  nbkg2        4.61325e+04   1.96462e+03   6.97267e-03  -1.51915e+01
+   7  nsig         4.99620e+04   8.41452e+02   6.44699e-03   2.93967e+00
+   8  rhopeta_mean   1.73249e+00   2.55599e-03   5.62298e-02  -1.07948e+00
+   9  rhopeta_sigma   4.83907e-02   7.50596e-04   1.78331e-01  -9.28264e-01
+  10  sigma_gaussian   8.78052e-03   1.97684e-04   4.57687e-03   2.36801e+00
+  11  x_bkg1_tau  -1.44785e+00   3.11498e-02   7.15986e-03   7.80423e+00
+                               ERR DEF= 0.5
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8      9     10     11
+        1  0.18208   1.000 -0.049  0.004 -0.045  0.148 -0.161 -0.109 -0.092 -0.025 -0.070 -0.176
+        2  0.52830  -0.049  1.000  0.018  0.516 -0.279  0.156  0.174  0.110  0.029  0.116  0.034
+        3  0.18374   0.004  0.018  1.000  0.027 -0.034  0.058 -0.040  0.099  0.049 -0.052 -0.005
+        4  0.66900  -0.045  0.516  0.027  1.000 -0.428  0.243  0.267  0.171  0.046  0.178  0.063
+        5  0.93360   0.148 -0.279 -0.034 -0.428  1.000 -0.882 -0.730 -0.536 -0.147 -0.483 -0.766
+        6  0.95796  -0.161  0.156  0.058  0.243 -0.882  1.000  0.613  0.624  0.192  0.392  0.881
+        7  0.82026  -0.109  0.174 -0.040  0.267 -0.730  0.613  1.000  0.299  0.032  0.646  0.608
+        8  0.81472  -0.092  0.110  0.099  0.171 -0.536  0.624  0.299  1.000 -0.352  0.174  0.499
+        9  0.67706  -0.025  0.029  0.049  0.046 -0.147  0.192  0.032 -0.352  1.000  0.016  0.137
+       10  0.64812  -0.070  0.116 -0.052  0.178 -0.483  0.392  0.646  0.174  0.016  1.000  0.396
+       11  0.90753  -0.176  0.034 -0.005  0.063 -0.766  0.881  0.608  0.499  0.137  0.396  1.000
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS     1481 CALLS        1482 TOTAL
+                     EDM=0.0196364    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47168e-02   7.11562e-05  -1.22517e-06   5.48657e+00
+   2  Ds_sigma_gaussian   9.54047e-03   8.18444e-05  -8.11426e-07  -1.34381e+01
+   3  mean_gaussian  -1.02263e-02   1.52352e-04   3.43719e-06  -2.58667e+01
+   4  nDs          1.22032e+05   7.42607e+02   7.22648e-05   1.55292e+00
+   5  nbkg1        9.64306e+05   2.98352e+03  -7.76668e-04   8.96362e-01
+   6  nbkg2        4.64246e+04   1.97058e+03   1.27385e-03  -1.46572e+00
+   7  nsig         5.00098e+04   8.41832e+02   2.25860e-04   1.94079e+00
+   8  rhopeta_mean   1.73268e+00   2.55530e-03   2.64132e-03   2.39490e+00
+   9  rhopeta_sigma   4.84750e-02   7.31320e-04   9.77919e-03  -1.79610e+00
+  10  sigma_gaussian   8.78648e-03   1.97750e-04   6.38719e-05  -2.31599e+00
+  11  x_bkg1_tau  -1.44439e+00   3.11154e-02   6.67741e-04  -1.90301e+00
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX= 16.8 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS     1508 CALLS        1509 TOTAL
+                     EDM=1.35283    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  16.8 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47168e-02   7.20972e-05  -7.95911e-08   7.45689e+00
+   2  Ds_sigma_gaussian   9.54047e-03   8.17524e-05  -7.87354e-09  -2.79865e+01
+   3  mean_gaussian  -1.02261e-02   1.55941e-04   2.25737e-07  -2.30259e+01
+   4  nDs          1.22033e+05   7.81476e+02   4.66808e-06   3.10938e+00
+   5  nbkg1        9.64283e+05   4.47647e+03  -5.01718e-05  -2.58812e+00
+   6  nbkg2        4.64436e+04   3.37805e+03   8.23416e-05   5.44249e+00
+   7  nsig         5.00128e+04   9.48417e+02   1.44508e-05   6.11109e+00
+   8  rhopeta_mean   1.73269e+00   2.18098e-03   1.44464e-04   3.16937e+00
+   9  rhopeta_sigma   4.84813e-02   1.03206e-03   7.31622e-04  -1.20490e+01
+  10  sigma_gaussian   8.78686e-03   2.05491e-04   4.12867e-06  -1.23232e+01
+  11  x_bkg1_tau  -1.44416e+00   4.49779e-02   4.32057e-05  -7.97404e+00
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX=834.6 per cent
+ MINUIT WARNING IN MIGRAD  
+ ============== Negative diagonal element 9 in Error Matrix
+ MINUIT WARNING IN MIGRAD  
+ ============== 1.00012 added to diagonal of error matrix
+ EIGENVALUES OF SECOND-DERIVATIVE MATRIX:
+         9.9993e-01  9.9994e-01  9.9996e-01  9.9998e-01  9.9999e-01  1.0000e+00  1.0000e+00  1.0000e+00  1.0000e+00  1.0000e+00  1.0002e+00
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS     1538 CALLS        1539 TOTAL
+                     EDM=17246.5    STRATEGY= 1  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47171e-02   6.49470e-01  -2.26383e-07  -3.82014e+01
+   2  Ds_sigma_gaussian   9.54055e-03   1.17605e-01   8.49639e-07  -2.64598e+01
+   3  mean_gaussian  -1.02254e-02   6.49635e-01   6.99041e-07   8.39592e+00
+   4  nDs          1.22033e+05   2.33742e+05  -9.43972e-08   2.80137e+00
+   5  nbkg1        9.64283e+05   2.98206e+05   7.85721e-08  -2.55600e+00
+   6  nbkg2        4.64435e+04   1.49252e+05  -1.65229e-07   5.31555e+00
+   7  nsig         5.00128e+04   1.37544e+05  -1.85525e-07   6.06086e+00
+   8  rhopeta_mean   1.73269e+00   4.84763e-02  -9.62449e-08   3.15049e+00
+   9  rhopeta_sigma   4.84813e-02   5.51661e-03   3.65745e-07  -1.11574e+01
+  10  sigma_gaussian   8.78690e-03   1.17787e-01   3.74118e-07  -1.20009e+01
+  11  x_bkg1_tau  -1.44416e+00   3.36318e+00   2.42084e-07  -7.83885e+00
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX=421.0 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS     1568 CALLS        1569 TOTAL
+                     EDM=5505.26    STRATEGY= 1  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47168e-02   3.90549e-01   2.38531e-07   1.10851e+01
+   2  Ds_sigma_gaussian   9.54062e-03   1.17520e-01   7.08109e-07  -2.48257e+01
+   3  mean_gaussian  -1.02251e-02   5.50237e-01   2.97813e-07   2.17217e+01
+   4  nDs          1.22033e+05   2.33739e+05  -7.73663e-08   2.57531e+00
+   5  nbkg1        9.64283e+05   2.98206e+05   6.65136e-08  -2.53399e+00
+   6  nbkg2        4.64435e+04   1.49252e+05  -1.39310e-07   5.23985e+00
+   7  nsig         5.00128e+04   1.37544e+05  -1.57294e-07   5.98948e+00
+   8  rhopeta_mean   1.73269e+00   4.84763e-02  -8.16676e-08   3.14279e+00
+   9  rhopeta_sigma   4.84813e-02   5.51602e-03   3.02608e-07  -1.12360e+01
+  10  sigma_gaussian   8.78693e-03   1.17783e-01   3.15103e-07  -1.17991e+01
+  11  x_bkg1_tau  -1.44416e+00   3.36317e+00   2.04588e-07  -7.59219e+00
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX=214.9 per cent
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=PROGRESS     1598 CALLS        1599 TOTAL
+                     EDM=1116.29    STRATEGY= 1  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47169e-02   1.14205e-02  -6.46941e-08   2.89664e+00
+   2  Ds_sigma_gaussian   9.54110e-03   1.17041e-01   4.93782e-06  -1.49587e+01
+   3  mean_gaussian  -1.02255e-02   5.25016e-02  -4.36558e-07   3.23207e+00
+   4  nDs          1.22033e+05   2.33728e+05  -5.28815e-07   7.57109e-01
+   5  nbkg1        9.64284e+05   2.98206e+05   4.79872e-07  -2.37014e+00
+   6  nbkg2        4.64433e+04   1.49250e+05  -9.99784e-07   5.01586e+00
+   7  nsig         5.00125e+04   1.37543e+05  -1.13449e-06   5.47282e+00
+   8  rhopeta_mean   1.73269e+00   4.84763e-02  -5.91766e-07   3.17052e+00
+   9  rhopeta_sigma   4.84813e-02   5.51568e-03   2.16172e-06  -1.12197e+01
+  10  sigma_gaussian   8.78714e-03   1.17771e-01   2.25721e-06  -1.08867e+01
+  11  x_bkg1_tau  -1.44415e+00   3.36307e+00   1.45973e-06  -7.17871e+00
+                               ERR DEF= 0.5
+ RELATIVE CHANGE IN COV. MATRIX=112.2 per cent
+ MIGRAD FAILS TO FIND IMPROVEMENT
+ MIGRAD TERMINATED WITHOUT CONVERGENCE.
+ FCN=-1.68524e+07 FROM MIGRAD    STATUS=FAILED       1609 CALLS        1610 TOTAL
+                     EDM=1116.29    STRATEGY= 1  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Ds_mean_gaussian  -2.47169e-02   5.25601e-03   0.00000e+00   2.89664e+00
+   2  Ds_sigma_gaussian   9.54110e-03   1.49722e-02  -0.00000e+00  -1.49587e+01
+   3  mean_gaussian  -1.02255e-02   1.29112e-02  -0.00000e+00   3.23207e+00
+   4  nDs          1.22033e+05   2.30661e+05   0.00000e+00   7.57109e-01
+   5  nbkg1        9.64284e+05   2.98174e+05   0.00000e+00  -2.37014e+00
+   6  nbkg2        4.64433e+04   1.49207e+05  -0.00000e+00   5.01586e+00
+   7  nsig         5.00125e+04   1.37404e+05  -0.00000e+00   5.47282e+00
+   8  rhopeta_mean   1.73269e+00   4.84762e-02  -0.00000e+00   3.17052e+00
+   9  rhopeta_sigma   4.84813e-02   5.51420e-03   0.00000e+00  -1.12197e+01
+  10  sigma_gaussian   8.78714e-03   1.16693e-01   0.00000e+00  -1.08867e+01
+  11  x_bkg1_tau  -1.44415e+00   3.35951e+00   0.00000e+00  -7.17871e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR= 11    ERR DEF=0.5
+  2.763e-05 
+ -1.682e-05  2.260e-04 
+ -5.507e-05  4.863e-05  1.667e-04 
+ -2.085e+02  3.025e+03 -1.773e+02  6.269e+10 
+  2.535e+01 -3.524e+02 -6.796e+00  2.364e+08  1.053e+11 
+ -7.658e+00  2.922e+02  2.945e+02 -1.963e+08  1.981e+07  2.637e+10 
+  1.882e+00  4.969e+02 -9.710e+01 -3.343e+08  3.741e+07 -3.147e+07  2.236e+10 
+  6.231e-07 -5.140e-06  2.607e-05  3.594e+00 -1.434e+00  9.192e-01  7.882e-01  2.784e-03 
+  2.985e-05 -1.072e-05 -7.123e-05  7.213e+00 -9.006e-01  7.659e-01  1.188e+00 -7.287e-10  3.602e-05 
+  2.160e-05 -4.347e-04 -2.115e-04  2.925e+02 -3.434e+01  2.851e+01  4.812e+01 -4.464e-07 -1.068e-06  4.308e-03 
+ -5.239e-03 -1.253e-02 -1.196e-02  8.427e+03 -1.030e+03  8.553e+02  1.396e+03 -3.257e-06 -3.096e-05 -1.215e-03  1.337e+01 
+ERR MATRIX APPROXIMATE
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8      9     10     11
+        1  0.99991   1.000 -0.213 -0.811 -0.158  0.015 -0.009  0.002  0.002  0.946  0.063 -0.273
+        2  0.99999  -0.213  1.000  0.251  0.804 -0.072  0.120  0.221 -0.006 -0.119 -0.441 -0.228
+        3  0.99993  -0.811  0.251  1.000 -0.055 -0.002  0.140 -0.050  0.038 -0.919 -0.250 -0.253
+        4  0.99998  -0.158  0.804 -0.055  1.000  0.003 -0.005 -0.009  0.000  0.005  0.018  0.009
+        5  0.99798   0.015 -0.072 -0.002  0.003  1.000  0.000  0.001 -0.000 -0.000 -0.002 -0.001
+        6  0.99938  -0.009  0.120  0.140 -0.005  0.000  1.000 -0.001  0.000  0.001  0.003  0.001
+        7  0.99979   0.002  0.221 -0.050 -0.009  0.001 -0.001  1.000  0.000  0.001  0.005  0.003
+        8  0.96412   0.002 -0.006  0.038  0.000 -0.000  0.000  0.000  1.000 -0.000 -0.000 -0.000
+        9  0.99996   0.946 -0.119 -0.919  0.005 -0.000  0.001  0.001 -0.000  1.000 -0.003 -0.001
+       10  0.99995   0.063 -0.441 -0.250  0.018 -0.002  0.003  0.005 -0.000 -0.003  1.000 -0.005
+       11  0.99985  -0.273 -0.228 -0.253  0.009 -0.001  0.001  0.003 -0.000 -0.001 -0.005  1.000
+ ERR MATRIX APPROXIMATE
+ **********
+ **    7 **SET ERR         0.5
+ **********
+ **********
+ **    8 **SET PRINT           3
+ **********
+ **********
+ **    9 **HESSE        5500
+ **********
+   START COVARIANCE MATRIX CALCULATION.
+ EIGENVALUES OF SECOND-DERIVATIVE MATRIX:
+         3.7858e-02  3.0912e-01  3.5423e-01  4.4018e-01  9.1540e-01  1.0038e+00  1.1443e+00  1.2148e+00  1.4797e+00  1.7684e+00  2.3322e+00
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-1.68524e+07 FROM HESSE     STATUS=OK            122 CALLS        1732 TOTAL
+                     EDM=0.00564007    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  Ds_mean_gaussian  -2.47169e-02   7.11468e-05   1.98378e-04  -2.47194e-02
+   2  Ds_sigma_gaussian   9.54110e-03   8.18457e-05   2.02725e-03  -1.37523e+00
+   3  mean_gaussian  -1.02255e-02   1.52331e-04   4.24434e-04  -1.02257e-02
+   4  nDs          1.22033e+05   7.42612e+02   4.34857e-03  -9.16782e-01
+   5  nbkg1        9.64284e+05   2.97602e+03   6.59828e-03   6.82265e-01
+   6  nbkg2        4.64433e+04   1.96081e+03   6.96828e-03  -1.17184e+00
+   7  nsig         5.00125e+04   8.40421e+02   6.44566e-03  -1.10684e+00
+   8  rhopeta_mean   1.73269e+00   2.52120e-03   5.60904e-02   1.02777e-01
+   9  rhopeta_sigma   4.84813e-02   7.37453e-04   1.84549e-01   1.21685e+00
+  10  sigma_gaussian   8.78714e-03   1.97577e-04   4.57460e-03  -1.38315e+00
+  11  x_bkg1_tau  -1.44415e+00   3.10905e-02   7.16629e-03   1.02668e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR= 11    ERR DEF=0.5
+  5.062e-09 
+ -2.885e-10  6.699e-09 
+  3.811e-11  2.259e-10  2.320e-08 
+ -2.399e-03  3.137e-02  3.050e-03  5.515e+05 
+  3.124e-02 -6.800e-02 -1.566e-02 -9.463e+05  8.857e+06 
+ -2.242e-02  2.496e-02  1.776e-02  3.542e+05 -5.145e+06  3.845e+06 
+ -6.510e-03  1.196e-02 -5.097e-03  1.663e+05 -1.823e+06  1.006e+06  7.063e+05 
+ -1.657e-08  2.290e-08  3.953e-08  3.216e-01 -4.041e+00  3.108e+00  6.245e-01  6.359e-06 
+ -1.263e-09  1.723e-09  5.424e-09  2.438e-02 -3.143e-01  2.719e-01  1.908e-02 -6.340e-07  5.452e-07 
+ -9.788e-10  1.879e-09 -1.543e-09  2.612e-02 -2.834e-01  1.511e-01  1.072e-01  8.522e-08  2.236e-09  3.904e-08 
+ -3.884e-07  8.542e-08 -2.022e-08  1.434e+00 -7.079e+01  5.370e+01  1.584e+01  3.924e-05  3.071e-06  2.423e-06  9.666e-04 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8      9     10     11
+        1  0.18179   1.000 -0.050  0.004 -0.045  0.148 -0.161 -0.109 -0.092 -0.024 -0.070 -0.176
+        2  0.52842  -0.050  1.000  0.018  0.516 -0.279  0.156  0.174  0.111  0.029  0.116  0.034
+        3  0.18436   0.004  0.018  1.000  0.027 -0.035  0.059 -0.040  0.103  0.048 -0.051 -0.004
+        4  0.66905  -0.045  0.516  0.027  1.000 -0.428  0.243  0.266  0.172  0.044  0.178  0.062
+        5  0.93334   0.148 -0.279 -0.035 -0.428  1.000 -0.882 -0.729 -0.538 -0.143 -0.482 -0.765
+        6  0.95763  -0.161  0.156  0.059  0.243 -0.882  1.000  0.611  0.629  0.188  0.390  0.881
+        7  0.81970  -0.109  0.174 -0.040  0.266 -0.729  0.611  1.000  0.295  0.031  0.645  0.606
+        8  0.81075  -0.092  0.111  0.103  0.172 -0.538  0.629  0.295  1.000 -0.341  0.171  0.501
+        9  0.66282  -0.024  0.029  0.048  0.044 -0.143  0.188  0.031 -0.341  1.000  0.015  0.134
+       10  0.64776  -0.070  0.116 -0.051  0.178 -0.482  0.390  0.645  0.171  0.015  1.000  0.394
+       11  0.90710  -0.176  0.034 -0.004  0.062 -0.765  0.881  0.606  0.501  0.134  0.394  1.000
+ EXTERNAL ERROR MATRIX.    NDIM=  11    NPAR= 11    ERR DEF=0.5
+  5.062e-09 
+ -2.885e-10  6.699e-09 
+  3.811e-11  2.259e-10  2.320e-08 
+ -2.399e-03  3.137e-02  3.050e-03  5.515e+05 
+  3.124e-02 -6.800e-02 -1.566e-02 -9.463e+05  8.857e+06 
+ -2.242e-02  2.496e-02  1.776e-02  3.542e+05 -5.145e+06  3.845e+06 
+ -6.510e-03  1.196e-02 -5.097e-03  1.663e+05 -1.823e+06  1.006e+06  7.063e+05 
+ -1.657e-08  2.290e-08  3.953e-08  3.216e-01 -4.041e+00  3.108e+00  6.245e-01  6.359e-06 
+ -1.263e-09  1.723e-09  5.424e-09  2.438e-02 -3.143e-01  2.719e-01  1.908e-02 -6.340e-07  5.452e-07 
+ -9.788e-10  1.879e-09 -1.543e-09  2.612e-02 -2.834e-01  1.511e-01  1.072e-01  8.522e-08  2.236e-09  3.904e-08 
+ -3.884e-07  8.542e-08 -2.022e-08  1.434e+00 -7.079e+01  5.370e+01  1.584e+01  3.924e-05  3.071e-06  2.423e-06  9.666e-04 
+[#1] INFO:Fitting -- RooAbsPdf::fitTo(extended_model) Calculating sum-of-weights-squared correction matrix for covariance matrix
+ **********
+ **   10 **SET ERR         0.5
+ **********
+ **********
+ **   11 **SET PRINT           3
+ **********
+ **********
+ **   12 **HESSE        5500
+ **********
+   START COVARIANCE MATRIX CALCULATION.

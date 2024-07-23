@@ -24,7 +24,7 @@ for job_name in "${!job_configs[@]}"; do
     else
         echo "Directory already exists."
     fi
-    for ((i=0; i<=99; i++))
+    for ((i=0; i<=499; i++))
     do
         echo "Number: $i"
         # bsub -h "/cvmfs/belle.cern.ch/el9/externals/v02-00-02/Linux_x86_64/common/bin/python3 $python_script ${i}" -e "${dir}/${job_name}_${i}.err" -o "${dir}/${job_name}_${i}.out" -L "${dir}/${job_name}_${i}.log"

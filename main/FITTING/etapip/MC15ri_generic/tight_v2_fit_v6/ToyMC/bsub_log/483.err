@@ -1,0 +1,23 @@
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Traceback (most recent call last):
+  File "/gpfs/home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC/etapip_gg_fit_v6_toymc_100.py", line 214, in <module>
+    Ds_mean_gaussian_gen = ROOT.RooRealVar("Ds_mean_gaussian_gen", "mean of Gaussian", Ds_mean_gaussia.getVal(), -1, 1)
+NameError: name 'Ds_mean_gaussia' is not defined
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Error in <TGClient::TGClient>: can't open display "ccw04:19.0", switching to batch mode...
+ In case you run from a remote ssh session, reconnect with ssh -Y
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Traceback (most recent call last):
+  File "/gpfs/home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC/etapip_gg_fit_v6_toymc_100.py", line 512, in <module>
+    result_Dm = extended_model_cc.fitTo(data_Dm, RooFit.Extended(True), RooFit.Save(), RooFit.PrintLevel(-1) , ROOT.RooFit.NumCPU(15))
+KeyboardInterrupt

@@ -1,4 +1,5 @@
 import ROOT
+from ROOT import RooFit
 import glob
 import os
 
@@ -14,7 +15,9 @@ if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
 # Define the branch name to be processed
-branch_name = "pulls_Acp"
+#branch_name = "pulls_Acp"
+#branch_name = "pulls_Dm"
+branch_name = "pulls_Dp"
 
 # Create a histogram for the current branch
 histogram = ROOT.TH1F(branch_name, branch_name, 50, -5, 5)  # Adjusted bin range for typical pulls distribution
@@ -36,7 +39,8 @@ sigma = ROOT.RooRealVar("sigma", "width of gaussian", 1, 0.1, 2)
 gauss = ROOT.RooGaussian("gauss", "gaussian PDF", x, mean, sigma)
 
 # Fit the Gaussian to the data
-gauss.fitTo(data_hist)
+r = gauss.fitTo(data_hist, RooFit.Save(1))
+r.Print()
 
 # Create a frame to draw the histogram and the fit result
 frame = x.frame()
@@ -49,7 +53,8 @@ frame.Draw()
 
 # Remove x-axis label and modify the title
 frame.SetXTitle("")
-frame.SetTitle("Acp pull")
+#frame.SetTitle("Acp pull")
+frame.SetTitle(branch_name)
 
 # Get the mean and sigma values with errors
 mean_val = mean.getValV()

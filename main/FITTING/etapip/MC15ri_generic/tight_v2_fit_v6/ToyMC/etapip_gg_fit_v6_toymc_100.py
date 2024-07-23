@@ -211,8 +211,8 @@ Ds_gamma_gen = ROOT.RooRealVar("Ds_gamma_gen", "gamma of Johnson",  0.35250)
 Ds_delta_gen = ROOT.RooRealVar("Ds_delta_gen", "delta of Johnson", 0.47138)
 
 
-Ds_mean_gaussian_gen = ROOT.RooRealVar("Ds_mean_gaussian_gen", "mean of Gaussian", 0, -1, 1)
-Ds_sigma_gaussian_gen = ROOT.RooRealVar("Ds_sigma_gaussian_gen", "sigma of Gaussian", 0.01, 0.00001, 1)
+Ds_mean_gaussian_gen = ROOT.RooRealVar("Ds_mean_gaussian_gen", "mean of Gaussian", Ds_mean_gaussian.getVal(), -1, 1)
+Ds_sigma_gaussian_gen = ROOT.RooRealVar("Ds_sigma_gaussian_gen", "sigma of Gaussian",  Ds_sigma_gaussian.getVal(), 0.00001, 1)
 
 # Create a Johnson distribution
 Ds_johnson_gen = ROOT.RooJohnson("Ds_johnson_gen", "Johnson PDF", x, Ds_mean_johnson_gen, Ds_sigma_johnson_gen, Ds_gamma_gen, Ds_delta_gen)
@@ -387,9 +387,11 @@ delta_cc_gen = ROOT.RooRealVar("delta_cc_gen", "delta of Johnson", 0.59443 )
 
 
 
-
-mean_gaussian_cc_gen = ROOT.RooRealVar("mean_gaussian_cc_gen", "mean of Gaussian", 0, -1, 1)
-sigma_gaussian_cc_gen = ROOT.RooRealVar("sigma_gaussian_cc_gen", "sigma of Gaussian", 0.01, 0.00001, 1)
+#Wrong before 24.07.22
+#mean_gaussian_cc_gen = ROOT.RooRealVar("mean_gaussian_cc_gen", "mean of Gaussian", 0, -1, 1)
+#sigma_gaussian_cc_gen = ROOT.RooRealVar("sigma_gaussian_cc_gen", "sigma of Gaussian", 0.01, 0.00001, 1)
+mean_gaussian_cc_gen = ROOT.RooRealVar("mean_gaussian_cc_gen", "mean of Gaussian", mean_gaussian_cc.getVal(), -1, 1)
+sigma_gaussian_cc_gen = ROOT.RooRealVar("sigma_gaussian_cc_gen", "sigma of Gaussian", sigma_gaussian_cc.getVal(), 0.00001, 1)
 
 # Create a Johnson distribution
 johnson_cc_gen = ROOT.RooJohnson("johnson_cc_gen", "Johnson PDF", x, mean_johnson_cc_gen, sigma_johnson_cc_gen, gamma_cc_gen, delta_cc_gen)
@@ -440,7 +442,7 @@ nDs_cc_gen = ROOT.RooRealVar("nDs_cc_gen","# bkg events",     nDs_cc.getVal() ,0
 extended_model_cc_gen = ROOT.RooAddPdf("extended_model_gen", "x_model", ROOT.RooArgSet(sig_model_cc_gen,bkg_model_cc_gen, Ds_model_cc_gen, rhopeta_model_cc_gen), ROOT.RooArgSet(nsig_cc_gen, nbkg1_cc_gen, nDs_cc_gen, nbkg2_cc_gen))
 
 #r = extended_model.fitTo(data,NumCPU=4, Extended=ROOT.kTRUE,PrintLevel=-1, Save=1,SumW2Error=True)
-# r_cc_gen = extended_model_cc_gen.fitTo(data_cc,  RooFit.Extended(True), RooFit.PrintLevel(3), RooFit.Save(1),RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4))
+#r_cc_gen = extended_model_cc_gen.fitTo(data_cc,  RooFit.Extended(True), RooFit.PrintLevel(3), RooFit.Save(1),RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(15))
 
 ###################################################
 
@@ -462,6 +464,8 @@ nsig_Dp_values = []
 nsig_Dp_errors = []
 nsig_Dm_values = []
 nsig_Dm_errors = []
+pull_Dp = []
+pull_Dm = []
 
 n_gen_Acp = []
 n_recon_Acp = []
@@ -485,20 +489,22 @@ for i in range(n_iterations):
     n_gen_Dp.append(nsig_gen.getVal())
     n_gen_Dm.append(nsig_cc_gen.getVal())
 
-    n_gen_Acp.append( (nsig_gen.getVal()-nsig_cc_gen.getVal())/(nsig_gen.getVal()+nsig_cc_gen.getVal()) )
     seed = int(time.time())
     RooRandom.randomGenerator().SetSeed(seed)
     
-    N_total_Dp = RooRandom.randomGenerator().Poisson(N_total_input_Dp)
-    N_total_Dm = RooRandom.randomGenerator().Poisson(N_total_input_Dm)
+    #N_total_Dp = RooRandom.randomGenerator().Poisson(N_total_input_Dp)
+    #N_total_Dm = RooRandom.randomGenerator().Poisson(N_total_input_Dm)
+    N_total_Dp = N_total_input_Dp
+    N_total_Dm = N_total_input_Dm
 
-    n_gen_Dp_after.append(nsig_gen.getVal())
-    n_gen_Dm_after.append(nsig_cc_gen.getVal())
     # Generate a dataset from the extended model
     # data_Dp = extended_model.generate(RooArgSet(x), N_total_Dp)  # Generate data with the fixed total number of events
     # data_Dm = extended_model_cc.generate(RooArgSet(y), N_total_Dm)  # Generate data with the fixed total number of events
     data_Dp = extended_model_gen.generateBinned(RooArgSet(x), N_total_Dp)  # Generate data with the fixed total number of events
     data_Dm = extended_model_cc_gen.generateBinned(RooArgSet(x), N_total_Dm)  # Generate data with the fixed total number of events
+    n_gen_Dp_after.append(nsig_gen.getVal())
+    n_gen_Dm_after.append(nsig_cc_gen.getVal())
+    n_gen_Acp.append( (nsig_gen.getVal()-nsig_cc_gen.getVal())/(nsig_gen.getVal()+nsig_cc_gen.getVal()) )
 
 
     # Fit the extended PDF to the dataset
@@ -523,6 +529,8 @@ for i in range(n_iterations):
 #     json.dump({'n_gen_Acp': n_gen_Acp, 'n_recon_Acp': n_recon_Acp, 'n_recon_err_Acp': n_recon_err_Acp, 'n_gen_Dp': n_gen_Dp, 'n_gen_Dm': n_gen_Dm, 'n_gen_Dp_after': n_gen_Dp_after, 'n_gen_Dm_after': n_gen_Dm_after, 'nsig_Dp_values': nsig_Dp_values, 'nsig_Dp_errors': nsig_Dp_errors, 'nsig_Dm_values': nsig_Dm_values, 'nsig_Dm_errors': nsig_Dm_errors}, f)
 
 pulls_Acp = [(val - Ngen) / err for Ngen, val, err in zip(n_gen_Acp, n_recon_Acp, n_recon_err_Acp)]
+pulls_Dp = [(val - Ngen) / err for Ngen, val, err in zip(n_gen_Dp_after, nsig_Dp_values, nsig_Dp_errors)]
+pulls_Dm = [(val - Ngen) / err for Ngen, val, err in zip(n_gen_Dm_after, nsig_Dm_values, nsig_Dm_errors)]
 
 # Create a new ROOT file
 root_file_name='v6_100_' + str(sys.argv[1]) + '.root'
@@ -541,6 +549,8 @@ nsig_Dp_values_val = ROOT.std.vector('double')()
 nsig_Dp_errors_val = ROOT.std.vector('double')()
 nsig_Dm_values_val = ROOT.std.vector('double')()
 nsig_Dm_errors_val = ROOT.std.vector('double')()
+pulls_Dp_val = ROOT.std.vector('double')()
+pulls_Dm_val = ROOT.std.vector('double')()
 
 n_gen_Acp_val = ROOT.std.vector('double')()
 n_recon_Acp_val = ROOT.std.vector('double')()
@@ -556,6 +566,8 @@ tree.Branch("nsig_Dp_values", nsig_Dp_values_val)
 tree.Branch("nsig_Dp_errors", nsig_Dp_errors_val)
 tree.Branch("nsig_Dm_values", nsig_Dm_values_val)
 tree.Branch("nsig_Dm_errors", nsig_Dm_errors_val)
+tree.Branch("pulls_Dp", pulls_Dp_val)
+tree.Branch("pulls_Dm", pulls_Dm_val)
 
 tree.Branch("n_gen_Acp", n_gen_Acp_val)
 tree.Branch("n_recon_Acp", n_recon_Acp_val)
@@ -572,6 +584,8 @@ for i in range(len(n_gen_Dp)):
     nsig_Dp_errors_val.clear()
     nsig_Dm_values_val.clear()
     nsig_Dm_errors_val.clear()
+    pulls_Dp_val.clear()
+    pulls_Dm_val.clear()
 
     n_gen_Acp_val.clear()
     n_recon_Acp_val.clear()
@@ -586,6 +600,8 @@ for i in range(len(n_gen_Dp)):
     nsig_Dp_errors_val.push_back(nsig_Dp_errors[i])
     nsig_Dm_values_val.push_back(nsig_Dm_values[i])
     nsig_Dm_errors_val.push_back(nsig_Dm_errors[i])
+    pulls_Dp_val.push_back(pulls_Dp[i])
+    pulls_Dm_val.push_back(pulls_Dm[i])
 
     n_gen_Acp_val.push_back(n_gen_Acp[i])
     n_recon_Acp_val.push_back(n_recon_Acp[i])
