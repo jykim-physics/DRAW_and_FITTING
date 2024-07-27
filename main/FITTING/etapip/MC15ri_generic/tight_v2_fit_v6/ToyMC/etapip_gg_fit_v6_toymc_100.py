@@ -72,9 +72,12 @@ fit_range = (1.76, 2.05)
 rank_var = tree_name + "_rank"
 truth_var = "Dp_isSignal"
 charge_var = "Pip_charge"
+Pip_p_var = "Pip_p"
 
 # Cuts
 cuts = rank_var + "==1" 
+cuts += " && Pip_p>0.8"
+
 # cuts += " && " + charge_var + "==1"
 
 # Create RooRealVar
@@ -82,10 +85,11 @@ x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
 x.setBins(70)
 chiProb_rank = ROOT.RooRealVar(rank_var, rank_var, 0, 30)
 Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
+Pip_p = ROOT.RooRealVar(Pip_p_var, Pip_p_var, 0,100)
 
 
 print(cuts)
-before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,chiProb_rank,Pip_charge), cuts)
+before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,chiProb_rank,Pip_charge,Pip_p), cuts)
 # before_data = ROOT.RooDataHist("data","", mychain, ROOT.RooArgSet(x,chiProb_rank,Pip_charge), cuts)
 
 
@@ -244,7 +248,7 @@ nDs_gen = ROOT.RooRealVar("nDs_gen","# bkg events",     nDs.getVal(),0, N_total)
 extended_model_gen = ROOT.RooAddPdf("extended_model_gen", "x_model", ROOT.RooArgSet(sig_model_gen,bkg_model_gen, Ds_model_gen, rhopeta_model_gen), ROOT.RooArgSet(nsig_gen, nbkg1_gen, nDs_gen, nbkg2_gen))
 
 #r = extended_model.fitTo(data,NumCPU=4, Extended=ROOT.kTRUE,PrintLevel=-1, Save=1,SumW2Error=True)
-# r_gen = extended_model_gen.fitTo(data,  RooFit.Extended(True), RooFit.PrintLevel(3), RooFit.Save(1),RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4))
+r_gen = extended_model_gen.fitTo(data,  RooFit.Extended(True), RooFit.PrintLevel(3), RooFit.Save(1),RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4))
 
 
 
@@ -442,7 +446,7 @@ nDs_cc_gen = ROOT.RooRealVar("nDs_cc_gen","# bkg events",     nDs_cc.getVal() ,0
 extended_model_cc_gen = ROOT.RooAddPdf("extended_model_gen", "x_model", ROOT.RooArgSet(sig_model_cc_gen,bkg_model_cc_gen, Ds_model_cc_gen, rhopeta_model_cc_gen), ROOT.RooArgSet(nsig_cc_gen, nbkg1_cc_gen, nDs_cc_gen, nbkg2_cc_gen))
 
 #r = extended_model.fitTo(data,NumCPU=4, Extended=ROOT.kTRUE,PrintLevel=-1, Save=1,SumW2Error=True)
-#r_cc_gen = extended_model_cc_gen.fitTo(data_cc,  RooFit.Extended(True), RooFit.PrintLevel(3), RooFit.Save(1),RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(15))
+r_cc_gen = extended_model_cc_gen.fitTo(data_cc,  RooFit.Extended(True), RooFit.PrintLevel(3), RooFit.Save(1),RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(15))
 
 ###################################################
 
@@ -500,16 +504,18 @@ for i in range(n_iterations):
     # Generate a dataset from the extended model
     # data_Dp = extended_model.generate(RooArgSet(x), N_total_Dp)  # Generate data with the fixed total number of events
     # data_Dm = extended_model_cc.generate(RooArgSet(y), N_total_Dm)  # Generate data with the fixed total number of events
-    data_Dp = extended_model_gen.generateBinned(RooArgSet(x), N_total_Dp)  # Generate data with the fixed total number of events
-    data_Dm = extended_model_cc_gen.generateBinned(RooArgSet(x), N_total_Dm)  # Generate data with the fixed total number of events
+    data_Dp = extended_model_gen.generateBinned(RooArgSet(x), RooFit.Extended(True), RooFit.NumEvents(N_total_Dp))  # Generate data with the fixed total number of events
+    data_Dm = extended_model_cc_gen.generateBinned(RooArgSet(x),RooFit.Extended(True), RooFit.NumEvents(N_total_Dm))  # Generate data with the fixed total number of events
+    #toy_data = model.generate(ROOT.RooArgSet(mass), RooFit.Extended(True), RooFit.NumEvents(nEvents))
+
     n_gen_Dp_after.append(nsig_gen.getVal())
     n_gen_Dm_after.append(nsig_cc_gen.getVal())
     n_gen_Acp.append( (nsig_gen.getVal()-nsig_cc_gen.getVal())/(nsig_gen.getVal()+nsig_cc_gen.getVal()) )
 
 
     # Fit the extended PDF to the dataset
-    result_Dp = extended_model.fitTo(data_Dp, RooFit.Extended(True), RooFit.Save(), RooFit.PrintLevel(-1), ROOT.RooFit.NumCPU(15))
-    result_Dm = extended_model_cc.fitTo(data_Dm, RooFit.Extended(True), RooFit.Save(), RooFit.PrintLevel(-1) , ROOT.RooFit.NumCPU(15))
+    result_Dp = extended_model.fitTo(data_Dp, RooFit.Extended(True), RooFit.Save(True), RooFit.PrintLevel(-1), ROOT.RooFit.NumCPU(15))
+    result_Dm = extended_model_cc.fitTo(data_Dm, RooFit.Extended(True), RooFit.Save(True), RooFit.PrintLevel(-1) , ROOT.RooFit.NumCPU(15))
 
     # Save the fitted number of signal and background events and their errors
     nsig_Dp_values.append(nsig.getVal())

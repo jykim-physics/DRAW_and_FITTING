@@ -4,19 +4,21 @@ import glob
 import ctypes
 import os
 
-file_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/MC15ri_1ab_etapip_gg_cc_fit_tight_v2_fitv6.png"
-fitresult_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/fitresult/MC15ri_1ab_etapip_gg_cc_fit_tight_v2_fitv6.root"
-dir_path = os.path.dirname(file_name)
-if not os.path.exists(dir_path):
-    os.makedirs(dir_path)
-print("Directory created:", dir_path)
-dir_path = os.path.dirname(fitresult_name)
-if not os.path.exists(dir_path):
-    os.makedirs(dir_path)
-print("Directory created:", dir_path)
+# file_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/MC15ri_1ab_etapip_gg_cc_fit_tight_v2_fitv6.png"
+# fitresult_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/fitresult/MC15ri_1ab_etapip_gg_cc_fit_tight_v2_fitv6.root"
+file_name = "MC15ri_1ab_etapip_gg_cc_fit_tight_v2_fitv6.png"
+fitresult_name = "MC15ri_1ab_etapip_gg_cc_fit_tight_v2_fitv6.root"
+# dir_path = os.path.dirname(file_name)
+# if not os.path.exists(dir_path):
+#     os.makedirs(dir_path)
+# print("Directory created:", dir_path)
+# dir_path = os.path.dirname(fitresult_name)
+# if not os.path.exists(dir_path):
+#     os.makedirs(dir_path)
+# print("Directory created:", dir_path)
 
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
-ROOT.SetBelle2Style()
+# ROOT.SetBelle2Style()
 
 # base_file_loc =  '/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/'
 
@@ -69,21 +71,22 @@ fit_range = (1.76, 2.05)
 rank_var = tree_name + "_rank"
 truth_var = "Dp_isSignal"
 charge_var = "Pip_charge"
+Pip_p_var = "Pip_p"
 
 # Cuts
 cuts = rank_var + "==1" 
 cuts += " && " + charge_var + "==-1"
-
+cuts += " && Pip_p>0.8"
 # Create RooRealVar
 x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
-x.setRange("fitRange", fit_range[0], fit_range[1])
-x.setBins(200)
+x.setBins(70)
 chiProb_rank = ROOT.RooRealVar(rank_var, rank_var, 0, 30)
 Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
+Pip_p = ROOT.RooRealVar(Pip_p_var, Pip_p_var, 0,100)
 
 
 print(cuts)
-before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,chiProb_rank,Pip_charge), cuts)
+before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,chiProb_rank,Pip_charge, Pip_p), cuts)
 
 
 w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)

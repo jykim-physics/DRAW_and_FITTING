@@ -189,16 +189,16 @@ mcstudy = ROOT.RooMCStudy(
     #{x,y},
     ROOT.RooArgSet(x),
     RooFit.Binned(True),
-    RooFit.Silence(True),
+    RooFit.Silence(False),
     RooFit.Extended(True),
-    RooFit.FitOptions(RooFit.Save(True), RooFit.PrintEvalErrors(0), RooFit.NumCPU(15)),
+    RooFit.FitOptions(RooFit.Save(True), RooFit.PrintEvalErrors(1), RooFit.NumCPU(15)),
 )
 
 # Generate and fit events
 # ---------------------------------------------
 
 # Generate and fit 1000 samples of Poisson(nExpected) events
-mcstudy.generateAndFit(10000)
+mcstudy.generateAndFit(100)
 
 # Explore results of study
 # ------------------------------------------------
