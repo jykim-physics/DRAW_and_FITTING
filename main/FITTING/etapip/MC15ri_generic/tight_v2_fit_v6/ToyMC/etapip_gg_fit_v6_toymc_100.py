@@ -76,7 +76,7 @@ Pip_p_var = "Pip_p"
 
 # Cuts
 cuts = rank_var + "==1" 
-cuts += " && Pip_p>0.8"
+# cuts += " && Pip_p>0.8"
 
 # cuts += " && " + charge_var + "==1"
 
@@ -114,10 +114,10 @@ print(N_total)
 #sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.01, 0.00001, 1)
 
 # True+false fixed 24.07.19
-mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.8805)
-sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.0028028)
-gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.32250)
-delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.59443 )
+mean_johnson = ROOT.RooConstVar("mean_johnson", "mean of Johnson", 1.8805)
+sigma_johnson = ROOT.RooConstVar("sigma_johnson", "sigma of Johnson", 0.0028028)
+gamma = ROOT.RooConstVar("gamma", "gamma of Johnson", 0.32250)
+delta = ROOT.RooConstVar("delta", "delta of Johnson", 0.59443 )
 
 
 mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
@@ -140,10 +140,10 @@ sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson and Gaussian
 #Ds_delta = ROOT.RooRealVar("Ds_delta", "delta of Johnson", 0.1, 0.001, 1)
 
 # True+false fixed 24.07.19
-Ds_mean_johnson = ROOT.RooRealVar("Ds_mean_johnson", "mean of Johnson", 1.9934)
-Ds_sigma_johnson = ROOT.RooRealVar("Ds_sigma_johnson", "sigma of Johnson",  0.0016496)
-Ds_gamma = ROOT.RooRealVar("Ds_gamma", "gamma of Johnson",  0.35250)
-Ds_delta = ROOT.RooRealVar("Ds_delta", "delta of Johnson", 0.47138)
+Ds_mean_johnson = ROOT.RooConstVar("Ds_mean_johnson", "mean of Johnson", 1.9934)
+Ds_sigma_johnson = ROOT.RooConstVar("Ds_sigma_johnson", "sigma of Johnson",  0.0016496)
+Ds_gamma = ROOT.RooConstVar("Ds_gamma", "gamma of Johnson",  0.35250)
+Ds_delta = ROOT.RooConstVar("Ds_delta", "delta of Johnson", 0.47138)
 
 Ds_mean_gaussian = ROOT.RooRealVar("Ds_mean_gaussian", "mean of Gaussian", 0, -1, 1)
 Ds_sigma_gaussian = ROOT.RooRealVar("Ds_sigma_gaussian", "sigma of Gaussian", 0.01, 0.00001, 1)
@@ -184,10 +184,10 @@ r = extended_model.fitTo(data,  RooFit.Extended(True), RooFit.PrintLevel(3), Roo
 
 #Gen_r#############################################################################
 # True+false fixed 24.07.19
-mean_johnson_gen = ROOT.RooRealVar("mean_johnson_gen", "mean of Johnson", 1.8805)
-sigma_johnson_gen = ROOT.RooRealVar("sigma_johnson_gen", "sigma of Johnson", 0.0028028)
-gamma_gen = ROOT.RooRealVar("gamma_gen", "gamma of Johnson", 0.32250)
-delta_gen = ROOT.RooRealVar("delta_gen", "delta of Johnson", 0.59443 )
+mean_johnson_gen = ROOT.RooConstVar("mean_johnson_gen", "mean of Johnson", 1.8805)
+sigma_johnson_gen = ROOT.RooConstVar("sigma_johnson_gen", "sigma of Johnson", 0.0028028)
+gamma_gen = ROOT.RooConstVar("gamma_gen", "gamma of Johnson", 0.32250)
+delta_gen = ROOT.RooConstVar("delta_gen", "delta of Johnson", 0.59443 )
 
 mean_gaussian_gen= ROOT.RooRealVar("mean_gaussian_gen", "mean of Gaussian", mean_gaussian.getVal(), -1, 1)
 sigma_gaussian_gen = ROOT.RooRealVar("sigma_gaussian_gen", "sigma of Gaussian", sigma_gaussian.getVal(), 0.00001, 1)
@@ -209,10 +209,10 @@ sig_model_gen = ROOT.RooFFTConvPdf("sig_model_gen", "Convolution of Johnson and 
 #Ds_delta = ROOT.RooRealVar("Ds_delta", "delta of Johnson", 0.1, 0.001, 1)
 
 # True+false fixed 24.07.19
-Ds_mean_johnson_gen = ROOT.RooRealVar("Ds_mean_johnson_gen", "mean of Johnson", 1.9934)
-Ds_sigma_johnson_gen = ROOT.RooRealVar("Ds_sigma_johnson_gen", "sigma of Johnson",  0.0016496)
-Ds_gamma_gen = ROOT.RooRealVar("Ds_gamma_gen", "gamma of Johnson",  0.35250)
-Ds_delta_gen = ROOT.RooRealVar("Ds_delta_gen", "delta of Johnson", 0.47138)
+Ds_mean_johnson_gen = ROOT.RooConstVar("Ds_mean_johnson_gen", "mean of Johnson", 1.9934)
+Ds_sigma_johnson_gen = ROOT.RooConstVar("Ds_sigma_johnson_gen", "sigma of Johnson",  0.0016496)
+Ds_gamma_gen = ROOT.RooConstVar("Ds_gamma_gen", "gamma of Johnson",  0.35250)
+Ds_delta_gen = ROOT.RooConstVar("Ds_delta_gen", "delta of Johnson", 0.47138)
 
 
 Ds_mean_gaussian_gen = ROOT.RooRealVar("Ds_mean_gaussian_gen", "mean of Gaussian", Ds_mean_gaussian.getVal(), -1, 1)
@@ -306,10 +306,10 @@ print(N_total_cc)
 #delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.1, 0.001, 1)
 
 # True+false fixed 24.07.19
-mean_johnson_cc = ROOT.RooRealVar("mean_johnson_cc", "mean of Johnson", 1.8805)
-sigma_johnson_cc = ROOT.RooRealVar("sigma_johnson_cc", "sigma of Johnson", 0.0028028)
-gamma_cc = ROOT.RooRealVar("gamma_cc", "gamma of Johnson", 0.32250)
-delta_cc = ROOT.RooRealVar("delta_cc", "delta of Johnson", 0.59443 )
+mean_johnson_cc = ROOT.RooConstVar("mean_johnson_cc", "mean of Johnson", 1.8805)
+sigma_johnson_cc = ROOT.RooConstVar("sigma_johnson_cc", "sigma of Johnson", 0.0028028)
+gamma_cc = ROOT.RooConstVar("gamma_cc", "gamma of Johnson", 0.32250)
+delta_cc = ROOT.RooConstVar("delta_cc", "delta of Johnson", 0.59443 )
 
 mean_gaussian_cc = ROOT.RooRealVar("mean_gaussian_cc", "mean of Gaussian", 0, -1, 1)
 sigma_gaussian_cc = ROOT.RooRealVar("sigma_gaussian_cc", "sigma of Gaussian", 0.01, 0.00001, 1)
@@ -339,10 +339,10 @@ sig_model_cc = ROOT.RooFFTConvPdf("sig_model_cc", "Convolution of Johnson and Ga
 #Ds_delta = ROOT.RooRealVar("Ds_delta", "delta of Johnson", 0.1, 0.001, 1)
 
 # True+false fixed 24.07.19
-Ds_mean_johnson_cc = ROOT.RooRealVar("Ds_mean_johnson_cc", "mean of Johnson", 1.9934)
-Ds_sigma_johnson_cc = ROOT.RooRealVar("Ds_sigma_johnson_cc", "sigma of Johnson",  0.0016496)
-Ds_gamma_cc = ROOT.RooRealVar("Ds_gamma_cc", "gamma of Johnson",  0.35250)
-Ds_delta_cc = ROOT.RooRealVar("Ds_delta_cc", "delta of Johnson", 0.47138)
+Ds_mean_johnson_cc = ROOT.RooConstVar("Ds_mean_johnson_cc", "mean of Johnson", 1.9934)
+Ds_sigma_johnson_cc = ROOT.RooConstVar("Ds_sigma_johnson_cc", "sigma of Johnson",  0.0016496)
+Ds_gamma_cc = ROOT.RooConstVar("Ds_gamma_cc", "gamma of Johnson",  0.35250)
+Ds_delta_cc = ROOT.RooConstVar("Ds_delta_cc", "delta of Johnson", 0.47138)
 
 
 Ds_mean_gaussian_cc = ROOT.RooRealVar("Ds_mean_gaussian_cc", "mean of Gaussian", 0, -1, 1)
@@ -384,10 +384,10 @@ r_cc = extended_model_cc.fitTo(data_cc,  RooFit.Extended(True), RooFit.PrintLeve
 ###################################################
 #Gen_D-####################################################
 # True+false fixed 24.07.19
-mean_johnson_cc_gen = ROOT.RooRealVar("mean_johnson_cc_gen", "mean of Johnson", 1.8805)
-sigma_johnson_cc_gen = ROOT.RooRealVar("sigma_johnson_cc_gen", "sigma of Johnson", 0.0028028)
-gamma_cc_gen = ROOT.RooRealVar("gamma_cc_gen", "gamma of Johnson", 0.32250)
-delta_cc_gen = ROOT.RooRealVar("delta_cc_gen", "delta of Johnson", 0.59443 )
+mean_johnson_cc_gen = ROOT.RooConstVar("mean_johnson_cc_gen", "mean of Johnson", 1.8805)
+sigma_johnson_cc_gen = ROOT.RooConstVar("sigma_johnson_cc_gen", "sigma of Johnson", 0.0028028)
+gamma_cc_gen = ROOT.RooConstVar("gamma_cc_gen", "gamma of Johnson", 0.32250)
+delta_cc_gen = ROOT.RooConstVar("delta_cc_gen", "delta of Johnson", 0.59443 )
 
 
 
@@ -407,10 +407,10 @@ gaussian_cc_gen = ROOT.RooGaussian("gaussian_cc_gen", "Gaussian PDF", x, mean_ga
 sig_model_cc_gen = ROOT.RooFFTConvPdf("sig_model_cc_gen", "Convolution of Johnson and Gaussian", x, johnson_cc_gen, gaussian_cc_gen)
 
 # True+false fixed 24.07.19
-Ds_mean_johnson_cc_gen = ROOT.RooRealVar("Ds_mean_johnson_cc_gen", "mean of Johnson", 1.9934)
-Ds_sigma_johnson_cc_gen = ROOT.RooRealVar("Ds_sigma_johnson_cc_gen", "sigma of Johnson",  0.0016496)
-Ds_gamma_cc_gen = ROOT.RooRealVar("Ds_gamma_cc_gen", "gamma of Johnson",  0.35250)
-Ds_delta_cc_gen = ROOT.RooRealVar("Ds_delta_cc_gen", "delta of Johnson", 0.47138)
+Ds_mean_johnson_cc_gen = ROOT.RooConstVar("Ds_mean_johnson_cc_gen", "mean of Johnson", 1.9934)
+Ds_sigma_johnson_cc_gen = ROOT.RooConstVar("Ds_sigma_johnson_cc_gen", "sigma of Johnson",  0.0016496)
+Ds_gamma_cc_gen = ROOT.RooConstVar("Ds_gamma_cc_gen", "gamma of Johnson",  0.35250)
+Ds_delta_cc_gen = ROOT.RooConstVar("Ds_delta_cc_gen", "delta of Johnson", 0.47138)
 
 Ds_mean_gaussian_cc_gen = ROOT.RooRealVar("Ds_mean_gaussian_cc_gen", "mean of Gaussian", Ds_mean_gaussian_cc.getVal(), -1, 1)
 Ds_sigma_gaussian_cc_gen = ROOT.RooRealVar("Ds_sigma_gaussian_cc_gen", "sigma of Gaussian", Ds_sigma_gaussian_cc.getVal(), 0.00001, 1)
@@ -476,6 +476,16 @@ n_recon_Acp = []
 n_recon_err_Acp = []
 pull_Acp = []
 
+fit_status_Dp = []
+fit_covQual_Dp = []
+fit_numInvalidNLL_Dp = []
+fit_minNll_Dp = []
+
+fit_status_Dm = []
+fit_covQual_Dm = []
+fit_numInvalidNLL_Dm = []
+fit_minNll_Dm = []
+
 def Acp_error_cal(Nsig, Nsig_cc, Nsig_err, Nsig_cc_err):
     Z = (Nsig - Nsig_cc)/(Nsig + Nsig_cc)
     dsig = Z * (2*Nsig_cc/ (Nsig**2 - Nsig_cc**2) ) * Nsig_err
@@ -517,6 +527,16 @@ for i in range(n_iterations):
     result_Dp = extended_model.fitTo(data_Dp, RooFit.Extended(True), RooFit.Save(True), RooFit.PrintLevel(-1), ROOT.RooFit.NumCPU(15))
     result_Dm = extended_model_cc.fitTo(data_Dm, RooFit.Extended(True), RooFit.Save(True), RooFit.PrintLevel(-1) , ROOT.RooFit.NumCPU(15))
 
+    fit_status_Dp.append(result_Dp.status())
+    fit_covQual_Dp.append(result_Dp.covQual())
+    fit_numInvalidNLL_Dp.append(result_Dp.numInvalidNLL())
+    fit_minNll_Dp.append(result_Dp.minNll())
+
+    fit_status_Dm.append(result_Dm.status())
+    fit_covQual_Dm.append(result_Dm.covQual())
+    fit_numInvalidNLL_Dm.append(result_Dm.numInvalidNLL())
+    fit_minNll_Dm.append(result_Dm.minNll())
+    
     # Save the fitted number of signal and background events and their errors
     nsig_Dp_values.append(nsig.getVal())
     nsig_Dp_errors.append(nsig.getError())
@@ -563,6 +583,17 @@ n_recon_Acp_val = ROOT.std.vector('double')()
 n_recon_err_Acp_val = ROOT.std.vector('double')()
 pulls_Acp_val = ROOT.std.vector('double')()
 
+fit_status_Dp_val = ROOT.std.vector('double')()
+fit_covQual_Dp_val = ROOT.std.vector('double')()
+fit_numInvalidNLL_Dp_val = ROOT.std.vector('double')()
+fit_minNll_Dp_val = ROOT.std.vector('double')()
+
+fit_status_Dm_val = ROOT.std.vector('double')()
+fit_covQual_Dm_val = ROOT.std.vector('double')()
+fit_numInvalidNLL_Dm_val = ROOT.std.vector('double')()
+fit_minNll_Dm_val = ROOT.std.vector('double')()
+
+
 # Create branches
 tree.Branch("n_gen_Dp", n_gen_Dp_val)
 tree.Branch("n_gen_Dm", n_gen_Dm_val)
@@ -579,6 +610,16 @@ tree.Branch("n_gen_Acp", n_gen_Acp_val)
 tree.Branch("n_recon_Acp", n_recon_Acp_val)
 tree.Branch("n_recon_err_Acp", n_recon_err_Acp_val)
 tree.Branch("pulls_Acp", pulls_Acp_val)
+
+tree.Branch("fit_status_Dp", fit_status_Dp_val)
+tree.Branch("fit_covQual_Dp", fit_covQual_Dp_val)
+tree.Branch("fit_numInvalidNLL_Dp", fit_numInvalidNLL_Dp_val)
+tree.Branch("fit_minNll_Dp", fit_minNll_Dp_val)
+
+tree.Branch("fit_status_Dm", fit_status_Dm_val)
+tree.Branch("fit_covQual_Dm", fit_covQual_Dm_val)
+tree.Branch("fit_numInvalidNLL_Dm", fit_numInvalidNLL_Dm_val)
+tree.Branch("fit_minNll_Dm", fit_minNll_Dm_val)
 
 # Fill the tree with data
 for i in range(len(n_gen_Dp)):
@@ -613,7 +654,28 @@ for i in range(len(n_gen_Dp)):
     n_recon_Acp_val.push_back(n_recon_Acp[i])
     n_recon_err_Acp_val.push_back(n_recon_err_Acp[i])
     pulls_Acp_val.push_back(pulls_Acp[i])
+    
 
+    fit_status_Dp_val.clear()
+    fit_covQual_Dp_val.clear()
+    fit_numInvalidNLL_Dp_val.clear()
+    fit_minNll_Dp_val.clear()
+
+    fit_status_Dm_val.clear()
+    fit_covQual_Dm_val.clear()
+    fit_numInvalidNLL_Dm_val.clear()
+    fit_minNll_Dm_val.clear()
+
+    fit_status_Dp_val.push_back(fit_status_Dp[i])
+    fit_covQual_Dp_val.push_back(fit_covQual_Dp[i])
+    fit_numInvalidNLL_Dp_val.push_back(fit_numInvalidNLL_Dp[i])
+    fit_minNll_Dp_val.push_back(fit_minNll_Dp[i])
+
+    fit_status_Dm_val.push_back(fit_status_Dm[i])
+    fit_covQual_Dm_val.push_back(fit_covQual_Dm[i])
+    fit_numInvalidNLL_Dm_val.push_back(fit_numInvalidNLL_Dm[i])
+    fit_minNll_Dm_val.push_back(fit_minNll_Dm[i])
+    
     tree.Fill()
 
 # Write the tree to the file

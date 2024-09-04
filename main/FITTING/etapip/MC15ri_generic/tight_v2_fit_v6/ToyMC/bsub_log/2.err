@@ -37,3 +37,20 @@ Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
 Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
 Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
 Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 0
+종료됨
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 0
+Traceback (most recent call last):
+  File "/gpfs/home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC/etapip_gg_fit_v6_toymc_100.py", line 660, in <module>
+    fit_numInvalidNL_Dp_val.push_back(fit_numInvalidNL_Dp[i])
+NameError: name 'fit_numInvalidNL_Dp_val' is not defined
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 0
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 4
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 0

@@ -84,7 +84,7 @@ Pip_p_var = "Pip_p"
 # Cuts
 cuts = rank_var + "==1" 
 cuts += " && " + charge_var + "==1"
-cuts += " && Pip_p>0.8"
+# cuts += " && Pip_p>0.8"
 # Create RooRealVar
 x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
 x.setBins(70)
@@ -179,6 +179,10 @@ extended_model = ROOT.RooAddPdf("extended_model", "x_model", ROOT.RooArgSet(sig_
 #r = extended_model.fitTo(data,NumCPU=4, Extended=ROOT.kTRUE,PrintLevel=-1, Save=1,SumW2Error=True)
 r = extended_model.fitTo(data,  RooFit.Extended(True), RooFit.PrintLevel(3), RooFit.Save(1),RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(15), ROOT.RooFit.Strategy(1) )
 r.Print()
+print(r.status())
+print(r.covQual())
+print(r.numInvalidNLL())
+print(r.minNll())
 #r = extended_model.fitTo(data, ROOT.RooFit.PrintLevel(-1), Save=1,SumW2Error=True)
 
 # Parameters for the simulation
@@ -213,3 +217,14 @@ pull_canvas.Draw()
 # Optionally, save the canvas to a file
 pull_canvas.SaveAs("pull_distribution_nsig_5000.pdf")
 
+# Plot the distribution of nsig values
+nsig_hist = mcstudy.plotParam(nsig, ROOT.RooFit.Bins(50))
+nsig_canvas = ROOT.TCanvas("nsig_canvas", "Distribution of nsig", 800, 600)
+nsig_hist.Draw()
+nsig_canvas.SaveAs("nsig_distribution_5000.pdf")
+
+# Plot the distribution of nsig errors
+nsig_error_hist = mcstudy.plotError(nsig, ROOT.RooFit.Bins(50))
+nsig_error_canvas = ROOT.TCanvas("nsig_error_canvas", "Distribution of nsig errors", 800, 600)
+nsig_error_hist.Draw()
+nsig_error_canvas.SaveAs("nsig_error_distribution_5000.pdf")

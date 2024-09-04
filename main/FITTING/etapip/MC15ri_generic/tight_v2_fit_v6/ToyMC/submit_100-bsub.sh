@@ -30,7 +30,7 @@ for job_name in "${!job_configs[@]}"; do
         # bsub -h "/cvmfs/belle.cern.ch/el9/externals/v02-00-02/Linux_x86_64/common/bin/python3 $python_script ${i}" -e "${dir}/${job_name}_${i}.err" -o "${dir}/${job_name}_${i}.out" -L "${dir}/${job_name}_${i}.log"
         echo "basf2 ${python_script} ${i}"
         bsub -q s -o "./bsub_log/${i}.out" -e "./bsub_log/${i}.err"  bash -c "basf2 ${python_script} ${i} > ${dir}/${job_name}_${i}.log" # -e "${dir}/${job_name}_${i}.err" -o "${dir}/${job_name}_${i}.out"
-        sleep 0.001
+        sleep 0.01
 
     done
 done
