@@ -1,0 +1,574 @@
+Sender: LSF System <lsfadmin@ccb203>
+Subject: Job 52359827: <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> in cluster <centralcluster> Done
+
+Job <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> was submitted from host <ccw02> by user <jaeyoung> in cluster <centralcluster> at Sat Jul 20 14:40:51 2024
+Job was executed on host(s) <ccb203>, in queue <s>, as user <jaeyoung> in cluster <centralcluster> at Sat Jul 20 14:46:22 2024
+</home/belle2/jaeyoung> was used as the home directory.
+</home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC> was used as the working directory.
+Started at Sat Jul 20 14:46:22 2024
+Terminated at Sat Jul 20 15:35:09 2024
+Results reported at Sat Jul 20 15:35:09 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   2906.44 sec.
+    Max Memory :                                 1311 MB
+    Average Memory :                             936.37 MB
+    Total Requested Memory :                     4000.00 MB
+    Delta Memory :                               2689.00 MB
+    Max Swap :                                   -
+    Max Processes :                              19
+    Max Threads :                                20
+    Run time :                                   2927 sec.
+    Turnaround time :                            3258 sec.
+
+The output (if any) follows:
+
+
+
+PS:
+
+Read file <./bsub_log/486.err> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@ccb016>
+Subject: Job 53030914: <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> in cluster <centralcluster> Done
+
+Job <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> was submitted from host <ccw03> by user <jaeyoung> in cluster <centralcluster> at Sun Jul 21 17:32:13 2024
+Job was executed on host(s) <ccb016>, in queue <s>, as user <jaeyoung> in cluster <centralcluster> at Sun Jul 21 17:32:57 2024
+</home/belle2/jaeyoung> was used as the home directory.
+</home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC> was used as the working directory.
+Started at Sun Jul 21 17:32:57 2024
+Terminated at Sun Jul 21 18:19:57 2024
+Results reported at Sun Jul 21 18:19:57 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   2763.82 sec.
+    Max Memory :                                 1310 MB
+    Average Memory :                             921.50 MB
+    Total Requested Memory :                     4000.00 MB
+    Delta Memory :                               2690.00 MB
+    Max Swap :                                   -
+    Max Processes :                              19
+    Max Threads :                                20
+    Run time :                                   2820 sec.
+    Turnaround time :                            2864 sec.
+
+The output (if any) follows:
+
+
+
+PS:
+
+Read file <./bsub_log/486.err> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@ccb279>
+Subject: Job 53203288: <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> in cluster <centralcluster> Exited
+
+Job <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> was submitted from host <ccw03> by user <jaeyoung> in cluster <centralcluster> at Mon Jul 22 00:51:21 2024
+Job was executed on host(s) <ccb279>, in queue <s>, as user <jaeyoung> in cluster <centralcluster> at Mon Jul 22 00:53:17 2024
+</home/belle2/jaeyoung> was used as the home directory.
+</home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC> was used as the working directory.
+Started at Mon Jul 22 00:53:17 2024
+Terminated at Mon Jul 22 01:09:53 2024
+Results reported at Mon Jul 22 01:09:53 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   990.17 sec.
+    Max Memory :                                 1302 MB
+    Average Memory :                             1219.39 MB
+    Total Requested Memory :                     4000.00 MB
+    Delta Memory :                               2698.00 MB
+    Max Swap :                                   -
+    Max Processes :                              19
+    Max Threads :                                20
+    Run time :                                   996 sec.
+    Turnaround time :                            1112 sec.
+
+The output (if any) follows:
+
+
+
+PS:
+
+Read file <./bsub_log/486.err> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@ccb073>
+Subject: Job 53407475: <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> in cluster <centralcluster> Done
+
+Job <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> was submitted from host <ccw06> by user <jaeyoung> in cluster <centralcluster> at Mon Jul 22 10:49:55 2024
+Job was executed on host(s) <ccb073>, in queue <s>, as user <jaeyoung> in cluster <centralcluster> at Mon Jul 22 10:50:40 2024
+</home/belle2/jaeyoung> was used as the home directory.
+</home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC> was used as the working directory.
+Started at Mon Jul 22 10:50:40 2024
+Terminated at Mon Jul 22 11:37:01 2024
+Results reported at Mon Jul 22 11:37:01 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   2734.86 sec.
+    Max Memory :                                 1311 MB
+    Average Memory :                             935.58 MB
+    Total Requested Memory :                     4000.00 MB
+    Delta Memory :                               2689.00 MB
+    Max Swap :                                   -
+    Max Processes :                              19
+    Max Threads :                                20
+    Run time :                                   2781 sec.
+    Turnaround time :                            2826 sec.
+
+The output (if any) follows:
+
+
+
+PS:
+
+Read file <./bsub_log/486.err> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@ccb041>
+Subject: Job 53599892: <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> in cluster <centralcluster> Done
+
+Job <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> was submitted from host <ccw03> by user <jaeyoung> in cluster <centralcluster> at Mon Jul 22 18:36:10 2024
+Job was executed on host(s) <ccb041>, in queue <s>, as user <jaeyoung> in cluster <centralcluster> at Mon Jul 22 18:39:17 2024
+</home/belle2/jaeyoung> was used as the home directory.
+</home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC> was used as the working directory.
+Started at Mon Jul 22 18:39:17 2024
+Terminated at Mon Jul 22 19:27:53 2024
+Results reported at Mon Jul 22 19:27:53 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   2856.60 sec.
+    Max Memory :                                 1311 MB
+    Average Memory :                             933.49 MB
+    Total Requested Memory :                     4000.00 MB
+    Delta Memory :                               2689.00 MB
+    Max Swap :                                   -
+    Max Processes :                              19
+    Max Threads :                                20
+    Run time :                                   2916 sec.
+    Turnaround time :                            3103 sec.
+
+The output (if any) follows:
+
+
+
+PS:
+
+Read file <./bsub_log/486.err> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@ccb036>
+Subject: Job 53833328: <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> in cluster <centralcluster> Done
+
+Job <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> was submitted from host <ccw05> by user <jaeyoung> in cluster <centralcluster> at Tue Jul 23 00:51:14 2024
+Job was executed on host(s) <ccb036>, in queue <s>, as user <jaeyoung> in cluster <centralcluster> at Tue Jul 23 00:51:38 2024
+</home/belle2/jaeyoung> was used as the home directory.
+</home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC> was used as the working directory.
+Started at Tue Jul 23 00:51:38 2024
+Terminated at Tue Jul 23 01:38:34 2024
+Results reported at Tue Jul 23 01:38:34 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   2781.11 sec.
+    Max Memory :                                 1311 MB
+    Average Memory :                             929.35 MB
+    Total Requested Memory :                     4000.00 MB
+    Delta Memory :                               2689.00 MB
+    Max Swap :                                   -
+    Max Processes :                              19
+    Max Threads :                                20
+    Run time :                                   2816 sec.
+    Turnaround time :                            2840 sec.
+
+The output (if any) follows:
+
+
+
+PS:
+
+Read file <./bsub_log/486.err> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@ccb138>
+Subject: Job 54398820: <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> in cluster <centralcluster> Done
+
+Job <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> was submitted from host <ccw04> by user <jaeyoung> in cluster <centralcluster> at Tue Jul 23 18:00:27 2024
+Job was executed on host(s) <ccb138>, in queue <s>, as user <jaeyoung> in cluster <centralcluster> at Tue Jul 23 18:48:14 2024
+</home/belle2/jaeyoung> was used as the home directory.
+</home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC> was used as the working directory.
+Started at Tue Jul 23 18:48:14 2024
+Terminated at Tue Jul 23 19:34:11 2024
+Results reported at Tue Jul 23 19:34:11 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   2742.40 sec.
+    Max Memory :                                 1350 MB
+    Average Memory :                             991.09 MB
+    Total Requested Memory :                     4000.00 MB
+    Delta Memory :                               2650.00 MB
+    Max Swap :                                   -
+    Max Processes :                              19
+    Max Threads :                                20
+    Run time :                                   2757 sec.
+    Turnaround time :                            5624 sec.
+
+The output (if any) follows:
+
+
+
+PS:
+
+Read file <./bsub_log/486.err> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@ccb242>
+Subject: Job 54471568: <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> in cluster <centralcluster> Done
+
+Job <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> was submitted from host <ccw03> by user <jaeyoung> in cluster <centralcluster> at Tue Jul 23 19:39:21 2024
+Job was executed on host(s) <ccb242>, in queue <s>, as user <jaeyoung> in cluster <centralcluster> at Tue Jul 23 19:39:32 2024
+</home/belle2/jaeyoung> was used as the home directory.
+</home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC> was used as the working directory.
+Started at Tue Jul 23 19:39:32 2024
+Terminated at Tue Jul 23 20:24:55 2024
+Results reported at Tue Jul 23 20:24:55 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   2700.01 sec.
+    Max Memory :                                 1311 MB
+    Average Memory :                             948.06 MB
+    Total Requested Memory :                     4000.00 MB
+    Delta Memory :                               2689.00 MB
+    Max Swap :                                   -
+    Max Processes :                              19
+    Max Threads :                                20
+    Run time :                                   2724 sec.
+    Turnaround time :                            2734 sec.
+
+The output (if any) follows:
+
+
+
+PS:
+
+Read file <./bsub_log/486.err> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@ccb123>
+Subject: Job 55516358: <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> in cluster <centralcluster> Done
+
+Job <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> was submitted from host <ccw01> by user <jaeyoung> in cluster <centralcluster> at Thu Jul 25 20:52:15 2024
+Job was executed on host(s) <ccb123>, in queue <s>, as user <jaeyoung> in cluster <centralcluster> at Thu Jul 25 20:52:17 2024
+</home/belle2/jaeyoung> was used as the home directory.
+</gpfs/home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC> was used as the working directory.
+Started at Thu Jul 25 20:52:17 2024
+Terminated at Thu Jul 25 21:41:05 2024
+Results reported at Thu Jul 25 21:41:05 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   2884.37 sec.
+    Max Memory :                                 1313 MB
+    Average Memory :                             957.70 MB
+    Total Requested Memory :                     4000.00 MB
+    Delta Memory :                               2687.00 MB
+    Max Swap :                                   -
+    Max Processes :                              19
+    Max Threads :                                20
+    Run time :                                   2929 sec.
+    Turnaround time :                            2930 sec.
+
+The output (if any) follows:
+
+
+
+PS:
+
+Read file <./bsub_log/486.err> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@ccb535>
+Subject: Job 56104102: <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> in cluster <centralcluster> Done
+
+Job <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> was submitted from host <ccw06> by user <jaeyoung> in cluster <centralcluster> at Fri Jul 26 23:44:52 2024
+Job was executed on host(s) <ccb535>, in queue <s>, as user <jaeyoung> in cluster <centralcluster> at Sat Jul 27 00:32:30 2024
+</home/belle2/jaeyoung> was used as the home directory.
+</home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC> was used as the working directory.
+Started at Sat Jul 27 00:32:30 2024
+Terminated at Sat Jul 27 01:05:44 2024
+Results reported at Sat Jul 27 01:05:44 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   1930.64 sec.
+    Max Memory :                                 893 MB
+    Average Memory :                             652.65 MB
+    Total Requested Memory :                     4000.00 MB
+    Delta Memory :                               3107.00 MB
+    Max Swap :                                   -
+    Max Processes :                              19
+    Max Threads :                                20
+    Run time :                                   1995 sec.
+    Turnaround time :                            4852 sec.
+
+The output (if any) follows:
+
+
+
+PS:
+
+Read file <./bsub_log/486.err> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@ccb273>
+Subject: Job 56133874: <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> in cluster <centralcluster> Done
+
+Job <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> was submitted from host <ccw03> by user <jaeyoung> in cluster <centralcluster> at Sat Jul 27 01:14:25 2024
+Job was executed on host(s) <ccb273>, in queue <s>, as user <jaeyoung> in cluster <centralcluster> at Sat Jul 27 03:05:51 2024
+</home/belle2/jaeyoung> was used as the home directory.
+</gpfs/home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC> was used as the working directory.
+Started at Sat Jul 27 03:05:51 2024
+Terminated at Sat Jul 27 03:44:09 2024
+Results reported at Sat Jul 27 03:44:09 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   2266.54 sec.
+    Max Memory :                                 889 MB
+    Average Memory :                             650.02 MB
+    Total Requested Memory :                     4000.00 MB
+    Delta Memory :                               3111.00 MB
+    Max Swap :                                   -
+    Max Processes :                              19
+    Max Threads :                                20
+    Run time :                                   2297 sec.
+    Turnaround time :                            8984 sec.
+
+The output (if any) follows:
+
+
+
+PS:
+
+Read file <./bsub_log/486.err> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@ccb512>
+Subject: Job 57221007: <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> in cluster <centralcluster> Exited
+
+Job <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> was submitted from host <ccx03> by user <jaeyoung> in cluster <centralcluster> at Mon Jul 29 18:46:39 2024
+Job was executed on host(s) <ccb512>, in queue <s>, as user <jaeyoung> in cluster <centralcluster> at Mon Jul 29 18:46:40 2024
+</home/belle2/jaeyoung> was used as the home directory.
+</gpfs/home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC> was used as the working directory.
+Started at Mon Jul 29 18:46:40 2024
+Terminated at Mon Jul 29 19:51:10 2024
+Results reported at Mon Jul 29 19:51:10 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   3812.05 sec.
+    Max Memory :                                 1409 MB
+    Average Memory :                             1044.06 MB
+    Total Requested Memory :                     4000.00 MB
+    Delta Memory :                               2591.00 MB
+    Max Swap :                                   -
+    Max Processes :                              19
+    Max Threads :                                20
+    Run time :                                   3871 sec.
+    Turnaround time :                            3871 sec.
+
+The output (if any) follows:
+
+
+
+PS:
+
+Read file <./bsub_log/486.err> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@ccb194>
+Subject: Job 57308998: <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> in cluster <centralcluster> Done
+
+Job <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> was submitted from host <ccw03> by user <jaeyoung> in cluster <centralcluster> at Mon Jul 29 23:03:51 2024
+Job was executed on host(s) <ccb194>, in queue <s>, as user <jaeyoung> in cluster <centralcluster> at Mon Jul 29 23:05:34 2024
+</home/belle2/jaeyoung> was used as the home directory.
+</home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC> was used as the working directory.
+Started at Mon Jul 29 23:05:34 2024
+Terminated at Tue Jul 30 00:09:20 2024
+Results reported at Tue Jul 30 00:09:20 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   3749.20 sec.
+    Max Memory :                                 1427 MB
+    Average Memory :                             1035.50 MB
+    Total Requested Memory :                     4000.00 MB
+    Delta Memory :                               2573.00 MB
+    Max Swap :                                   -
+    Max Processes :                              19
+    Max Threads :                                20
+    Run time :                                   3826 sec.
+    Turnaround time :                            3929 sec.
+
+The output (if any) follows:
+
+
+
+PS:
+
+Read file <./bsub_log/486.err> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@ccb541>
+Subject: Job 57390501: <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> in cluster <centralcluster> Done
+
+Job <bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"> was submitted from host <ccw03> by user <jaeyoung> in cluster <centralcluster> at Tue Jul 30 01:18:06 2024
+Job was executed on host(s) <ccb541>, in queue <s>, as user <jaeyoung> in cluster <centralcluster> at Tue Jul 30 01:19:47 2024
+</home/belle2/jaeyoung> was used as the home directory.
+</home/belle2/jaeyoung/workspace/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/tight_v2_fit_v6/ToyMC> was used as the working directory.
+Started at Tue Jul 30 01:19:47 2024
+Terminated at Tue Jul 30 02:23:17 2024
+Results reported at Tue Jul 30 02:23:17 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+bash -c "basf2 etapip_gg_fit_v6_toymc_100.py 486 > /home/belle2/jaeyoung/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/bsub_log//MC15ri_etapip_gg_fitv6_toyMC_100_486.log"
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   3771.68 sec.
+    Max Memory :                                 1430 MB
+    Average Memory :                             1042.73 MB
+    Total Requested Memory :                     4000.00 MB
+    Delta Memory :                               2570.00 MB
+    Max Swap :                                   -
+    Max Processes :                              19
+    Max Threads :                                20
+    Run time :                                   3811 sec.
+    Turnaround time :                            3911 sec.
+
+The output (if any) follows:
+
+
+
+PS:
+
+Read file <./bsub_log/486.err> for stderr output of this job.
+

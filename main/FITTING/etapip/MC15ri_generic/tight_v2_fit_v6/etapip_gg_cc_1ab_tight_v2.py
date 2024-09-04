@@ -4,33 +4,50 @@ import glob
 import ctypes
 import os
 
-file_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/MC15ri_1ab_etapip_gg_cc_fit_tight_v2_fitv6.png"
-fitresult_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/fitresult/MC15ri_1ab_etapip_gg_cc_fit_tight_v2_fitv6.root"
-dir_path = os.path.dirname(file_name)
-if not os.path.exists(dir_path):
-    os.makedirs(dir_path)
-print("Directory created:", dir_path)
-dir_path = os.path.dirname(fitresult_name)
-if not os.path.exists(dir_path):
-    os.makedirs(dir_path)
-print("Directory created:", dir_path)
+# file_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/MC15ri_1ab_etapip_gg_cc_fit_tight_v2_fitv6.png"
+# fitresult_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/fitresult/MC15ri_1ab_etapip_gg_cc_fit_tight_v2_fitv6.root"
+file_name = "MC15ri_1ab_etapip_gg_cc_fit_tight_v2_fitv6.png"
+fitresult_name = "MC15ri_1ab_etapip_gg_cc_fit_tight_v2_fitv6.root"
+# dir_path = os.path.dirname(file_name)
+# if not os.path.exists(dir_path):
+#     os.makedirs(dir_path)
+# print("Directory created:", dir_path)
+# dir_path = os.path.dirname(fitresult_name)
+# if not os.path.exists(dir_path):
+#     os.makedirs(dir_path)
+# print("Directory created:", dir_path)
 
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
-ROOT.SetBelle2Style()
+# ROOT.SetBelle2Style()
 
-base_file_loc =  '/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/'
+# base_file_loc =  '/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_generic/MC15ri_etaetapip_tight_v2_240419_Kp_BCS_etapi0const/'
 
-# loc_ccbar = base_file_loc + 'ccbar/tight_v2_240419_Kp_BCS_etapi0const_ccbar_output_02*.root'
-loc_ccbar = base_file_loc + 'ccbar/*.root'
-loc_ccbar = base_file_loc + 'topo/resultfile/result_etapip_gg/*.root'
+# # loc_ccbar = base_file_loc + 'ccbar/tight_v2_240419_Kp_BCS_etapi0const_ccbar_output_02*.root'
+# loc_ccbar = base_file_loc + 'ccbar/*.root'
+# loc_ccbar = base_file_loc + 'topo/resultfile/result_etapip_gg/*.root'
 
-# loc_ccbar = base_file_loc + 'topo/resultfile/result_antiKstar/standard.root'
-loc_uubar = base_file_loc + 'uubar/*.root'
-loc_ddbar = base_file_loc + 'ddbar/*.root'
-loc_ssbar = base_file_loc + 'ssbar/*.root'
-loc_charged = base_file_loc + 'charged/*.root'
-loc_mixed = base_file_loc + 'mixed/*.root'
-loc_taupair = base_file_loc + 'taupair/*.root'
+# # loc_ccbar = base_file_loc + 'topo/resultfile/result_antiKstar/standard.root'
+# loc_uubar = base_file_loc + 'uubar/*.root'
+# loc_ddbar = base_file_loc + 'ddbar/*.root'
+# loc_ssbar = base_file_loc + 'ssbar/*.root'
+# loc_charged = base_file_loc + 'charged/*.root'
+# loc_mixed = base_file_loc + 'mixed/*.root'
+# loc_taupair = base_file_loc + 'taupair/*.root'
+
+base_file_loc = '/home/belle2/jaeyoung/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const/MC15ri_etaetapip_tight_v2_240708_Kp_BCS_etapi0const'
+
+# #loc_ccbar = base_file_loc + 'ccbar/tight_v2_240419_Kp_BCS_etapi0const_ccbar_output_02*.root'
+loc_ccbar = base_file_loc + '_ccbar.root'
+# # loc_ccbar = base_file_loc + 'topo/resultfile/result_etapip_gg'
+# loc_ccbar = base_file_loc + 'topo/resultfile/result_etapip_gg/standard*.root'
+
+loc_uubar = base_file_loc + '_uubar.root'
+loc_ddbar = base_file_loc + '_ddbar.root'
+loc_ssbar = base_file_loc + '_ssbar.root'
+loc_charged = base_file_loc + '_charged.root'
+loc_mixed = base_file_loc + '_mixed.root'
+loc_taupair = base_file_loc + '_taupair.root'
+
 
 file_list = [loc_ccbar,loc_uubar,loc_uubar,loc_ssbar,loc_charged,loc_mixed,loc_taupair]
 #file_list = [loc_ccbar,loc_charged,loc_mixed]
@@ -54,21 +71,22 @@ fit_range = (1.76, 2.05)
 rank_var = tree_name + "_rank"
 truth_var = "Dp_isSignal"
 charge_var = "Pip_charge"
+Pip_p_var = "Pip_p"
 
 # Cuts
 cuts = rank_var + "==1" 
 cuts += " && " + charge_var + "==-1"
-
+cuts += " && Pip_p>0.8"
 # Create RooRealVar
 x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
-x.setRange("fitRange", fit_range[0], fit_range[1])
-x.setBins(200)
+x.setBins(70)
 chiProb_rank = ROOT.RooRealVar(rank_var, rank_var, 0, 30)
 Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
+Pip_p = ROOT.RooRealVar(Pip_p_var, Pip_p_var, 0,100)
 
 
 print(cuts)
-before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,chiProb_rank,Pip_charge), cuts)
+before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,chiProb_rank,Pip_charge, Pip_p), cuts)
 
 
 w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)
@@ -83,17 +101,11 @@ print(N_total)
 #gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.1, 0.001, 1)
 #delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.1, 0.001, 1)
 
-# True+false fixed
-#mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.88082)
-#sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.00197121 )
-#gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.309290 )
-#delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.499782 )
-
-# MC matched fixed
-mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.88371)
-sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.0060692)
-gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.339939)
-delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.890541 )
+# True+false fixed 24.07.19
+mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.8805)
+sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.0028028)
+gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.32250)
+delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.59443 )
 
 mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
 sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.01, 0.00001, 1)
@@ -122,11 +134,11 @@ sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson and Gaussian
 #Ds_gamma = ROOT.RooRealVar("Ds_gamma", "gamma of Johnson", 0.1, 0.001, 1)
 #Ds_delta = ROOT.RooRealVar("Ds_delta", "delta of Johnson", 0.1, 0.001, 1)
 
-# ALL fixed
-Ds_mean_johnson = ROOT.RooRealVar("Ds_mean_johnson", "mean of Johnson", 1.99327)
-Ds_sigma_johnson = ROOT.RooRealVar("Ds_sigma_johnson", "sigma of Johnson", 0.00116443 )
-Ds_gamma = ROOT.RooRealVar("Ds_gamma", "gamma of Johnson", 0.340494 )
-Ds_delta = ROOT.RooRealVar("Ds_delta", "delta of Johnson", 0.404213 )
+# True+false fixed 24.07.19
+Ds_mean_johnson = ROOT.RooRealVar("Ds_mean_johnson", "mean of Johnson", 1.9934)
+Ds_sigma_johnson = ROOT.RooRealVar("Ds_sigma_johnson", "sigma of Johnson",  0.0016496)
+Ds_gamma = ROOT.RooRealVar("Ds_gamma", "gamma of Johnson",  0.35250)
+Ds_delta = ROOT.RooRealVar("Ds_delta", "delta of Johnson", 0.47138)
 
 Ds_mean_gaussian = ROOT.RooRealVar("Ds_mean_gaussian", "mean of Gaussian", 0, -1, 1)
 Ds_sigma_gaussian = ROOT.RooRealVar("Ds_sigma_gaussian", "sigma of Gaussian", 0.01, 0.00001, 1)
@@ -161,7 +173,8 @@ nDs = ROOT.RooRealVar("nDs","# bkg events",N_total*0.8,0, N_total)
 extended_model = ROOT.RooAddPdf("extended_model", "x_model", ROOT.RooArgSet(sig_model,bkg_model, Ds_model, rhopeta_model), ROOT.RooArgSet(nsig, nbkg1, nDs, nbkg2))
 
 #r = extended_model.fitTo(data,NumCPU=4, Extended=ROOT.kTRUE,PrintLevel=-1, Save=1,SumW2Error=True)
-r = extended_model.fitTo(data,  ROOT.RooFit.Range("fitRange"), RooFit.Extended(True), RooFit.PrintLevel(3), RooFit.Save(1),RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4))
+r = extended_model.fitTo(data,  ROOT.RooFit.Range("fitRange"), RooFit.Extended(True), RooFit.PrintLevel(3), RooFit.Save(1),RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(15))
+r.Print()
 #r = extended_model.fitTo(data, ROOT.RooFit.PrintLevel(-1), Save=1,SumW2Error=True)
 
 # Plot the result
