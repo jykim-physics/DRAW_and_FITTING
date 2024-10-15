@@ -184,3 +184,22 @@
 
 	Job terminated of its own accord at 2024-06-18T06:51:05Z with exit-code 0.
 ...
+000 (2017.000.000) 2024-10-14 23:20:21 Job submitted from host: <210.117.208.231:9618?addrs=210.117.208.231-9618&alias=login-0-0.cluster&noUDP&sock=schedd_1493_a6fc>
+...
+001 (2017.000.000) 2024-10-14 23:20:41 Job executing on host: <10.1.1.2:9618?addrs=10.1.1.2-9618&alias=compute-1-0.yhep&noUDP&sock=startd_53615_024b>
+	SlotName: slot1_1@compute-1-0.yhep
+	CondorScratchDir = "/var/lib/condor/execute/dir_249015"
+	Cpus = 2
+	Disk = 1286771
+	GPUs = 0
+	Memory = 4000
+...
+007 (2017.000.000) 2024-10-14 23:20:41 Shadow exception!
+	Error from slot1_1@compute-1-0.yhep: Failed to execute '/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_sig/all/MC15ri_etapip_gg_JS_Conv.py': (errno=13: 'Permission denied')
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+...
+012 (2017.000.000) 2024-10-14 23:20:41 Job was held.
+	Error from slot1_1@compute-1-0.yhep: Failed to execute '/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_sig/all/MC15ri_etapip_gg_JS_Conv.py': (errno=13: 'Permission denied')
+	Code 6 Subcode 13
+...

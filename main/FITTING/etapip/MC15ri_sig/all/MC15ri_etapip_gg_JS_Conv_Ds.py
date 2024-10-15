@@ -4,7 +4,8 @@ import ctypes
 
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
-file_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/MC15ri_1M_etapip_gg_Dp_M_tight_v2_johnson_conv_Ds.png"
+file_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/MC15ri_1M_etapip_gg_Dp_M_tight_v3_johnson_conv_Ds.png"
+result_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/MC15ri_1M_etapip_gg_Dp_M_tight_v3_johnson_conv_result_Ds.txt"
 
 
 # Get the tree from the file
@@ -14,33 +15,53 @@ tree_name = "etapip_gg"
 fit_variable = "Dp_M"
 fit_var_name = "M(D^{+}) [GeV/c^{2}]"
 fit_range = (1.86, 2.05)
+#fit_range = (1.76, 2.05)
 rank_var = tree_name + "_rank"
 truth_var = "Dp_isSignal"
-cuts = rank_var + "==1"  
+charge_var = "Pip_charge"
+cuts = rank_var + "==1"
+#cuts_Dp = cuts + " && Pip_charge==1"
+#cuts_Dm = cuts + " && Pip_charge==-1"
+cuts_Dp = "Pip_charge==1"
+cuts_Dm = "Pip_charge==-1"
 
 # Create a RooRealVar for the fitting variable
 x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
+x.setRange("fitRange", fit_range[0], fit_range[1])
 chiProb_rank = ROOT.RooRealVar(rank_var, rank_var, 0, 30)
 truth_var = ROOT.RooRealVar(truth_var, truth_var, 0, 30)
+Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
-mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dsptoetapip_gg/240419_tight_v2_Kp_BCS_etapi0const/*.root")
-mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dsptoetapip_gg_cc/240419_tight_v2_Kp_BCS_etapi0const/*.root")
+mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dsptoetapip_gg/241014_tight_v3/etapip_gg/*.root")
+#mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_gg_cc/240419_tight_v2_Kp_BCS_etapi0const/*.root")
+
+tree_name_cc = "etapip_gg"
+mychain_cc = ROOT.TChain(tree_name_cc)
+mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dsptoetapip_gg_cc/241014_tight_v3/etapip_gg/*.root")
+
 
 # data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")
 print(cuts)
-before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,chiProb_rank,truth_var), cuts)
+before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,truth_var, Pip_charge), cuts_Dp)
 
 
 w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)
 w_1.setVal(1)
 before_data.addColumn(w_1)
 data = ROOT.RooDataSet(before_data.GetName(), before_data.GetTitle(),before_data, before_data.get(), '' ,  'w_1')
+
+before_data_cc = ROOT.RooDataSet("data_cc","", mychain_cc, ROOT.RooArgSet(x,truth_var, Pip_charge), cuts_Dm)
+before_data_cc.addColumn(w_1)
+data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),before_data_cc, before_data_cc.get(), '' ,  'w_1')
+
+data.append(data_cc)
+
 N_total = data.sumEntries()
 print(N_total)
 
-mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.96, 1.91, 2.1)
+mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.97, 1.9, 2.05)
 sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.01, 0.00001, 0.5)
 gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.1, 0.001, 10)
 delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.1, 0.001, 10)
@@ -77,8 +98,37 @@ fraction = ROOT.RooRealVar("fraction", "fraction", 0.5, 0.0, 1.0)
 #model = CB_lef
 
 # Perform the fit
-result = model.fitTo(data, ROOT.RooFit.Range(fit_range[0], fit_range[1]), ROOT.RooFit.NumCPU(4))
+result = model.fitTo(data, ROOT.RooFit.Range("fitRange"), ROOT.RooFit.NumCPU(4), ROOT.RooFit.Save())
+result.Print()
+
+# Print the full fit result
 #result.Print()
+
+# Open a text file in write mode
+with open(result_name, "w") as f:
+
+    # Print the full fit result to the file
+    f.write("Full fit result summary:\n")
+    result.Print("v")  # Verbose print (prints more details)
+
+    # Alternatively, write specific attributes to the file
+    f.write("\nSpecific fit result details:\n")
+    f.write(f"Status: {result.status()}\n")
+    f.write(f"Covariance quality: {result.covQual()}\n")
+    f.write(f"EDM (Estimated Distance to Minimum): {result.edm()}\n")
+    f.write(f"Min NLL: {result.minNll()}\n")
+
+    # Access and write parameter values and errors to the file
+    f.write("\nFitted Parameters:\n")
+    params = result.floatParsFinal()  # This returns the final fitted parameters
+    for i in range(params.getSize()):
+        param = params[i]
+        f.write(f"{param.GetName()} = {param.getVal()} ± {param.getError()}\n")
+
+    # Optionally print a completion message
+    f.write("\nFit result saved successfully.\n")
+
+# The file is automatically closed after the 'with' block
 
 # Plot the result
 #canvas = ROOT.TCanvas("canvas", "canvas", 800, 555)
