@@ -4,8 +4,8 @@ import ctypes
 
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
-file_name = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/MC15ri_1M_etapip_pipipi_Dp_M_tight_v3_johnson_conv.png"
-result_name = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/MC15ri_1M_etapip_pipipi_Dp_M_tight_v3_johnson_conv_result.txt"
+file_name = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/MC15ri_1M_etapip_pipipi_Dp_M_tight_v3_johnson_conv_Ds.png"
+result_name = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/MC15ri_1M_etapip_pipipi_Dp_M_tight_v3_johnson_conv_result_Ds.txt"
 
 # Get the tree from the file
 tree_name = "etapip_pipipi"
@@ -13,9 +13,7 @@ tree_name = "etapip_pipipi"
 # Define fitting variable and its range
 fit_variable = "Dp_M"
 fit_var_name = "M(D^{+}) [GeV/c^{2}]"
-fit_range = (1.80, 1.94)
-#fit_range = (1.67, 2.05)
-#fit_range = (1.78, 1.93)
+fit_range = (1.9, 2.02)
 rank_var = tree_name + "_rank"
 truth_var = "Dp_isSignal"
 charge_var = "Pip_charge"
@@ -32,13 +30,13 @@ Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
 #mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_pipipi/240419_tight_v2_Kp_BCS_etapi0const/*.root")
-mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_pipipi/241014_tight_v3/etapip_pipipi/*.root")
+mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dsptoetapip_pipipi/241014_tight_v3/etapip_pipipi/*.root")
 #mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_gg_cc/240419_tight_v2_Kp_BCS_etapi0const/*.root")
 
 tree_name_cc = "etapip_pipipi"
 mychain_cc = ROOT.TChain(tree_name_cc)
 #mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_pipipi_cc/240419_tight_v2_Kp_BCS_etapi0const/*.root")
-mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_pipipi_cc/241014_tight_v3/etapip_pipipi/*.root")
+mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dsptoetapip_pipipi_cc/241014_tight_v3/etapip_pipipi/*.root")
 
 
 # data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")
@@ -60,7 +58,7 @@ data.append(data_cc)
 N_total = data.sumEntries()
 print(N_total)
 
-mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.86, 1.8, 1.9)
+mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.96, 1.91, 2.1)
 sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.01, 0.00001, 0.5)
 gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.1, 0.001, 10)
 delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.1, 0.001, 10)
