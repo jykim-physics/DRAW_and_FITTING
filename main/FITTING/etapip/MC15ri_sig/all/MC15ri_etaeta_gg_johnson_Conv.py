@@ -1,36 +1,30 @@
 import ROOT
+from ROOT import RooFit, RooRealVar
 import glob
 import ctypes
 
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
-#file_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/MC15ri_1M_etapip_gg_Dp_M_tight_v3_other_comb_1st.png"
-#result_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/MC15ri_1M_etapip_gg_Dp_M_tight_v3_other_comb_1st.txt"
-file_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/MC15ri_1M_etapip_gg_Dp_M_tight_v3_other_comb_exp.png"
-result_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/MC15ri_1M_etapip_gg_Dp_M_tight_v3_other_comb_exp.txt"
+file_name = "/share/storage/jykim/plots/MC15ri/etaeta/gg/MC15ri_1M_etaeta_gg_Dp_M_tight_v3_johnson_conv.png"
+result_name = "/share/storage/jykim/plots/MC15ri/etaeta/gg/MC15ri_1M_etaeta_gg_Dp_M_tight_v3_johnson_conv_result.txt"
 
 
 # Get the tree from the file
-tree_name = "etapip_gg"
+tree_name = "etaeta_gg_tag"
 
 # Define fitting variable and its range
-fit_variable = "Dp_M"
-fit_var_name = "M(D^{+}) [GeV/c^{2}]"
-fit_range = (1.63, 2.05)
-#fit_range = (1.7, 2.07)
+fit_variable = "D0_M"
+fit_var_name = "M(D^{0}) [GeV/c^{2}]"
+fit_range = (1.75, 1.95)
 #fit_range = (1.76, 2.05)
 rank_var = tree_name + "_rank"
-truth_var = "Dp_isSignal"
-charge_var = "Pip_charge"
+truth_var = "Dstarp_isSignal"
+charge_var = "Pis_charge"
 cuts = rank_var + "==1"
 #cuts_Dp = cuts + " && Pip_charge==1"
 #cuts_Dm = cuts + " && Pip_charge==-1"
-#cuts_Dp = "(Pip_charge==1) && (iCascDcyBrP_Dsp_0!=1 || abs(Pip_genMotherPDG)!=213 || abs(etapip_Eta_genMotherPDG!=431)) && (iCascDcyBrP_Dp_0!=5) && (iCascDcyBrP_Dsp_0!=0)"
-#cuts_Dm = "(Pip_charge==-1) && (iCascDcyBrCcP_Dsp_0!=1 || abs(Pip_genMotherPDG)!=213 || abs(etapip_Eta_genMotherPDG)!=431)) && (iCascDcyBrCcP_Dp_0!=5) && (iCascDcyBrCcP_Dsp_0!=0)"
-cuts_Dp = "(Pip_charge==1) && (iCascDcyBrP_Dp_0!=5 && iCascDcyBrCcP_Dp_0!=5) && (iCascDcyBrP_Dsp_0!=1 || abs(Pip_genMotherPDG)!=213 || abs(etapip_Eta_genMotherPDG!=431) ) && (iCascDcyBrCcP_Dsp_0!=1) && (iCascDcyBrP_Dsp_0!=0 && iCascDcyBrCcP_Dsp_0!=0)"
-cuts_Dm = "(Pip_charge==-1) && (iCascDcyBrP_Dp_0!=5 && iCascDcyBrCcP_Dp_0!=5) && (iCascDcyBrP_Dsp_0!=1 || abs(Pip_genMotherPDG)!=213 || abs(etapip_Eta_genMotherPDG!=431)) && (iCascDcyBrCcP_Dsp_0!=1) && (iCascDcyBrP_Dsp_0!=0 && iCascDcyBrCcP_Dsp_0!=0)"
-cuts_Dp_generic = "Pip_charge==1"
-cuts_Dm_generic = "Pip_charge==-1"
+cuts_Dp = "Pis_charge==1"
+cuts_Dm = "Pis_charge==-1"
 
 # Create a RooRealVar for the fitting variable
 x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
@@ -38,42 +32,20 @@ x.setRange("fitRange", fit_range[0], fit_range[1])
 chiProb_rank = ROOT.RooRealVar(rank_var, rank_var, 0, 30)
 truth_var = ROOT.RooRealVar(truth_var, truth_var, 0, 30)
 Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
-Dsp_topo = ROOT.RooRealVar("iCascDcyBrP_Dsp_0", "",-1,10000, "")
-Dsp_cc_topo = ROOT.RooRealVar("iCascDcyBrCcP_Dsp_0", "",-1,10000, "")
-Dp_topo = ROOT.RooRealVar("iCascDcyBrP_Dp_0", "",-1,10000, "")
-Dp_cc_topo = ROOT.RooRealVar("iCascDcyBrCcP_Dp_0", "",-1,10000, "")
-Pip_genMotherPDG  = ROOT.RooRealVar("Pip_genMotherPDG", "",-1000000,1000000, "")
-etapip_Eta_genMotherPDG  = ROOT.RooRealVar("etapip_Eta_genMotherPDG", "",-1000000,1000000, "")
-
 
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
-mychain.Add("/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v3_241014/topo/resultfile/result_etapip_gg/etapip_gg/*.root")
+mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dtoetaeta_gg/241014_tight_v3/etaeta_gg_tag/*.root")
+#mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_gg_cc/240419_tight_v2_Kp_BCS_etapi0const/*.root")
 
-base_file_loc =  '/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v3_241014/etapip_gg/'
-loc_uubar = base_file_loc + '*uubar*.root'
-loc_ddbar = base_file_loc + '*ddbar*.root'
-loc_ssbar = base_file_loc + '*ssbar*.root'
-loc_charged = base_file_loc + '*charged*.root'
-loc_mixed = base_file_loc + 'mixed*.root'
-loc_taupair = base_file_loc + '*taupair*.root'
-
-file_list = [loc_uubar,loc_ddbar,loc_ssbar,loc_charged,loc_mixed,loc_taupair]
-#file_list = [loc_ccbar]
-
-mychain_generic = ROOT.TChain(tree_name)
-for i in file_list:
-    mychain_generic.Add(i)
-print(file_list)
-
-tree_name_cc = "etapip_gg"
+tree_name_cc = "etaeta_gg_tag"
 mychain_cc = ROOT.TChain(tree_name_cc)
-mychain_cc.Add("/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v3_241014/topo/resultfile/result_etapip_gg/etapip_gg/*.root")
+mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dtoetaeta_gg_cc/241014_tight_v3/etaeta_gg_tag/*.root")
 
 
 # data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")
-print(cuts_Dp)
-before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,truth_var, Pip_charge,Dsp_topo,Dsp_cc_topo,Dp_topo,Dp_cc_topo, Pip_genMotherPDG, etapip_Eta_genMotherPDG), cuts_Dp)
+print(cuts)
+before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,truth_var, Pip_charge), cuts_Dp)
 
 
 w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)
@@ -81,58 +53,54 @@ w_1.setVal(1)
 before_data.addColumn(w_1)
 data = ROOT.RooDataSet(before_data.GetName(), before_data.GetTitle(),before_data, before_data.get(), '' ,  'w_1')
 
-print(cuts_Dm)
-before_data_cc = ROOT.RooDataSet("data_cc","", mychain_cc, ROOT.RooArgSet(x,truth_var, Pip_charge, Dsp_topo,Dsp_cc_topo,Dp_topo,Dp_cc_topo, Pip_genMotherPDG, etapip_Eta_genMotherPDG,Dsp_topo,Dsp_cc_topo), cuts_Dm)
+before_data_cc = ROOT.RooDataSet("data_cc","", mychain_cc, ROOT.RooArgSet(x,truth_var, Pip_charge), cuts_Dm)
 before_data_cc.addColumn(w_1)
 data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),before_data_cc, before_data_cc.get(), '' ,  'w_1')
 
 data.append(data_cc)
 
-before_data_generic = ROOT.RooDataSet("data_generic","", mychain_generic, ROOT.RooArgSet(x,truth_var, Pip_charge,  Pip_genMotherPDG, etapip_Eta_genMotherPDG), cuts_Dp_generic)
-before_data_generic.addColumn(w_1)
-data_generic = ROOT.RooDataSet(before_data_generic.GetName(), before_data_generic.GetTitle(),before_data_generic, before_data_generic.get(), '' ,  'w_1')
-
-data.append(data_generic)
-
-before_data_generic_cc = ROOT.RooDataSet("data_generic","", mychain_generic, ROOT.RooArgSet(x,truth_var, Pip_charge,  Pip_genMotherPDG, etapip_Eta_genMotherPDG), cuts_Dm_generic)
-before_data_generic_cc.addColumn(w_1)
-data_generic_cc = ROOT.RooDataSet(before_data_generic_cc.GetName(), before_data_generic_cc.GetTitle(),before_data_generic_cc, before_data_generic_cc.get(), '' ,  'w_1')
-
-data.append(data_generic_cc)
-
 N_total = data.sumEntries()
 print(N_total)
 
-mean = ROOT.RooRealVar("mean", "Mean", 1.7, 1.65, 1.75)
-sigma = ROOT.RooRealVar("sigma", "Sigma", 0.05, 0.001, 0.1)
-tail = ROOT.RooRealVar("tail", "Tail", 0.2, 0.001, 0.5)
-#mean = ROOT.RooRealVar("mean", "Mean", 1.7, 1.65, 1.71445)
-#sigma = ROOT.RooRealVar("sigma", "Sigma", 0.05, 0.001, 0.0743477)
-#tail = ROOT.RooRealVar("tail", "Tail", 0.2, 0.001, 0.436177)
+mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.86, 1.8, 1.9)
+sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.01, 0.00001, 0.5)
+gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.1, 0.001, 10)
+delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.1, 0.001, 10)
 
-# Create Novosibirsk PDF
-Novo  = ROOT.RooNovosibirsk("Novo", "Novosibirsk PDF", x, mean, sigma, tail)
+
+#mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.88993)
+#sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.000915868)
+#gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.301743)
+#delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.382565)
+
+johnson = ROOT.RooJohnson("johnson", "Johnson PDF", x, mean_johnson, sigma_johnson, gamma, delta)
 
 mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
 sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.01, 0.0001, 1)
 
+
 # Create a Gaussian distribution
 gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_gaussian)
 
+# # Parameters for the Crystal Ball function
+# mean_cb = RooRealVar("mean_cb", "Mean of CrystalBall", 1.86, 1.8, 2.0)
+# sigma_cb = RooRealVar("sigma_cb", "Sigma of CrystalBall", 0.01, 0.0001, 0.5)
+# alpha_cb = RooRealVar("alpha_cb", "Alpha of CrystalBall", 1.5, 0.001, 10)
+# n_cb = RooRealVar("n_cb", "n of CrystalBall", 2, 0.001, 15)
+
+# # Define the Crystal Ball PDF
+# CB = ROOT.RooCBShape("CB", "Crystal Ball PDF", x, mean_cb, sigma_cb, alpha_cb, n_cb)
+
 # Convolute the Johnson distribution with Gaussian
-#model = ROOT.RooFFTConvPdf("CB_left", "Convolution of Johnson and Gaussian", x, Novo, gaussian)
+model = ROOT.RooFFTConvPdf("CB_left", "Convolution of Johnson and Gaussian", x, johnson, gaussian)
+
 
 # Define parameters for the 1st-order polynomial PDF
 a0 = ROOT.RooRealVar("a0", "a0", 0.0, -1.0, 1.0)
 a1 = ROOT.RooRealVar("a1", "a1", 0.0, -1.0, 1.0)
 
 # Create 1st-order polynomial PDF
-#model  = ROOT.RooPolynomial("CB_left", "polynomial", x, ROOT.RooArgList(a0, a1))
-
-#model  = ROOT.RooPolynomial("CB_left", "polynomial", x, ROOT.RooArgList(a0, a1))
-
-x_bkg1_tau = ROOT.RooRealVar("x_bkg1_tau", "c0",-0.5, -20, 0)
-model = ROOT.RooExponential("CB_left", "x_bkg1", x, x_bkg1_tau)
+polynomial = ROOT.RooPolynomial("polynomial", "polynomial", x, ROOT.RooArgList(a0, a1))
 
 # Combine the two PDFs
 fraction = ROOT.RooRealVar("fraction", "fraction", 0.5, 0.0, 1.0)

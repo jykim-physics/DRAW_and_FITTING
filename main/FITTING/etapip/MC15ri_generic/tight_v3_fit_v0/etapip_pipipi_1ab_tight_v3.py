@@ -4,9 +4,9 @@ import glob
 import ctypes
 import os
 
-file_name_Dp = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/MC15ri_1ab_etapip_gg_fit_tight_v3_fitv0_Dp.png"
-file_name_Dm = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/MC15ri_1ab_etapip_gg_fit_tight_v3_fitv0_Dm.png"
-fitresult_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/fitresult/MC15ri_1ab_etapip_gg_fit_tight_v3_fitv0.root"
+file_name_Dp = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/generic/MC15ri_1ab_etapip_pipipi_fit_tight_v3_fitv0_Dp.png"
+file_name_Dm = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/generic/MC15ri_1ab_etapip_pipipi_fit_tight_v3_fitv0_Dm.png"
+fitresult_name = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/generic/fitresult/MC15ri_1ab_etapip_pipipi_fit_tight_v3_fitv0.root"
 fitresult_text = ""
 dir_path = os.path.dirname(file_name_Dp)
 if not os.path.exists(dir_path):
@@ -20,7 +20,7 @@ print("Directory created:", dir_path)
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
 
-base_file_loc =  '/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v3_241014/etapip_gg/'
+base_file_loc =  '/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v3_241014/etapip_pipipi/'
 
 #loc_ccbar = base_file_loc + 'ccbar/tight_v2_240419_Kp_BCS_etapi0const_ccbar_output_02*.root'
 loc_ccbar = base_file_loc + '*ccbar*.root'
@@ -35,7 +35,7 @@ loc_taupair = base_file_loc + '*taupair*.root'
 file_list = [loc_ccbar,loc_uubar,loc_ddbar,loc_ssbar,loc_charged,loc_mixed,loc_taupair]
 #file_list = [loc_ccbar]
 
-tree_name = "etapip_gg"
+tree_name = "etapip_pipipi"
 mychain = ROOT.TChain(tree_name)
 for i in file_list:
     mychain.Add(i)
@@ -57,9 +57,8 @@ Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 
 before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,Pip_charge), cuts_Dp)
 
-w_1 = ROOT.RooRealVar('w_1', 'w_1', 0,1)
-#scale = 427.87/1000
-scale = 1
+w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)
+scale = 427.87/1000
 w_1.setVal(scale)
 before_data.addColumn(w_1)
 data = ROOT.RooDataSet(before_data.GetName(), before_data.GetTitle(),before_data, before_data.get(), '' ,  'w_1')
@@ -77,7 +76,7 @@ data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),be
 Num_total_cc = data_cc.sumEntries()
 print(Num_total_cc)
 
-N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 100000*scale, 80000*scale, 120000*scale)  # N_total = N_D+ + N_D-
+N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 60000*scale, 20000*scale, 120000*scale)  # N_total = N_D+ + N_D-
 Acp = RooRealVar("Acp", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -89,7 +88,7 @@ Nsig_D_minus = RooFormulaVar("Nsig_D_minus",
     "0.5 * N_total * (1 - Acp)",
     RooArgList(N_total, Acp))
 
-N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 200000*scale, 100000*scale, 300000*scale)  # N_total = N_D+ + N_D-
+N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 80000*scale, 60000*scale, 300000*scale)  # N_total = N_D+ + N_D-
 Acp_Ds = RooRealVar("Acp_Ds", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -102,10 +101,10 @@ Nsig_Ds_minus = RooFormulaVar("Nsig_Ds_minus",
     RooArgList(N_total_Ds, Acp_Ds))
 
 # true+false matched fixed
-mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.880337 )
-sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.00283575)
-gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.321131 )
-delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.597178 )
+mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.874816 )
+sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.000246449)
+gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.197619 )
+delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.294923)
 
 
 mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
@@ -120,10 +119,10 @@ gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_
 # Convolute the Johnson distribution with Gaussian
 sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson and Gaussian", x, johnson, gaussian)
 
-Ds_mean_johnson = ROOT.RooRealVar("Ds_mean_johnson", "mean of Johnson", 1.992838)
-Ds_sigma_johnson = ROOT.RooRealVar("Ds_sigma_johnson", "sigma of Johnson", 0.00165189)
-Ds_gamma = ROOT.RooRealVar("Ds_gamma", "gamma of Johnson", 0.346944)
-Ds_delta = ROOT.RooRealVar("Ds_delta", "delta of Johnson", 0.470654)
+Ds_mean_johnson = ROOT.RooRealVar("Ds_mean_johnson", "mean of Johnson", 1.975815)
+Ds_sigma_johnson = ROOT.RooRealVar("Ds_sigma_johnson", "sigma of Johnson", 0.000327929)
+Ds_gamma = ROOT.RooRealVar("Ds_gamma", "gamma of Johnson", 0.205968)
+Ds_delta = ROOT.RooRealVar("Ds_delta", "delta of Johnson", 0.319731)
 
 Ds_mean_gaussian = ROOT.RooRealVar("Ds_mean_gaussian", "mean of Gaussian", 0, -1, 1)
 Ds_sigma_gaussian = ROOT.RooRealVar("Ds_sigma_gaussian", "sigma of Gaussian", 0.01, 0.00001, 1)
@@ -147,8 +146,8 @@ x_bkg1_Cheby_c2 = ROOT.RooRealVar("x_bkg1_Cheby_c2", "c0",0.0, -1.0, 1.0)
 model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0, x_bkg1_Cheby_c1))
 #model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0, x_bkg1_Cheby_c1, x_bkg1_Cheby_c2))
 
-Nbkg_D_plus = ROOT.RooRealVar("Nbkg_D_plus", "Number of background events for D+", 600000*scale, 300000*scale, 700000*scale)
-Nbkg_D_minus = ROOT.RooRealVar("Nbkg_D_minus", "Number of background events for D-", 600000*scale ,300000*scale, 700000*scale)
+Nbkg_D_plus = ROOT.RooRealVar("Nbkg_D_plus", "Number of background events for D+", 400000*scale, 100000*scale, 600000*scale)
+Nbkg_D_minus = ROOT.RooRealVar("Nbkg_D_minus", "Number of background events for D-", 400000*scale,100000*scale, 600000*scale)
 
 
 # Define extended PDFs for D+ and D-
@@ -173,9 +172,6 @@ data_combined = RooDataSet("data_combined", "Combined data", RooArgList(x, w_1),
                            RooFit.Import("D_plus", data),
                            RooFit.Import("D_minus", data_cc),
                            RooFit.WeightVar('w_1'))
-Num_total_combined = data_combined.sumEntries()
-print(Num_total_combined)
-
 
 # Fit the model to the combined data
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save())
@@ -379,5 +375,5 @@ canvas_D_minus.Update()
 canvas_D_minus.SaveAs(file_name_Dm)
 
 f = ROOT.TFile(fitresult_name, "RECREATE")
-fit_result.Write("jykim")
+r.Write("jykim")
 f.Close()

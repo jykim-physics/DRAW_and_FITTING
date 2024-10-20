@@ -4,10 +4,11 @@ import glob
 import ctypes
 import os
 
-file_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/MC15ri_1ab_etapip_gg_fit_tight_v2_fitv2.png"
-fitresult_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/fitresult/MC15ri_1ab_etapip_gg_fit_tight_v2_fitv2.root"
-fitresult_text = ""
-dir_path = os.path.dirname(file_name)
+file_name_Dp = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/generic/MC15ri_1ab_etapip_pipipi_fit_tight_v3_fitv1_Dp.png"
+file_name_Dm = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/generic/MC15ri_1ab_etapip_pipipi_fit_tight_v3_fitv1_Dm.png"
+fitresult_name = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/generic/fitresult/MC15ri_1ab_etapip_pipipi_fit_tight_v3_fitv1.root"
+fitresult_text = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/generic/fitresult/MC15ri_1ab_etapip_pipipi_fit_tight_v3_fitv1.txt"
+dir_path = os.path.dirname(file_name_Dp)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
 print("Directory created:", dir_path)
@@ -19,7 +20,7 @@ print("Directory created:", dir_path)
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
 
-base_file_loc =  '/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v3_241014/etapip_gg/'
+base_file_loc =  '/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v3_241014/etapip_pipipi/'
 
 #loc_ccbar = base_file_loc + 'ccbar/tight_v2_240419_Kp_BCS_etapi0const_ccbar_output_02*.root'
 loc_ccbar = base_file_loc + '*ccbar*.root'
@@ -28,13 +29,13 @@ loc_uubar = base_file_loc + '*uubar*.root'
 loc_ddbar = base_file_loc + '*ddbar*.root'
 loc_ssbar = base_file_loc + '*ssbar*.root'
 loc_charged = base_file_loc + '*charged*.root'
-loc_mixed = base_file_loc + 'mixed*.root'
+loc_mixed = base_file_loc + '*mixed*.root'
 loc_taupair = base_file_loc + '*taupair*.root'
 
 file_list = [loc_ccbar,loc_uubar,loc_ddbar,loc_ssbar,loc_charged,loc_mixed,loc_taupair]
 #file_list = [loc_ccbar]
 
-tree_name = "etapip_gg"
+tree_name = "etapip_pipipi"
 mychain = ROOT.TChain(tree_name)
 for i in file_list:
     mychain.Add(i)
@@ -43,7 +44,7 @@ print(file_list)
 # Define variable and its range
 fit_variable = "Dp_M"
 fit_var_name = "M(D^{+}) [GeV/c^{2}]"
-fit_range = (1.84, 2.04)
+fit_range = (1.66, 2.06)
 truth_var = "Dp_isSignal"
 charge_var = "Pip_charge"
 
@@ -51,13 +52,14 @@ cuts_Dp = charge_var + "==1"
 cuts_Dm = charge_var + "==-1"
 
 x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
-x.setBins(80)
+#x.setBins(80)
 Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 
 before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,Pip_charge), cuts_Dp)
 
 w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)
-w_1.setVal(1)
+scale = 427.87/1000
+w_1.setVal(scale)
 before_data.addColumn(w_1)
 data = ROOT.RooDataSet(before_data.GetName(), before_data.GetTitle(),before_data, before_data.get(), '' ,  'w_1')
 Num_total = data.sumEntries()
@@ -74,7 +76,7 @@ data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),be
 Num_total_cc = data_cc.sumEntries()
 print(Num_total_cc)
 
-N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 100000, 80000, 120000)  # N_total = N_D+ + N_D-
+N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 60000*scale, 20000*scale, 120000*scale)  # N_total = N_D+ + N_D-
 Acp = RooRealVar("Acp", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -86,7 +88,7 @@ Nsig_D_minus = RooFormulaVar("Nsig_D_minus",
     "0.5 * N_total * (1 - Acp)",
     RooArgList(N_total, Acp))
 
-N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 200000, 100000, 300000)  # N_total = N_D+ + N_D-
+N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 80000*scale, 60000*scale, 300000*scale)  # N_total = N_D+ + N_D-
 Acp_Ds = RooRealVar("Acp_Ds", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -99,10 +101,10 @@ Nsig_Ds_minus = RooFormulaVar("Nsig_Ds_minus",
     RooArgList(N_total_Ds, Acp_Ds))
 
 # true+false matched fixed
-mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.880337 )
-sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.002835)
-gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.321131 )
-delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.597178 )
+mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.874816 )
+sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.000246449)
+gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.197619 )
+delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.294923)
 
 
 mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
@@ -117,10 +119,10 @@ gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_
 # Convolute the Johnson distribution with Gaussian
 sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson and Gaussian", x, johnson, gaussian)
 
-Ds_mean_johnson = ROOT.RooRealVar("Ds_mean_johnson", "mean of Johnson", 1.992838)
-Ds_sigma_johnson = ROOT.RooRealVar("Ds_sigma_johnson", "sigma of Johnson", 0.001651)
-Ds_gamma = ROOT.RooRealVar("Ds_gamma", "gamma of Johnson", 0.346944)
-Ds_delta = ROOT.RooRealVar("Ds_delta", "delta of Johnson", 0.470654)
+Ds_mean_johnson = ROOT.RooRealVar("Ds_mean_johnson", "mean of Johnson", 1.975815)
+Ds_sigma_johnson = ROOT.RooRealVar("Ds_sigma_johnson", "sigma of Johnson", 0.000327929)
+Ds_gamma = ROOT.RooRealVar("Ds_gamma", "gamma of Johnson", 0.205968)
+Ds_delta = ROOT.RooRealVar("Ds_delta", "delta of Johnson", 0.319731)
 
 Ds_mean_gaussian = ROOT.RooRealVar("Ds_mean_gaussian", "mean of Gaussian", 0, -1, 1)
 Ds_sigma_gaussian = ROOT.RooRealVar("Ds_sigma_gaussian", "sigma of Gaussian", 0.01, 0.00001, 1)
@@ -137,15 +139,29 @@ Ds_model = ROOT.RooFFTConvPdf("Ds_model", "Convolution of Johnson and Gaussian",
 x_bkg1_Cheby_c0 = ROOT.RooRealVar("x_bkg1_Cheby_c0", "c0",0.0, -1.0, 1.0)
 x_bkg1_Cheby_c1 = ROOT.RooRealVar("x_bkg1_Cheby_c1", "c0",0.0, -1.0, 1.0)
 x_bkg1_Cheby_c2 = ROOT.RooRealVar("x_bkg1_Cheby_c2", "c0",0.0, -1.0, 1.0)
-#x_bkg1_tau = ROOT.RooRealVar("x_bkg1_tau", "c0",-0.5, -20, 0)
+x_bkg1_tau = ROOT.RooRealVar("x_bkg1_tau", "c0",-0.5, -20, 0)
 
-#bkg_model = ROOT.RooPolynomial("bkg_model", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0, x_bkg1_Cheby_c1))
-#model_bkg = ROOT.RooExponential("model_bkg", "x_bkg1", x, x_bkg1_tau)
-model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0, x_bkg1_Cheby_c1))
+novo_mean = ROOT.RooRealVar("novo_mean", "Mean", 1.724340)
+novo_sigma = ROOT.RooRealVar("novo_sigma", "Sigma", 0.0717208)
+novo_tail = ROOT.RooRealVar("novo_tail", "Tail", 0.465446)
+# Create Novosibirsk PDF
+novo  = ROOT.RooNovosibirsk("novo", "Novosibirsk PDF", x, novo_mean, novo_sigma, novo_tail)
+
+novo_mean_gaussian = ROOT.RooRealVar("novo_mean_gaussian", "mean of Gaussian", 0, -1, 1)
+novo_sigma_gaussian = ROOT.RooRealVar("novo_sigma_gaussian", "sigma of Gaussian", 0.01, 0.0001, 1)
+novo_gaussian = ROOT.RooGaussian("novo_gaussian", "Gaussian PDF", x, novo_mean_gaussian, novo_sigma_gaussian)
+rhopeta = ROOT.RooFFTConvPdf("rhopeta", "Convolution of Novosibirsk and Gaussian", x, novo, novo_gaussian)
+
+bkg_comb = ROOT.RooExponential("bkg_comb", "x_bkg1", x, x_bkg1_tau)
 #model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0, x_bkg1_Cheby_c1, x_bkg1_Cheby_c2))
 
-Nbkg_D_plus = ROOT.RooRealVar("Nbkg_D_plus", "Number of background events for D+", 600000, 300000, 700000)
-Nbkg_D_minus = ROOT.RooRealVar("Nbkg_D_minus", "Number of background events for D-", 600000,300000, 700000)
+bkg_frac = ROOT.RooRealVar("bkg_frac", "fraction of Gaussian in BKG", 0.25, 0.1, 0.8)
+
+model_bkg = ROOT.RooAddPdf("model_bkg", "Gaus + Exp", RooArgList(rhopeta, bkg_comb), bkg_frac)
+
+
+Nbkg_D_plus = ROOT.RooRealVar("Nbkg_D_plus", "Number of background events for D+", 600000*scale, 300000*scale, 1000000*scale)
+Nbkg_D_minus = ROOT.RooRealVar("Nbkg_D_minus", "Number of background events for D-", 600000*scale,300000*scale, 1000000*scale)
 
 
 # Define extended PDFs for D+ and D-
@@ -166,9 +182,10 @@ sim_model = RooSimultaneous("sim_model", "Simultaneous model", cat)
 sim_model.addPdf(model_D_plus, "D_plus")
 sim_model.addPdf(model_D_minus, "D_minus")
 
-data_combined = RooDataSet("data_combined", "Combined data", RooArgList(x), RooFit.Index(cat),
+data_combined = RooDataSet("data_combined", "Combined data", RooArgList(x, w_1), RooFit.Index(cat),
                            RooFit.Import("D_plus", data),
-                           RooFit.Import("D_minus", data_cc))
+                           RooFit.Import("D_minus", data_cc),
+                           RooFit.WeightVar('w_1'))
 
 # Fit the model to the combined data
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save())
@@ -191,7 +208,7 @@ N_total_error = N_total.getError()
 print(f"N_total = {N_total_value:.0f} ± {N_total_error:.3f}")
 
 # Create plots for D+ and D-
-canvas_D_plus = ROOT.TCanvas("canvas_D_plus", "D+ fit", 700, 640)
+canvas_D_plus = ROOT.TCanvas("canvas_D_plus", "D+ fit", 800, 600)
 xlow = ctypes.c_double()
 ylow = ctypes.c_double()
 xup = ctypes.c_double()
@@ -217,8 +234,8 @@ frame_D_plus = x.frame(ROOT.RooFit.Title("D+ fit"))
 slicedData_Dp = data_combined.reduce(Cut="sample==sample::D_plus")
 slicedData_Dp.plotOn(frame_D_plus, Name="data")
 sim_model.plotOn(frame_D_plus, Name="Background", Components="model_bkg", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kGreen+2, LineStyle=ROOT.kDashDotted)
-sim_model.plotOn(frame_D_plus, Name="D+",Components="sig_model", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kRed, LineStyle=ROOT.kDashDotted)
-sim_model.plotOn(frame_D_plus, Name="Ds+",Components="Ds_model", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kBlue+2, LineStyle=ROOT.kDashDotted)
+#sim_model.plotOn(frame_D_plus, Name="D+",Components="sig_model", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kRed, LineStyle=ROOT.kDashDotted)
+#sim_model.plotOn(frame_D_plus, Name="Ds+",Components="Ds_model", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kBlue+2, LineStyle=ROOT.kDashDotted)
 sim_model.plotOn(frame_D_plus, Name="Fitting",ProjWData=(cat, slicedData_Dp))
 frame_D_plus.Draw("PE")
 frame_D_plus.GetXaxis().CenterTitle(True)
@@ -231,8 +248,8 @@ leg1.SetFillColorAlpha(ROOT.kWhite, 0)
     # leg1.SetHeader("The Legend title","C")
 leg1.AddEntry("data", "MC", "PE")
 leg1.AddEntry("Fitting", "Fit", "l")
-leg1.AddEntry("D+", "D^{+}", "l")
-leg1.AddEntry("Ds+", "D_{s}^{+}", "l")
+#leg1.AddEntry("D+", "D^{+}", "l")
+#leg1.AddEntry("Ds+", "D_{s}^{+}", "l")
 leg1.AddEntry("Background", "Bkg", "l")
 
 # leg1.SetTextSize(0.05)
@@ -280,7 +297,7 @@ line1.Draw("SAME")
 line2.Draw("SAME")
 
 canvas_D_plus.Update()
-canvas_D_plus.SaveAs("D_plus_fit.png")
+canvas_D_plus.SaveAs(file_name_Dp)
 
 canvas_D_minus = ROOT.TCanvas("canvas_D_minus", "D- fit", 800, 600)
 xlow = ctypes.c_double()
@@ -306,8 +323,8 @@ frame_D_minus = x.frame(ROOT.RooFit.Title("D+ fit"))
 slicedData_Dm = data_combined.reduce(Cut="sample==sample::D_minus")
 slicedData_Dm.plotOn(frame_D_minus, Name="data")
 sim_model.plotOn(frame_D_minus, Name="Background", Components="model_bkg", ProjWData=(cat, slicedData_Dm),LineColor=ROOT.kGreen+2, LineStyle=ROOT.kDashDotted)
-sim_model.plotOn(frame_D_minus, Name="D+",Components="sig_model", ProjWData=(cat, slicedData_Dm),LineColor=ROOT.kRed, LineStyle=ROOT.kDashDotted)
-sim_model.plotOn(frame_D_minus, Name="Ds+",Components="Ds_model", ProjWData=(cat, slicedData_Dm),LineColor=ROOT.kBlue+2, LineStyle=ROOT.kDashDotted)
+#sim_model.plotOn(frame_D_minus, Name="D+",Components="sig_model", ProjWData=(cat, slicedData_Dm),LineColor=ROOT.kRed, LineStyle=ROOT.kDashDotted)
+#sim_model.plotOn(frame_D_minus, Name="Ds+",Components="Ds_model", ProjWData=(cat, slicedData_Dm),LineColor=ROOT.kBlue+2, LineStyle=ROOT.kDashDotted)
 sim_model.plotOn(frame_D_minus, Name="Fitting",ProjWData=(cat, slicedData_Dm))
 frame_D_minus.Draw("PE")
 frame_D_minus.GetXaxis().CenterTitle(True)
@@ -320,8 +337,8 @@ leg1.SetFillColorAlpha(ROOT.kWhite, 0)
     # leg1.SetHeader("The Legend title","C")
 leg1.AddEntry("data", "MC", "PE")
 leg1.AddEntry("Fitting", "Fit", "l")
-leg1.AddEntry("D+", "D^{+}", "l")
-leg1.AddEntry("Ds+", "D_{s}^{+}", "l")
+#leg1.AddEntry("D+", "D^{+}", "l")
+#leg1.AddEntry("Ds+", "D_{s}^{+}", "l")
 leg1.AddEntry("Background", "Bkg", "l")
 
 # leg1.SetTextSize(0.05)
@@ -369,4 +386,34 @@ line1.Draw("SAME")
 line2.Draw("SAME")
 
 canvas_D_minus.Update()
-canvas_D_minus.SaveAs("D_minus_fit.png")
+canvas_D_minus.SaveAs(file_name_Dm)
+
+f = ROOT.TFile(fitresult_name, "RECREATE")
+fit_result.Write("jykim")
+f.Close()
+
+# Open a text file in write mode
+with open(fitresult_text, "w") as f:
+
+    # Print the full fit result to the file
+    f.write("Full fit result summary:\n")
+    fit_result.Print("v")  # Verbose print (prints more details)
+
+    # Alternatively, write specific attributes to the file
+    f.write("\nSpecific fit result details:\n")
+    f.write(f"Status: {fit_result.status()}\n")
+    f.write(f"Covariance quality: {fit_result.covQual()}\n")
+    f.write(f"EDM (Estimated Distance to Minimum): {fit_result.edm()}\n")
+    f.write(f"Min NLL: {fit_result.minNll()}\n")
+
+    # Access and write parameter values and errors to the file
+    f.write("\nFitted Parameters:\n")
+    params = fit_result.floatParsFinal()  # This returns the final fitted parameters
+    for i in range(params.getSize()):
+        param = params[i]
+        f.write(f"{param.GetName()} = {param.getVal()} ± {param.getError()}\n")
+
+    # Optionally print a completion message
+    f.write("\nFit result saved successfully.\n")
+
+# The file is automatically closed after the 'with' block

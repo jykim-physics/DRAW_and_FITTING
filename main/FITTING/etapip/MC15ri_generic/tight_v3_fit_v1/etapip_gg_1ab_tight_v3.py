@@ -4,10 +4,10 @@ import glob
 import ctypes
 import os
 
-file_name_Dp = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/MC15ri_1ab_etapip_gg_fit_tight_v3_fitv0_Dp.png"
-file_name_Dm = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/MC15ri_1ab_etapip_gg_fit_tight_v3_fitv0_Dm.png"
-fitresult_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/fitresult/MC15ri_1ab_etapip_gg_fit_tight_v3_fitv0.root"
-fitresult_text = ""
+file_name_Dp = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/MC15ri_1ab_etapip_gg_fit_tight_v3_fitv1_Dp.png"
+file_name_Dm = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/MC15ri_1ab_etapip_gg_fit_tight_v3_fitv1_Dm.png"
+fitresult_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/fitresult/MC15ri_1ab_etapip_gg_fit_tight_v3_fitv1.root"
+fitresult_text = "/share/storage/jykim/plots/MC15ri/etapip/gg/generic/fitresult/MC15ri_1ab_etapip_gg_fit_tight_v3_fitv1.txt"
 dir_path = os.path.dirname(file_name_Dp)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
@@ -44,7 +44,8 @@ print(file_list)
 # Define variable and its range
 fit_variable = "Dp_M"
 fit_var_name = "M(D^{+}) [GeV/c^{2}]"
-fit_range = (1.84, 2.04)
+fit_range = (1.66, 2.06)
+#fit_range = (1.7, 2.08)
 truth_var = "Dp_isSignal"
 charge_var = "Pip_charge"
 
@@ -52,14 +53,14 @@ cuts_Dp = charge_var + "==1"
 cuts_Dm = charge_var + "==-1"
 
 x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
-x.setBins(80)
+#x.setBins(80)
 Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 
 before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,Pip_charge), cuts_Dp)
 
 w_1 = ROOT.RooRealVar('w_1', 'w_1', 0,1)
-#scale = 427.87/1000
-scale = 1
+scale = 427.87/1000
+#scale = 1
 w_1.setVal(scale)
 before_data.addColumn(w_1)
 data = ROOT.RooDataSet(before_data.GetName(), before_data.GetTitle(),before_data, before_data.get(), '' ,  'w_1')
@@ -140,15 +141,34 @@ Ds_model = ROOT.RooFFTConvPdf("Ds_model", "Convolution of Johnson and Gaussian",
 x_bkg1_Cheby_c0 = ROOT.RooRealVar("x_bkg1_Cheby_c0", "c0",0.0, -1.0, 1.0)
 x_bkg1_Cheby_c1 = ROOT.RooRealVar("x_bkg1_Cheby_c1", "c0",0.0, -1.0, 1.0)
 x_bkg1_Cheby_c2 = ROOT.RooRealVar("x_bkg1_Cheby_c2", "c0",0.0, -1.0, 1.0)
-#x_bkg1_tau = ROOT.RooRealVar("x_bkg1_tau", "c0",-0.5, -20, 0)
+x_bkg1_tau = ROOT.RooRealVar("x_bkg1_tau", "c0",-0.5, -20, 0)
+
+novo_mean = ROOT.RooRealVar("novo_mean", "Mean", 1.717967)
+novo_sigma = ROOT.RooRealVar("novo_sigma", "Sigma", 0.0735744)
+novo_tail = ROOT.RooRealVar("novo_tail", "Tail", 0.394039)
+# Create Novosibirsk PDF
+novo  = ROOT.RooNovosibirsk("novo", "Novosibirsk PDF", x, novo_mean, novo_sigma, novo_tail)
+
+novo_mean_gaussian = ROOT.RooRealVar("novo_mean_gaussian", "mean of Gaussian", 0, -1, 1)
+novo_sigma_gaussian = ROOT.RooRealVar("novo_sigma_gaussian", "sigma of Gaussian", 0.01, 0.0001, 1)
+novo_gaussian = ROOT.RooGaussian("novo_gaussian", "Gaussian PDF", x, novo_mean_gaussian, novo_sigma_gaussian)
+
+rhopeta = ROOT.RooFFTConvPdf("rhopeta", "Convolution of Novosibirsk and Gaussian", x, novo, novo_gaussian)
+
 
 #bkg_model = ROOT.RooPolynomial("bkg_model", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0, x_bkg1_Cheby_c1))
 #model_bkg = ROOT.RooExponential("model_bkg", "x_bkg1", x, x_bkg1_tau)
-model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0, x_bkg1_Cheby_c1))
+bkg_comb = ROOT.RooExponential("bkg_comb", "x_bkg1", x, x_bkg1_tau)
+#bkg_comb = ROOT.RooPolynomial("bkg_comb", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0, x_bkg1_Cheby_c1))
 #model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0, x_bkg1_Cheby_c1, x_bkg1_Cheby_c2))
 
-Nbkg_D_plus = ROOT.RooRealVar("Nbkg_D_plus", "Number of background events for D+", 600000*scale, 300000*scale, 700000*scale)
-Nbkg_D_minus = ROOT.RooRealVar("Nbkg_D_minus", "Number of background events for D-", 600000*scale ,300000*scale, 700000*scale)
+bkg_frac = ROOT.RooRealVar("bkg_frac", "fraction of Gaussian in BKG", 0.25, 0.1, 0.8)
+
+model_bkg = ROOT.RooAddPdf("model_bkg", "Gaus + Exp", RooArgList(rhopeta, bkg_comb), bkg_frac)
+
+
+Nbkg_D_plus = ROOT.RooRealVar("Nbkg_D_plus", "Number of background events for D+", 1000000*scale, 300000*scale, 1300000*scale)
+Nbkg_D_minus = ROOT.RooRealVar("Nbkg_D_minus", "Number of background events for D-", 1000000*scale ,300000*scale, 1300000*scale)
 
 
 # Define extended PDFs for D+ and D-
@@ -224,8 +244,8 @@ frame_D_plus = x.frame(ROOT.RooFit.Title("D+ fit"))
 slicedData_Dp = data_combined.reduce(Cut="sample==sample::D_plus")
 slicedData_Dp.plotOn(frame_D_plus, Name="data")
 sim_model.plotOn(frame_D_plus, Name="Background", Components="model_bkg", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kGreen+2, LineStyle=ROOT.kDashDotted)
-sim_model.plotOn(frame_D_plus, Name="D+",Components="sig_model", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kRed, LineStyle=ROOT.kDashDotted)
-sim_model.plotOn(frame_D_plus, Name="Ds+",Components="Ds_model", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kBlue+2, LineStyle=ROOT.kDashDotted)
+#sim_model.plotOn(frame_D_plus, Name="D+",Components="sig_model", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kRed, LineStyle=ROOT.kDashDotted)
+#sim_model.plotOn(frame_D_plus, Name="Ds+",Components="Ds_model", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kBlue+2, LineStyle=ROOT.kDashDotted)
 sim_model.plotOn(frame_D_plus, Name="Fitting",ProjWData=(cat, slicedData_Dp))
 frame_D_plus.Draw("PE")
 frame_D_plus.GetXaxis().CenterTitle(True)
@@ -238,8 +258,8 @@ leg1.SetFillColorAlpha(ROOT.kWhite, 0)
     # leg1.SetHeader("The Legend title","C")
 leg1.AddEntry("data", "MC", "PE")
 leg1.AddEntry("Fitting", "Fit", "l")
-leg1.AddEntry("D+", "D^{+}", "l")
-leg1.AddEntry("Ds+", "D_{s}^{+}", "l")
+#leg1.AddEntry("D+", "D^{+}", "l")
+#leg1.AddEntry("Ds+", "D_{s}^{+}", "l")
 leg1.AddEntry("Background", "Bkg", "l")
 
 # leg1.SetTextSize(0.05)
@@ -313,8 +333,8 @@ frame_D_minus = x.frame(ROOT.RooFit.Title("D+ fit"))
 slicedData_Dm = data_combined.reduce(Cut="sample==sample::D_minus")
 slicedData_Dm.plotOn(frame_D_minus, Name="data")
 sim_model.plotOn(frame_D_minus, Name="Background", Components="model_bkg", ProjWData=(cat, slicedData_Dm),LineColor=ROOT.kGreen+2, LineStyle=ROOT.kDashDotted)
-sim_model.plotOn(frame_D_minus, Name="D+",Components="sig_model", ProjWData=(cat, slicedData_Dm),LineColor=ROOT.kRed, LineStyle=ROOT.kDashDotted)
-sim_model.plotOn(frame_D_minus, Name="Ds+",Components="Ds_model", ProjWData=(cat, slicedData_Dm),LineColor=ROOT.kBlue+2, LineStyle=ROOT.kDashDotted)
+#sim_model.plotOn(frame_D_minus, Name="D+",Components="sig_model", ProjWData=(cat, slicedData_Dm),LineColor=ROOT.kRed, LineStyle=ROOT.kDashDotted)
+#sim_model.plotOn(frame_D_minus, Name="Ds+",Components="Ds_model", ProjWData=(cat, slicedData_Dm),LineColor=ROOT.kBlue+2, LineStyle=ROOT.kDashDotted)
 sim_model.plotOn(frame_D_minus, Name="Fitting",ProjWData=(cat, slicedData_Dm))
 frame_D_minus.Draw("PE")
 frame_D_minus.GetXaxis().CenterTitle(True)
@@ -327,8 +347,8 @@ leg1.SetFillColorAlpha(ROOT.kWhite, 0)
     # leg1.SetHeader("The Legend title","C")
 leg1.AddEntry("data", "MC", "PE")
 leg1.AddEntry("Fitting", "Fit", "l")
-leg1.AddEntry("D+", "D^{+}", "l")
-leg1.AddEntry("Ds+", "D_{s}^{+}", "l")
+#leg1.AddEntry("D+", "D^{+}", "l")
+#leg1.AddEntry("Ds+", "D_{s}^{+}", "l")
 leg1.AddEntry("Background", "Bkg", "l")
 
 # leg1.SetTextSize(0.05)
@@ -381,3 +401,29 @@ canvas_D_minus.SaveAs(file_name_Dm)
 f = ROOT.TFile(fitresult_name, "RECREATE")
 fit_result.Write("jykim")
 f.Close()
+
+# Open a text file in write mode
+with open(fitresult_text, "w") as f:
+
+    # Print the full fit result to the file
+    f.write("Full fit result summary:\n")
+    fit_result.Print("v")  # Verbose print (prints more details)
+
+    # Alternatively, write specific attributes to the file
+    f.write("\nSpecific fit result details:\n")
+    f.write(f"Status: {fit_result.status()}\n")
+    f.write(f"Covariance quality: {fit_result.covQual()}\n")
+    f.write(f"EDM (Estimated Distance to Minimum): {fit_result.edm()}\n")
+    f.write(f"Min NLL: {fit_result.minNll()}\n")
+
+    # Access and write parameter values and errors to the file
+    f.write("\nFitted Parameters:\n")
+    params = fit_result.floatParsFinal()  # This returns the final fitted parameters
+    for i in range(params.getSize()):
+        param = params[i]
+        f.write(f"{param.GetName()} = {param.getVal()} ± {param.getError()}\n")
+
+    # Optionally print a completion message
+    f.write("\nFit result saved successfully.\n")
+
+# The file is automatically closed after the 'with' block

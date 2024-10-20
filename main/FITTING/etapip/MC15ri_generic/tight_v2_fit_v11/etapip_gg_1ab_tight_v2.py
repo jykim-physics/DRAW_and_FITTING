@@ -72,6 +72,7 @@ before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,chiProb_rank,
 
 
 w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)
+scale = 1
 w_1.setVal(1)
 before_data.addColumn(w_1)
 data = ROOT.RooDataSet(before_data.GetName(), before_data.GetTitle(),before_data, before_data.get(), '' ,  'w_1')
@@ -264,6 +265,6 @@ canv.Draw()
 canv.SaveAs(file_name)
 
 f = ROOT.TFile(fitresult_name, "RECREATE")
-r.Write("jykim")
+fit_result.Write("jykim")
 f.Close() 
 
