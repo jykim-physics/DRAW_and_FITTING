@@ -3,6 +3,8 @@ from ROOT import RooFit, RooRealVar, RooDataSet, RooArgList, RooAddPdf, RooGauss
 import glob
 import ctypes
 import os
+import matplotlib.pyplot as plt
+import numpy as np
 
 file_name_Dp = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/generic/MC15ri_1ab_etapip_pipipi_fit_opt_loose_v0_fitv0_Dp.png"
 file_name_Dm = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/generic/MC15ri_1ab_etapip_pipipi_fit_opt_loose_v0_fitv0_Dm.png"
@@ -20,23 +22,23 @@ print("Directory created:", dir_path)
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
 
-base_file_loc =  '/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v3_241014/etapip_pipipi/'
+#base_file_loc =  '/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v3_241014/etapip_pipipi/'
 
 #loc_ccbar = base_file_loc + 'ccbar/tight_v2_240419_Kp_BCS_etapi0const_ccbar_output_02*.root'
-loc_ccbar = base_file_loc + '*ccbar*.root'
+#loc_ccbar = base_file_loc + '*ccbar*.root'
 # loc_ccbar = base_file_loc + 'topo/resultfile/result_antiKstar/standard.root'
-loc_uubar = base_file_loc + '*uubar*.root'
-loc_ddbar = base_file_loc + '*ddbar*.root'
-loc_ssbar = base_file_loc + '*ssbar*.root'
-loc_charged = base_file_loc + '*charged*.root'
-loc_mixed = base_file_loc + '*mixed*.root'
-loc_taupair = base_file_loc + '*taupair*.root'
+#loc_uubar = base_file_loc + '*uubar*.root'
+#loc_ddbar = base_file_loc + '*ddbar*.root'
+#loc_ssbar = base_file_loc + '*ssbar*.root'
+#loc_charged = base_file_loc + '*charged*.root'
+#loc_mixed = base_file_loc + '*mixed*.root'
+#loc_taupair = base_file_loc + '*taupair*.root'
 
-file_list = [loc_ccbar,loc_uubar,loc_ddbar,loc_ssbar,loc_charged,loc_mixed,loc_taupair]
+#file_list = [loc_ccbar,loc_uubar,loc_ddbar,loc_ssbar,loc_charged,loc_mixed,loc_taupair]
 #file_list = [loc_ccbar]
 
 #file_list = ['/home/jykim/updated_file8.BCS.root']
-file_list = ['/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_loose_v1_241030_roe_Dptag_CFT_nopi0veto/etapip_pipipi/*BCS.root']
+file_list = ['/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_loose_v1_241030_roe_Dptag_CFT_nopi0veto/etapip_pipipi/MC15ri*.root']
 
 tree_name = "etapip_pipipi"
 mychain = ROOT.TChain(tree_name)
@@ -47,7 +49,8 @@ print(file_list)
 # Define variable and its range
 fit_variable = "Dp_M"
 fit_var_name = "M(D^{+}) [GeV/c^{2}]"
-fit_range = (1.66, 2.06)
+#fit_range = (1.66, 2.06)
+fit_range = (1.7, 2.06)
 truth_var = "Dp_isSignal"
 charge_var = "Pip_charge"
 
@@ -55,14 +58,14 @@ cuts_Dp = charge_var + "==1"
 cuts_Dm = charge_var + "==-1"
 
 x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
-#x.setBins(80)
+x.setBins(200)
 Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 
 before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,Pip_charge), cuts_Dp)
 
 w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)
-#scale = 1
-scale = 427.87/1000
+scale = 1
+#scale = 427.87/1000
 w_1.setVal(scale)
 before_data.addColumn(w_1)
 data = ROOT.RooDataSet(before_data.GetName(), before_data.GetTitle(),before_data, before_data.get(), '' ,  'w_1')
@@ -175,8 +178,8 @@ bkg_frac = ROOT.RooRealVar("bkg_frac", "fraction of Gaussian in BKG", 0.25, 0.1,
 model_bkg = ROOT.RooAddPdf("model_bkg", "Gaus + Exp", RooArgList(rhopeta, bkg_comb), bkg_frac)
 
 
-Nbkg_D_plus = ROOT.RooRealVar("Nbkg_D_plus", "Number of background events for D+", 80000*scale, 60000*scale, 100000*scale)
-Nbkg_D_minus = ROOT.RooRealVar("Nbkg_D_minus", "Number of background events for D-", 80000*scale,60000*scale, 100000*scale)
+Nbkg_D_plus = ROOT.RooRealVar("Nbkg_D_plus", "Number of background events for D+", 80000*scale, 30000*scale, 100000*scale)
+Nbkg_D_minus = ROOT.RooRealVar("Nbkg_D_minus", "Number of background events for D-", 80000*scale,30000*scale, 100000*scale)
 
 
 # Define extended PDFs for D+ and D-
@@ -204,8 +207,31 @@ data_combined = RooDataSet("data_combined", "Combined data", RooArgList(x, w_1),
 
 # Fit the model to the combined data
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save())
-fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4), RooFit.Strategy(2), RooFit.Minos(0), RooFit.Hesse(1))
+#fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4), RooFit.Strategy(2), RooFit.Minos(0), RooFit.Hesse(1))
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4), RooFit.Strategy(0), RooFit.Minos(0), RooFit.Hesse(1))
+nll = sim_model.createNLL(data_combined, ROOT.RooFit.Extended(True), ROOT.RooFit.NumCPU(15), RooFit.SumW2Error(True),  ROOT.RooFit.Offset(True))
+
+# Step 2: Perform the Migrad minimization
+minimizer = ROOT.RooMinimizer(nll)
+#minimizer.setStrategy(2)
+minimizer.setStrategy(0)
+minimizer.setPrintLevel(3)
+status = minimizer.migrad()
+
+# Check the status of Migrad
+if status != 0:
+    print(f"Migrad failed with status: {status}")
+
+# Step 3: Perform the Hesse minimization
+status = minimizer.hesse()
+
+# Check the status of Hesse
+if status != 0:
+    print(f"Hesse failed with status: {status}")
+
+# Save the fit result
+fit_result  = minimizer.save()
+#r.Print("v")
 
 # Print fit results
 fit_result.Print()
@@ -485,3 +511,28 @@ with open(fitresult_text, "w") as f:
 
 # # Generate and fit 10 toys
 # mcstudy1.generateAndFit(10)
+correlation_matrix = fit_result.correlationMatrix()
+correlation_matrix.Print()
+
+# Convert the correlation matrix to a format usable by matplotlib
+n_params = correlation_matrix.GetNrows()
+matrix_data = np.array([[correlation_matrix[i][j] for j in range(n_params)] for i in range(n_params)])
+# Plot the correlation matrix with matplotlib
+plt.figure(figsize=(8, 6))
+im = plt.imshow(matrix_data, cmap='bwr', vmin=-1, vmax=1, interpolation='nearest')
+plt.colorbar(im, label='Correlation Coefficient')
+
+# Add value annotations to each cell
+for i in range(n_params):
+    for j in range(n_params):
+        value = matrix_data[i, j]
+        plt.text(j, i, f"{value:.2f}", ha='center', va='center', color='black' if abs(value) < 0.5 else 'white')
+
+# Set title and labels
+plt.title('Correlation Matrix')
+plt.xticks(ticks=range(n_params), labels=[fit_result.floatParsFinal().at(i).GetName() for i in range(n_params)], rotation=45, ha='right')
+plt.yticks(ticks=range(n_params), labels=[fit_result.floatParsFinal().at(i).GetName() for i in range(n_params)])
+
+# Layout adjustment
+plt.tight_layout()
+plt.savefig("corr.png")

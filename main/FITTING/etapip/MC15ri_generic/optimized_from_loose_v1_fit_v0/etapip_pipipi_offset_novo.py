@@ -20,23 +20,23 @@ print("Directory created:", dir_path)
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
 
-base_file_loc =  '/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v3_241014/etapip_pipipi/'
+#base_file_loc =  '/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v3_241014/etapip_pipipi/'
 
 #loc_ccbar = base_file_loc + 'ccbar/tight_v2_240419_Kp_BCS_etapi0const_ccbar_output_02*.root'
-loc_ccbar = base_file_loc + '*ccbar*.root'
+#loc_ccbar = base_file_loc + '*ccbar*.root'
 # loc_ccbar = base_file_loc + 'topo/resultfile/result_antiKstar/standard.root'
-loc_uubar = base_file_loc + '*uubar*.root'
-loc_ddbar = base_file_loc + '*ddbar*.root'
-loc_ssbar = base_file_loc + '*ssbar*.root'
-loc_charged = base_file_loc + '*charged*.root'
-loc_mixed = base_file_loc + '*mixed*.root'
-loc_taupair = base_file_loc + '*taupair*.root'
+#loc_uubar = base_file_loc + '*uubar*.root'
+#loc_ddbar = base_file_loc + '*ddbar*.root'
+#loc_ssbar = base_file_loc + '*ssbar*.root'
+#loc_charged = base_file_loc + '*charged*.root'
+#loc_mixed = base_file_loc + '*mixed*.root'
+#loc_taupair = base_file_loc + '*taupair*.root'
 
-file_list = [loc_ccbar,loc_uubar,loc_ddbar,loc_ssbar,loc_charged,loc_mixed,loc_taupair]
+#file_list = [loc_ccbar,loc_uubar,loc_ddbar,loc_ssbar,loc_charged,loc_mixed,loc_taupair]
 #file_list = [loc_ccbar]
 
 #file_list = ['/home/jykim/updated_file8.BCS.root']
-file_list = ['/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_loose_v1_241030_roe_Dptag_CFT_nopi0veto/etapip_pipipi/*BCS.root']
+file_list = ['/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_loose_v1_241030_roe_Dptag_CFT_nopi0veto/etapip_pipipi/MC15ri*.root']
 
 tree_name = "etapip_pipipi"
 mychain = ROOT.TChain(tree_name)
@@ -47,7 +47,8 @@ print(file_list)
 # Define variable and its range
 fit_variable = "Dp_M"
 fit_var_name = "M(D^{+}) [GeV/c^{2}]"
-fit_range = (1.66, 2.06)
+#fit_range = (1.66, 2.06)
+fit_range = (1.7, 2.06)
 truth_var = "Dp_isSignal"
 charge_var = "Pip_charge"
 
@@ -153,19 +154,16 @@ x_bkg1_Cheby_c1 = ROOT.RooRealVar("x_bkg1_Cheby_c1", "c0",0.0, -1.0, 1.0)
 x_bkg1_Cheby_c2 = ROOT.RooRealVar("x_bkg1_Cheby_c2", "c0",0.0, -1.0, 1.0)
 x_bkg1_tau = ROOT.RooRealVar("x_bkg1_tau", "c0",-0.5, -20, 0)
 
-#novo_mean = ROOT.RooRealVar("novo_mean", "Mean", 1.724340)
-#novo_sigma = ROOT.RooRealVar("novo_sigma", "Sigma", 0.0717208)
-#novo_tail = ROOT.RooRealVar("novo_tail", "Tail", 0.465446)
-novo_mean = ROOT.RooRealVar("novo_mean", "Mean", 1.725836)
-novo_sigma = ROOT.RooRealVar("novo_sigma", "Sigma", 0.0684270)
-novo_tail = ROOT.RooRealVar("novo_tail", "Tail", 0.424610)
+novo_mean = ROOT.RooRealVar("novo_mean", "Mean", 1.725249)
+novo_sigma = ROOT.RooRealVar("novo_sigma", "Sigma", 0.0666673)
+novo_tail = ROOT.RooRealVar("novo_tail", "Tail", 0.351162)
 # Create Novosibirsk PDF
-novo  = ROOT.RooNovosibirsk("novo", "Novosibirsk PDF", x, novo_mean, novo_sigma, novo_tail)
+rhopeta  = ROOT.RooNovosibirsk("rhoptea", "Novosibirsk PDF", x, novo_mean, novo_sigma, novo_tail)
 
-novo_mean_gaussian = ROOT.RooRealVar("novo_mean_gaussian", "mean of Gaussian", 0, -0.5, 0.5)
-novo_sigma_gaussian = ROOT.RooRealVar("novo_sigma_gaussian", "sigma of Gaussian", 0.01, 0.000001, 0.1)
-novo_gaussian = ROOT.RooGaussian("novo_gaussian", "Gaussian PDF", x, novo_mean_gaussian, novo_sigma_gaussian)
-rhopeta = ROOT.RooFFTConvPdf("rhopeta", "Convolution of Novosibirsk and Gaussian", x, novo, novo_gaussian)
+#novo_mean_gaussian = ROOT.RooRealVar("novo_mean_gaussian", "mean of Gaussian", 0, -0.5, 0.5)
+#novo_sigma_gaussian = ROOT.RooRealVar("novo_sigma_gaussian", "sigma of Gaussian", 0.01, 0.000001, 0.1)
+#novo_gaussian = ROOT.RooGaussian("novo_gaussian", "Gaussian PDF", x, novo_mean_gaussian, novo_sigma_gaussian)
+#rhopeta = ROOT.RooFFTConvPdf("rhopeta", "Convolution of Novosibirsk and Gaussian", x, novo, novo_gaussian)
 
 bkg_comb = ROOT.RooExponential("bkg_comb", "x_bkg1", x, x_bkg1_tau)
 #model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0, x_bkg1_Cheby_c1, x_bkg1_Cheby_c2))
@@ -175,8 +173,8 @@ bkg_frac = ROOT.RooRealVar("bkg_frac", "fraction of Gaussian in BKG", 0.25, 0.1,
 model_bkg = ROOT.RooAddPdf("model_bkg", "Gaus + Exp", RooArgList(rhopeta, bkg_comb), bkg_frac)
 
 
-Nbkg_D_plus = ROOT.RooRealVar("Nbkg_D_plus", "Number of background events for D+", 80000*scale, 60000*scale, 100000*scale)
-Nbkg_D_minus = ROOT.RooRealVar("Nbkg_D_minus", "Number of background events for D-", 80000*scale,60000*scale, 100000*scale)
+Nbkg_D_plus = ROOT.RooRealVar("Nbkg_D_plus", "Number of background events for D+", 80000*scale, 30000*scale, 100000*scale)
+Nbkg_D_minus = ROOT.RooRealVar("Nbkg_D_minus", "Number of background events for D-", 80000*scale,30000*scale, 100000*scale)
 
 
 # Define extended PDFs for D+ and D-
@@ -204,8 +202,30 @@ data_combined = RooDataSet("data_combined", "Combined data", RooArgList(x, w_1),
 
 # Fit the model to the combined data
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save())
-fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4), RooFit.Strategy(2), RooFit.Minos(0), RooFit.Hesse(1))
+#fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4), RooFit.Strategy(2), RooFit.Minos(0), RooFit.Hesse(1))
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4), RooFit.Strategy(0), RooFit.Minos(0), RooFit.Hesse(1))
+nll = sim_model.createNLL(data_combined, ROOT.RooFit.Extended(True), ROOT.RooFit.NumCPU(15), RooFit.SumW2Error(True),  ROOT.RooFit.Offset(True))
+
+# Step 2: Perform the Migrad minimization
+minimizer = ROOT.RooMinimizer(nll)
+minimizer.setStrategy(2)
+minimizer.setPrintLevel(3)
+status = minimizer.migrad()
+
+# Check the status of Migrad
+if status != 0:
+    print(f"Migrad failed with status: {status}")
+
+# Step 3: Perform the Hesse minimization
+status = minimizer.hesse()
+
+# Check the status of Hesse
+if status != 0:
+    print(f"Hesse failed with status: {status}")
+
+# Save the fit result
+fit_result  = minimizer.save()
+#r.Print("v")
 
 # Print fit results
 fit_result.Print()
