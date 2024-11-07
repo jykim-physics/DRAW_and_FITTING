@@ -4,39 +4,42 @@ import ctypes
 
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
-file_name = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/MC15ri_1M_etapip_pipipi_Dp_M_tight_v3_johnson_conv_Ds.png"
-result_name = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/MC15ri_1M_etapip_pipipi_Dp_M_tight_v3_johnson_conv_result_Ds.txt"
+file_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/MC15ri_1M_etapip_gg_Dp_M_tight_v3_johnson.png"
+result_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/MC15ri_1M_etapip_gg_Dp_M_tight_v3_johnson_result.txt"
+
 
 # Get the tree from the file
-tree_name = "etapip_pipipi"
+tree_name = "etapip_gg"
 
 # Define fitting variable and its range
 fit_variable = "Dp_M"
 fit_var_name = "M(D^{+}) [GeV/c^{2}]"
-fit_range = (1.9, 2.02)
+fit_range = (1.78, 1.93)
+#fit_range = (1.76, 2.05)
 rank_var = tree_name + "_rank"
 truth_var = "Dp_isSignal"
 charge_var = "Pip_charge"
-cuts = rank_var + "==1" 
-cuts_Dp = " Pip_charge==1"
-cuts_Dm = " Pip_charge==-1"
+cuts = rank_var + "==1"
+#cuts_Dp = cuts + " && Pip_charge==1"
+#cuts_Dm = cuts + " && Pip_charge==-1"
+cuts_Dp = "Pip_charge==1"
+cuts_Dm = "Pip_charge==-1"
 
 # Create a RooRealVar for the fitting variable
 x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
+x.setRange("fitRange", fit_range[0], fit_range[1])
 chiProb_rank = ROOT.RooRealVar(rank_var, rank_var, 0, 30)
 truth_var = ROOT.RooRealVar(truth_var, truth_var, 0, 30)
 Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
-#mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_pipipi/240419_tight_v2_Kp_BCS_etapi0const/*.root")
-mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dsptoetapip_pipipi/241014_tight_v3/etapip_pipipi/*.root")
+mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_gg/241014_tight_v3/etapip_gg/*.root")
 #mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_gg_cc/240419_tight_v2_Kp_BCS_etapi0const/*.root")
 
-tree_name_cc = "etapip_pipipi"
+tree_name_cc = "etapip_gg"
 mychain_cc = ROOT.TChain(tree_name_cc)
-#mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_pipipi_cc/240419_tight_v2_Kp_BCS_etapi0const/*.root")
-mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dsptoetapip_pipipi_cc/241014_tight_v3/etapip_pipipi/*.root")
+mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_gg_cc/241014_tight_v3/etapip_gg/*.root")
 
 
 # data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")
@@ -58,10 +61,17 @@ data.append(data_cc)
 N_total = data.sumEntries()
 print(N_total)
 
-mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.96, 1.91, 2.1)
+mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.86, 1.8, 1.9)
 sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.01, 0.00001, 0.5)
 gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.1, 0.001, 10)
 delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.1, 0.001, 10)
+
+#mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.88993)
+#sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.000915868)
+#gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.301743)
+#delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.382565)
+
+
 mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
 sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.01, 0.0001, 1)
 
@@ -72,7 +82,8 @@ johnson = ROOT.RooJohnson("johnson", "Johnson PDF", x, mean_johnson, sigma_johns
 gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_gaussian)
 
 # Convolute the Johnson distribution with Gaussian
-model = ROOT.RooFFTConvPdf("CB_left", "Convolution of Johnson and Gaussian", x, johnson, gaussian)
+#model = ROOT.RooFFTConvPdf("CB_left", "Convolution of Johnson and Gaussian", x, johnson, gaussian)
+model = ROOT.RooJohnson("CB_left", "Johnson PDF", x, mean_johnson, sigma_johnson, gamma, delta)
 
 
 # Define parameters for the 1st-order polynomial PDF
@@ -88,8 +99,11 @@ fraction = ROOT.RooRealVar("fraction", "fraction", 0.5, 0.0, 1.0)
 #model = CB_lef
 
 # Perform the fit
-result = model.fitTo(data, ROOT.RooFit.Range(fit_range[0], fit_range[1]), ROOT.RooFit.NumCPU(4), ROOT.RooFit.Save())
+result = model.fitTo(data, ROOT.RooFit.Range("fitRange"), ROOT.RooFit.NumCPU(4), ROOT.RooFit.Save())
 result.Print()
+
+# Print the full fit result
+#result.Print()
 
 # Open a text file in write mode
 with open(result_name, "w") as f:
@@ -114,6 +128,8 @@ with open(result_name, "w") as f:
 
     # Optionally print a completion message
     f.write("\nFit result saved successfully.\n")
+
+# The file is automatically closed after the 'with' block
 
 # Plot the result
 #canvas = ROOT.TCanvas("canvas", "canvas", 800, 555)
