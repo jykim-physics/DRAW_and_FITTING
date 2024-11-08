@@ -535,4 +535,4 @@ plt.yticks(ticks=range(n_params), labels=[fit_result.floatParsFinal().at(i).GetN
 
 # Layout adjustment
 plt.tight_layout()
-plt.savefig("corr.png")
+plt.savefig("corr_etapip_pipipi.png")
