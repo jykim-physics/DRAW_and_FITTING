@@ -4,8 +4,8 @@ import ctypes
 
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
-file_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/MC15ri_1M_etapip_gg_Dp_M_opt_v2_CB_conv.png"
-result_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/MC15ri_1M_etapip_gg_Dp_M_opt_v2_CB_conv_result.txt"
+file_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/MC15ri_1M_etapip_gg_Dp_M_opt_v2_CB_conv_Ds.png"
+result_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/MC15ri_1M_etapip_gg_Dp_M_opt_v2_CB_conv_result_Ds.txt"
 
 # Get the tree from the file
 tree_name = "etapip_gg"
@@ -13,9 +13,7 @@ tree_name = "etapip_gg"
 # Define fitting variable and its range
 fit_variable = "Dp_M"
 fit_var_name = "M(D^{+}) [GeV/c^{2}]"
-fit_range = (1.80, 1.94)
-fit_range = (1.75, 1.97)
-fit_range = (1.76, 1.96)
+fit_range = (1.86, 2.06)
 rank_var = tree_name + "_rank"
 truth_var = "Dp_isSignal"
 charge_var = "Pip_charge"
@@ -37,11 +35,11 @@ Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
-mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_gg/241106_loose_v2/etapip_gg/*BCS.root")
+mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dsptoetapip_gg/241106_loose_v2/etapip_gg/*BCS.root")
 
 tree_name_cc = "etapip_gg"
 mychain_cc = ROOT.TChain(tree_name_cc)
-mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_gg_cc/241106_loose_v2/etapip_gg/*BCS.root")
+mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dsptoetapip_gg_cc/241106_loose_v2/etapip_gg/*BCS.root")
 
 
 # data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")
@@ -63,12 +61,12 @@ data.append(data_cc)
 N_total = data.sumEntries()
 print(N_total)
 
-mean = ROOT.RooRealVar("mean", "mean", 1.86, 1.8, 2.0)
+mean = ROOT.RooRealVar("mean", "mean", 1.95, 1.9, 2.0)
 sigma = ROOT.RooRealVar("sigma", "sigma", 0.02, 0.001, 0.1)
-alphaL = ROOT.RooRealVar("alphaL", "alphaL", 1.0, 0.0, 10.0)
-nL = ROOT.RooRealVar("nL", "nL", 1.0, 0.0, 10.0)
-alphaR = ROOT.RooRealVar("alphaR", "alphaR", 1.0, 0.0, 10.0)
-nR = ROOT.RooRealVar("nR", "nR", 1.0, 0.0, 10.0)
+alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.1, 0.0001, 3.0)
+nL = ROOT.RooRealVar("nL", "nL", 1.0, 0.00001, 10.0)
+alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.1, 0.0001, 3.0)
+nR = ROOT.RooRealVar("nR", "nR", 1.0, 0.00001, 10.0)
 
 # Create double-sided Crystal Ball PDF
 CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
