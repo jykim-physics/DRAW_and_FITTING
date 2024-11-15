@@ -4,8 +4,8 @@ import ctypes
 
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
-file_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/MC15ri_1M_etapip_gg_Dp_M_opt_v2_CB_conv.png"
-result_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/MC15ri_1M_etapip_gg_Dp_M_opt_v2_CB_conv_result.txt"
+file_name = "/share/storage/jykim/plots/MC15ri/etaKp/gg/MC15ri_1M_etapip_gg_K_ref_Dp_M_opt_v2_CB_conv.png"
+result_name = "/share/storage/jykim/plots/MC15ri/etaKp/gg/MC15ri_1M_etapip_gg_K_ref_Dp_M_opt_v2_CB_conv_result.txt"
 
 # Get the tree from the file
 tree_name = "etapip_gg"
@@ -37,11 +37,11 @@ Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
-mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_gg/241106_loose_v2/etapip_gg/*BCS.root")
+mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_gg/241106_loose_v2/etapip_gg_K_bdt_to_etapip_gg/*BCS.root")
 
 tree_name_cc = "etapip_gg"
 mychain_cc = ROOT.TChain(tree_name_cc)
-mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_gg_cc/241106_loose_v2/etapip_gg/*BCS.root")
+mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_gg_cc/241106_loose_v2/etapip_gg_K_bdt_to_etapip_gg/*BCS.root")
 
 
 # data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")

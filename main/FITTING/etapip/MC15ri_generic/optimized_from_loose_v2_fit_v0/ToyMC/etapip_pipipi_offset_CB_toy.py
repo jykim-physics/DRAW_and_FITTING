@@ -3,13 +3,11 @@ from ROOT import RooFit, RooRealVar, RooDataSet, RooArgList, RooAddPdf, RooGauss
 import glob
 import ctypes
 import os
-import matplotlib.pyplot as plt
-import numpy as np
 
-file_name_Dp = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/generic/MC15ri_1ab_etapip_pipipi_fit_opt_loose_v0_fitv0_Dp.png"
-file_name_Dm = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/generic/MC15ri_1ab_etapip_pipipi_fit_opt_loose_v0_fitv0_Dm.png"
-fitresult_name = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/generic/fitresult/MC15ri_1ab_etapip_pipipi_fit_opt_loose_v0_fitv0.root"
-fitresult_text = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/generic/fitresult/MC15ri_1ab_etapip_pipipi_fit_opt_loose_v0_fitv0.txt"
+file_name_Dp = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/generic/MC15ri_1ab_etapip_pipipi_fit_opt_loose_v2_fitv1_Dp.png"
+file_name_Dm = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/generic/MC15ri_1ab_etapip_pipipi_fit_opt_loose_v2_fitv1_Dm.png"
+fitresult_name = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/generic/fitresult/MC15ri_1ab_etapip_pipipi_fit_opt_loose_v2_fitv1.root"
+fitresult_text = "/share/storage/jykim/plots/MC15ri/etapip/pipipi/generic/fitresult/MC15ri_1ab_etapip_pipipi_fit_opt_loose_v2_fitv1.txt"
 dir_path = os.path.dirname(file_name_Dp)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
@@ -22,23 +20,7 @@ print("Directory created:", dir_path)
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
 
-#base_file_loc =  '/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_tight_v3_241014/etapip_pipipi/'
-
-#loc_ccbar = base_file_loc + 'ccbar/tight_v2_240419_Kp_BCS_etapi0const_ccbar_output_02*.root'
-#loc_ccbar = base_file_loc + '*ccbar*.root'
-# loc_ccbar = base_file_loc + 'topo/resultfile/result_antiKstar/standard.root'
-#loc_uubar = base_file_loc + '*uubar*.root'
-#loc_ddbar = base_file_loc + '*ddbar*.root'
-#loc_ssbar = base_file_loc + '*ssbar*.root'
-#loc_charged = base_file_loc + '*charged*.root'
-#loc_mixed = base_file_loc + '*mixed*.root'
-#loc_taupair = base_file_loc + '*taupair*.root'
-
-#file_list = [loc_ccbar,loc_uubar,loc_ddbar,loc_ssbar,loc_charged,loc_mixed,loc_taupair]
-#file_list = [loc_ccbar]
-
-#file_list = ['/home/jykim/updated_file8.BCS.root']
-file_list = ['/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_loose_v1_241030_roe_Dptag_CFT_nopi0veto/etapip_pipipi/MC15ri*.root']
+file_list = ['/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_loose_v2_241106_yespi0veto/etapip_pipipi/MC15ri*.root']
 
 tree_name = "etapip_pipipi"
 mychain = ROOT.TChain(tree_name)
@@ -58,14 +40,14 @@ cuts_Dp = charge_var + "==1"
 cuts_Dm = charge_var + "==-1"
 
 x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
-x.setBins(200)
+x.setBins(150)
 Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 
 before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,Pip_charge), cuts_Dp)
 
 w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)
-scale = 1
-#scale = 427.87/1000
+#scale = 1
+scale = 427.87/1000
 w_1.setVal(scale)
 before_data.addColumn(w_1)
 data = ROOT.RooDataSet(before_data.GetName(), before_data.GetTitle(),before_data, before_data.get(), '' ,  'w_1')
@@ -95,7 +77,7 @@ Nsig_D_minus = RooFormulaVar("Nsig_D_minus",
     "0.5 * N_total * (1 - Acp)",
     RooArgList(N_total, Acp))
 
-N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 60000*scale, 40000*scale, 80000*scale)  # N_total = N_D+ + N_D-
+N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 60000*scale, 40000*scale,80000*scale)  # N_total = N_D+ + N_D-
 Acp_Ds = RooRealVar("Acp_Ds", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -107,68 +89,57 @@ Nsig_Ds_minus = RooFormulaVar("Nsig_Ds_minus",
     "0.5 * N_total_Ds * (1 - Acp_Ds)",
     RooArgList(N_total_Ds, Acp_Ds))
 
-# true+false matched fixed
-#mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.874816 )
-#sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.000246449)
-#gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.197619 )
-#delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.294923)
-mean_johnson = ROOT.RooRealVar("mean_johnson", "mean of Johnson", 1.873758)
-sigma_johnson = ROOT.RooRealVar("sigma_johnson", "sigma of Johnson", 0.000201942)
-gamma = ROOT.RooRealVar("gamma", "gamma of Johnson", 0.184741)
-delta = ROOT.RooRealVar("delta", "delta of Johnson", 0.265188)
+mean = ROOT.RooRealVar("mean", "mean", 1.879755373)
+sigma = ROOT.RooRealVar("sigma", "sigma", 0.00304484237)
+alphaL = ROOT.RooRealVar("alphaL", "alphaL", 1.400933613)
+nL = ROOT.RooRealVar("nL", "nL", 1.753334809)
+alphaR = ROOT.RooRealVar("alphaR", "alphaR", 1.607423125)
+nR = ROOT.RooRealVar("nR", "nR", 1.874707945)
 
+# Create double-sided Crystal Ball PDF
+CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
 
 mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -0.1, 0.1)
 sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.001, 0.00001, 0.1)
-
-# Create a Johnson distribution
-johnson = ROOT.RooJohnson("johnson", "Johnson PDF", x, mean_johnson, sigma_johnson, gamma, delta)
-
-# Create a Gaussian distribution
 gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_gaussian)
 
 # Convolute the Johnson distribution with Gaussian
-sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson and Gaussian", x, johnson, gaussian)
+sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson and Gaussian", x, CB, gaussian)
 
-#Ds_mean_johnson = ROOT.RooRealVar("Ds_mean_johnson", "mean of Johnson", 1.975815)
-#Ds_sigma_johnson = ROOT.RooRealVar("Ds_sigma_johnson", "sigma of Johnson", 0.000327929)
-#Ds_gamma = ROOT.RooRealVar("Ds_gamma", "gamma of Johnson", 0.205968)
-#Ds_delta = ROOT.RooRealVar("Ds_delta", "delta of Johnson", 0.319731)
-Ds_mean_johnson = ROOT.RooRealVar("Ds_mean_johnson", "mean of Johnson", 1.974280)
-Ds_sigma_johnson = ROOT.RooRealVar("Ds_sigma_johnson", "sigma of Johnson", 0.000260528)
-Ds_gamma = ROOT.RooRealVar("Ds_gamma", "gamma of Johnson", 0.185547)
-Ds_delta = ROOT.RooRealVar("Ds_delta", "delta of Johnson", 0.291612)
+Ds_mean = ROOT.RooRealVar("Ds_mean", "mean", 1.971587657)
+Ds_sigma = ROOT.RooRealVar("Ds_sigma", "sigma", 0.00282144937)
+Ds_alphaL = ROOT.RooRealVar("Ds_alphaL", "alphaL", 1.152454106)
+Ds_nL = ROOT.RooRealVar("Ds_nL", "nL", 2.307424198)
+Ds_alphaR = ROOT.RooRealVar("Ds_alphaR", "alphaR", 1.603905035)
+Ds_nR = ROOT.RooRealVar("Ds_nR", "nR", 1.86497566)
+
+# Create double-sided Crystal Ball PDF
+Ds_CB = ROOT.RooCrystalBall("Ds_CB", "CB_left", x, Ds_mean, Ds_sigma, Ds_alphaL, Ds_nL, Ds_alphaR, Ds_nR)
 
 Ds_mean_gaussian = ROOT.RooRealVar("Ds_mean_gaussian", "mean of Gaussian", 0, -0.1, 0.1)
 Ds_sigma_gaussian = ROOT.RooRealVar("Ds_sigma_gaussian", "sigma of Gaussian", 0.001, 0.00001, 0.1)
-
-# Create a Johnson distribution
-Ds_johnson = ROOT.RooJohnson("Ds_johnson", "Johnson PDF", x, Ds_mean_johnson, Ds_sigma_johnson, Ds_gamma, Ds_delta)
 
 # Create a Gaussian distribution
 Ds_gaussian = ROOT.RooGaussian("Ds_gaussian", "Gaussian PDF", x, Ds_mean_gaussian, Ds_sigma_gaussian)
 
 # Convolute the Johnson distribution with Gaussian
-Ds_model = ROOT.RooFFTConvPdf("Ds_model", "Convolution of Johnson and Gaussian", x, Ds_johnson, Ds_gaussian)
+Ds_model = ROOT.RooFFTConvPdf("Ds_model", "Convolution of Johnson and Gaussian", x, Ds_CB, Ds_gaussian)
 
 x_bkg1_Cheby_c0 = ROOT.RooRealVar("x_bkg1_Cheby_c0", "c0",0.0, -1.0, 1.0)
 x_bkg1_Cheby_c1 = ROOT.RooRealVar("x_bkg1_Cheby_c1", "c0",0.0, -1.0, 1.0)
 x_bkg1_Cheby_c2 = ROOT.RooRealVar("x_bkg1_Cheby_c2", "c0",0.0, -1.0, 1.0)
 x_bkg1_tau = ROOT.RooRealVar("x_bkg1_tau", "c0",-0.5, -20, 0)
 
-#novo_mean = ROOT.RooRealVar("novo_mean", "Mean", 1.724340)
-#novo_sigma = ROOT.RooRealVar("novo_sigma", "Sigma", 0.0717208)
-#novo_tail = ROOT.RooRealVar("novo_tail", "Tail", 0.465446)
-novo_mean = ROOT.RooRealVar("novo_mean", "Mean", 1.725836)
-novo_sigma = ROOT.RooRealVar("novo_sigma", "Sigma", 0.0684270)
-novo_tail = ROOT.RooRealVar("novo_tail", "Tail", 0.424610)
+novo_mean = ROOT.RooRealVar("novo_mean", "Mean", 1.726973464)
+novo_sigma = ROOT.RooRealVar("novo_sigma", "Sigma", 0.0692232857)
+novo_tail = ROOT.RooRealVar("novo_tail", "Tail", 0.393117738)
 # Create Novosibirsk PDF
-novo  = ROOT.RooNovosibirsk("novo", "Novosibirsk PDF", x, novo_mean, novo_sigma, novo_tail)
+rhopeta  = ROOT.RooNovosibirsk("rhopeta", "Novosibirsk PDF", x, novo_mean, novo_sigma, novo_tail)
 
-novo_mean_gaussian = ROOT.RooRealVar("novo_mean_gaussian", "mean of Gaussian", 0, -0.5, 0.5)
-novo_sigma_gaussian = ROOT.RooRealVar("novo_sigma_gaussian", "sigma of Gaussian", 0.01, 0.000001, 0.1)
-novo_gaussian = ROOT.RooGaussian("novo_gaussian", "Gaussian PDF", x, novo_mean_gaussian, novo_sigma_gaussian)
-rhopeta = ROOT.RooFFTConvPdf("rhopeta", "Convolution of Novosibirsk and Gaussian", x, novo, novo_gaussian)
+#novo_mean_gaussian = ROOT.RooRealVar("novo_mean_gaussian", "mean of Gaussian", 0, -0.5, 0.5)
+#novo_sigma_gaussian = ROOT.RooRealVar("novo_sigma_gaussian", "sigma of Gaussian", 0.01, 0.000001, 0.1)
+#novo_gaussian = ROOT.RooGaussian("novo_gaussian", "Gaussian PDF", x, novo_mean_gaussian, novo_sigma_gaussian)
+#rhopeta = ROOT.RooFFTConvPdf("rhopeta", "Convolution of Novosibirsk and Gaussian", x, novo, novo_gaussian)
 
 bkg_comb = ROOT.RooExponential("bkg_comb", "x_bkg1", x, x_bkg1_tau)
 #model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0, x_bkg1_Cheby_c1, x_bkg1_Cheby_c2))
@@ -213,8 +184,8 @@ nll = sim_model.createNLL(data_combined, ROOT.RooFit.Extended(True), ROOT.RooFit
 
 # Step 2: Perform the Migrad minimization
 minimizer = ROOT.RooMinimizer(nll)
-#minimizer.setStrategy(2)
-minimizer.setStrategy(0)
+minimizer.setStrategy(2)
+#minimizer.setStrategy(0)
 minimizer.setPrintLevel(3)
 status = minimizer.migrad()
 
@@ -281,7 +252,7 @@ sim_model.plotOn(frame_D_plus, Name="Fitting",ProjWData=(cat, slicedData_Dp))
 frame_D_plus.Draw("PE")
 frame_D_plus.GetXaxis().CenterTitle(True)
 
-leg1 = ROOT.TLegend(0.8, 0.65, 1.00, 0.90)
+leg1 = ROOT.TLegend(0.2, 0.65, 0.4, 0.90)
 # leg1.SetFillColor(ROOT.kWhite)
 #leg1.SetFillColor(0)
 leg1.SetFillColorAlpha(ROOT.kWhite, 0)
@@ -373,7 +344,7 @@ frame_D_minus.Draw("PE")
 
 frame_D_minus.GetXaxis().CenterTitle(True)
 
-leg1 = ROOT.TLegend(0.8, 0.65, 1.00, 0.90)
+leg1 = ROOT.TLegend(0.2, 0.65, 0.4, 0.90)
 # leg1.SetFillColor(ROOT.kWhite)
 #leg1.SetFillColor(0)
 leg1.SetFillColorAlpha(ROOT.kWhite, 0)
@@ -511,28 +482,17 @@ with open(fitresult_text, "w") as f:
 
 # # Generate and fit 10 toys
 # mcstudy1.generateAndFit(10)
-correlation_matrix = fit_result.correlationMatrix()
-correlation_matrix.Print()
+ToyMC_all = ROOT.RooMCStudy(sim_model, {x,cat}, Extended(True), FitOptions(Save(True),              PrintEvalErrors(0), PrintLevel(-1), NumCPU(6)))
+ToyMC_all.generateAndFit(1000)
 
-# Convert the correlation matrix to a format usable by matplotlib
-n_params = correlation_matrix.GetNrows()
-matrix_data = np.array([[correlation_matrix[i][j] for j in range(n_params)] for i in range(n_params)])
-# Plot the correlation matrix with matplotlib
-plt.figure(figsize=(8, 6))
-im = plt.imshow(matrix_data, cmap='bwr', vmin=-1, vmax=1, interpolation='nearest')
-plt.colorbar(im, label='Correlation Coefficient')
+toyMC_frame_Acp = ToyMC_all.plotPull(Acp, Bins(40), FitGauss(True))
+toyMC_frame_Acp_Ds = ToyMC_all.plotPull(Acp_Ds, Bins(40), FitGauss(True))
 
-# Add value annotations to each cell
-for i in range(n_params):
-    for j in range(n_params):
-        value = matrix_data[i, j]
-        plt.text(j, i, f"{value:.2f}", ha='center', va='center', color='black' if abs(value) < 0.5 else 'white')
+toyMC_canvas = ROOT.TCanvas("toyMC_canvas", "D+ fit", 800, 600)
+toyMC_frame_Acp.Draw()
+toyMC_canvas.SaveAs("toy_Acp_etapip_pipipi.png")
 
-# Set title and labels
-plt.title('Correlation Matrix')
-plt.xticks(ticks=range(n_params), labels=[fit_result.floatParsFinal().at(i).GetName() for i in range(n_params)], rotation=45, ha='right')
-plt.yticks(ticks=range(n_params), labels=[fit_result.floatParsFinal().at(i).GetName() for i in range(n_params)])
+toyMC_canvas_Ds = ROOT.TCanvas("toyMC_canvas_Ds", "D+ fit", 800, 600)
+toyMC_frame_Acp_Ds.Draw()
+toyMC_canvas_Ds.SaveAs("toy_Acp_Ds_etapip_pipipi.png")
 
-# Layout adjustment
-plt.tight_layout()
-plt.savefig("corr_etapip_pipipi.png")

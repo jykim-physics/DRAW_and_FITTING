@@ -4,11 +4,11 @@ import ctypes
 
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
-file_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/MC15ri_1M_etapip_gg_Dp_M_opt_v2_CB_conv.png"
-result_name = "/share/storage/jykim/plots/MC15ri/etapip/gg/MC15ri_1M_etapip_gg_Dp_M_opt_v2_CB_conv_result.txt"
+file_name = "/share/storage/jykim/plots/MC15ri/etaKp/gg/MC15ri_1M_etaKp_gg_Dp_M_opt_v2_CB.png"
+result_name = "/share/storage/jykim/plots/MC15ri/etaKp/gg/MC15ri_1M_etaKp_gg_Dp_M_opt_v2_CB_result.txt"
 
 # Get the tree from the file
-tree_name = "etapip_gg"
+tree_name = "etapip_gg_K"
 
 # Define fitting variable and its range
 fit_variable = "Dp_M"
@@ -37,11 +37,11 @@ Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
-mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_gg/241106_loose_v2/etapip_gg/*BCS.root")
+mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/DptoetaKp_gg/241106_loose_v2/etapip_gg_K/*BCS.root")
 
-tree_name_cc = "etapip_gg"
+tree_name_cc = "etapip_gg_K"
 mychain_cc = ROOT.TChain(tree_name_cc)
-mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/Dptoetapip_gg_cc/241106_loose_v2/etapip_gg/*BCS.root")
+mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15ri_sigMC/DptoetaKp_gg_cc/241106_loose_v2/etapip_gg_K/*BCS.root")
 
 
 # data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")
@@ -71,16 +71,16 @@ alphaR = ROOT.RooRealVar("alphaR", "alphaR", 1.0, 0.0, 10.0)
 nR = ROOT.RooRealVar("nR", "nR", 1.0, 0.0, 10.0)
 
 # Create double-sided Crystal Ball PDF
-CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
+model = ROOT.RooCrystalBall("CB_left", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
 
 
-mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
-sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.01, 0.0001, 1)
+#mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
+#sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.01, 0.0001, 1)
 # Create a Gaussian distribution
-gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_gaussian)
+#gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_gaussian)
 
 # Convolute the Johnson distribution with Gaussian
-model = ROOT.RooFFTConvPdf("CB_left", "Convolution of Johnson and Gaussian", x, CB, gaussian)
+#model = ROOT.RooFFTConvPdf("CB_left", "Convolution of Johnson and Gaussian", x, CB, gaussian)
 
 # Define parameters for the 1st-order polynomial PDF
 a0 = ROOT.RooRealVar("a0", "a0", 0.0, -1.0, 1.0)

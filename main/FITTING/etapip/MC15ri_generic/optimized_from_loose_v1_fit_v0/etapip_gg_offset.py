@@ -518,7 +518,7 @@ plt.yticks(ticks=range(n_params), labels=[fit_result.floatParsFinal().at(i).GetN
 
 # Layout adjustment
 plt.tight_layout()
-plt.savefig("corr.png")
+plt.savefig("corr_etapip_gg.png")
 
 # Create and plot the likelihood profile
 #L_frame = novo_mean_gaussian.frame(ROOT.RooFit.Title("Likelihood Profile of Mean"))

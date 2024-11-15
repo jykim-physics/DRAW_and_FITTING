@@ -1,0 +1,35 @@
+000 (2400.000.000) 2024-11-12 03:38:35 Job submitted from host: <210.117.208.231:9618?addrs=210.117.208.231-9618&alias=login-0-0.cluster&noUDP&sock=schedd_1493_a6fc>
+...
+001 (2400.000.000) 2024-11-12 03:38:52 Job executing on host: <10.1.1.2:9618?addrs=10.1.1.2-9618&alias=compute-1-0.yhep&noUDP&sock=startd_53615_024b>
+	SlotName: slot1_1@compute-1-0.yhep
+	CondorScratchDir = "/var/lib/condor/execute/dir_548027"
+	Cpus = 2
+	Disk = 1286771
+	GPUs = 0
+	Memory = 4000
+...
+021 (2400.000.000) 2024-11-12 03:38:52 Error from starter on slot1_1@compute-1-0.yhep:
+	Failed to execute '/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/optimized_from_loose_v2_fit_v0/ToyMC/etapip_pipipi_K_offset_CB_toy.py': (errno=13: 'Permission denied')
+	Code 6 Subcode 13
+...
+004 (2400.000.000) 2024-11-12 03:38:52 Job was evicted.
+	(0) CPU times
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Error from slot1_1@compute-1-0.yhep: Failed to execute '/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/optimized_from_loose_v2_fit_v0/ToyMC/etapip_pipipi_K_offset_CB_toy.py': (errno=13: 'Permission denied')
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 2         2 
+	   Disk (KB)            :       20       20   1286771 
+	   GPUs                 :                           0 
+	   Memory (MB)          :              4000      4000 
+	   TimeSlotBusy (s)     :        1                    
+...
+012 (2400.000.000) 2024-11-12 03:38:52 Job was held.
+	Error from slot1_1@compute-1-0.yhep: Failed to execute '/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/etapip/MC15ri_generic/optimized_from_loose_v2_fit_v0/ToyMC/etapip_pipipi_K_offset_CB_toy.py': (errno=13: 'Permission denied')
+	Code 6 Subcode 13
+...
+009 (2400.000.000) 2024-11-12 03:41:36 Job was aborted.
+	via condor_rm (by user jykim)
+...
