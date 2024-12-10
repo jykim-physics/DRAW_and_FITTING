@@ -3,10 +3,10 @@ import glob
 import ctypes
 import os
 
-ROOT.gROOT.LoadMacro('/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
+ROOT.gROOT.LoadMacro('/home/jykim/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
-file_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_opt_v2_CB_conv.png"
-result_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_opt_v2_CB_conv_result.txt"
+file_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_opt_v3_CB_conv.png"
+result_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_opt_v3_CB_conv_result.txt"
 
 file_dir = os.path.dirname(file_name)
 result_dir = os.path.dirname(result_name)
@@ -46,11 +46,11 @@ Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
-mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_pipipi/241114_loose_v2/etapip_pipipi/*BCS.root")
+mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_pipipi/241129_loose_v3/etapip_pipipi/*BCS.root")
 
 tree_name_cc = "etapip_pipipi"
 mychain_cc = ROOT.TChain(tree_name_cc)
-mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_pipipi_cc/241114_loose_v2/etapip_pipipi/*BCS.root")
+mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_pipipi_cc/241129_loose_v3/etapip_pipipi/*BCS.root")
 
 
 # data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")

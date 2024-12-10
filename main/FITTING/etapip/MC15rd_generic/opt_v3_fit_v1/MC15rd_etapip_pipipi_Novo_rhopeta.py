@@ -3,63 +3,80 @@ import glob
 import ctypes
 import os
 
-ROOT.gROOT.LoadMacro('/home/jykim/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
+ROOT.gROOT.LoadMacro('/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
-file_name = "/share/storage/jykim/plots/MC15rd/etapip/gg/MC15rd_6M_etapip_gg_Dp_M_opt_v3_CB_conv_Ds.png"
-result_name = "/share/storage/jykim/plots/MC15rd/etapip/gg/MC15rd_6M_etapip_gg_Dp_M_opt_v3_CB_conv_result_Ds.txt"
+plot_file_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_etapip_pipipi_Dp_M_opt_v2_novo_rhopeta.png"
+result_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_etapip_pipipi_Dp_M_opt_v2_novo_result_rhopeta.txt"
 
-file_dir = os.path.dirname(file_name)
+file_dir = os.path.dirname(plot_file_name)
 result_dir = os.path.dirname(result_name)
 os.makedirs(file_dir, exist_ok=True)
 os.makedirs(result_dir, exist_ok=True)
 
+
 # Get the tree from the file
-tree_name = "etapip_gg"
+tree_name = "etapip_pipipi"
 
 # Define fitting variable and its range
 fit_variable = "Dp_M"
 fit_var_name = "M(D^{+}) [GeV/c^{2}]"
-fit_range = (1.86, 2.06)
-fit_range = (1.88, 2.04)
+fit_range = (1.68, 1.85)
+#fit_range = (1.76, 2.05)
 rank_var = tree_name + "_rank"
 truth_var = "Dp_isSignal"
 charge_var = "Pip_charge"
 cuts = rank_var + "==1"
-cuts_Dp = " Pip_charge==1"
-cuts_Dm = " Pip_charge==-1"
-
-pi0_dphi_var =  "eta_Pi0_daughterDiffOfPhi_0_1"
-pi0_dangle_var =  "eta_Pi0_daughterAngle_0_1"
-g1_p_var = "etapip_pi0_gamma1_p"
-g2_p_var = "etapip_pi0_gamma2_p"
+#cuts_Dp = cuts + " && Pip_charge==1"
+#cuts_Dm = cuts + " && Pip_charge==-1"
+#cuts_Dp = "Pip_charge==1 && iCascDcyBrP_Dsp_0==2 && abs(Pip_genMotherPDG)==213 && abs(etapip_Eta_genMotherPDG)==431"
+#cuts_Dm = "Pip_charge==-1 && iCascDcyBrCcP_Dsp_0==2 && abs(Pip_genMotherPDG)==213 && abs(etapip_Eta_genMotherPDG)==431"
+cuts_Dp = "Pip_charge==1 && abs(Pip_genMotherPDG)==213 && abs(etapip_Eta_genMotherPDG)==431"
+cuts_Dm = "Pip_charge==-1 && abs(Pip_genMotherPDG)==213 && abs(etapip_Eta_genMotherPDG)==431"
 
 # Create a RooRealVar for the fitting variable
 x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
+x.setRange("fitRange", fit_range[0], fit_range[1])
 chiProb_rank = ROOT.RooRealVar(rank_var, rank_var, 0, 30)
 truth_var = ROOT.RooRealVar(truth_var, truth_var, 0, 30)
 Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
+#Dsp_topo = ROOT.RooRealVar("iCascDcyBrP_Dsp_0", "",-1,10000, "")
+#Dsp_cc_topo = ROOT.RooRealVar("iCascDcyBrCcP_Dsp_0", "",-1,10000, "")
+Pip_genMotherPDG  = ROOT.RooRealVar("Pip_genMotherPDG", "",-1000000,1000000, "")
+etapip_Eta_genMotherPDG  = ROOT.RooRealVar("etapip_Eta_genMotherPDG", "",-1000000,1000000, "")
 
+base_path = "/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15rd/etapip_eteeta/MC15rd_etaetapip_loose_v2_241115_MC15rd_weight_q_s"
+cm_elements = ["15rd_eta_e7_18_4S_v3", "15rd_eta_e20_b26_v1", "15rd_eta_e20_e26_4S_v2", "15rd_eta_e21_5S_scan_v1", "15rd_eta_mori_off_v1"]
 
+file_list = []
+for element in cm_elements:
+    pattern = f"{base_path}/{element}/{tree_name}/cc*.BCS.root"
+    file_list += glob.glob(pattern)
+
+print(file_list)
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
-mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_gg/241129_loose_v3/etapip_gg/*BCS.root")
+for file_name in file_list:
+    mychain.Add(file_name)
 
-tree_name_cc = "etapip_gg"
+tree_name_cc = "etapip_pipipi"
 mychain_cc = ROOT.TChain(tree_name_cc)
-mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_gg_cc/241129_loose_v3/etapip_gg/*BCS.root")
+for file_name in file_list:
+    mychain_cc.Add(file_name)
 
 
-# data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")
-print(cuts)
-before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,truth_var, Pip_charge), cuts_Dp)
+print(cuts_Dp)
+#before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,truth_var, Pip_charge,Dsp_topo,Dsp_cc_topo, Pip_genMotherPDG, etapip_Eta_genMotherPDG), cuts_Dp)
+before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,truth_var, Pip_charge, Pip_genMotherPDG, etapip_Eta_genMotherPDG), cuts_Dp)
 
 
 w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)
-w_1.setVal(1)
+w_1.setVal(1/4)
 before_data.addColumn(w_1)
 data = ROOT.RooDataSet(before_data.GetName(), before_data.GetTitle(),before_data, before_data.get(), '' ,  'w_1')
 
-before_data_cc = ROOT.RooDataSet("data_cc","", mychain_cc, ROOT.RooArgSet(x,truth_var, Pip_charge), cuts_Dm)
+print(cuts_Dm)
+#before_data_cc = ROOT.RooDataSet("data_cc","", mychain_cc, ROOT.RooArgSet(x,truth_var, Pip_charge, Dsp_topo,Dsp_cc_topo, Pip_genMotherPDG, etapip_Eta_genMotherPDG), cuts_Dm)
+before_data_cc = ROOT.RooDataSet("data_cc","", mychain_cc, ROOT.RooArgSet(x,truth_var, Pip_charge,  Pip_genMotherPDG, etapip_Eta_genMotherPDG), cuts_Dm)
 before_data_cc.addColumn(w_1)
 data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),before_data_cc, before_data_cc.get(), '' ,  'w_1')
 
@@ -68,25 +85,24 @@ data.append(data_cc)
 N_total = data.sumEntries()
 print(N_total)
 
-mean = ROOT.RooRealVar("mean", "mean", 1.95, 1.9, 2.0)
-sigma = ROOT.RooRealVar("sigma", "sigma", 0.02, 0.001, 0.1)
-alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.3, 0.0, 3.0)
-nL = ROOT.RooRealVar("nL", "nL", 2.0, 0.0, 10.0)
-alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.4, 0.0, 3.0)
-nR = ROOT.RooRealVar("nR", "nR", 3.0, 0.0, 10.0)
+mean = ROOT.RooRealVar("mean", "Mean", 1.7, 1.65, 1.75)
+sigma = ROOT.RooRealVar("sigma", "Sigma", 0.05, 0.001, 0.1)
+tail = ROOT.RooRealVar("tail", "Tail", 0.2, 0.001, 0.5)
+#mean = ROOT.RooRealVar("mean", "Mean", 1.7, 1.65, 1.71445)
+#sigma = ROOT.RooRealVar("sigma", "Sigma", 0.05, 0.001, 0.0743477)
+#tail = ROOT.RooRealVar("tail", "Tail", 0.2, 0.001, 0.436177)
 
-# Create double-sided Crystal Ball PDF
-CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
+# Create Novosibirsk PDF
+model  = ROOT.RooNovosibirsk("CB_left", "Novosibirsk PDF", x, mean, sigma, tail)
 
-
-#mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
-mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0)
+mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
 sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.01, 0.0001, 1)
+
 # Create a Gaussian distribution
 gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_gaussian)
 
 # Convolute the Johnson distribution with Gaussian
-model = ROOT.RooFFTConvPdf("CB_left", "Convolution of Johnson and Gaussian", x, CB, gaussian)
+#model = ROOT.RooFFTConvPdf("CB_left", "Convolution of Johnson and Gaussian", x, Novo, gaussian)
 
 # Define parameters for the 1st-order polynomial PDF
 a0 = ROOT.RooRealVar("a0", "a0", 0.0, -1.0, 1.0)
@@ -101,8 +117,11 @@ fraction = ROOT.RooRealVar("fraction", "fraction", 0.5, 0.0, 1.0)
 #model = CB_lef
 
 # Perform the fit
-result = model.fitTo(data, ROOT.RooFit.Range(fit_range[0], fit_range[1]), ROOT.RooFit.NumCPU(4), ROOT.RooFit.Save())
+result = model.fitTo(data, ROOT.RooFit.Range("fitRange"), ROOT.RooFit.NumCPU(4), ROOT.RooFit.Save())
 result.Print()
+
+# Print the full fit result
+#result.Print()
 
 # Open a text file in write mode
 with open(result_name, "w") as f:
@@ -127,6 +146,8 @@ with open(result_name, "w") as f:
 
     # Optionally print a completion message
     f.write("\nFit result saved successfully.\n")
+
+# The file is automatically closed after the 'with' block
 
 # Plot the result
 #canvas = ROOT.TCanvas("canvas", "canvas", 800, 555)
@@ -221,7 +242,7 @@ line2.Draw("SAME")
 canv.Update()
 
 canv.Draw()
-canv.SaveAs(file_name)
+canv.SaveAs(plot_file_name)
 
 # Save the final figure as .png
 #canv.SaveAs("fit_result_with_pull.png")

@@ -2,11 +2,12 @@ import ROOT
 import glob
 import ctypes
 import os
+import math
 
 ROOT.gROOT.LoadMacro('/home/jykim/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
-file_name = "/share/storage/jykim/plots/MC15rd/etapip/gg/MC15rd_6M_etapip_gg_Dp_M_opt_v3_CB_conv_Ds.png"
-result_name = "/share/storage/jykim/plots/MC15rd/etapip/gg/MC15rd_6M_etapip_gg_Dp_M_opt_v3_CB_conv_result_Ds.txt"
+file_name = "/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_Dp_M_opt_v3_CB_conv_extended.png"
+result_name = "/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_Dp_M_opt_v3_CB_conv_result_extended.txt"
 
 file_dir = os.path.dirname(file_name)
 result_dir = os.path.dirname(result_name)
@@ -14,13 +15,14 @@ os.makedirs(file_dir, exist_ok=True)
 os.makedirs(result_dir, exist_ok=True)
 
 # Get the tree from the file
-tree_name = "etapip_gg"
+tree_name = "etapip_gg_K"
 
 # Define fitting variable and its range
 fit_variable = "Dp_M"
 fit_var_name = "M(D^{+}) [GeV/c^{2}]"
-fit_range = (1.86, 2.06)
-fit_range = (1.88, 2.04)
+fit_range = (1.76, 1.96)
+fit_range = (1.763, 1.963)
+fit_range = (1.78, 1.94)
 rank_var = tree_name + "_rank"
 truth_var = "Dp_isSignal"
 charge_var = "Pip_charge"
@@ -42,11 +44,11 @@ Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
-mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_gg/241129_loose_v3/etapip_gg/*BCS.root")
+mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DptoetaKp_gg/241129_loose_v3/etapip_gg_K/*BCS.root")
 
-tree_name_cc = "etapip_gg"
+tree_name_cc = "etapip_gg_K"
 mychain_cc = ROOT.TChain(tree_name_cc)
-mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_gg_cc/241129_loose_v3/etapip_gg/*BCS.root")
+mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DptoetaKp_gg_cc/241129_loose_v3/etapip_gg_K/*BCS.root")
 
 
 # data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")
@@ -68,15 +70,21 @@ data.append(data_cc)
 N_total = data.sumEntries()
 print(N_total)
 
-mean = ROOT.RooRealVar("mean", "mean", 1.95, 1.9, 2.0)
+N_signal = ROOT.RooRealVar("N_signal", "Number of signal events", N_total, 0.5*N_total, 2*N_total)  # Initial guess and bounds
+
+
+mean = ROOT.RooRealVar("mean", "mean", 1.86, 1.8, 2.0)
 sigma = ROOT.RooRealVar("sigma", "sigma", 0.02, 0.001, 0.1)
-alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.3, 0.0, 3.0)
-nL = ROOT.RooRealVar("nL", "nL", 2.0, 0.0, 10.0)
-alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.4, 0.0, 3.0)
-nR = ROOT.RooRealVar("nR", "nR", 3.0, 0.0, 10.0)
+sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.02, 0.0001, 0.1)
+sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.02, 0.0001, 0.1)
+alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.2, 0.0, 5.0)
+nL = ROOT.RooRealVar("nL", "nL", 1.0, 0.0, 5.0)
+alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.3, 0.0, 5)
+nR = ROOT.RooRealVar("nR", "nR", 2.0, 0.0, 5.0)
 
 # Create double-sided Crystal Ball PDF
-CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
+#CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
+CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigmaL, sigmaR, alphaL, nL, alphaR, nR)
 
 
 #mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
@@ -87,6 +95,14 @@ gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_
 
 # Convolute the Johnson distribution with Gaussian
 model = ROOT.RooFFTConvPdf("CB_left", "Convolution of Johnson and Gaussian", x, CB, gaussian)
+
+extended_signal_model = ROOT.RooAddPdf(
+    "extended_signal_model",
+    "Extended Signal Model",
+    ROOT.RooArgList(model),
+    ROOT.RooArgList(N_signal)
+)
+
 
 # Define parameters for the 1st-order polynomial PDF
 a0 = ROOT.RooRealVar("a0", "a0", 0.0, -1.0, 1.0)
@@ -101,8 +117,26 @@ fraction = ROOT.RooRealVar("fraction", "fraction", 0.5, 0.0, 1.0)
 #model = CB_lef
 
 # Perform the fit
-result = model.fitTo(data, ROOT.RooFit.Range(fit_range[0], fit_range[1]), ROOT.RooFit.NumCPU(4), ROOT.RooFit.Save())
+#result = model.fitTo(data, ROOT.RooFit.Range(fit_range[0], fit_range[1]), ROOT.RooFit.NumCPU(4), ROOT.RooFit.Save())
+#result.Print()
+
+result = extended_signal_model.fitTo(
+    data,
+    ROOT.RooFit.Extended(True),  # Enable extended likelihood fit
+    ROOT.RooFit.Range(fit_range[0], fit_range[1]),
+    ROOT.RooFit.NumCPU(4),
+    ROOT.RooFit.Save()
+)
 result.Print()
+
+fitted_N_signal = N_signal.getVal()
+total_signal_events =  6*1e6
+signal_efficiency = fitted_N_signal / total_signal_events
+
+def calculate_sig_eff_err(eff, N_gen):
+
+    error = math.sqrt(eff * (1 - eff) / N_gen)
+    return error
 
 # Open a text file in write mode
 with open(result_name, "w") as f:
@@ -124,6 +158,13 @@ with open(result_name, "w") as f:
     for i in range(params.getSize()):
         param = params[i]
         f.write(f"{param.GetName()} = {param.getVal()} ± {param.getError()}\n")
+
+    f.write(f"Fitted number of signal events: {fitted_N_signal}\n")
+    f.write(f"Total number of signal events in dataset: {total_signal_events}\n")
+    f.write(f"Signal efficiency: {signal_efficiency:.6f}\n")
+    f.write(f"Signal efficiency stats. error: {calculate_sig_eff_err(signal_efficiency,total_signal_events):.8f}\n")
+
+    f.write(f"Counting Signal efficiency: {N_total/total_signal_events:.6f}\n")
 
     # Optionally print a completion message
     f.write("\nFit result saved successfully.\n")
