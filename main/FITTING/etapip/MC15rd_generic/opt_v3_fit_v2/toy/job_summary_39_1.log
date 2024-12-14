@@ -1,0 +1,50 @@
+000 (039.001.000) 2024-12-10 18:30:29 Job submitted from host: <210.117.208.232:9618?addrs=210.117.208.232-9618&alias=login-0-1&noUDP&sock=schedd_13260_d5e7>
+...
+001 (039.001.000) 2024-12-10 18:30:29 Job executing on host: <10.1.1.2:9618?addrs=10.1.1.2-9618&alias=compute-1-0.yhep&noUDP&sock=startd_53615_024b>
+	SlotName: slot3_1@compute-1-0.yhep
+	CondorScratchDir = "/var/lib/condor/execute/dir_2197716"
+	Cpus = 2
+	Disk = 1250
+	GPUs = 0
+	Memory = 4000
+...
+006 (039.001.000) 2024-12-10 18:30:38 Image size of job updated: 24448
+	24  -  MemoryUsage of job (MB)
+	24448  -  ResidentSetSize of job (KB)
+...
+006 (039.001.000) 2024-12-10 18:35:39 Image size of job updated: 34464
+	34  -  MemoryUsage of job (MB)
+	34464  -  ResidentSetSize of job (KB)
+...
+006 (039.001.000) 2024-12-10 18:40:39 Image size of job updated: 34464
+	34  -  MemoryUsage of job (MB)
+	34720  -  ResidentSetSize of job (KB)
+...
+006 (039.001.000) 2024-12-10 18:45:40 Image size of job updated: 35576
+	35  -  MemoryUsage of job (MB)
+	35576  -  ResidentSetSize of job (KB)
+...
+006 (039.001.000) 2024-12-10 18:50:41 Image size of job updated: 37376
+	37  -  MemoryUsage of job (MB)
+	37376  -  ResidentSetSize of job (KB)
+...
+005 (039.001.000) 2024-12-10 19:00:29 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:25:09, Sys 0 00:06:09  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:25:09, Sys 0 00:06:09  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :     0.14        2         2 
+	   Disk (KB)            :    25          25      1250 
+	   GPUs                 :                           0 
+	   Memory (MB)          :    37        4000      4000 
+	   TimeExecute (s)      :  1800                       
+	   TimeSlotBusy (s)     :  1800                       
+
+	Job terminated of its own accord at 2024-12-10T10:00:29Z with exit-code 0.
+...

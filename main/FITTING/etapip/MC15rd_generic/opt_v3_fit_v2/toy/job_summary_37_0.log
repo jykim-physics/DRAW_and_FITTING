@@ -1,0 +1,50 @@
+000 (037.000.000) 2024-12-10 18:19:15 Job submitted from host: <210.117.208.232:9618?addrs=210.117.208.232-9618&alias=login-0-1&noUDP&sock=schedd_13260_d5e7>
+...
+001 (037.000.000) 2024-12-10 18:19:15 Job executing on host: <10.1.1.2:9618?addrs=10.1.1.2-9618&alias=compute-1-0.yhep&noUDP&sock=startd_53615_024b>
+	SlotName: slot2_1@compute-1-0.yhep
+	CondorScratchDir = "/var/lib/condor/execute/dir_2193544"
+	Cpus = 2
+	Disk = 1250
+	GPUs = 0
+	Memory = 4000
+...
+006 (037.000.000) 2024-12-10 18:19:23 Image size of job updated: 13624
+	14  -  MemoryUsage of job (MB)
+	13624  -  ResidentSetSize of job (KB)
+...
+006 (037.000.000) 2024-12-10 18:24:23 Image size of job updated: 127728
+	125  -  MemoryUsage of job (MB)
+	127728  -  ResidentSetSize of job (KB)
+...
+006 (037.000.000) 2024-12-10 18:29:24 Image size of job updated: 140784
+	138  -  MemoryUsage of job (MB)
+	140784  -  ResidentSetSize of job (KB)
+...
+006 (037.000.000) 2024-12-10 18:34:25 Image size of job updated: 503560
+	492  -  MemoryUsage of job (MB)
+	503560  -  ResidentSetSize of job (KB)
+...
+006 (037.000.000) 2024-12-10 18:39:25 Image size of job updated: 504960
+	494  -  MemoryUsage of job (MB)
+	504960  -  ResidentSetSize of job (KB)
+...
+005 (037.000.000) 2024-12-10 18:47:38 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:25:08, Sys 0 00:06:12  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:25:08, Sys 0 00:06:12  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :     0.10        2         2 
+	   Disk (KB)            :    25          25      1250 
+	   GPUs                 :                           0 
+	   Memory (MB)          :   494        4000      4000 
+	   TimeExecute (s)      :  1703                       
+	   TimeSlotBusy (s)     :  1703                       
+
+	Job terminated of its own accord at 2024-12-10T09:47:38Z with exit-code 0.
+...

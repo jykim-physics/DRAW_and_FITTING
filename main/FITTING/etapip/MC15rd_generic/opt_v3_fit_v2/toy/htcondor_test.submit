@@ -1,0 +1,15 @@
+executable           = my_submission_script.sh
+universe             = vanilla
+getenv               = true
+#input                = $(input.txt)
+transfer_input_files = etapip_gg_K_offset_CB.py
+#arguments            = $(file) /nfs/dust/belle2/user/$user/output/out$(ProcID).root
+output               = job_summary_$(Cluster)_$(Process).out
+error                = job_summary_$(Cluster)_$(Process).error
+log                  = job_summary_$(Cluster)_$(Process).log
+request_cpus         = 2
+request_memory       = 4000
+#request_cpus         = 14
+#equest_memory       = 28000
+#queue file from input.txt
+queue 1

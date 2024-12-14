@@ -5,7 +5,7 @@ import ctypes
 from ROOT import RooFit, RooRealVar, RooDataSet, RooKeysPdf, RooPlot, TFile
 
 
-ROOT.gROOT.LoadMacro('/home/jykim/workspace/git/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
+ROOT.gROOT.LoadMacro('/home/jykim/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
 file_name = "/share/storage/jykim/plots/MC15ri/Kspip/MC15ri_misID_etapip_gg.png"
 # Extract the directory path from the file path
@@ -49,7 +49,7 @@ before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,Pip_charge), 
 
 
 w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)
-w_1.setVal(1)
+w_1.setVal(427.87/1000)
 before_data.addColumn(w_1)
 data = ROOT.RooDataSet(before_data.GetName(), before_data.GetTitle(),before_data, before_data.get(), '' ,  'w_1')
 print(f"Num D+: {data.sumEntries()}")

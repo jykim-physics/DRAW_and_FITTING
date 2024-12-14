@@ -5,10 +5,10 @@ import glob
 import ctypes
 import os
 
-file_name_Dp = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/MC15rd_etapip_pipipi_fit_opt_loose_v2_fitv1_Dp.png"
-file_name_Dm = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/MC15rd_etapip_pipipi_fit_opt_loose_v2_fitv1_Dm.png"
-fitresult_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/fitresult/MC15rd_etapip_pipipi_fit_opt_loose_v2_fitv1.root"
-fitresult_text = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/fitresult/MC15rd_etapip_pipipi_fit_opt_loose_v2_fitv1.txt"
+file_name_Dp = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/MC15rd_etapip_pipipi_fit_opt_loose_v3_fitv2_Dp.png"
+file_name_Dm = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/MC15rd_etapip_pipipi_fit_opt_loose_v3_fitv2_Dm.png"
+fitresult_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/fitresult/MC15rd_etapip_pipipi_fit_opt_loose_v3_fitv2.root"
+fitresult_text = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/fitresult/MC15rd_etapip_pipipi_fit_opt_loose_v3_fitv2.txt"
 dir_path = os.path.dirname(file_name_Dp)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)

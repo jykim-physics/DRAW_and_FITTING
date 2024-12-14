@@ -1,0 +1,70 @@
+000 (041.003.000) 2024-12-12 16:20:32 Job submitted from host: <210.117.208.232:9618?addrs=210.117.208.232-9618&alias=login-0-1&noUDP&sock=schedd_13260_d5e7>
+...
+001 (041.003.000) 2024-12-12 16:20:32 Job executing on host: <10.1.1.2:9618?addrs=10.1.1.2-9618&alias=compute-1-0.yhep&noUDP&sock=startd_53615_024b>
+	SlotName: slot4_1@compute-1-0.yhep
+	CondorScratchDir = "/var/lib/condor/execute/dir_2272542"
+	Cpus = 2
+	Disk = 1245
+	GPUs = 0
+	Memory = 4000
+...
+006 (041.003.000) 2024-12-12 16:20:41 Image size of job updated: 7784
+	8  -  MemoryUsage of job (MB)
+	7784  -  ResidentSetSize of job (KB)
+...
+006 (041.003.000) 2024-12-12 16:25:42 Image size of job updated: 50612
+	50  -  MemoryUsage of job (MB)
+	50612  -  ResidentSetSize of job (KB)
+...
+006 (041.003.000) 2024-12-12 16:30:43 Image size of job updated: 172588
+	169  -  MemoryUsage of job (MB)
+	172588  -  ResidentSetSize of job (KB)
+...
+006 (041.003.000) 2024-12-12 16:35:43 Image size of job updated: 399204
+	390  -  MemoryUsage of job (MB)
+	399204  -  ResidentSetSize of job (KB)
+...
+006 (041.003.000) 2024-12-12 16:40:44 Image size of job updated: 744552
+	728  -  MemoryUsage of job (MB)
+	744552  -  ResidentSetSize of job (KB)
+...
+006 (041.003.000) 2024-12-12 16:45:45 Image size of job updated: 816352
+	798  -  MemoryUsage of job (MB)
+	816352  -  ResidentSetSize of job (KB)
+...
+006 (041.003.000) 2024-12-12 17:20:48 Image size of job updated: 1541584
+	1506  -  MemoryUsage of job (MB)
+	1541584  -  ResidentSetSize of job (KB)
+...
+006 (041.003.000) 2024-12-12 17:25:48 Image size of job updated: 1610432
+	1573  -  MemoryUsage of job (MB)
+	1610432  -  ResidentSetSize of job (KB)
+...
+006 (041.003.000) 2024-12-12 19:05:59 Image size of job updated: 1803468
+	1762  -  MemoryUsage of job (MB)
+	1803468  -  ResidentSetSize of job (KB)
+...
+006 (041.003.000) 2024-12-12 19:11:00 Image size of job updated: 1803468
+	1762  -  MemoryUsage of job (MB)
+	1803472  -  ResidentSetSize of job (KB)
+...
+005 (041.003.000) 2024-12-13 03:15:33 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 1 05:16:22, Sys 0 02:04:37  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 1 05:16:22, Sys 0 02:04:37  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :     4.04        2         2 
+	   Disk (KB)            :    20          20      1245 
+	   GPUs                 :                           0 
+	   Memory (MB)          :  1762        4000      4000 
+	   TimeExecute (s)      : 39301                       
+	   TimeSlotBusy (s)     : 39301                       
+
+	Job terminated of its own accord at 2024-12-12T18:15:33Z with exit-code 0.
+...

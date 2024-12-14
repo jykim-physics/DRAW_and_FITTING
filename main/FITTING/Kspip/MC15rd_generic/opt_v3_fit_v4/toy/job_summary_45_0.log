@@ -1,0 +1,74 @@
+000 (045.000.000) 2024-12-12 19:26:44 Job submitted from host: <210.117.208.232:9618?addrs=210.117.208.232-9618&alias=login-0-1&noUDP&sock=schedd_13260_d5e7>
+...
+001 (045.000.000) 2024-12-12 19:26:44 Job executing on host: <10.1.1.2:9618?addrs=10.1.1.2-9618&alias=compute-1-0.yhep&noUDP&sock=startd_53615_024b>
+	SlotName: slot2_1@compute-1-0.yhep
+	CondorScratchDir = "/var/lib/condor/execute/dir_2296791"
+	Cpus = 2
+	Disk = 1245
+	GPUs = 0
+	Memory = 4000
+...
+006 (045.000.000) 2024-12-12 19:26:53 Image size of job updated: 7484
+	8  -  MemoryUsage of job (MB)
+	7484  -  ResidentSetSize of job (KB)
+...
+006 (045.000.000) 2024-12-12 19:31:53 Image size of job updated: 71252
+	70  -  MemoryUsage of job (MB)
+	71252  -  ResidentSetSize of job (KB)
+...
+006 (045.000.000) 2024-12-12 19:36:53 Image size of job updated: 71448
+	70  -  MemoryUsage of job (MB)
+	71448  -  ResidentSetSize of job (KB)
+...
+006 (045.000.000) 2024-12-12 19:41:54 Image size of job updated: 73344
+	72  -  MemoryUsage of job (MB)
+	73344  -  ResidentSetSize of job (KB)
+...
+006 (045.000.000) 2024-12-12 20:06:57 Image size of job updated: 73508
+	72  -  MemoryUsage of job (MB)
+	73508  -  ResidentSetSize of job (KB)
+...
+006 (045.000.000) 2024-12-12 20:16:58 Image size of job updated: 75480
+	74  -  MemoryUsage of job (MB)
+	75480  -  ResidentSetSize of job (KB)
+...
+006 (045.000.000) 2024-12-12 20:21:58 Image size of job updated: 75596
+	74  -  MemoryUsage of job (MB)
+	75596  -  ResidentSetSize of job (KB)
+...
+006 (045.000.000) 2024-12-12 20:26:58 Image size of job updated: 76496
+	75  -  MemoryUsage of job (MB)
+	76496  -  ResidentSetSize of job (KB)
+...
+006 (045.000.000) 2024-12-12 20:32:00 Image size of job updated: 78800
+	77  -  MemoryUsage of job (MB)
+	78800  -  ResidentSetSize of job (KB)
+...
+006 (045.000.000) 2024-12-12 20:37:00 Image size of job updated: 79952
+	79  -  MemoryUsage of job (MB)
+	79952  -  ResidentSetSize of job (KB)
+...
+006 (045.000.000) 2024-12-12 21:02:03 Image size of job updated: 80276
+	79  -  MemoryUsage of job (MB)
+	80276  -  ResidentSetSize of job (KB)
+...
+005 (045.000.000) 2024-12-12 21:16:25 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 03:14:54, Sys 0 00:41:01  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 03:14:54, Sys 0 00:41:01  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :     1.49        2         2 
+	   Disk (KB)            :    20          20      1245 
+	   GPUs                 :                           0 
+	   Memory (MB)          :    79        4000      4000 
+	   TimeExecute (s)      :  6581                       
+	   TimeSlotBusy (s)     :  6581                       
+
+	Job terminated of its own accord at 2024-12-12T12:16:25Z with exit-code 0.
+...
