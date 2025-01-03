@@ -75,7 +75,7 @@ data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),be
 Num_total_cc = data_cc.sumEntries()
 print(Num_total_cc)
 
-N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 700*scale, 400*scale, 1000*scale)  # N_total = N_D+ + N_D-
+N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 800*scale, 400*scale, 1500*scale)  # N_total = N_D+ + N_D-
 Acp = RooRealVar("Acp", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -87,7 +87,7 @@ Nsig_D_minus = RooFormulaVar("Nsig_D_minus",
     "0.5 * N_total * (1 - Acp)",
     RooArgList(N_total, Acp))
 
-N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 3000*scale, 2000*scale,4000*scale)  # N_total = N_D+ + N_D-
+N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 3000*scale, 2000*scale,6000*scale)  # N_total = N_D+ + N_D-
 Acp_Ds = RooRealVar("Acp_Ds", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -113,12 +113,12 @@ Nbkg_D_minus = RooFormulaVar("Nbkg_D_minus",
 
 mean = ROOT.RooRealVar("mean", "mean", 1.869391525, 1.85, 1.89)
 #sigma = ROOT.RooRealVar("sigma", "sigma", )
-sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.00122839465)
-sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.000258385222)
-alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.936663366)
-nL = ROOT.RooRealVar("nL", "nL", 2.172994524)
-alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.285666975)
-nR = ROOT.RooRealVar("nR", "nR", 2.194064933)
+sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.0006479555180468958)
+sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.00018465139595179268)
+alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.5790949412210145 )
+nL = ROOT.RooRealVar("nL", "nL",  2.2065034275741144)
+alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.2314320290768722 )
+nR = ROOT.RooRealVar("nR", "nR", 2.1434532942120144)
 
 # Create double-sided Crystal Ball PDF
 #CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
@@ -127,7 +127,7 @@ CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigmaL, sigmaR, alphaL, nL, a
 #mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -0.1, 0.1)
 mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0)
 #sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.001, 0.00001, 0.1)
-sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.00419311582)
+sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.004212265403393888)
 gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_gaussian)
 
 # Convolute the Johnson distribution with Gaussian
@@ -135,12 +135,12 @@ sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson and Gaussian
 
 Ds_mean = ROOT.RooRealVar("Ds_mean", "mean", 1.968183666, 1.94, 1.98)
 #Ds_sigma = ROOT.RooRealVar("Ds_sigma", "sigma",  0.00228062335)
-Ds_sigmaL = ROOT.RooRealVar("Ds_sigmaL", "sigma",  0.0000927897143)
-Ds_sigmaR = ROOT.RooRealVar("Ds_sigmaR", "sigma",  0.00238516233)
-Ds_alphaL = ROOT.RooRealVar("Ds_alphaL", "alphaL", 0.0524664210)
-Ds_nL = ROOT.RooRealVar("Ds_nL", "nL", 2.739225458)
-Ds_alphaR = ROOT.RooRealVar("Ds_alphaR", "alphaR", 1.381963194)
-Ds_nR = ROOT.RooRealVar("Ds_nR", "nR", 2.322669822)
+Ds_sigmaL = ROOT.RooRealVar("Ds_sigmaL", "sigma",  0.00022647815683897826)
+Ds_sigmaR = ROOT.RooRealVar("Ds_sigmaR", "sigma",  0.0007049731569015074)
+Ds_alphaL = ROOT.RooRealVar("Ds_alphaL", "alphaL",  0.1425489175761263 )
+Ds_nL = ROOT.RooRealVar("Ds_nL", "nL", 2.7476066365187695  )
+Ds_alphaR = ROOT.RooRealVar("Ds_alphaR", "alphaR", 0.6614025276104736 )
+Ds_nR = ROOT.RooRealVar("Ds_nR", "nR", 2.2942582326424494)
 
 # Create double-sided Crystal Ball PDF
 #Ds_CB = ROOT.RooCrystalBall("Ds_CB", "CB_left", x, Ds_mean, Ds_sigma, Ds_alphaL, Ds_nL, Ds_alphaR, Ds_nR)
@@ -149,7 +149,7 @@ Ds_CB = ROOT.RooCrystalBall("Ds_CB", "CB_left", x, Ds_mean, Ds_sigmaL, Ds_sigmaR
 #Ds_mean_gaussian = ROOT.RooRealVar("Ds_mean_gaussian", "mean of Gaussian", 0, -0.1, 0.1)
 Ds_mean_gaussian = ROOT.RooRealVar("Ds_mean_gaussian", "mean of Gaussian", 0)
 #Ds_sigma_gaussian = ROOT.RooRealVar("Ds_sigma_gaussian", "sigma of Gaussian", 0.001, 0.00001, 0.1)
-Ds_sigma_gaussian = ROOT.RooRealVar("Ds_sigma_gaussian", "sigma of Gaussian", 0.00428711136)
+Ds_sigma_gaussian = ROOT.RooRealVar("Ds_sigma_gaussian", "sigma of Gaussian", 0.00443224948001499 )
 
 # Create a Gaussian distribution
 Ds_gaussian = ROOT.RooGaussian("Ds_gaussian", "Gaussian PDF", x, Ds_mean_gaussian, Ds_sigma_gaussian)

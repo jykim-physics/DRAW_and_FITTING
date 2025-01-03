@@ -1,5 +1,6 @@
 import ROOT
 from ROOT import RooFit, RooRealVar, RooDataSet, RooArgList, RooAddPdf, RooGaussian, RooFormulaVar, RooSimultaneous, RooCategory
+from ROOT.RooFit import Extended, FitOptions, Save, PrintEvalErrors, PrintLevel, Bins, FitGauss,    NumCPU, Strategy, Offset
 import glob
 import ctypes
 import os
@@ -40,7 +41,7 @@ print(file_list)
 fit_variable = "Dp_M"
 fit_var_name = "M(D^{+}) [GeV/c^{2}]"
 #fit_range = (1.66, 2.06)
-fit_range = (1.70, 2.06)
+fit_range = (1.71, 2.06)
 truth_var = "Dp_isSignal"
 charge_var = "Pip_charge"
 
@@ -87,7 +88,7 @@ Nsig_D_minus = RooFormulaVar("Nsig_D_minus",
     "0.5 * N_total * (1 - Acp)",
     RooArgList(N_total, Acp))
 
-N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 150000*scale, 130000*scale,300000*scale)  # N_total = N_D+ + N_D-
+N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 150000*scale, 120000*scale,400000*scale)  # N_total = N_D+ + N_D-
 Acp_Ds = RooRealVar("Acp_Ds", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -114,12 +115,12 @@ Nbkg_D_minus = RooFormulaVar("Nbkg_D_minus",
 
 mean = ROOT.RooRealVar("mean", "mean", 1.870171395, 1.85, 1.89)
 #sigma = ROOT.RooRealVar("sigma", "sigma",  0.00258716780)
-sigmaL = ROOT.RooRealVar("sigmaL", "sigmaL",  0.00150730996)
-sigmaR = ROOT.RooRealVar("sigmaR", "sigmaR",  0.00125245251)
-alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.339044864)
-nL = ROOT.RooRealVar("nL", "nL", 3.206580794)
-alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.604678483)
-nR = ROOT.RooRealVar("nR", "nR", 2.406044972)
+sigmaL = ROOT.RooRealVar("sigmaL", "sigmaL",  0.007892368737087698)
+sigmaR = ROOT.RooRealVar("sigmaR", "sigmaR",  0.000933800544844946)
+alphaL = ROOT.RooRealVar("alphaL", "alphaL", 1.2905968909942316)
+nL = ROOT.RooRealVar("nL", "nL", 3.1177477829553597)
+alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.39891046276149844)
+nR = ROOT.RooRealVar("nR", "nR", 2.4350818694712024)
 
 # Create double-sided Crystal Ball PDF
 #CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
@@ -135,12 +136,12 @@ sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson and Gaussian
 
 Ds_mean = ROOT.RooRealVar("Ds_mean", "mean", 1.968163260, 1.94, 1.98)
 #Ds_sigma = ROOT.RooRealVar("Ds_sigma", "sigma", 0.00103040185)
-Ds_sigmaL = ROOT.RooRealVar("Ds_sigmaL", "sigma",  0.00203108265)
-Ds_sigmaR = ROOT.RooRealVar("Ds_sigmaR", "sigma", 0.00594620134)
-Ds_alphaL = ROOT.RooRealVar("Ds_alphaL", "alphaL", 0.410435900)
-Ds_nL = ROOT.RooRealVar("Ds_nL", "nL", 2.911724204)
-Ds_alphaR = ROOT.RooRealVar("Ds_alphaR", "alphaR", 1.695391803)
-Ds_nR = ROOT.RooRealVar("Ds_nR", "nR", 2.076800816)
+Ds_sigmaL = ROOT.RooRealVar("Ds_sigmaL", "sigma", 0.0019509754835617288)
+Ds_sigmaR = ROOT.RooRealVar("Ds_sigmaR", "sigma",  0.005204633808155072)
+Ds_alphaL = ROOT.RooRealVar("Ds_alphaL", "alphaL", 0.4009540225722405)
+Ds_nL = ROOT.RooRealVar("Ds_nL", "nL", 2.9623316962750943)
+Ds_alphaR = ROOT.RooRealVar("Ds_alphaR", "alphaR", 1.5874337576946485)
+Ds_nR = ROOT.RooRealVar("Ds_nR", "nR", 2.1609543019885797)
 
 # Create double-sided Crystal Ball PDF
 #Ds_CB = ROOT.RooCrystalBall("Ds_CB", "CB_left", x, Ds_mean, Ds_sigma, Ds_alphaL, Ds_nL, Ds_alphaR, Ds_nR)
@@ -161,9 +162,9 @@ x_bkg1_Cheby_c1 = ROOT.RooRealVar("x_bkg1_Cheby_c1", "c0",0.0, -1.0, 1.0)
 x_bkg1_Cheby_c2 = ROOT.RooRealVar("x_bkg1_Cheby_c2", "c0",0.0, -1.0, 1.0)
 x_bkg1_tau = ROOT.RooRealVar("x_bkg1_tau", "c0",-0.5, -20, 0)
 
-novo_mean = ROOT.RooRealVar("novo_mean", "Mean", 1.723550212)
-novo_sigma = ROOT.RooRealVar("novo_sigma", "Sigma", 0.0583993099)
-novo_tail = ROOT.RooRealVar("novo_tail", "Tail", 0.205585939)
+novo_mean = ROOT.RooRealVar("novo_mean", "Mean",  1.728843972129057, 1.68,1.74)
+novo_sigma = ROOT.RooRealVar("novo_sigma", "Sigma", 0.04968190518091752)
+novo_tail = ROOT.RooRealVar("novo_tail", "Tail", 0.10533103528237432)
 rhopeta  = ROOT.RooNovosibirsk("rhopeta", "Novosibirsk PDF", x, novo_mean, novo_sigma, novo_tail)
 
 #rhopeta_mean = ROOT.RooRealVar("rhopeta_mean", "mean", 1.734679006)

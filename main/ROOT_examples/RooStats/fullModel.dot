@@ -1,0 +1,67 @@
+digraph "model"{
+"model" [ color=red, label="RooAddPdf
+model
+0.090224"];
+"zModel" [ color=red, label="RooProdPdf
+zModel
+0.000000"];
+"mZModel" [ color=red, label="RooGaussian
+mZModel
+0.000063"];
+"invMass" [ color=blue, label="RooRealVar
+invMass
+100.000000"];
+"mZ" [ color=blue, label="RooRealVar
+mZ
+91.200000"];
+"sigmaZ" [ color=blue, label="RooRealVar
+sigmaZ
+2.000000"];
+"zIsolationModel" [ color=red, label="RooExponential
+zIsolationModel
+0.000045"];
+"isolation" [ color=blue, label="RooRealVar
+isolation
+10.000000"];
+"zIsolDecayConst" [ color=red, label="RooConstVar
+zIsolDecayConst
+-1.000000"];
+"zYield" [ color=blue, label="RooRealVar
+zYield
+50.000000"];
+"qcdModel" [ color=red, label="RooProdPdf
+qcdModel
+0.135335"];
+"qcdMassModel" [ color=red, label="RooExponential
+qcdMassModel
+0.367879"];
+"qcdMassDecayConst" [ color=blue, label="RooRealVar
+qcdMassDecayConst
+-0.010000"];
+"qcdIsolationModel" [ color=red, label="RooExponential
+qcdIsolationModel
+0.367879"];
+"qcdIsolDecayConst" [ color=red, label="RooConstVar
+qcdIsolDecayConst
+-0.100000"];
+"qcdYield" [ color=blue, label="RooRealVar
+qcdYield
+100.000000"];
+"mZModel" -> "mZ";
+"mZModel" -> "invMass";
+"mZModel" -> "sigmaZ";
+"zIsolationModel" -> "isolation";
+"zIsolationModel" -> "zIsolDecayConst";
+"qcdIsolationModel" -> "qcdIsolDecayConst";
+"qcdIsolationModel" -> "isolation";
+"qcdModel" -> "qcdIsolationModel";
+"qcdModel" -> "qcdMassModel";
+"qcdMassModel" -> "invMass";
+"qcdMassModel" -> "qcdMassDecayConst";
+"zModel" -> "mZModel";
+"zModel" -> "zIsolationModel";
+"model" -> "zYield";
+"model" -> "qcdYield";
+"model" -> "qcdModel";
+"model" -> "zModel";
+}

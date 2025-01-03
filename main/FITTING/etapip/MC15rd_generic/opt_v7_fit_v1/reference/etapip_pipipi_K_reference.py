@@ -40,7 +40,7 @@ print(file_list)
 fit_variable = "Dp_M"
 fit_var_name = "M(D^{+}) [GeV/c^{2}]"
 #fit_range = (1.66, 2.06)
-fit_range = (1.70, 2.06)
+fit_range = (1.71, 2.06)
 #fit_range = (1.73, 2.03)
 truth_var = "Dp_isSignal"
 charge_var = "Pip_charge"
@@ -76,7 +76,7 @@ data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),be
 Num_total_cc = data_cc.sumEntries()
 print(Num_total_cc)
 
-N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 10000*scale, 5000*scale, 90000*scale)  # N_total = N_D+ + N_D-
+N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 40000*scale, 20000*scale, 100000*scale)  # N_total = N_D+ + N_D-
 Acp = RooRealVar("Acp", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -88,7 +88,7 @@ Nsig_D_minus = RooFormulaVar("Nsig_D_minus",
     "0.5 * N_total * (1 - Acp)",
     RooArgList(N_total, Acp))
 
-N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 20000*scale, 5000*scale,120000*scale)  # N_total = N_D+ + N_D-
+N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 100000*scale, 50000*scale,200000*scale)  # N_total = N_D+ + N_D-
 Acp_Ds = RooRealVar("Acp_Ds", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -114,12 +114,12 @@ Nbkg_D_minus = RooFormulaVar("Nbkg_D_minus",
 
 mean = ROOT.RooRealVar("mean", "mean", 1.869480650, 1.85, 1.89)
 #sigma = ROOT.RooRealVar("sigma", "sigma", 0.00251944530)
-sigmaL = ROOT.RooRealVar("sigmaL", "sigma",   0.000490090036)
-sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.00198594602)
-alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.302741346)
-nL = ROOT.RooRealVar("nL", "nL", 2.218918226)
-alphaR = ROOT.RooRealVar("alphaR", "alphaR", 1.354846343)
-nR = ROOT.RooRealVar("nR", "nR", 1.952505087)
+sigmaL = ROOT.RooRealVar("sigmaL", "sigma",   0.00031363701477596395)
+sigmaR = ROOT.RooRealVar("sigmaR", "sigma",  0.00038603662112416726)
+alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.24076737870809253)
+nL = ROOT.RooRealVar("nL", "nL", 2.1927502772558585)
+alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.5073264010602695)
+nR = ROOT.RooRealVar("nR", "nR", 1.9042755120460184)
 
 # Create double-sided Crystal Ball PDF
 #CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
@@ -135,12 +135,12 @@ sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson and Gaussian
 
 Ds_mean = ROOT.RooRealVar("Ds_mean", "mean", 1.968351688, 1.94, 1.98)
 #Ds_sigma = ROOT.RooRealVar("Ds_sigma", "sigma", 0.00256642070)
-Ds_sigmaL = ROOT.RooRealVar("Ds_sigmaL", "sigma", 0.000753175048)
-Ds_sigmaR = ROOT.RooRealVar("Ds_sigmaR", "sigma", 0.000681404356)
-Ds_alphaL = ROOT.RooRealVar("Ds_alphaL", "alphaL", 0.431127361)
-Ds_nL = ROOT.RooRealVar("Ds_nL", "nL", 2.443076910)
-Ds_alphaR = ROOT.RooRealVar("Ds_alphaR", "alphaR", 0.571080980)
-Ds_nR = ROOT.RooRealVar("Ds_nR", "nR", 2.260319679)
+Ds_sigmaL = ROOT.RooRealVar("Ds_sigmaL", "sigma", 0.0009170170351641772)
+Ds_sigmaR = ROOT.RooRealVar("Ds_sigmaR", "sigma",  0.0005888001259927202)
+Ds_alphaL = ROOT.RooRealVar("Ds_alphaL", "alphaL", 0.48829512747385045)
+Ds_nL = ROOT.RooRealVar("Ds_nL", "nL", 2.5027822563348927)
+Ds_alphaR = ROOT.RooRealVar("Ds_alphaR", "alphaR", 0.5224749444935949)
+Ds_nR = ROOT.RooRealVar("Ds_nR", "nR", 2.187450699761405)
 
 # Create double-sided Crystal Ball PDF
 #Ds_CB = ROOT.RooCrystalBall("Ds_CB", "CB_left", x, Ds_mean, Ds_sigma, Ds_alphaL, Ds_nL, Ds_alphaR, Ds_nR)
@@ -161,9 +161,9 @@ x_bkg1_Cheby_c1 = ROOT.RooRealVar("x_bkg1_Cheby_c1", "c0",0.0, -1.0, 1.0)
 x_bkg1_Cheby_c2 = ROOT.RooRealVar("x_bkg1_Cheby_c2", "c0",0.0, -1.0, 1.0)
 x_bkg1_tau = ROOT.RooRealVar("x_bkg1_tau", "c0",-3, -20, 0)
 
-novo_mean = ROOT.RooRealVar("novo_mean", "Mean", 1.734529371)
-novo_sigma = ROOT.RooRealVar("novo_sigma", "Sigma", 0.0540871419)
-novo_tail = ROOT.RooRealVar("novo_tail", "Tail",  0.239331836 )
+novo_mean = ROOT.RooRealVar("novo_mean", "Mean", 1.735180653099989, 1.71, 1.75)
+novo_sigma = ROOT.RooRealVar("novo_sigma", "Sigma", 0.05416676439382366)
+novo_tail = ROOT.RooRealVar("novo_tail", "Tail", 0.2431275048216615)
 # Create Novosibirsk PDF
 rhopeta  = ROOT.RooNovosibirsk("rhopeta", "Novosibirsk PDF", x, novo_mean, novo_sigma, novo_tail)
 
