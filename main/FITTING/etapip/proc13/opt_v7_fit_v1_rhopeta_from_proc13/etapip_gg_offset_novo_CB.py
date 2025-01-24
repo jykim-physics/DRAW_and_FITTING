@@ -1,13 +1,15 @@
 import ROOT
 from ROOT import RooFit, RooRealVar, RooDataSet, RooArgList, RooAddPdf, RooGaussian, RooFormulaVar, RooSimultaneous, RooCategory
+from ROOT.RooFit import Extended, FitOptions, Save, PrintEvalErrors, PrintLevel, Bins, FitGauss,    NumCPU, Strategy, Offset
 import glob
 import ctypes
 import os
+import random
 
-file_name_Dp = "/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/MC15rd_etapip_gg_K_fit_opt_loose_v7_fitv2_Dp.png"
-file_name_Dm = "/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/MC15rd_etapip_gg_K_fit_opt_loose_v7_fitv2_Dm.png"
-fitresult_name = "/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etapip_gg_K_fit_opt_loose_v7_fitv2.root"
-fitresult_text = "/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etapip_gg_K_fit_opt_loose_v7_fitv2.txt"
+file_name_Dp = "/share/storage/jykim/plots/proc13/etapip/gg/generic/proc13_etapip_gg_fit_opt_loose_v7_fitv1_Dp.png"
+file_name_Dm = "/share/storage/jykim/plots/proc13/etapip/gg/generic/proc13_etapip_gg_fit_opt_loose_v7_fitv1_Dm.png"
+fitresult_name = "/share/storage/jykim/plots/proc13/etapip/gg/generic/fitresult/proc13_etapip_gg_fit_opt_loose_v7_fitv1.root"
+fitresult_text = "/share/storage/jykim/plots/proc13/etapip/gg/generic/fitresult/proc13_etapip_gg_fit_opt_loose_v7_fitv1.txt"
 dir_path = os.path.dirname(file_name_Dp)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
@@ -20,11 +22,11 @@ print("Directory created:", dir_path)
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
 
-#file_list = ['/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15ri/etapip_eteeta/MC15ri_etaetapip_loose_v2_241106_yespi0veto/etapip_gg/MC15ri*.root']
-base_path = "/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15rd/etapip_eteeta/MC15rd_etaetapip_loose_v7_241213_temp"
-cm_elements = ["15rd_eta_e7_18_4S_v3", "15rd_eta_e20_b26_v1", "15rd_eta_e20_e26_4S_v2", "15rd_eta_e21_5S_scan_v1", "15rd_eta_mori_off_v1"]
+base_path = "/share/storage/jykim/storage_b2/storage/reduced_ntuples/proc13/proc13_etaetapip_loose_v7_250122_temp"
+cm_elements = ["etahp_13_had_4S_off_v1", "etahp_13_had_4S_v3", "etahp_23_had_4S_off_v1", "etahp_23_had_4S_v1", "etahp_23_had_5Sscan_10657_v1", "etahp_23_had_5Sscan_10706_v1",\
+               "etahp_23_had_5Sscan_10751_v1", "etahp_23_had_5Sscan_10810_v1"]
 
-tree_name = "etapip_gg_K"
+tree_name = "etapip_gg"
 file_list = []
 for element in cm_elements:
     pattern = f"{base_path}/{element}/{tree_name}/*.BCS.root"
@@ -40,31 +42,25 @@ print(file_list)
 fit_variable = "Dp_M"
 fit_var_name = "M(D^{+}) [GeV/c^{2}]"
 #fit_range = (1.66, 2.06)
-#fit_range = (1.70, 2.06)
-fit_range = (1.75, 2.045)
-#fit_range = (1.78, 2.03)
+fit_range = (1.71, 2.06)
 truth_var = "Dp_isSignal"
 charge_var = "Pip_charge"
-Dp_CMS_cosTheta_var = "Dp_CMS_cosTheta"
 
-cuts_Dp = charge_var + "==1 "
-cuts_Dm = charge_var + "==-1 "
-#cuts_Dp = charge_var + "==1 & Dp_CMS_cosTheta<0"
-#cuts_Dm = charge_var + "==-1 & Dp_CMS_cosTheta<0"
+cuts_Dp = charge_var + "==1"
+cuts_Dm = charge_var + "==-1"
 
 x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
-#x.setBins(200)
+x.setBins(200)
 Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
-Dp_CMS_cosTheta = ROOT.RooRealVar(Dp_CMS_cosTheta_var, Dp_CMS_cosTheta_var, -1, 1)
 
-before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,Pip_charge, Dp_CMS_cosTheta), cuts_Dp)
+before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,Pip_charge), cuts_Dp)
 
 w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)
 #scale = 1
 #scale = 427.87/1000
 scale = 1/4
-CMS_scale = 1
-w_1.setVal(scale)
+#scale = (1/4)*(427.87+54.3)/427.87
+w_1.setVal(1)
 before_data.addColumn(w_1)
 data = ROOT.RooDataSet(before_data.GetName(), before_data.GetTitle(),before_data, before_data.get(), '' ,  'w_1')
 Num_total = data.sumEntries()
@@ -73,7 +69,7 @@ print(Num_total)
 mychain_cc = ROOT.TChain(tree_name)
 for i in file_list:
     mychain_cc.Add(i)
-before_data_cc = ROOT.RooDataSet("data","", mychain_cc, ROOT.RooArgSet(x,Pip_charge, Dp_CMS_cosTheta), cuts_Dm)
+before_data_cc = ROOT.RooDataSet("data","", mychain_cc, ROOT.RooArgSet(x,Pip_charge), cuts_Dm)
 before_data_cc.addColumn(w_1)
 data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),before_data_cc, before_data_cc.get(), '' ,  'w_1')
 
@@ -81,22 +77,36 @@ data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),be
 Num_total_cc = data_cc.sumEntries()
 print(Num_total_cc)
 
-N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 1800*scale*CMS_scale, 0, 2500*scale*CMS_scale)  # N_total = N_D+ + N_D-
-Acp = RooRealVar("Acp", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
+N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 140000*scale, 100000*scale, 170000*scale)  # N_total = N_D+ + N_D-
+Acp_blind = RooRealVar("Acp_blind", "Acp", 0, -1, 1)
+
+Acp_bias = RooRealVar("Acp_bias", "Acp_bias", 0, -1, 1)
+Acp_random_number = round(random.uniform(-0.1, 0.1), 10)
+Acp_bias.setVal(Acp_random_number)
+Acp_bias.setConstant(True)
+
+Acp = RooFormulaVar("Acp","Acp_blind + Acp_bias", RooArgList(Acp_blind, Acp_bias))
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
 Nsig_D_plus = RooFormulaVar("Nsig_D_plus",
     "0.5 * N_total * (1 + Acp)",
     RooArgList(N_total, Acp))
+    #"0.5 * n_total * (1 + acp_blind - acp_bias)",
+    #rooarglist(n_total, acp_blind, acp_bias))
 
 Nsig_D_minus = RooFormulaVar("Nsig_D_minus",
     "0.5 * N_total * (1 - Acp)",
     RooArgList(N_total, Acp))
 
-N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)",  8000*scale*CMS_scale, 0,12000*scale*CMS_scale)  # N_total = N_D+ + N_D-
-Acp_Ds = RooRealVar("Acp_Ds", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
+N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 150000*scale, 120000*scale,400000*scale)  # N_total = N_D+ + N_D-
+Acp_Ds_blind = RooRealVar("Acp_Ds_blind", "Acp", 0, -1, 1)
 
-# Use Acp and N_total to define the expected signal yields for D+ and D-
+Acp_Ds_bias = RooRealVar("Acp_Ds_bias", "Acp_bias", 0, -1, 1)
+Acp_Ds_random_number = round(random.uniform(-0.1, 0.1), 10)
+Acp_Ds_bias.setVal(Acp_Ds_random_number)
+Acp_Ds_bias.setConstant(True)
+
+Acp_Ds = RooFormulaVar("Acp_Ds","Acp_Ds_bias +  Acp_Ds_blind", RooArgList(Acp_Ds_blind, Acp_Ds_bias))
 Nsig_Ds_plus = RooFormulaVar("Nsig_Ds_plus",
     "0.5 * N_total_Ds * (1 + Acp_Ds)",
     RooArgList(N_total_Ds, Acp_Ds))
@@ -105,9 +115,8 @@ Nsig_Ds_minus = RooFormulaVar("Nsig_Ds_minus",
     "0.5 * N_total_Ds * (1 - Acp_Ds)",
     RooArgList(N_total_Ds, Acp_Ds))
 
-#Nbkg_D_plus = ROOT.RooRealVar("Nbkg_D_plus", "Number of background events for D+", 10000*scale, 8000*scale, 16000*scale)
-#Nbkg_D_minus = ROOT.RooRealVar("Nbkg_D_minus", "Number of background events for D-", 10000*scale, 8000*scale, 16000*scale)
-Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 20000*scale*CMS_scale, 0,36000*scale*CMS_scale)
+
+Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 400000*scale, 200000*scale,600000*scale)
 Acp_bkg = RooRealVar("Acp_bkg", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 Nbkg_D_plus = RooFormulaVar("Nbkg_D_plus",
     "0.5 * Nbkg_total * (1 + Acp_bkg)",
@@ -117,36 +126,35 @@ Nbkg_D_minus = RooFormulaVar("Nbkg_D_minus",
     "0.5 * Nbkg_total * (1 - Acp_bkg)",
     RooArgList(Nbkg_total, Acp_bkg))
 
-mean = ROOT.RooRealVar("mean", "mean", 1.869553651, 1.85, 1.89)
-#sigma = ROOT.RooRealVar("sigma", "sigma",  0.00335350988)
-sigmaL = ROOT.RooRealVar("sigmaL", "sigma",  0.00010000161832845217)
-sigmaR = ROOT.RooRealVar("sigmaR", "sigma",  0.00014146387437137935)
-alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.02457393270005916)
-nL = ROOT.RooRealVar("nL", "nL", 4.48823490355655)
-alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.07644301960947571)
-nR = ROOT.RooRealVar("nR", "nR", 2.886536618282026)
+mean = ROOT.RooRealVar("mean", "mean", 1.870171395, 1.85, 1.89)
+#sigma = ROOT.RooRealVar("sigma", "sigma",  0.00258716780)
+sigmaL = ROOT.RooRealVar("sigmaL", "sigmaL",  0.007892368737087698)
+sigmaR = ROOT.RooRealVar("sigmaR", "sigmaR",  0.000933800544844946)
+alphaL = ROOT.RooRealVar("alphaL", "alphaL", 1.2905968909942316)
+nL = ROOT.RooRealVar("nL", "nL", 3.1177477829553597)
+alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.39891046276149844)
+nR = ROOT.RooRealVar("nR", "nR", 2.4350818694712024)
 
 # Create double-sided Crystal Ball PDF
 #CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
-CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigmaL, sigmaR, alphaL, nL, alphaR, nR)
+CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigmaL,sigmaR, alphaL, nL, alphaR, nR)
 
 #mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -0.1, 0.1)
 mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0)
-#sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.001, 0.00001, 0.1)
-sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.007694428298890234)
+sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.001, 0.00001, 0.1)
 gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_gaussian)
 
 # Convolute the Johnson distribution with Gaussian
 sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson and Gaussian", x, CB, gaussian)
 
-Ds_mean = ROOT.RooRealVar("Ds_mean", "mean", 1.968164749, 1.94, 1.98)
-#Ds_sigma = ROOT.RooRealVar("Ds_sigma", "sigma", 0.00421516866)
-Ds_sigmaL = ROOT.RooRealVar("Ds_sigmaL", "sigma",  0.001989936730176138 )
-Ds_sigmaR = ROOT.RooRealVar("Ds_sigmaR", "sigma", 0.0041510952277050255)
-Ds_alphaL = ROOT.RooRealVar("Ds_alphaL", "alphaL", 0.44996565266032984)
-Ds_nL = ROOT.RooRealVar("Ds_nL", "nL",  3.9252587704791613 )
-Ds_alphaR = ROOT.RooRealVar("Ds_alphaR", "alphaR", 1.5529998271778207)
-Ds_nR = ROOT.RooRealVar("Ds_nR", "nR", 2.379836901252171)
+Ds_mean = ROOT.RooRealVar("Ds_mean", "mean", 1.968163260, 1.94, 1.98)
+#Ds_sigma = ROOT.RooRealVar("Ds_sigma", "sigma", 0.00103040185)
+Ds_sigmaL = ROOT.RooRealVar("Ds_sigmaL", "sigma", 0.0019509754835617288)
+Ds_sigmaR = ROOT.RooRealVar("Ds_sigmaR", "sigma",  0.005204633808155072)
+Ds_alphaL = ROOT.RooRealVar("Ds_alphaL", "alphaL", 0.4009540225722405)
+Ds_nL = ROOT.RooRealVar("Ds_nL", "nL", 2.9623316962750943)
+Ds_alphaR = ROOT.RooRealVar("Ds_alphaR", "alphaR", 1.5874337576946485)
+Ds_nR = ROOT.RooRealVar("Ds_nR", "nR", 2.1609543019885797)
 
 # Create double-sided Crystal Ball PDF
 #Ds_CB = ROOT.RooCrystalBall("Ds_CB", "CB_left", x, Ds_mean, Ds_sigma, Ds_alphaL, Ds_nL, Ds_alphaR, Ds_nR)
@@ -154,8 +162,7 @@ Ds_CB = ROOT.RooCrystalBall("Ds_CB", "CB_left", x, Ds_mean, Ds_sigmaL, Ds_sigmaR
 
 #Ds_mean_gaussian = ROOT.RooRealVar("Ds_mean_gaussian", "mean of Gaussian", 0, -0.1, 0.1)
 Ds_mean_gaussian = ROOT.RooRealVar("Ds_mean_gaussian", "mean of Gaussian", 0)
-#Ds_sigma_gaussian = ROOT.RooRealVar("Ds_sigma_gaussian", "sigma of Gaussian", 0.001, 0.00001, 0.1)
-Ds_sigma_gaussian = ROOT.RooRealVar("Ds_sigma_gaussian", "sigma of Gaussian",  0.008233169478590395)
+Ds_sigma_gaussian = ROOT.RooRealVar("Ds_sigma_gaussian", "sigma of Gaussian", 0.001, 0.00001, 0.1)
 
 # Create a Gaussian distribution
 Ds_gaussian = ROOT.RooGaussian("Ds_gaussian", "Gaussian PDF", x, Ds_mean_gaussian, Ds_sigma_gaussian)
@@ -163,27 +170,37 @@ Ds_gaussian = ROOT.RooGaussian("Ds_gaussian", "Gaussian PDF", x, Ds_mean_gaussia
 # Convolute the Johnson distribution with Gaussian
 Ds_model = ROOT.RooFFTConvPdf("Ds_model", "Convolution of Johnson and Gaussian", x, Ds_CB, Ds_gaussian)
 
-x_bkg1_Cheby_c0 = ROOT.RooRealVar("x_bkg1_Cheby_c0", "c0",0.1, -1.0, 1.0)
-x_bkg1_Cheby_c1 = ROOT.RooRealVar("x_bkg1_Cheby_c1", "c0",0.2, -1.0, 1.0)
-x_bkg1_Cheby_c2 = ROOT.RooRealVar("x_bkg1_Cheby_c2", "c0",0.3, -1.0, 1.0)
-x_bkg1_tau = ROOT.RooRealVar("x_bkg1_tau", "c0",-5, -20, 5)
+x_bkg1_Cheby_c0 = ROOT.RooRealVar("x_bkg1_Cheby_c0", "c0",0.0, -1.0, 1.0)
+x_bkg1_Cheby_c1 = ROOT.RooRealVar("x_bkg1_Cheby_c1", "c0",0.0, -1.0, 1.0)
+x_bkg1_Cheby_c2 = ROOT.RooRealVar("x_bkg1_Cheby_c2", "c0",0.0, -1.0, 1.0)
+x_bkg1_tau = ROOT.RooRealVar("x_bkg1_tau", "c0",-0.5, -20, 0)
+
+novo_mean = ROOT.RooRealVar("novo_mean", "Mean",  1.728843972129057, 1.68,1.74)
+novo_sigma = ROOT.RooRealVar("novo_sigma", "Sigma", 0.04968190518091752)
+novo_tail = ROOT.RooRealVar("novo_tail", "Tail", 0.10533103528237432)
+rhopeta  = ROOT.RooNovosibirsk("rhopeta", "Novosibirsk PDF", x, novo_mean, novo_sigma, novo_tail)
+
+#rhopeta_mean = ROOT.RooRealVar("rhopeta_mean", "mean", 1.734679006)
+#rhopeta_sigma = ROOT.RooRealVar("rhopeta_sigma", "sigma",  0.0416247104)
+#rhopeta_alphaL = ROOT.RooRealVar("rhopeta_alphaL", "alphaL", 0.128295020)
+#rhopeta_nL = ROOT.RooRealVar("rhopeta_nL", "nL", 9.596780200)
+#rhopeta_alphaR = ROOT.RooRealVar("rhopeta_alphaR", "alphaR", 2.982754317)
+#rhopeta_nR = ROOT.RooRealVar("rhopeta_nR", "nR", 7.543542470)
+#rhopeta = ROOT.RooCrystalBall("rhopeta", "rhopeta_", x, rhopeta_mean, rhopeta_sigma, rhopeta_alphaL, rhopeta_nL, rhopeta_alphaR, rhopeta_nR)
 
 #novo_mean_gaussian = ROOT.RooRealVar("novo_mean_gaussian", "mean of Gaussian", 0, -0.5, 0.5)
 #novo_sigma_gaussian = ROOT.RooRealVar("novo_sigma_gaussian", "sigma of Gaussian", 0.01, 0.000001, 0.1)
 #novo_gaussian = ROOT.RooGaussian("novo_gaussian", "Gaussian PDF", x, novo_mean_gaussian, novo_sigma_gaussian)
 #rhopeta = ROOT.RooFFTConvPdf("rhopeta", "Convolution of Novosibirsk and Gaussian", x, novo, novo_gaussian)
 
-#bkg_comb = ROOT.RooExponential("bkg_comb", "x_bkg1", x, x_bkg1_tau)
+bkg_comb = ROOT.RooExponential("bkg_comb", "x_bkg1", x, x_bkg1_tau)
 #model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0, x_bkg1_Cheby_c1, x_bkg1_Cheby_c2))
-#model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0, x_bkg1_Cheby_c1))
-#model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0))
 
-#bkg_frac = ROOT.RooRealVar("bkg_frac", "fraction of Gaussian in BKG", 0.25, 0.1, 1)
+bkg_frac = ROOT.RooRealVar("bkg_frac", "fraction of Gaussian in BKG", 0.25, 0.1, 1)
 
-#model_bkg = ROOT.RooAddPdf("model_bkg", "Gaus + Exp", RooArgList(rhopeta, bkg_comb), bkg_frac)
+model_bkg = ROOT.RooAddPdf("model_bkg", "Gaus + Exp", RooArgList(rhopeta, bkg_comb), bkg_frac)
 
 
-model_bkg = ROOT.RooExponential("model_bkg", "x_bkg1", x, x_bkg1_tau)
 
 
 # Define extended PDFs for D+ and D-
@@ -192,7 +209,7 @@ model_D_plus = ROOT.RooAddPdf("model_D_plus", "D+ model",
                               ROOT.RooArgList(Nsig_D_plus, Nsig_Ds_plus, Nbkg_D_plus))
 model_D_minus = ROOT.RooAddPdf("model_D_minus", "D- model",
                               ROOT.RooArgList(sig_model, Ds_model, model_bkg),
-                              ROOT.RooArgList(Nsig_D_minus, Nsig_Ds_minus, Nbkg_D_minus))
+                              ROOT.RooArgList(Nsig_D_minus, Nsig_Ds_minus, Nbkg_D_plus))
 
 # Create a category to distinguish between D+ and D-
 cat = RooCategory("sample", "sample")
@@ -238,11 +255,11 @@ fit_result  = minimizer.save()
 #r.Print("v")
 
 # Print fit results
-fit_result.Print()
+#fit_result.Print()
 
 # Output the Acp value and its error
-Acp_value = Acp.getVal()
-Acp_error = Acp.getError()
+Acp_value = Acp_blind.getVal()
+Acp_error = Acp_blind.getError()
 
 print(f"Acp = {Acp_value:.3f} ± {Acp_error:.3f}")
 
@@ -363,7 +380,7 @@ upPad.SetPad(xlow, ylow+0.25*(yup-ylow),xup,yup)
 dwPad = canvas_D_minus.GetPad(2)
 dwPad.SetPad(xlow, ylow,xup,ylow+0.25*(yup-ylow))
 
-#plot_x_range = (1.75, 2.05)
+plot_x_range = (1.75, 2.05)
 canvas_D_minus.cd(1)
 frame_D_minus = x.frame(ROOT.RooFit.Title("D+ fit"))
 slicedData_Dm = data_combined.reduce(Cut="sample==sample::D_minus")
@@ -447,7 +464,7 @@ with open(fitresult_text, "w") as f:
 
     # Print the full fit result to the file
     f.write("Full fit result summary:\n")
-    fit_result.Print("v")  # Verbose print (prints more details)
+    fit_result.Print("")  # Verbose print (prints more details)
 
     # Alternatively, write specific attributes to the file
     f.write("\nSpecific fit result details:\n")
@@ -467,8 +484,8 @@ with open(fitresult_text, "w") as f:
     N_total_val = N_total.getVal()
     N_total_err = N_total.getError()
 
-    Acp_val = Acp.getVal()
-    Acp_err = Acp.getError()
+    Acp_val = Acp_blind.getVal()
+    Acp_err = Acp_blind.getError()
 
     # Calculate Nsig_D_plus and its error
     Nsig_D_plus_val = 0.5 * N_total_val * (1 + Acp_val)
@@ -482,8 +499,8 @@ with open(fitresult_text, "w") as f:
     N_total_Ds_val = N_total_Ds.getVal()
     N_total_Ds_err = N_total_Ds.getError()
 
-    Acp_Ds_val = Acp_Ds.getVal()
-    Acp_Ds_err = Acp_Ds.getError()
+    Acp_Ds_val = Acp_Ds_blind.getVal()
+    Acp_Ds_err = Acp_Ds_blind.getError()
 
     # Calculate Nsig_D_plus and its error
     Nsig_Ds_plus_val = 0.5 * N_total_Ds_val * (1 + Acp_Ds_val)

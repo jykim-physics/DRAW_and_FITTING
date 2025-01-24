@@ -100,14 +100,14 @@ Acp = RooFormulaVar("Acp","Acp_blind + Acp_bias", RooArgList(Acp_blind, Acp_bias
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
 Nsig_D_plus = RooFormulaVar("Nsig_D_plus",
-    "0.5 * n_total * (1 + Acp_blind - Acp_bias)",
-    rooarglist(n_total, Acp_blind, Acp_bias))
+    "0.5 * N_total * (1 + Acp)",
+    RooArgList(N_total, Acp))
     #"0.5 * n_total * (1 + acp_blind - acp_bias)",
     #rooarglist(n_total, acp_blind, acp_bias))
 
 Nsig_D_minus = RooFormulaVar("Nsig_D_minus",
-    "0.5 * N_total * (1 - Acp_blind + Acp_bias)",
-    RooArgList(N_total, Acp_blind, Acp_bias))
+    "0.5 * N_total * (1 - Acp)",
+    RooArgList(N_total, Acp))
     #"0.5 * N_total * (1 - Acp_blind - Acp_bias)",
     #RooArgList(N_total, Acp_blind, Acp_bias))
 
@@ -122,17 +122,17 @@ Acp_Ds_bias.setVal(Acp_Ds_random_number)
 Acp_Ds_bias.setConstant(True)
 
 #Acp_Ds_ran = RooFormulaVar("Acp_Ds_ran","Acp_Ds + Acp_Ds_bias", RooArgList(Acp_Ds, Acp_Ds_bias))
-#Acp_Ds = RooFormulaVar("Acp_Ds","Acp_Ds_bias +  Acp_Ds_blind", RooArgList(Acp_Ds_blind, Acp_Ds_bias))
+Acp_Ds = RooFormulaVar("Acp_Ds","Acp_Ds_bias +  Acp_Ds_blind", RooArgList(Acp_Ds_blind, Acp_Ds_bias))
 # Use Acp and N_total to define the expected signal yields for D+ and D-
 Nsig_Ds_plus = RooFormulaVar("Nsig_Ds_plus",
-    "0.5 * N_total_Ds * (1 + Acp_Ds_blind - Acp_Ds_bias)",
-    RooArgList(N_total_Ds, Acp_Ds_blind, Acp_Ds_bias))
+    "0.5 * N_total_Ds * (1 + Acp_Ds)",
+    RooArgList(N_total_Ds, Acp_Ds))
     #"0.5 * N_total_Ds * (1 + Acp_Ds_blind +  Acp_Ds_bias)",
     #RooArgList(N_total_Ds, Acp_Ds_blind, Acp_Ds_bias))
 
 Nsig_Ds_minus = RooFormulaVar("Nsig_Ds_minus",
-    "0.5 * N_total_Ds * (1 - Acp_Ds_blind + Acp_Ds_bias)",
-    RooArgList(N_total_Ds, Acp_Ds_blind, Acp_Ds_bias))
+    "0.5 * N_total_Ds * (1 - Acp_Ds)",
+    RooArgList(N_total_Ds, Acp_Ds))
     #"0.5 * N_total_Ds * (1 - Acp_Ds_blind - Acp_Ds_bias)",
     #RooArgList(N_total_Ds, Acp_Ds_blind, Acp_Ds_bias))
 

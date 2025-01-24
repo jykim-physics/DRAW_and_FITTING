@@ -4,10 +4,10 @@ import glob
 import ctypes
 import os
 
-file_name_Dp = "/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/MC15rd_etapip_gg_K_fit_opt_loose_v7_fitv2_Dp.png"
-file_name_Dm = "/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/MC15rd_etapip_gg_K_fit_opt_loose_v7_fitv2_Dm.png"
-fitresult_name = "/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etapip_gg_K_fit_opt_loose_v7_fitv2.root"
-fitresult_text = "/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etapip_gg_K_fit_opt_loose_v7_fitv2.txt"
+file_name_Dp = "/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/MC15rd_etapip_gg_K_fit_opt_loose_v7_fitv4_Dp.png"
+file_name_Dm = "/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/MC15rd_etapip_gg_K_fit_opt_loose_v7_fitv4_Dm.png"
+fitresult_name = "/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etapip_gg_K_fit_opt_loose_v7_fitv4.root"
+fitresult_text = "/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etapip_gg_K_fit_opt_loose_v7_fitv4.txt"
 dir_path = os.path.dirname(file_name_Dp)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
@@ -77,45 +77,45 @@ before_data_cc = ROOT.RooDataSet("data","", mychain_cc, ROOT.RooArgSet(x,Pip_cha
 before_data_cc.addColumn(w_1)
 data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),before_data_cc, before_data_cc.get(), '' ,  'w_1')
 
-#data.append(data_cc)
+data.append(data_cc)
 Num_total_cc = data_cc.sumEntries()
 print(Num_total_cc)
 
 N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 1800*scale*CMS_scale, 0, 2500*scale*CMS_scale)  # N_total = N_D+ + N_D-
-Acp = RooRealVar("Acp", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
+#Acp = RooRealVar("Acp", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
-Nsig_D_plus = RooFormulaVar("Nsig_D_plus",
-    "0.5 * N_total * (1 + Acp)",
-    RooArgList(N_total, Acp))
+#Nsig_D_plus = RooFormulaVar("Nsig_D_plus",
+#    "0.5 * N_total * (1 + Acp)",
+#    RooArgList(N_total, Acp))
 
-Nsig_D_minus = RooFormulaVar("Nsig_D_minus",
-    "0.5 * N_total * (1 - Acp)",
-    RooArgList(N_total, Acp))
+#Nsig_D_minus = RooFormulaVar("Nsig_D_minus",
+#    "0.5 * N_total * (1 - Acp)",
+#    RooArgList(N_total, Acp))
 
 N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)",  8000*scale*CMS_scale, 0,12000*scale*CMS_scale)  # N_total = N_D+ + N_D-
-Acp_Ds = RooRealVar("Acp_Ds", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
+#Acp_Ds = RooRealVar("Acp_Ds", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
-Nsig_Ds_plus = RooFormulaVar("Nsig_Ds_plus",
-    "0.5 * N_total_Ds * (1 + Acp_Ds)",
-    RooArgList(N_total_Ds, Acp_Ds))
+#Nsig_Ds_plus = RooFormulaVar("Nsig_Ds_plus",
+#    "0.5 * N_total_Ds * (1 + Acp_Ds)",
+#    RooArgList(N_total_Ds, Acp_Ds))
 
-Nsig_Ds_minus = RooFormulaVar("Nsig_Ds_minus",
-    "0.5 * N_total_Ds * (1 - Acp_Ds)",
-    RooArgList(N_total_Ds, Acp_Ds))
+#Nsig_Ds_minus = RooFormulaVar("Nsig_Ds_minus",
+#    "0.5 * N_total_Ds * (1 - Acp_Ds)",
+#    RooArgList(N_total_Ds, Acp_Ds))
 
 #Nbkg_D_plus = ROOT.RooRealVar("Nbkg_D_plus", "Number of background events for D+", 10000*scale, 8000*scale, 16000*scale)
 #Nbkg_D_minus = ROOT.RooRealVar("Nbkg_D_minus", "Number of background events for D-", 10000*scale, 8000*scale, 16000*scale)
 Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 20000*scale*CMS_scale, 0,36000*scale*CMS_scale)
-Acp_bkg = RooRealVar("Acp_bkg", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
-Nbkg_D_plus = RooFormulaVar("Nbkg_D_plus",
-    "0.5 * Nbkg_total * (1 + Acp_bkg)",
-    RooArgList(Nbkg_total, Acp_bkg))
+#Acp_bkg = RooRealVar("Acp_bkg", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
+#Nbkg_D_plus = RooFormulaVar("Nbkg_D_plus",
+#    "0.5 * Nbkg_total * (1 + Acp_bkg)",
+#    RooArgList(Nbkg_total, Acp_bkg))
 
-Nbkg_D_minus = RooFormulaVar("Nbkg_D_minus",
-    "0.5 * Nbkg_total * (1 - Acp_bkg)",
-    RooArgList(Nbkg_total, Acp_bkg))
+#Nbkg_D_minus = RooFormulaVar("Nbkg_D_minus",
+#    "0.5 * Nbkg_total * (1 - Acp_bkg)",
+#    RooArgList(Nbkg_total, Acp_bkg))
 
 mean = ROOT.RooRealVar("mean", "mean", 1.869553651, 1.85, 1.89)
 #sigma = ROOT.RooRealVar("sigma", "sigma",  0.00335350988)
@@ -187,33 +187,37 @@ model_bkg = ROOT.RooExponential("model_bkg", "x_bkg1", x, x_bkg1_tau)
 
 
 # Define extended PDFs for D+ and D-
-model_D_plus = ROOT.RooAddPdf("model_D_plus", "D+ model",
+#model_D_plus = ROOT.RooAddPdf("model_D_plus", "D+ model",
+#                              ROOT.RooArgList(sig_model, Ds_model, model_bkg),
+#                              ROOT.RooArgList(Nsig_D_plus, Nsig_Ds_plus, Nbkg_D_plus))
+#model_D_minus = ROOT.RooAddPdf("model_D_minus", "D- model",
+#                              ROOT.RooArgList(sig_model, Ds_model, model_bkg),
+#                              ROOT.RooArgList(Nsig_D_minus, Nsig_Ds_minus, Nbkg_D_minus))
+
+model_D = ROOT.RooAddPdf("model_D", "D model",
                               ROOT.RooArgList(sig_model, Ds_model, model_bkg),
-                              ROOT.RooArgList(Nsig_D_plus, Nsig_Ds_plus, Nbkg_D_plus))
-model_D_minus = ROOT.RooAddPdf("model_D_minus", "D- model",
-                              ROOT.RooArgList(sig_model, Ds_model, model_bkg),
-                              ROOT.RooArgList(Nsig_D_minus, Nsig_Ds_minus, Nbkg_D_minus))
+                              ROOT.RooArgList(N_total, N_total_Ds, Nbkg_total))
 
 # Create a category to distinguish between D+ and D-
-cat = RooCategory("sample", "sample")
-cat.defineType("D_plus")
-cat.defineType("D_minus")
+#cat = RooCategory("sample", "sample")
+#cat.defineType("D_plus")
+#cat.defineType("D_minus")
 
 # Create a simultaneous PDF using the category
-sim_model = RooSimultaneous("sim_model", "Simultaneous model", cat)
-sim_model.addPdf(model_D_plus, "D_plus")
-sim_model.addPdf(model_D_minus, "D_minus")
+#sim_model = RooSimultaneous("sim_model", "Simultaneous model", cat)
+#sim_model.addPdf(model_D_plus, "D_plus")
+#sim_model.addPdf(model_D_minus, "D_minus")
 
-data_combined = RooDataSet("data_combined", "Combined data", RooArgList(x, w_1), RooFit.Index(cat),
-                           RooFit.Import("D_plus", data),
-                           RooFit.Import("D_minus", data_cc),
-                           RooFit.WeightVar('w_1'))
+#data_combined = RooDataSet("data_combined", "Combined data", RooArgList(x, w_1), RooFit.Index(cat),
+                           #RooFit.Import("D_plus", data),
+                           #RooFit.WeightVar('w_1'))
 
 # Fit the model to the combined data
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save())
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4), RooFit.Strategy(2), RooFit.Minos(0), RooFit.Hesse(1))
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4), RooFit.Strategy(0), RooFit.Minos(0), RooFit.Hesse(1))
-nll = sim_model.createNLL(data_combined, ROOT.RooFit.Extended(True), ROOT.RooFit.NumCPU(15), RooFit.SumW2Error(True),  ROOT.RooFit.Offset(True))
+#nll = sim_model.createNLL(data_combined, ROOT.RooFit.Extended(True), ROOT.RooFit.NumCPU(15), RooFit.SumW2Error(True),  ROOT.RooFit.Offset(True))
+nll = model_D.createNLL(data, ROOT.RooFit.Extended(True), ROOT.RooFit.NumCPU(15), RooFit.SumW2Error(True),  ROOT.RooFit.Offset(True))
 
 # Step 2: Perform the Migrad minimization
 minimizer = ROOT.RooMinimizer(nll)
@@ -241,8 +245,8 @@ fit_result  = minimizer.save()
 fit_result.Print()
 
 # Output the Acp value and its error
-Acp_value = Acp.getVal()
-Acp_error = Acp.getError()
+#Acp_value = Acp.getVal()
+#Acp_error = Acp.getError()
 
 print(f"Acp = {Acp_value:.3f} ± {Acp_error:.3f}")
 
