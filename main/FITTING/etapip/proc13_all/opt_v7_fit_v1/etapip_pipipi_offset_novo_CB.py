@@ -6,10 +6,10 @@ import ctypes
 import os
 import random
 
-file_name_Dp = "/share/storage/jykim/plots/proc13/etapip/pipipi/generic/proc13_etapip_pipipi_fit_opt_loose_v7_fitv1_Dp.png"
-file_name_Dm = "/share/storage/jykim/plots/proc13/etapip/pipipi/generic/proc13_etapip_pipipi_fit_opt_loose_v7_fitv1_Dm.png"
-fitresult_name = "/share/storage/jykim/plots/proc13/etapip/pipipi/generic/fitresult/proc13_etapip_pipipi_fit_opt_loose_v7_fitv1.root"
-fitresult_text = "/share/storage/jykim/plots/proc13/etapip/pipipi/generic/fitresult/proc13_etapip_pipipi_fit_opt_loose_v7_fitv1.txt"
+file_name_Dp = "/share/storage/jykim/plots/proc13_all/etapip/pipipi/generic/proc13_all_etapip_pipipi_fit_opt_loose_v7_fitv1_Dp.png"
+file_name_Dm = "/share/storage/jykim/plots/proc13_all/etapip/pipipi/generic/proc13_all_etapip_pipipi_fit_opt_loose_v7_fitv1_Dm.png"
+fitresult_name = "/share/storage/jykim/plots/proc13_all/etapip/pipipi/generic/fitresult/proc13_all_etapip_pipipi_fit_opt_loose_v7_fitv1.root"
+fitresult_text = "/share/storage/jykim/plots/proc13_all/etapip/pipipi/generic/fitresult/proc13_all_etapip_pipipi_fit_opt_loose_v7_fitv1.txt"
 dir_path = os.path.dirname(file_name_Dp)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
@@ -22,9 +22,9 @@ print("Directory created:", dir_path)
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
 
-base_path = "/share/storage/jykim/storage_b2/storage/reduced_ntuples/proc13/proc13_etaetapip_loose_v7_250122_temp"
-cm_elements = ["etahp_13_had_4S_off_v1", "etahp_13_had_4S_v3", "etahp_23_had_4S_off_v1", "etahp_23_had_4S_v1", "etahp_23_had_5Sscan_10657_v1", "etahp_23_had_5Sscan_10706_v1",\
-               "etahp_23_had_5Sscan_10751_v1", "etahp_23_had_5Sscan_10810_v1"]
+base_path = "/share/storage/jykim/storage_b2/storage/reduced_ntuples/proc13_all/proc13_all_etapip_loose_v7_250205_Dp_dz"
+cm_elements = ["etahp_13_4S_off_v1", "etahp_13_4S_v2", "etahp_23_4S_off_v1", "etahp_23_4S_v1", "etahp_23_5Sscan_10657_v1", "etahp_23_5Sscan_10706_v1",\
+               "etahp_23_5Sscan_10751_v1", "etahp_23_5Sscan_10810_v1"]
 
 tree_name = "etapip_pipipi"
 file_list = []
@@ -46,15 +46,19 @@ fit_range = (1.71, 2.06)
 #fit_range = (1.73, 2.03)
 truth_var = "Dp_isSignal"
 charge_var = "Pip_charge"
+hlt_var = "skimhad"
 
 cuts_Dp = charge_var + "==1"
 cuts_Dm = charge_var + "==-1"
+#cuts_Dp = charge_var + "==1" + " && skimhad==1"
+#cuts_Dm = charge_var + "==-1"+ " && skimhad==1"
 
 x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
 x.setBins(200)
 Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
+skimhad = ROOT.RooRealVar(hlt_var, hlt_var, -1, 1)
 
-before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,Pip_charge), cuts_Dp)
+before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,Pip_charge,skimhad), cuts_Dp)
 
 w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)
 #scale = 1
@@ -70,7 +74,7 @@ print(Num_total)
 mychain_cc = ROOT.TChain(tree_name)
 for i in file_list:
     mychain_cc.Add(i)
-before_data_cc = ROOT.RooDataSet("data","", mychain_cc, ROOT.RooArgSet(x,Pip_charge), cuts_Dm)
+before_data_cc = ROOT.RooDataSet("data","", mychain_cc, ROOT.RooArgSet(x,Pip_charge,skimhad), cuts_Dm)
 before_data_cc.addColumn(w_1)
 data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),before_data_cc, before_data_cc.get(), '' ,  'w_1')
 
@@ -226,7 +230,7 @@ data_combined = RooDataSet("data_combined", "Combined data", RooArgList(x, w_1),
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save())
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4), RooFit.Strategy(2), RooFit.Minos(0), RooFit.Hesse(1))
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4), RooFit.Strategy(0), RooFit.Minos(0), RooFit.Hesse(1))
-nll = sim_model.createNLL(data_combined, ROOT.RooFit.Extended(True), ROOT.RooFit.NumCPU(15), RooFit.SumW2Error(True),  ROOT.RooFit.Offset(True))
+nll = sim_model.createNLL(data_combined, ROOT.RooFit.Extended(True), ROOT.RooFit.NumCPU(15),   ROOT.RooFit.Offset(True))
 
 # Step 2: Perform the Migrad minimization
 minimizer = ROOT.RooMinimizer(nll)

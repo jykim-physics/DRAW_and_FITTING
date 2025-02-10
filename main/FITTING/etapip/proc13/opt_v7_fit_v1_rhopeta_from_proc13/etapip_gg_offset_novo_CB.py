@@ -6,10 +6,10 @@ import ctypes
 import os
 import random
 
-file_name_Dp = "/share/storage/jykim/plots/proc13/etapip/gg/generic/proc13_etapip_gg_fit_opt_loose_v7_fitv1_Dp.png"
-file_name_Dm = "/share/storage/jykim/plots/proc13/etapip/gg/generic/proc13_etapip_gg_fit_opt_loose_v7_fitv1_Dm.png"
-fitresult_name = "/share/storage/jykim/plots/proc13/etapip/gg/generic/fitresult/proc13_etapip_gg_fit_opt_loose_v7_fitv1.root"
-fitresult_text = "/share/storage/jykim/plots/proc13/etapip/gg/generic/fitresult/proc13_etapip_gg_fit_opt_loose_v7_fitv1.txt"
+file_name_Dp = "/share/storage/jykim/plots/proc13/etapip/gg/generic/proc13_etapip_gg_fit_opt_loose_v7_fitv1_Dp_rhopeta_proc13.png"
+file_name_Dm = "/share/storage/jykim/plots/proc13/etapip/gg/generic/proc13_etapip_gg_fit_opt_loose_v7_fitv1_Dm_rhopeta_proc13.png"
+fitresult_name = "/share/storage/jykim/plots/proc13/etapip/gg/generic/fitresult/proc13_etapip_gg_fit_opt_loose_v7_fitv1_rhopeta_proc13.root"
+fitresult_text = "/share/storage/jykim/plots/proc13/etapip/gg/generic/fitresult/proc13_etapip_gg_fit_opt_loose_v7_fitv1_rhopeta_proc13.txt"
 dir_path = os.path.dirname(file_name_Dp)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
@@ -175,9 +175,9 @@ x_bkg1_Cheby_c1 = ROOT.RooRealVar("x_bkg1_Cheby_c1", "c0",0.0, -1.0, 1.0)
 x_bkg1_Cheby_c2 = ROOT.RooRealVar("x_bkg1_Cheby_c2", "c0",0.0, -1.0, 1.0)
 x_bkg1_tau = ROOT.RooRealVar("x_bkg1_tau", "c0",-0.5, -20, 0)
 
-novo_mean = ROOT.RooRealVar("novo_mean", "Mean",  1.728843972129057, 1.68,1.74)
-novo_sigma = ROOT.RooRealVar("novo_sigma", "Sigma", 0.04968190518091752)
-novo_tail = ROOT.RooRealVar("novo_tail", "Tail", 0.10533103528237432)
+novo_mean = ROOT.RooRealVar("novo_mean", "Mean",  1.73, 1.68,1.74)
+novo_sigma = ROOT.RooRealVar("novo_sigma", "Sigma", 0.04104634982434113)
+novo_tail = ROOT.RooRealVar("novo_tail", "Tail", 0.018531710692398028)
 rhopeta  = ROOT.RooNovosibirsk("rhopeta", "Novosibirsk PDF", x, novo_mean, novo_sigma, novo_tail)
 
 #rhopeta_mean = ROOT.RooRealVar("rhopeta_mean", "mean", 1.734679006)

@@ -5,8 +5,8 @@ import os
 
 ROOT.gROOT.LoadMacro('/home/jykim/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
-plot_file_name = "/share/storage/jykim/plots/proc13/etapip/pipipi/proc13_etapip_pipipi_Dp_M_opt_v7_novo_rhopeta.png"
-result_name = "/share/storage/jykim/plots/proc13/etapip/pipipi/proc13_etapip_pipipi_Dp_M_opt_v7_novo_result_rhopeta.txt"
+plot_file_name = "/share/storage/jykim/plots/proc13/etapip/pipipi/proc13_etapip_pipipi_Dp_M_opt_v7_novo_rhopeta_250122.png"
+result_name = "/share/storage/jykim/plots/proc13/etapip/pipipi/proc13_etapip_pipipi_Dp_M_opt_v7_novo_result_rhopeta_250122.txt"
 
 file_dir = os.path.dirname(plot_file_name)
 result_dir = os.path.dirname(result_name)
@@ -46,7 +46,7 @@ Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 Pip_genMotherPDG  = ROOT.RooRealVar("Pip_genMotherPDG", "",-1000000,1000000, "")
 etapip_Eta_genMotherPDG  = ROOT.RooRealVar("etapip_Eta_genMotherPDG", "",-1000000,1000000, "")
 
-base_path = "/share/storage/jykim/storage_b2/storage/reduced_ntuples/proc13/proc13_etaetapip_loose_v7_250122_temp"
+base_path = "/share/storage/jykim/storage_b2/storage/reduced_ntuples/proc13/proc13_etaetapip_loose_v7_250122_temp2"
 cm_elements = ["etahp_13_had_4S_off_v1", "etahp_13_had_4S_v3", "etahp_23_had_4S_off_v1", "etahp_23_had_4S_v1", "etahp_23_had_5Sscan_10657_v1", "etahp_23_had_5Sscan_10706_v1",\
                "etahp_23_had_5Sscan_10751_v1", "etahp_23_had_5Sscan_10810_v1"]
 
@@ -195,7 +195,7 @@ leg1 = ROOT.TLegend(0.68, 0.65, 0.93, 0.9)
 leg1.SetFillColor(0)
 
     # leg1.SetHeader("The Legend title","C")
-leg1.AddEntry("data1", "MC", "PE")
+leg1.AddEntry("data1", "Data", "PE")
 leg1.AddEntry("fitting", "Fit", "l")
 #leg1.AddEntry("Signal", "Signal", "l")
 # leg1.AddEntry("fitx_bkg3", "bkg3", "l")

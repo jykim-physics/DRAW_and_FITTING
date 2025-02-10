@@ -179,8 +179,8 @@ x_bkg1_Cheby_c2 = ROOT.RooRealVar("x_bkg1_Cheby_c2", "c0",0.0, -1.0, 1.0)
 x_bkg1_tau = ROOT.RooRealVar("x_bkg1_tau", "c0",-3, -20, 0)
 
 novo_mean = ROOT.RooRealVar("novo_mean", "Mean", 1.735180653099989, 1.71, 1.75)
-novo_sigma = ROOT.RooRealVar("novo_sigma", "Sigma",  0.05416676439382366)
-novo_tail = ROOT.RooRealVar("novo_tail", "Tail",  0.2431275048216615)
+novo_sigma = ROOT.RooRealVar("novo_sigma", "Sigma",   0.045870147371549874)
+novo_tail = ROOT.RooRealVar("novo_tail", "Tail",  0.14639887450264802)
 # Create Novosibirsk PDF
 rhopeta  = ROOT.RooNovosibirsk("rhopeta", "Novosibirsk PDF", x, novo_mean, novo_sigma, novo_tail)
 

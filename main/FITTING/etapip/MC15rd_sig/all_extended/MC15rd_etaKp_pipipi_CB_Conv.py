@@ -6,8 +6,8 @@ import math
 
 ROOT.gROOT.LoadMacro('/home/jykim/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
-file_name = "/share/storage/jykim/plots/MC15rd/etaKp/pipipi/MC15rd_6M_etaKp_pipipi_Dp_M_opt_v7_CB_conv_extended.png"
-result_name = "/share/storage/jykim/plots/MC15rd/etaKp/pipipi/MC15rd_6M_etaKp_pipipi_Dp_M_opt_v7_CB_conv_result_extended.txt"
+file_name = "/share/storage/jykim/plots/MC15rd/etaKp/pipipi/MC15rd_6M_etaKp_pipipi_Dp_M_opt_v7_CB_conv_extended_250122.png"
+result_name = "/share/storage/jykim/plots/MC15rd/etaKp/pipipi/MC15rd_6M_etaKp_pipipi_Dp_M_opt_v7_CB_conv_result_extended_250122.txt"
 
 file_dir = os.path.dirname(file_name)
 result_dir = os.path.dirname(result_name)
@@ -42,11 +42,11 @@ Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
-mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DptoetaKp_pipipi/241213_loose_v7/etapip_pipipi_K/*BCS.root")
+mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DptoetaKp_pipipi/250122_loose_v7/etapip_pipipi_K/*BCS.root")
 
 tree_name_cc = "etapip_pipipi_K"
 mychain_cc = ROOT.TChain(tree_name_cc)
-mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DptoetaKp_pipipi_cc/241213_loose_v7/etapip_pipipi_K/*BCS.root")
+mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DptoetaKp_pipipi_cc/250122_loose_v7/etapip_pipipi_K/*BCS.root")
 
 
 # data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")
@@ -72,12 +72,12 @@ N_signal = ROOT.RooRealVar("N_signal", "Number of signal events", N_total, 0.5*N
 
 
 mean = ROOT.RooRealVar("mean", "mean", 1.86, 1.8, 2.0)
-sigma = ROOT.RooRealVar("sigma", "sigma", 0.02, 0.001, 0.1)
+sigma = ROOT.RooRealVar("sigma", "sigma", 0.02, 0.0001, 0.1)
 sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.002, 0.0001, 0.01)
-sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.001, 0.0001, 0.01)
+sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.001, 0.00001, 0.01)
 alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.5, 0.0, 3.0)
 nL = ROOT.RooRealVar("nL", "nL", 2.0, 0.0, 5.0)
-alphaR = ROOT.RooRealVar("alphaR", "alphaR", 1.3, 0.0, 5)
+alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.3, 0.0, 3.0)
 nR = ROOT.RooRealVar("nR", "nR", 2.0, 0.0, 5.0)
 
 # Create double-sided Crystal Ball PDF

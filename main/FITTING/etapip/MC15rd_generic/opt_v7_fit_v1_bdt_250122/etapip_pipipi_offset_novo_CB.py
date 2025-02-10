@@ -4,12 +4,11 @@ from ROOT.RooFit import Extended, FitOptions, Save, PrintEvalErrors, PrintLevel,
 import glob
 import ctypes
 import os
-import random
 
-file_name_Dp = "/share/storage/jykim/plots/proc13/etapip/pipipi/generic/proc13_etapip_pipipi_fit_opt_loose_v7_fitv1_Dp.png"
-file_name_Dm = "/share/storage/jykim/plots/proc13/etapip/pipipi/generic/proc13_etapip_pipipi_fit_opt_loose_v7_fitv1_Dm.png"
-fitresult_name = "/share/storage/jykim/plots/proc13/etapip/pipipi/generic/fitresult/proc13_etapip_pipipi_fit_opt_loose_v7_fitv1.root"
-fitresult_text = "/share/storage/jykim/plots/proc13/etapip/pipipi/generic/fitresult/proc13_etapip_pipipi_fit_opt_loose_v7_fitv1.txt"
+file_name_Dp = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/MC15rd_etapip_pipipi_fit_opt_loose_v7_fitv1_Dp.png"
+file_name_Dm = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/MC15rd_etapip_pipipi_fit_opt_loose_v7_fitv1_Dm.png"
+fitresult_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/fitresult/MC15rd_etapip_pipipi_fit_opt_loose_v7_fitv1.root"
+fitresult_text = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/fitresult/MC15rd_etapip_pipipi_fit_opt_loose_v7_fitv1.txt"
 dir_path = os.path.dirname(file_name_Dp)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
@@ -22,9 +21,8 @@ print("Directory created:", dir_path)
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
 
-base_path = "/share/storage/jykim/storage_b2/storage/reduced_ntuples/proc13/proc13_etaetapip_loose_v7_250122_temp"
-cm_elements = ["etahp_13_had_4S_off_v1", "etahp_13_had_4S_v3", "etahp_23_had_4S_off_v1", "etahp_23_had_4S_v1", "etahp_23_had_5Sscan_10657_v1", "etahp_23_had_5Sscan_10706_v1",\
-               "etahp_23_had_5Sscan_10751_v1", "etahp_23_had_5Sscan_10810_v1"]
+base_path = "/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15rd/etapip_eteeta/MC15rd_etaetapip_loose_v7_241213_temp"
+cm_elements = ["15rd_eta_e7_18_4S_v3", "15rd_eta_e20_b26_v1", "15rd_eta_e20_e26_4S_v2", "15rd_eta_e21_5S_scan_v1", "15rd_eta_mori_off_v1"]
 
 tree_name = "etapip_pipipi"
 file_list = []
@@ -61,7 +59,7 @@ w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)
 #scale = 427.87/1000
 scale = 1/4
 #scale = (1/4)*(427.87+54.3)/427.87
-w_1.setVal(1)
+w_1.setVal(scale)
 before_data.addColumn(w_1)
 data = ROOT.RooDataSet(before_data.GetName(), before_data.GetTitle(),before_data, before_data.get(), '' ,  'w_1')
 Num_total = data.sumEntries()
@@ -79,35 +77,21 @@ Num_total_cc = data_cc.sumEntries()
 print(Num_total_cc)
 
 N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 60000*scale, 30000*scale, 90000*scale)  # N_total = N_D+ + N_D-
-Acp_blind = RooRealVar("Acp_blind", "Acp", 0, -1, 1)
-
-Acp_bias = RooRealVar("Acp_bias", "Acp_bias", 0, -1, 1)
-Acp_random_number = round(random.uniform(-0.1, 0.1), 10)
-Acp_bias.setVal(Acp_random_number)
-Acp_bias.setConstant(True)
-
-Acp = RooFormulaVar("Acp","Acp_blind + Acp_bias", RooArgList(Acp_blind, Acp_bias))
+Acp = RooRealVar("Acp", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
 Nsig_D_plus = RooFormulaVar("Nsig_D_plus",
     "0.5 * N_total * (1 + Acp)",
     RooArgList(N_total, Acp))
-    #"0.5 * n_total * (1 + acp_blind - acp_bias)",
-    #rooarglist(n_total, acp_blind, acp_bias))
 
 Nsig_D_minus = RooFormulaVar("Nsig_D_minus",
     "0.5 * N_total * (1 - Acp)",
     RooArgList(N_total, Acp))
 
 N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 100000*scale, 70000*scale,200000*scale)  # N_total = N_D+ + N_D-
-Acp_Ds_blind = RooRealVar("Acp_Ds_blind", "Acp", 0, -1, 1)
+Acp_Ds = RooRealVar("Acp_Ds", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
-Acp_Ds_bias = RooRealVar("Acp_Ds_bias", "Acp_bias", 0, -1, 1)
-Acp_Ds_random_number = round(random.uniform(-0.1, 0.1), 10)
-Acp_Ds_bias.setVal(Acp_Ds_random_number)
-Acp_Ds_bias.setConstant(True)
-
-Acp_Ds = RooFormulaVar("Acp_Ds","Acp_Ds_bias +  Acp_Ds_blind", RooArgList(Acp_Ds_blind, Acp_Ds_bias))
+# Use Acp and N_total to define the expected signal yields for D+ and D-
 Nsig_Ds_plus = RooFormulaVar("Nsig_Ds_plus",
     "0.5 * N_total_Ds * (1 + Acp_Ds)",
     RooArgList(N_total_Ds, Acp_Ds))
@@ -115,7 +99,6 @@ Nsig_Ds_plus = RooFormulaVar("Nsig_Ds_plus",
 Nsig_Ds_minus = RooFormulaVar("Nsig_Ds_minus",
     "0.5 * N_total_Ds * (1 - Acp_Ds)",
     RooArgList(N_total_Ds, Acp_Ds))
-
 
 #Nbkg_D_plus = ROOT.RooRealVar("Nbkg_D_plus", "Number of background events for D+", 100000*scale, 30000*scale, 300000*scale)
 #Nbkg_D_minus = ROOT.RooRealVar("Nbkg_D_minus", "Number of background events for D-", 100000*scale,30000*scale, 300000*scale)
@@ -131,12 +114,12 @@ Nbkg_D_minus = RooFormulaVar("Nbkg_D_minus",
 
 mean = ROOT.RooRealVar("mean", "mean", 1.869480650, 1.85, 1.89)
 #sigma = ROOT.RooRealVar("sigma", "sigma", 0.00251944530)
-sigmaL = ROOT.RooRealVar("sigmaL", "sigma",   0.00015684003349358217)
-sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.0006500320648683021)
-alphaL = ROOT.RooRealVar("alphaL", "alphaL",  0.1096913370036806)
-nL = ROOT.RooRealVar("nL", "nL", 2.238991584943188)
-alphaR = ROOT.RooRealVar("alphaR", "alphaR",  0.7108596482224767)
-nR = ROOT.RooRealVar("nR", "nR", 1.9174245522431441)
+sigmaL = ROOT.RooRealVar("sigmaL", "sigma",   0.0003020810963868517)
+sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.00046452470069397996)
+alphaL = ROOT.RooRealVar("alphaL", "alphaL",  0.2181676756551641)
+nL = ROOT.RooRealVar("nL", "nL", 2.204032162571245 )
+alphaR = ROOT.RooRealVar("alphaR", "alphaR",  0.5499013751110767)
+nR = ROOT.RooRealVar("nR", "nR", 1.9113680560039832 )
 
 # Create double-sided Crystal Ball PDF
 #CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
@@ -251,11 +234,11 @@ fit_result  = minimizer.save()
 #r.Print("v")
 
 # Print fit results
-#fit_result.Print()
+fit_result.Print()
 
 # Output the Acp value and its error
-Acp_value = Acp_blind.getVal()
-Acp_error = Acp_blind.getError()
+Acp_value = Acp.getVal()
+Acp_error = Acp.getError()
 
 print(f"Acp = {Acp_value:.3f} ± {Acp_error:.3f}")
 
@@ -304,7 +287,7 @@ leg1 = ROOT.TLegend(0.2, 0.65, 0.4, 0.90)
 leg1.SetFillColorAlpha(ROOT.kWhite, 0)
 
     # leg1.SetHeader("The Legend title","C")
-leg1.AddEntry("data", "Data", "PE")
+leg1.AddEntry("data", "MC", "PE")
 leg1.AddEntry("Fitting", "Fit", "l")
 #leg1.AddEntry("D+", "D^{+}", "l")
 #leg1.AddEntry("Ds+", "D_{s}^{+}", "l")
@@ -396,7 +379,7 @@ leg1 = ROOT.TLegend(0.2, 0.65, 0.4, 0.90)
 leg1.SetFillColorAlpha(ROOT.kWhite, 0)
 
     # leg1.SetHeader("The Legend title","C")
-leg1.AddEntry("data", "Data", "PE")
+leg1.AddEntry("data", "MC", "PE")
 leg1.AddEntry("Fitting", "Fit", "l")
 #leg1.AddEntry("D+", "D^{+}", "l")
 #leg1.AddEntry("Ds+", "D_{s}^{+}", "l")
@@ -460,8 +443,7 @@ with open(fitresult_text, "w") as f:
 
     # Print the full fit result to the file
     f.write("Full fit result summary:\n")
-    #fit_result.Print("v")  # Verbose print (prints more details)
-    fit_result.Print("")  # Verbose print (prints more details)
+    fit_result.Print("v")  # Verbose print (prints more details)
 
     # Alternatively, write specific attributes to the file
     f.write("\nSpecific fit result details:\n")
@@ -481,8 +463,8 @@ with open(fitresult_text, "w") as f:
     N_total_val = N_total.getVal()
     N_total_err = N_total.getError()
 
-    Acp_val = Acp_blind.getVal()
-    Acp_err = Acp_blind.getError()
+    Acp_val = Acp.getVal()
+    Acp_err = Acp.getError()
 
     # Calculate Nsig_D_plus and its error
     Nsig_D_plus_val = 0.5 * N_total_val * (1 + Acp_val)
@@ -496,8 +478,8 @@ with open(fitresult_text, "w") as f:
     N_total_Ds_val = N_total_Ds.getVal()
     N_total_Ds_err = N_total_Ds.getError()
 
-    Acp_Ds_val = Acp_Ds_blind.getVal()
-    Acp_Ds_err = Acp_Ds_blind.getError()
+    Acp_Ds_val = Acp_Ds.getVal()
+    Acp_Ds_err = Acp_Ds.getError()
 
     # Calculate Nsig_D_plus and its error
     Nsig_Ds_plus_val = 0.5 * N_total_Ds_val * (1 + Acp_Ds_val)
