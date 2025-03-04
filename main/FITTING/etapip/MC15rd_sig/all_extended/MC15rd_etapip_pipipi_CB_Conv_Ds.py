@@ -6,8 +6,8 @@ import math
 
 ROOT.gROOT.LoadMacro('/home/jykim/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
-file_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_opt_v7_CB_conv_extended_Ds_250122.png"
-result_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_opt_v7_CB_conv_result_extended_Ds_250122.txt"
+file_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_opt_v7_CB_conv_extended_train_Dp_CMS_p_Ds_new_FOM.png"
+result_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p_Ds_new_FOM.txt"
 
 file_dir = os.path.dirname(file_name)
 result_dir = os.path.dirname(result_name)
@@ -30,7 +30,6 @@ cuts_Dm = " Pip_charge==-1"
 
 pi0_dphi_var =  "eta_Pi0_daughterDiffOfPhi_0_1"
 pi0_dangle_var =  "eta_Pi0_daughterAngle_0_1"
-g1_p_var = "etapip_pi0_gamma1_p"
 g2_p_var = "etapip_pi0_gamma2_p"
 
 # Create a RooRealVar for the fitting variable
@@ -42,11 +41,11 @@ Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
-mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_pipipi/250122_loose_v7/etapip_pipipi/*BCS.root")
+mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_pipipi/250216_loose_v7/etapip_pipipi/train_Dp_dz/skimhad/new_FOM/*BCS.root")
 
 tree_name_cc = "etapip_pipipi"
 mychain_cc = ROOT.TChain(tree_name_cc)
-mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_pipipi_cc/250122_loose_v7/etapip_pipipi/*BCS.root")
+mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_pipipi_cc/250216_loose_v7/etapip_pipipi/train_Dp_dz/skimhad/new_FOM/*BCS.root")
 
 
 # data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")
@@ -68,17 +67,26 @@ data.append(data_cc)
 N_total = data.sumEntries()
 print(N_total)
 
-N_signal = ROOT.RooRealVar("N_signal", "Number of signal events", N_total, 0.5*N_total, 1.2*N_total)  # Initial guess and bounds
+N_signal = ROOT.RooRealVar("N_signal", "Number of signal events", N_total, 0.9*N_total, 1.1*N_total)  # Initial guess and bounds
 
 
-mean = ROOT.RooRealVar("mean", "mean", 1.96, 1.9, 2.0)
-sigma = ROOT.RooRealVar("sigma", "sigma", 0.02, 0.001, 0.1)
-sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.001, 0.00001, 0.1)
-sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.001, 0.00001, 0.1)
-alphaL = ROOT.RooRealVar("alphaL", "alphaL", 1.2, 0.0, 3.0)
-nL = ROOT.RooRealVar("nL", "nL", 2.0, 0.0, 5.0)
-alphaR = ROOT.RooRealVar("alphaR", "alphaR", 1.3, 0.0, 3)
-nR = ROOT.RooRealVar("nR", "nR", 2.0, 0.0, 5.0)
+mean = ROOT.RooRealVar("mean", "mean", 1.96, 1.93, 1.99)
+sigma = ROOT.RooRealVar("sigma", "sigma", 0.001, 0.0001, 0.01)
+sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.002, 0.0001, 0.01)
+sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.003, 0.0001, 0.01)
+alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.2, 0.0, 2.0)
+nL = ROOT.RooRealVar("nL", "nL", 2.0, 0.0, 4.0)
+alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.4, 0.0, 2.0)
+nR = ROOT.RooRealVar("nR", "nR", 2.2, 0.0, 4.0)
+
+
+#sigma = ROOT.RooRealVar("sigma", "sigma", 0.001, 0.0001, 0.01)
+#sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.002, 0.00001, 0.01)
+#sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.003, 0.00001, 0.01)
+#alphaL = ROOT.RooRealVar("alphaL", "alphaL", 1.2, 0.0, 5.0)
+#nL = ROOT.RooRealVar("nL", "nL", 2.0, 0.0, 5.0)
+#alphaR = ROOT.RooRealVar("alphaR", "alphaR", 1.5, 0.0, 5.0)
+#nR = ROOT.RooRealVar("nR", "nR", 1.0, 0.0, 5.0)
 
 # Create double-sided Crystal Ball PDF
 #CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
@@ -87,7 +95,7 @@ CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigmaL, sigmaR, alphaL, nL, a
 
 #mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
 mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0)
-sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.01, 0.0001, 0.1)
+sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.008, 0.0001, 0.01)
 # Create a Gaussian distribution
 gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_gaussian)
 
@@ -124,6 +132,7 @@ result = extended_signal_model.fitTo(
     ROOT.RooFit.Range(fit_range[0], fit_range[1]),
     ROOT.RooFit.NumCPU(4),
     ROOT.RooFit.Save(),
+    ROOT.RooFit.Offset(True),
     ROOT.RooFit.Strategy(2)
 )
 result.Print()

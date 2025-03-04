@@ -76,7 +76,7 @@ data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),be
 Num_total_cc = data_cc.sumEntries()
 print(Num_total_cc)
 
-N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 70000*scale, 50000*scale, 90000*scale)  # N_total = N_D+ + N_D-
+N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 50000*scale, 30000*scale, 90000*scale)  # N_total = N_D+ + N_D-
 Acp = RooRealVar("Acp", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -88,7 +88,7 @@ Nsig_D_minus = RooFormulaVar("Nsig_D_minus",
     "0.5 * N_total * (1 - Acp)",
     RooArgList(N_total, Acp))
 
-N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 150000*scale, 120000*scale,190000*scale)  # N_total = N_D+ + N_D-
+N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 120000*scale, 80000*scale,190000*scale)  # N_total = N_D+ + N_D-
 Acp_Ds = RooRealVar("Acp_Ds", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -103,7 +103,7 @@ Nsig_Ds_minus = RooFormulaVar("Nsig_Ds_minus",
 #Nbkg_D_plus = ROOT.RooRealVar("Nbkg_D_plus", "Number of background events for D+", 200000*scale, 50000*scale, 300000*scale)
 #Nbkg_D_minus = ROOT.RooRealVar("Nbkg_D_minus", "Number of background events for D-", 200000*scale,50000*scale, 300000*scale)
 
-Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 120000*scale, 80000*scale,140000*scale)
+Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 100000*scale, 50000*scale,140000*scale)
 Acp_bkg = RooRealVar("Acp_bkg", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 Nbkg_D_plus = RooFormulaVar("Nbkg_D_plus",
     "0.5 * Nbkg_total * (1 + Acp_bkg)",
