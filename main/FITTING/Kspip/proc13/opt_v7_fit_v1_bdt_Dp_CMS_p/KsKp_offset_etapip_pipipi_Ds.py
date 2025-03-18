@@ -22,10 +22,11 @@ elif args.sign == "minus":
 elif args.sign == "all":
     Dp_CMS_cosTheta_cut = "Dp_CMS_cosTheta>-10"
 
-file_name_Dp = f"/share/storage/jykim/plots/proc13/KsKp/pipipi/generic/proc13_Kspip_pipipi_K_fit_opt_loose_v7_fitv1_Ds_Dp_{args.train}_Dp_CMS_{args.sign}_new_FOM.png"
-file_name_Dm = f"/share/storage/jykim/plots/proc13/KsKp/pipipi/generic/proc13_Kspip_pipipi_K_fit_opt_loose_v7_fitv1_Ds_Dm_{args.train}_Dp_CMS_{args.sign}_new_FOM.png"
-fitresult_name = f"/share/storage/jykim/plots/proc13/KsKp/pipipi/generic/fitresult/proc13_Kspip_pipipi_K_fit_opt_loose_v7_fitv1_Ds_{args.train}_Dp_CMS_{args.sign}_new_FOM.root"
-fitresult_text = f"/share/storage/jykim/plots/proc13/KsKp/pipipi/generic/fitresult/proc13_Kspip_pipipi_K_fit_opt_loose_v7_fitv1_Ds_{args.train}_Dp_CMS_{args.sign}_new_FOM.txt"
+suffix = "no_bdt"
+file_name_Dp = f"/share/storage/jykim/plots/proc13/KsKp/pipipi/generic/proc13_Kspip_pipipi_K_fit_opt_loose_v7_fitv1_Ds_Dp_{args.train}_Dp_CMS_{args.sign}_{suffix}.png"
+file_name_Dm = f"/share/storage/jykim/plots/proc13/KsKp/pipipi/generic/proc13_Kspip_pipipi_K_fit_opt_loose_v7_fitv1_Ds_Dm_{args.train}_Dp_CMS_{args.sign}_{suffix}.png"
+fitresult_name = f"/share/storage/jykim/plots/proc13/KsKp/pipipi/generic/fitresult/proc13_Kspip_pipipi_K_fit_opt_loose_v7_fitv1_Ds_{args.train}_Dp_CMS_{args.sign}_{suffix}.root"
+fitresult_text = f"/share/storage/jykim/plots/proc13/KsKp/pipipi/generic/fitresult/proc13_Kspip_pipipi_K_fit_opt_loose_v7_fitv1_Ds_{args.train}_Dp_CMS_{args.sign}_{suffix}.txt"
 dir_path = os.path.dirname(file_name_Dp)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
@@ -38,7 +39,7 @@ print("Directory created:", dir_path)
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
 
-base_path = "/share/storage/jykim/storage_b2/storage/reduced_ntuples/proc13/proc13_Kspip_loose_v7_250122_Dp_CMS_p"
+base_path = "/share/storage/jykim/storage_b2/storage/reduced_ntuples/proc13/proc13_Kspip_loose_v7_250228"
 cm_elements = ["Kshp_13_had_4S_off_v1", "Kshp_13_had_4S_v3", "Kshp_23_had_4S_off_v1", "Kshp_23_had_4S_v1", "Kshp_23_had_5Sscan_10657_v1", "Kshp_23_had_5Sscan_10706_v1", "Kshp_23_had_5Sscan_10751_v1", "Kshp_23_had_5Sscan_10810_v1"]
 
 ref_tree = "etapip_pipipi_K"
@@ -46,7 +47,8 @@ file_list = []
 tree_name = "Ks_K"
 for element in cm_elements:
     #pattern = f"{base_path}/{element}/{ref_tree}/{tree_name}/*.BCS.root"
-    pattern = f"{base_path}/{element}/{ref_tree}/{tree_name}/new_FOM/*.BCS.root"
+    #pattern = f"{base_path}/{element}/{ref_tree}/{tree_name}/new_FOM/*.BCS.root"
+    pattern = f"{base_path}/{element}/{ref_tree}/{tree_name}/apply_bdt/*.BCS.root"
     file_list += glob.glob(pattern)
 print(file_list)
 print(f"Number of files: {len(file_list)}")
@@ -97,7 +99,7 @@ data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),be
 Num_total_cc = data_cc.sumEntries()
 print(Num_total_cc)
 
-N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)",205692*scale, 4000*scale, 500000*scale)  # N_total = N_D+ + N_D-
+N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)",500000*scale, 20000*scale, 1500000*scale)  # N_total = N_D+ + N_D-
 Acp = RooRealVar("Acp", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -111,7 +113,7 @@ Nsig_D_minus = RooFormulaVar("Nsig_D_minus",
 
 #Nbkg_D_plus = ROOT.RooRealVar("Nbkg_D_plus", "Number of background events for D+", 40000*scale, 2000*scale, 600000*scale)
 #Nbkg_D_minus = ROOT.RooRealVar("Nbkg_D_minus", "Number of background events for D-", 40000*scale,2000*scale, 600000*scale)
-Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 24304*scale,500*scale,100000*scale)
+Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 800000*scale,500*scale,3000000*scale)
 Acp_bkg = RooRealVar("Acp_bkg", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 Nbkg_D_plus = RooFormulaVar("Nbkg_D_plus",
     "0.5 * Nbkg_total * (1 + Acp_bkg)",
@@ -146,11 +148,12 @@ sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson SU and Gauss
 x_bkg1_Cheby_c0 = ROOT.RooRealVar("x_bkg1_Cheby_c0", "c0",0.0, -1.0, 1.0)
 x_bkg1_Cheby_c1 = ROOT.RooRealVar("x_bkg1_Cheby_c1", "c0",0.0, -1.0, 1.0)
 x_bkg1_Cheby_c2 = ROOT.RooRealVar("x_bkg1_Cheby_c2", "c0",0.0, -1.0, 1.0)
-x_bkg1_tau = ROOT.RooRealVar("x_bkg1_tau", "c0",-0.5, -20, 0)
+x_bkg1_tau = ROOT.RooRealVar("x_bkg1_tau", "c0",-0.5, -20, 10)
 
 #bkg_comb = ROOT.RooExponential("bkg_comb", "x_bkg1", x, x_bkg1_tau)
 #model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0, x_bkg1_Cheby_c1, x_bkg1_Cheby_c2))
-model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0))
+#model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0))
+model_bkg = ROOT.RooExponential("model_bkg", "x_bkg1", x, x_bkg1_tau)
 
 #bkg_frac = ROOT.RooRealVar("bkg_frac", "fraction of Gaussian in BKG", 0.25, 0.1, 1)
 
