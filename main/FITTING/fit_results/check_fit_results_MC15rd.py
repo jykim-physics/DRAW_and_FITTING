@@ -2,9 +2,12 @@ import ROOT
 import os
 import fnmatch
 
+
+#gg_or_pipipi = "pipipi"
 gg_or_pipipi = "gg"
-Kp_or_pip = "pip"
-input_dir = f"/share/storage/jykim/plots/MC15rd/eta{Kp_or_pip}/gg/generic/fitresult/"
+#Kp_or_pip = "pip"
+Kp_or_pip = "Kp"
+input_dir = f"/share/storage/jykim/plots/MC15rd/eta{Kp_or_pip}/{gg_or_pipipi}/generic/fitresult/"
 output_file = f"fit_results_MC15rd_{Kp_or_pip}_{gg_or_pipipi}.txt"
 
 max_acp_ratio = max_acp_ds_ratio = max_n_total_ratio = max_n_total_ds_ratio = -1
@@ -14,14 +17,24 @@ min_acp = min_acp_ds = None
 
 root_files = []
 
+#for root_file in os.listdir(input_dir):
+#    if fnmatch.fnmatch(root_file, f"MC15rd_eta{Kp_or_pip}_{gg_or_pipipi}_fit_opt_loose_v7_fitv1_bdt_train_Dp_CMS_p_all_0.*.root"):
+#        root_files.append(root_file)
+
+# Regular expression to match filenames with two decimal places after the "0."
+#pattern = f"MC15rd_eta{Kp_or_pip}_{gg_or_pipipi}_fit_opt_loose_v7_fitv1_bdt_train_Dp_CMS_p_all_0\.\d{{2}}\.root"
+pattern = f"MC15rd_eta{Kp_or_pip}_{gg_or_pipipi}_fit_opt_loose_v7_fitv1_bdt_train_Dp_CMS_p_all_0.[0-9][0-9].root"
+
 for root_file in os.listdir(input_dir):
-    if fnmatch.fnmatch(root_file, f"MC15rd_eta{Kp_or_pip}_gg_fit_opt_loose_v7_fitv1_bdt_train_Dp_CMS_p_all_0.*.root"):
+    if fnmatch.fnmatch(root_file, pattern):
         root_files.append(root_file)
 
 root_files.sort()
+print(root_files)
+
 
 with open(output_file, 'w') as out_f:
-    out_f.write("File Name\tFit Status\tAcp ± Uncertainty\tAcp_Ds ± Uncertainty\tN_total ± Uncertainty\tN_total_Ds ± Uncertainty\tacp_ratio\tacp_ds_ratio\tn_total_ratio\tn_total_ds_ratio\n")
+    out_f.write("File Name\tFit Status\tAcp ± Uncertainty\tAcp_Ds ± Uncertainty\tN_total ± Uncertainty\tN_total_Ds ± Uncertainty\tacp_ratio\tacp_ds_ratio\tn_total_ratio\tn_total_ds_ratio\tnbkg_total\tnbkg_total_error\n")
 
     for root_file in root_files:
         file_path = os.path.join(input_dir, root_file)
@@ -33,8 +46,13 @@ with open(output_file, 'w') as out_f:
             continue
 
         fit_status = "Not Converged"
+        covariance_status = "Bad Covariance"
+
         if fit_result.status() == 0:
             fit_status = "Converged"
+
+        if fit_result.covQual() == 3:
+            covariance_status = "Good Covariance"
 
         params = fit_result.floatParsFinal()
 
@@ -91,7 +109,12 @@ with open(output_file, 'w') as out_f:
                     max_n_total_ds_ratio = n_total_ds_ratio
                     max_n_total_ds_file = root_file
 
-        out_f.write(f"{root_file}\t{fit_status}\t{acp} ± {acp_error}\t{acp_ds} ± {acp_ds_error}\t{n_total} ± {n_total_error}\t{n_total_ds} ± {n_total_ds_error}\t{acp_ratio}\t{acp_ds_ratio}\t{n_total_ratio}\t{n_total_ds_ratio}\n")
+            elif param_name == "Nbkg_total":
+                nbkg_total = param_val
+                nbkg_total_error = param_error
+                nbkg_total_ratio = nbkg_total / nbkg_total_error if nbkg_total_error != 0 else 0
+
+        out_f.write(f"{root_file}\t{fit_status}({covariance_status})\t{acp} ± {acp_error}\t{acp_ds} ± {acp_ds_error}\t{n_total} ± {n_total_error}\t{n_total_ds} ± {n_total_ds_error}\t{acp_ratio}\t{acp_ds_ratio}\t{n_total_ratio}\t{n_total_ds_ratio}\t{nbkg_total} ± {nbkg_total_error}\n")
 
         f.Close()
 

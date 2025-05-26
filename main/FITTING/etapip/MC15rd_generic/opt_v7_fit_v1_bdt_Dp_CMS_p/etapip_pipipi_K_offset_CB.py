@@ -155,7 +155,7 @@ mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0)
 #sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.0008, 0.00001, 0.01)
 sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian",  0.004229543641800887)
 
-scale_factor = ROOT.RooRealVar("scale_factor", "sigma of Gaussian", 0,0,1)
+scale_factor = ROOT.RooRealVar("scale_factor", "sigma of Gaussian", 1,0,2)
 scaled_sigma_gaussian = RooFormulaVar("scaled_sigma_gaussian",
     "sigma_gaussian * scale_factor",
     RooArgList(sigma_gaussian, scale_factor))

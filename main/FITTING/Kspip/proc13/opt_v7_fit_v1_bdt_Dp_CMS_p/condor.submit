@@ -1,0 +1,45 @@
+universe             = vanilla
+getenv               = true
+output               = log/job_summary_$(Cluster)_$(Process).out
+error                = log/job_summary_$(Cluster)_$(Process).error
+log                  = log/job_summary_$(Cluster)_$(Process).log
+request_cpus         = 2
+request_memory       = 4000
+executable           = python3.sh
+
+arguments            = KsKp_offset_etapip_gg_Ds.py -s all -t train_Dp_CMS_p
+queue
+
+arguments            = KsKp_offset_etapip_gg_Ds.py -s plus -t train_Dp_CMS_p
+queue
+
+arguments            = KsKp_offset_etapip_gg_Ds.py -s minus -t train_Dp_CMS_p
+queue
+
+arguments            = KsKp_offset_etapip_pipipi_Ds.py -s all -t train_Dp_CMS_p
+queue
+
+arguments            = KsKp_offset_etapip_pipipi_Ds.py -s plus -t train_Dp_CMS_p
+queue
+
+arguments            = KsKp_offset_etapip_pipipi_Ds.py -s minus -t train_Dp_CMS_p
+queue
+
+arguments            = Kspip_offset_etapip_gg_Ds.py -s all -t train_Dp_CMS_p
+queue
+
+arguments            = Kspip_offset_etapip_gg_Ds.py -s plus -t train_Dp_CMS_p
+queue
+
+arguments            = Kspip_offset_etapip_gg_Ds.py -s minus -t train_Dp_CMS_p
+queue
+
+arguments            = Kspip_offset_etapip_pipipi_Ds.py -s all -t train_Dp_CMS_p
+queue
+
+arguments            = Kspip_offset_etapip_pipipi_Ds.py -s plus -t train_Dp_CMS_p
+queue
+
+arguments            = Kspip_offset_etapip_pipipi_Ds.py -s minus -t train_Dp_CMS_p
+queue
+

@@ -1,0 +1,26 @@
+universe             = vanilla
+getenv               = true
+output               = log/job_summary_$(Cluster)_$(Process).out
+error                = log/job_summary_$(Cluster)_$(Process).error
+log                  = log/job_summary_$(Cluster)_$(Process).log
+request_cpus         = 2
+request_memory       = 4000
+executable           = python3.sh
+transfer_input_files = $(script)
+arguments            = $(script) $(sign)
+
+queue script, sign from (
+  KsKp_offset_etapip_gg_Ds.py all
+  KsKp_offset_etapip_gg_Ds.py plus
+  KsKp_offset_etapip_gg_Ds.py minus
+  KsKp_offset_etapip_pipipi_Ds.py all
+  KsKp_offset_etapip_pipipi_Ds.py plus
+  KsKp_offset_etapip_pipipi_Ds.py minus
+  Kspip_offset_etapip_gg.py all
+  Kspip_offset_etapip_gg.py plus
+  Kspip_offset_etapip_gg.py minus
+  Kspip_offset_etapip_pipipi.py all
+  Kspip_offset_etapip_pipipi.py plus
+  Kspip_offset_etapip_pipipi.py minus
+)
+

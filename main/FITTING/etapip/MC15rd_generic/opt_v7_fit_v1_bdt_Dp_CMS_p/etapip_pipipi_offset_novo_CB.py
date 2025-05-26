@@ -207,7 +207,7 @@ model_D_plus = ROOT.RooAddPdf("model_D_plus", "D+ model",
                               ROOT.RooArgList(Nsig_D_plus, Nsig_Ds_plus, Nbkg_D_plus))
 model_D_minus = ROOT.RooAddPdf("model_D_minus", "D- model",
                               ROOT.RooArgList(sig_model, Ds_model, model_bkg),
-                              ROOT.RooArgList(Nsig_D_minus, Nsig_Ds_minus, Nbkg_D_plus))
+                              ROOT.RooArgList(Nsig_D_minus, Nsig_Ds_minus, Nbkg_D_minus))
 
 # Create a category to distinguish between D+ and D-
 cat = RooCategory("sample", "sample")

@@ -6,8 +6,8 @@ import math
 
 ROOT.gROOT.LoadMacro('/home/jykim/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
-file_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_opt_v7_CB_conv_extended_train_Dp_CMS_p_new_FOM.png"
-result_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p_new_FOM.txt"
+file_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_opt_v7_CB_conv_extended_train_Dp_CMS_p.0.74_new_Ds_correct.png"
+result_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p.0.74_new_Ds_correct.txt"
 
 file_dir = os.path.dirname(file_name)
 result_dir = os.path.dirname(result_name)
@@ -20,6 +20,7 @@ tree_name = "etapip_pipipi"
 # Define fitting variable and its range
 fit_variable = "Dp_M"
 fit_var_name = "M(D^{+}) [GeV/c^{2}]"
+fit_var_name = "M(#eta_{3#pi}#pi^{+}) [GeV/c^{2}]"
 fit_range = (1.82, 1.91)
 rank_var = tree_name + "_rank"
 truth_var = "Dp_isSignal"
@@ -42,11 +43,11 @@ Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
-mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_pipipi/250216_loose_v7/etapip_pipipi/train_Dp_dz/skimhad/new_FOM/*BCS.root")
+mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_pipipi/250216_loose_v7/etapip_pipipi/min_unc_search/new_Ds_v2/0.74/*BCS.root")
 
 tree_name_cc = "etapip_pipipi"
 mychain_cc = ROOT.TChain(tree_name_cc)
-mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_pipipi_cc/250216_loose_v7/etapip_pipipi/train_Dp_dz/skimhad/new_FOM/*BCS.root")
+mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_pipipi_cc/250216_loose_v7/etapip_pipipi/min_unc_search/new_Ds_v2/0.74/*BCS.root")
 
 
 # data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")
@@ -68,14 +69,14 @@ data.append(data_cc)
 N_total = data.sumEntries()
 print(N_total)
 
-N_signal = ROOT.RooRealVar("N_signal", "Number of signal events", N_total, 0.9*N_total, 1.1*N_total)  # Initial guess and bounds
+N_signal = ROOT.RooRealVar("N_signal", "Number of signal events", N_total, 0.8*N_total, 1.2*N_total)  # Initial guess and bounds
 
 
 mean = ROOT.RooRealVar("mean", "mean", 1.86, 1.83, 1.89)
 sigma = ROOT.RooRealVar("sigma", "sigma", 0.001, 0.0001, 0.01)
 sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.002, 0.00001, 0.01)
 sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.005, 0.00001, 0.01)
-alphaL = ROOT.RooRealVar("alphaL", "alphaL", 1.2, 0.0, 3.0)
+alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.8, 0.0, 3.0)
 nL = ROOT.RooRealVar("nL", "nL", 2.0, 0.0, 4.0)
 alphaR = ROOT.RooRealVar("alphaR", "alphaR", 1.3, 0.0, 3.0)
 nR = ROOT.RooRealVar("nR", "nR", 1.2, 0.0, 4.0)
@@ -127,6 +128,22 @@ result = extended_signal_model.fitTo(
     ROOT.RooFit.Offset(True),
     ROOT.RooFit.Strategy(0)
 )
+#result.Print()
+
+#nll = extended_signal_model.createNLL(
+#    data,
+#    ROOT.RooFit.Extended(True),
+#    ROOT.RooFit.Range(fit_range[0], fit_range[1]),
+#    ROOT.RooFit.NumCPU(8),
+#    ROOT.RooFit.Offset("initial")
+#)
+
+#minimizer = ROOT.RooMinimizer(nll)
+#minimizer.migrad()  # Run the MIGRAD minimization
+#minimizer.hesse()    # Compute the Hessian for parameter errors
+
+# Get fit results
+#result = minimizer.save()
 result.Print()
 
 fitted_N_signal = N_signal.getVal()

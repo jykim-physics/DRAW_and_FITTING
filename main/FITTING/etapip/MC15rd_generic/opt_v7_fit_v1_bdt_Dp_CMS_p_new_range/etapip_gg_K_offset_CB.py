@@ -1,5 +1,5 @@
 import ROOT
-from ROOT import RooFit, RooRealVar, RooDataSet, RooArgList, RooAddPdf, RooGaussian, RooFormulaVar, RooSimultaneous, RooCategory
+from ROOT import RooFit, RooRealVar, RooDataSet, RooArgList, RooAddPdf, RooGaussian, RooFormulaVar, RooSimultaneous, RooCategory, RooStats, TFile
 from ROOT.RooFit import Extended, FitOptions, Save, PrintEvalErrors, PrintLevel, Bins, FitGauss,    NumCPU, Strategy, Offset
 import glob
 import ctypes
@@ -34,6 +34,7 @@ file_name_Dp = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/MC15rd_etaKp
 file_name_Dm = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv1_bdt_{args.train}_Dm_CMS_{args.sign}_{BDT_cut}.png"
 fitresult_name = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv1_bdt_{args.train}_{args.sign}_{BDT_cut}.root"
 fitresult_text = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv1_bdt_{args.train}_{args.sign}_{BDT_cut}.txt"
+file_sweight = f"/share/storage/jykim/sweight/proc13/etaKp/gg/proc13_etapip_gg_K_fit_opt_loose_v7_fitv1.root"
 dir_path = os.path.dirname(file_name_Dp)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
@@ -84,8 +85,21 @@ x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
 #x.setBins(200)
 Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 Dp_CMS_cosTheta = ROOT.RooRealVar("Dp_CMS_cosTheta", "Dp_CMS_cosTheta", -1, 1)
+Pip_dr = ROOT.RooRealVar("Pip_dr", "Pip_dr", -10000, 10000)
+Dp_dz = ROOT.RooRealVar("Dp_dz", "Dp_dz", -10000, 10000)
+Dp_cosAngleBetweenMomentumAndVertexVectorInXYPlane = ROOT.RooRealVar("Dp_cosAngleBetweenMomentumAndVertexVectorInXYPlane", "Dp_cosAngleBetweenMomentumAndVertexVectorInXYPlane'", -1,1)
+etapip_Eta_Easym = ROOT.RooRealVar("etapip_Eta_Easym", "etapip_Eta_Easym", 0, 1)
+Dp_cosHelicityAngleMomentum = ROOT.RooRealVar("Dp_cosHelicityAngleMomentum", "Dp_cosHelicityAngleMomentum", -1, 1)
+Dp_CMS_p = ROOT.RooRealVar("Dp_CMS_p", "Dp_CMS_p", 0, 100)
+ds_weight = ROOT.RooRealVar("ds_weight", "ds_weight", -1000, 1000)
 
-before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,Pip_charge,Dp_CMS_cosTheta), cuts_Dp)
+full_var_set = ROOT.RooArgSet(x, Pip_charge, Dp_CMS_cosTheta, Pip_dr, Dp_dz,
+                              Dp_cosAngleBetweenMomentumAndVertexVectorInXYPlane,
+                              etapip_Eta_Easym, Dp_cosHelicityAngleMomentum,
+                              Dp_CMS_p)
+
+#before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,Pip_charge,Dp_CMS_cosTheta), cuts_Dp)
+before_data = ROOT.RooDataSet("data", "", mychain, full_var_set, cuts_Dp)
 
 w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)
 #scale = 427.87/1000
@@ -100,7 +114,8 @@ print(Num_total)
 mychain_cc = ROOT.TChain(tree_name)
 for i in file_list:
     mychain_cc.Add(i)
-before_data_cc = ROOT.RooDataSet("data","", mychain_cc, ROOT.RooArgSet(x,Pip_charge,Dp_CMS_cosTheta), cuts_Dm)
+#before_data_cc = ROOT.RooDataSet("data","", mychain_cc, ROOT.RooArgSet(x,Pip_charge,Dp_CMS_cosTheta), cuts_Dm)
+before_data_cc = ROOT.RooDataSet("data", "", mychain_cc, full_var_set, cuts_Dm)
 before_data_cc.addColumn(w_1)
 data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),before_data_cc, before_data_cc.get(), '' ,  'w_1')
 
@@ -108,7 +123,7 @@ data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),be
 Num_total_cc = data_cc.sumEntries()
 print(Num_total_cc)
 
-N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 1800*scale*N_scale, 0*scale*N_scale, 6000*scale*N_scale)  # N_total = N_D+ + N_D-
+N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 2500*scale*N_scale, 0*scale*N_scale, 6000*scale*N_scale)  # N_total = N_D+ + N_D-
 Acp = RooRealVar("Acp", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -120,7 +135,7 @@ Nsig_D_minus = RooFormulaVar("Nsig_D_minus",
     "0.5 * N_total * (1 - Acp)",
     RooArgList(N_total, Acp))
 
-N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 8000*scale*N_scale, 0*scale*N_scale,24000*scale*N_scale)  # N_total = N_D+ + N_D-
+N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 16000*scale*N_scale, 0*scale*N_scale,30000*scale*N_scale)  # N_total = N_D+ + N_D-
 Acp_Ds = RooRealVar("Acp_Ds", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -133,8 +148,8 @@ Nsig_Ds_minus = RooFormulaVar("Nsig_Ds_minus",
     RooArgList(N_total_Ds, Acp_Ds))
 
 
-Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 20000*scale*N_scale, 0*scale*N_scale,50000*scale*N_scale)
-Acp_bkg = RooRealVar("Acp_bkg", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
+Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 40000*scale*N_scale, 0*scale*N_scale,200000*scale*N_scale)
+Acp_bkg = RooRealVar("Acp_bkg", "Acp", 0, -0.5, 0.5)  # A_Cp as a fit parameter
 Nbkg_D_plus = RooFormulaVar("Nbkg_D_plus",
     "0.5 * Nbkg_total * (1 + Acp_bkg)",
     RooArgList(Nbkg_total, Acp_bkg))
@@ -161,7 +176,7 @@ mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0)
 #sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.0008, 0.00001, 0.01)
 sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian",  0.007645253443404135)
 
-scale_factor = ROOT.RooRealVar("scale_factor", "sigma of Gaussian", 0,0,1)
+scale_factor = ROOT.RooRealVar("scale_factor", "sigma of Gaussian", 1,0,2)
 scaled_sigma_gaussian = RooFormulaVar("scaled_sigma_gaussian",
     "sigma_gaussian * scale_factor",
     RooArgList(sigma_gaussian, scale_factor))
@@ -229,7 +244,8 @@ sim_model = RooSimultaneous("sim_model", "Simultaneous model", cat)
 sim_model.addPdf(model_D_plus, "D_plus")
 sim_model.addPdf(model_D_minus, "D_minus")
 
-data_combined = RooDataSet("data_combined", "Combined data", RooArgList(x, w_1), RooFit.Index(cat),
+#data_combined = RooDataSet("data_combined", "Combined data", RooArgList(x, w_1), RooFit.Index(cat),
+data_combined = RooDataSet("data_combined", "Combined data", full_var_set,RooFit.Index(cat),
                            RooFit.Import("D_plus", data),
                            RooFit.Import("D_minus", data_cc),
                            RooFit.WeightVar('w_1'))
@@ -541,3 +557,69 @@ with open(fitresult_text, "w") as f:
 
 # # Generate and fit 10 toys
 # mcstudy1.generateAndFit(10)
+sPlot = RooStats.SPlot("sPlot", "sPlot", data_combined,
+                       sim_model,
+                       RooArgList(N_total, N_total_Ds, Nbkg_total))
+
+# Extract sWeights
+# sWeights are stored in a RooDataSet as an additional variable
+sWeights = sPlot.GetSDataSet()
+
+# Print or access the sWeights
+print("sWeights dataset:")
+sWeights.Print()
+
+#print("sPlot dataset:")
+#sPlot.Print()
+
+N_total_sWeight = sPlot.GetYieldFromSWeight("N_total")
+Nbkg_total_sWeight = sPlot.GetYieldFromSWeight("Nbkg_total")
+
+print(f"Yield N_total is {N_total.getVal()}. From sWeights it is {N_total_sWeight}")
+print(f"Yield Nbkg_total is {Nbkg_total.getVal()}. From sWeights it is {Nbkg_total_sWeight}")
+
+# Optionally, you can get the sWeight for each event
+#sWeight_variable = sWeights.addColumn("sWeight")  # This is optional, to make the column available
+#for i in range(sWeights.numEntries()):
+for i in range(0,10):
+    print(f"Entry {i}: sWeight = {sWeights.get(i).getRealValue('sWeight')}")
+for i in range(0,10):
+    N_total_sWeight = sPlot.GetSWeight(i, "N_total")
+    print(f"Entry {i}: N_total sWeight = {N_total_sWeight}")
+    Nbkg_total_sWeight = sPlot.GetSWeight(i, "Nbkg_total")
+    print(f"Entry {i}: Nbkg_total sWeight = {Nbkg_total_sWeight}")
+    Total_sWeight = sPlot.GetSumOfEventSWeight(i)
+    print(f"Entry {i}: Total sWeight = {Total_sWeight}")
+    print("======================")
+
+
+data_combined.Print()
+
+output_file = TFile(f"{file_sweight}", "RECREATE")
+
+# Save the RooDataSet to the file
+data_combined.Write("sweight")
+
+# Close the file
+output_file.Close()
+
+cdata = ROOT.TCanvas("sPlot", "sPlot demo", 600, 600)
+cdata.Divide(1, 2)
+cdata.cd(0)
+
+#sdata_Pip_p = ROOT.RooDataSet(data_combined.GetName(), data_combined.GetTitle(), data_combined, data_combined.get(), "", "N_total_sw")
+sdata_Pip_p = ROOT.RooDataSet(data_combined.GetName(), data_combined.GetTitle(), data_combined, data_combined.get(), "", "N_total_Ds_sw")
+
+#Pip_p_frame = BDT.frame(0, 1, 50)
+Pip_p_frame = Dp_CMS_p.frame(2.5, 5.2, 50)
+#Pip_p_frame.SetMinimum(0)  # Set y-axis minimum to 0
+#Pip_p_frame.SetAxisRange(0,5.2)
+#Pip_p_frame.SetAxisRange(0,,"Y")
+
+sdata_Pip_p.plotOn(Pip_p_frame, ROOT.RooFit.DataError(ROOT.RooAbsData.SumW2))
+#Pip_p_frame.GetYaxis().SetRangeUser(0,)  # Set y-axis minimum to 0
+Pip_p_frame.GetYaxis().SetRangeUser(0, Pip_p_frame.GetMaximum())
+Pip_p_frame.SetTitle("sWeighted BDT")
+Pip_p_frame.Draw()
+
+cdata.SaveAs("test_gg.png")

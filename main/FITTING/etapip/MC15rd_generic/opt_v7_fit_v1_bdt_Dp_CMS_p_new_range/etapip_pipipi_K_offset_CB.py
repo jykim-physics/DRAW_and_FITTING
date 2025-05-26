@@ -107,7 +107,7 @@ data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),be
 Num_total_cc = data_cc.sumEntries()
 print(Num_total_cc)
 
-N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 800*scale*N_scale, 0*scale*N_scale, 3000*scale*N_scale)  # N_total = N_D+ + N_D-
+N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 800*scale*N_scale, 0*scale*N_scale, 5000*scale*N_scale)  # N_total = N_D+ + N_D-
 Acp = RooRealVar("Acp", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -119,7 +119,7 @@ Nsig_D_minus = RooFormulaVar("Nsig_D_minus",
     "0.5 * N_total * (1 - Acp)",
     RooArgList(N_total, Acp))
 
-N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 3000*scale*N_scale, 0*scale*N_scale,8000*scale*N_scale)  # N_total = N_D+ + N_D-
+N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 4000*scale*N_scale, 0*scale*N_scale,20000*scale*N_scale)  # N_total = N_D+ + N_D-
 Acp_Ds = RooRealVar("Acp_Ds", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -132,7 +132,7 @@ Nsig_Ds_minus = RooFormulaVar("Nsig_Ds_minus",
     RooArgList(N_total_Ds, Acp_Ds))
 
 
-Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 6000*scale*N_scale, 0*scale*N_scale,30000*scale*N_scale)
+Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 6000*scale*N_scale, 0*scale*N_scale,100000*scale*N_scale)
 Acp_bkg = RooRealVar("Acp_bkg", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 Nbkg_D_plus = RooFormulaVar("Nbkg_D_plus",
     "0.5 * Nbkg_total * (1 + Acp_bkg)",
@@ -160,7 +160,7 @@ mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0)
 #sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.0008, 0.00001, 0.01)
 sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian",  0.004229543641800887)
 
-scale_factor = ROOT.RooRealVar("scale_factor", "sigma of Gaussian", 0,0,1)
+scale_factor = ROOT.RooRealVar("scale_factor", "sigma of Gaussian", 1,0,2)
 scaled_sigma_gaussian = RooFormulaVar("scaled_sigma_gaussian",
     "sigma_gaussian * scale_factor",
     RooArgList(sigma_gaussian, scale_factor))

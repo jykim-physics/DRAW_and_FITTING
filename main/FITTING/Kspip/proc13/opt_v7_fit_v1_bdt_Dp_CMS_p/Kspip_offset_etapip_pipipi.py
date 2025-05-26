@@ -25,10 +25,11 @@ elif args.sign == "all":
     Dp_CMS_cosTheta_cut = "Dp_CMS_cosTheta>-10"
     CMS_scale = 1
 
-file_name_Dp = f"/share/storage/jykim/plots/proc13/Kspip/pipipi/generic/proc13_Kspip_pipipi_fit_opt_loose_v7_fitv1_Dp_{args.train}_Dp_CMS_{args.sign}_new_FOM.png"
-file_name_Dm = f"/share/storage/jykim/plots/proc13/Kspip/pipipi/generic/proc13_Kspip_pipipi_fit_opt_loose_v7_fitv1_Dm_{args.train}_Dp_CMS_{args.sign}_new_FOM.png"
-fitresult_name = f"/share/storage/jykim/plots/proc13/Kspip/pipipi/generic/fitresult/proc13_Kspip_pipipi_fit_opt_loose_v7_fitv1_{args.train}_Dp_CMS_{args.sign}_new_FOM.root"
-fitresult_text = f"/share/storage/jykim/plots/proc13/Kspip/pipipi/generic/fitresult/proc13_Kspip_pipipi_fit_opt_loose_v7_fitv1_{args.train}_Dp_CMS_{args.sign}_new_FOM.txt"
+suffix = 0.75
+file_name_Dp = f"/share/storage/jykim/plots/proc13/Kspip/pipipi/generic/proc13_Kspip_pipipi_fit_opt_loose_v7_fitv1_Dp_{args.train}_Dp_CMS_{args.sign}_{suffix}.png"
+file_name_Dm = f"/share/storage/jykim/plots/proc13/Kspip/pipipi/generic/proc13_Kspip_pipipi_fit_opt_loose_v7_fitv1_Dm_{args.train}_Dp_CMS_{args.sign}_{suffix}.png"
+fitresult_name = f"/share/storage/jykim/plots/proc13/Kspip/pipipi/generic/fitresult/proc13_Kspip_pipipi_fit_opt_loose_v7_fitv1_{args.train}_Dp_CMS_{args.sign}_{suffix}.root"
+fitresult_text = f"/share/storage/jykim/plots/proc13/Kspip/pipipi/generic/fitresult/proc13_Kspip_pipipi_fit_opt_loose_v7_fitv1_{args.train}_Dp_CMS_{args.sign}_{suffix}.txt"
 dir_path = os.path.dirname(file_name_Dp)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
@@ -42,7 +43,7 @@ ROOT.gROOT.LoadMacro('/home/jykim/workspace/DRAW_and_FITTING/main/FITTING/Belle2
 ROOT.SetBelle2Style()
 
 
-base_path = "/share/storage/jykim/storage_b2/storage/reduced_ntuples/proc13/proc13_Kspip_loose_v7_250122_Dp_CMS_p"
+base_path = "/share/storage/jykim/storage_b2/storage/reduced_ntuples/proc13/proc13_Kspip_loose_v7_250228"
 cm_elements = ["Kshp_13_had_4S_off_v1", "Kshp_13_had_4S_v3", "Kshp_23_had_4S_off_v1", "Kshp_23_had_4S_v1", "Kshp_23_had_5Sscan_10657_v1", "Kshp_23_had_5Sscan_10706_v1", "Kshp_23_had_5Sscan_10751_v1", "Kshp_23_had_5Sscan_10810_v1"]
 
 ref_tree = "etapip_pipipi"
@@ -50,7 +51,7 @@ file_list = []
 tree_name = "Ks"
 for element in cm_elements:
     #pattern = f"{base_path}/{element}/{ref_tree}/{tree_name}/*.BCS.root"
-    pattern = f"{base_path}/{element}/{ref_tree}/{tree_name}/new_FOM/*.BCS.root"
+    pattern = f"{base_path}/{element}/{ref_tree}/{tree_name}/0.75/*.BCS.root"
     file_list += glob.glob(pattern)
 print(file_list)
 print(f"Number of files: {len(file_list)}")
@@ -109,7 +110,7 @@ data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),be
 Num_total_cc = data_cc.sumEntries()
 print(Num_total_cc)
 
-N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 1400000*scale*CMS_scale, 400000*scale*CMS_scale, 2500000*scale*CMS_scale)  # N_total = N_D+ + N_D-
+N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 1400000*scale*CMS_scale, 400000*scale*CMS_scale, 2000000*scale*CMS_scale)  # N_total = N_D+ + N_D-
 Acp = RooRealVar("Acp", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -121,8 +122,9 @@ Nsig_D_minus = RooFormulaVar("Nsig_D_minus",
     "0.5 * N_total * (1 - Acp)",
     RooArgList(N_total, Acp))
 
-Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 400000*scale*CMS_scale,100000*scale*CMS_scale,500000*scale*CMS_scale)
-Acp_bkg = RooRealVar("Acp_bkg", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
+#Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 400000*scale*CMS_scale,100000*scale*CMS_scale,600000*scale*CMS_scale)
+Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 100000*scale,500*scale,400000*scale)
+Acp_bkg = RooRealVar("Acp_bkg", "Acp", 0, -0.5, 0.5)  # A_Cp as a fit parameter
 Nbkg_D_plus = RooFormulaVar("Nbkg_D_plus",
     "0.5 * Nbkg_total * (1 + Acp_bkg)",
     RooArgList(Nbkg_total, Acp_bkg))
@@ -134,18 +136,14 @@ Nbkg_D_minus = RooFormulaVar("Nbkg_D_minus",
 # Define parameters for the double-sided Crystal Ball PDF
 mean = ROOT.RooRealVar("mean", "mean", 1.86, 1.84, 1.88)  # Central value
 sigma = ROOT.RooRealVar("sigma", "sigma", 0.002, 0.0001, 0.01)  # Width parameter
-gamma = ROOT.RooRealVar("gamma", "gamma", 0.07, 0.0001, 3.0)  # Skewness parameter
+gamma = ROOT.RooRealVar("gamma", "gamma", 0.01, -2.0, 2.0)  # Skewness parameter
 delta = ROOT.RooRealVar("delta", "delta", 0.6, 0.001, 3.0)  # Shape parameter
 
-
 # Create the RooJohnson PDF
-#sig_model = ROOT.RooJohnson("sig_model", "double-sided Crystal Ball using Johnson SU", x, mean, sigma, gamma, delta)
+johnson = ROOT.RooJohnson("johnson", "double-sided Crystal Ball using Johnson SU", x,  mean, sigma, gamma, delta)
 
-# Create the RooJohnson PDF
-johnson = ROOT.RooJohnson("johnson", "double-sided Crystal Ball using Johnson SU", x, mean, sigma, gamma, delta)
-
-mean_gauss = ROOT.RooRealVar("mean_gauss", "Gaussian mean", 0.0)  # Convolution will center the Gaussian at zero
-sigma_gauss = ROOT.RooRealVar("sigma_gauss", "Gaussian width", 0.002, 0.0001, 0.01)
+mean_gauss = ROOT.RooRealVar("mean_gauss", "Gaussian mean", 0.0)  # Convolution will   center the Gaussian at zero
+sigma_gauss = ROOT.RooRealVar("sigma_gauss", "Gaussian width", 0.002, 0.00001, 0.01)
 
 # Create the Gaussian PDF
 gauss = ROOT.RooGaussian("gauss", "Gaussian PDF", x, mean_gauss, sigma_gauss)
@@ -199,13 +197,14 @@ data_combined = RooDataSet("data_combined", "Combined data", RooArgList(x, w_1),
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save())
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4), RooFit.Strategy(2), RooFit.Minos(0), RooFit.Hesse(1))
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4), RooFit.Strategy(0), RooFit.Minos(0), RooFit.Hesse(1))
-nll = sim_model.createNLL(data_combined, ROOT.RooFit.Extended(True), ROOT.RooFit.NumCPU(15), RooFit.SumW2Error(True),  ROOT.RooFit.Offset(True))
+#nll = sim_model.createNLL(data_combined, ROOT.RooFit.Extended(True), ROOT.RooFit.NumCPU(15), RooFit.SumW2Error(True),  ROOT.RooFit.Offset(True))
+nll = sim_model.createNLL(data_combined, ROOT.RooFit.Extended(True), ROOT.RooFit.NumCPU(15), ROOT.RooFit.Offset("initial"))
 
 # Step 2: Perform the Migrad minimization
 minimizer = ROOT.RooMinimizer(nll)
 minimizer.setStrategy(2)
 #minimizer.setStrategy(0)
-minimizer.setPrintLevel(3)
+minimizer.setPrintLevel(1)
 status = minimizer.migrad()
 
 # Check the status of Migrad
@@ -269,6 +268,7 @@ sim_model.plotOn(frame_D_plus, Name="Background", Components="model_bkg", ProjWD
 #sim_model.plotOn(frame_D_plus, Name="D+",Components="sig_model", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kRed, LineStyle=ROOT.kDashDotted)
 #sim_model.plotOn(frame_D_plus, Name="Ds+",Components="Ds_model", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kBlue+2, LineStyle=ROOT.kDashDotted)
 sim_model.plotOn(frame_D_plus, Name="Fitting",ProjWData=(cat, slicedData_Dp))
+frame_D_plus.SetMinimum(0)
 frame_D_plus.Draw("PE")
 frame_D_plus.GetXaxis().CenterTitle(True)
 
@@ -360,6 +360,7 @@ sim_model.plotOn(frame_D_minus, Name="Background", Components="model_bkg", ProjW
 #sim_model.plotOn(frame_D_minus, Name="D+",Components="sig_model", ProjWData=(cat, slicedData_Dm),LineColor=ROOT.kRed, LineStyle=ROOT.kDashDotted)
 #sim_model.plotOn(frame_D_minus, Name="Ds+",Components="Ds_model", ProjWData=(cat, slicedData_Dm),LineColor=ROOT.kBlue+2, LineStyle=ROOT.kDashDotted)
 sim_model.plotOn(frame_D_minus, Name="Fitting",ProjWData=(cat, slicedData_Dm))
+frame_D_minus.SetMinimum(0)
 frame_D_minus.Draw("PE")
 # frame_D_minus.GetXaxis().SetRangeUser(plot_x_range[0], plot_x_range[1])
 

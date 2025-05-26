@@ -27,11 +27,16 @@ file_name_Dp = f"/share/storage/jykim/plots/MC15rd/KsKp/pipipi/generic/MC15rd_Ks
 file_name_Dm = f"/share/storage/jykim/plots/MC15rd/KsKp/pipipi/generic/MC15rd_Kspip_pipipi_K_fit_opt_loose_v7_fitv1_Ds_Dm_{args.train}_Dp_CMS_{args.sign}_{suffix}.png"
 fitresult_name = f"/share/storage/jykim/plots/MC15rd/KsKp/pipipi/generic/fitresult/MC15rd_Kspip_pipipi_K_fit_opt_loose_v7_fitv1_Ds_{args.train}_Dp_CMS_{args.sign}_{suffix}.root"
 fitresult_text = f"/share/storage/jykim/plots/MC15rd/KsKp/pipipi/generic/fitresult/MC15rd_Kspip_pipipi_K_fit_opt_loose_v7_fitv1_Ds_{args.train}_Dp_CMS_{args.sign}_{suffix}.txt"
+file_sweight = f"/share/storage/jykim/sweight/MC15rd/KsKp/pipipi/MC15rd_Kspip_pipipi_K_fit_opt_loose_v7_fitv1_Ds_{suffix}.root"
 dir_path = os.path.dirname(file_name_Dp)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
 print("Directory created:", dir_path)
 dir_path = os.path.dirname(fitresult_name)
+if not os.path.exists(dir_path):
+    os.makedirs(dir_path)
+print("Directory created:", dir_path)
+dir_path = os.path.dirname(file_sweight)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
 print("Directory created:", dir_path)
@@ -75,8 +80,13 @@ x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
 Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 Dp_CMS_cosTheta = ROOT.RooRealVar("Dp_CMS_cosTheta", "Dp_CMS_cosTheta", -1, 1)
 BDT = ROOT.RooRealVar("BDT", "BDT", 0, 1)
+Pip_dr = ROOT.RooRealVar("Pip_dr", "Pip_dr", -10000, 10000)
+Dp_dz = ROOT.RooRealVar("Dp_dz", "Dp_dz", -10000, 10000)
+Dp_cosAngleBetweenMomentumAndVertexVectorInXYPlane = ROOT.RooRealVar("Dp_cosAngleBetweenMomentumAndVertexVectorInXYPlane", "Dp_cosAngleBetweenMomentumAndVertexVectorInXYPlane'", -1,1)
+Dp_cosHelicityAngleMomentum = ROOT.RooRealVar("Dp_cosHelicityAngleMomentum", "Dp_cosHelicityAngleMomentum", -1, 1)
+Dp_CMS_p = ROOT.RooRealVar("Dp_CMS_p", "Dp_CMS_p", 0, 100)
 
-before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,Pip_charge, Dp_CMS_cosTheta, BDT), cuts_Dp)
+before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,Pip_charge, Dp_CMS_cosTheta, BDT, Pip_dr, Dp_dz, Dp_cosAngleBetweenMomentumAndVertexVectorInXYPlane,  Dp_cosHelicityAngleMomentum, Dp_CMS_p), cuts_Dp)
 
 w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)
 #scale = 1
@@ -91,7 +101,7 @@ print(Num_total)
 mychain_cc = ROOT.TChain(tree_name)
 for i in file_list:
     mychain_cc.Add(i)
-before_data_cc = ROOT.RooDataSet("data","", mychain_cc, ROOT.RooArgSet(x,Pip_charge,Dp_CMS_cosTheta, BDT), cuts_Dm)
+before_data_cc = ROOT.RooDataSet("data","", mychain_cc, ROOT.RooArgSet(x,Pip_charge,Dp_CMS_cosTheta, BDT, Pip_dr, Dp_dz, Dp_cosAngleBetweenMomentumAndVertexVectorInXYPlane,  Dp_cosHelicityAngleMomentum, Dp_CMS_p), cuts_Dm)
 before_data_cc.addColumn(w_1)
 data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),before_data_cc, before_data_cc.get(), '' ,  'w_1')
 
@@ -99,7 +109,7 @@ data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),be
 Num_total_cc = data_cc.sumEntries()
 print(Num_total_cc)
 
-N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 500000*scale, 20000*scale, 1500000*scale)  # N_total = N_D+ + N_D-
+N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 800000*scale, 20000*scale, 1500000*scale)  # N_total = N_D+ + N_D-
 Acp = RooRealVar("Acp", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -113,8 +123,8 @@ Nsig_D_minus = RooFormulaVar("Nsig_D_minus",
 
 #Nbkg_D_plus = ROOT.RooRealVar("Nbkg_D_plus", "Number of background events for D+", 40000*scale, 2000*scale, 600000*scale)
 #Nbkg_D_minus = ROOT.RooRealVar("Nbkg_D_minus", "Number of background events for D-", 40000*scale,2000*scale, 600000*scale)
-Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 800000*scale,500*scale,3000000*scale)
-Acp_bkg = RooRealVar("Acp_bkg", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
+Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 1600000*scale,500*scale,3000000*scale)
+Acp_bkg = RooRealVar("Acp_bkg", "Acp", 0, -0.2, 0.2)  # A_Cp as a fit parameter
 Nbkg_D_plus = RooFormulaVar("Nbkg_D_plus",
     "0.5 * Nbkg_total * (1 + Acp_bkg)",
     RooArgList(Nbkg_total, Acp_bkg))
@@ -124,20 +134,16 @@ Nbkg_D_minus = RooFormulaVar("Nbkg_D_minus",
     RooArgList(Nbkg_total, Acp_bkg))
 
 
-#mean = ROOT.RooRealVar("mean", "mean", 1.86, 1.84, 1.9)  # Central value
-#sigma = ROOT.RooRealVar("sigma", "sigma", 0.005, 0.0001, 0.1)  # Width parameter
-#gamma = ROOT.RooRealVar("gamma", "gamma", 0.5, 0.0, 5.0)  # Skewness parameter
-#delta = ROOT.RooRealVar("delta", "delta", 2.0, 0.1, 5.0)  # Shape parameter
 mean = ROOT.RooRealVar("mean", "mean", 1.96, 1.94, 1.98)  # Central value
-sigma = ROOT.RooRealVar("sigma", "sigma", 0.001, 0.0001, 0.1)  # Width parameter
-gamma = ROOT.RooRealVar("gamma", "gamma", 0.00001, 0.0, 3.0)  # Skewness parameter
-delta = ROOT.RooRealVar("delta", "delta", 0.7, 0.1, 3.0)  # Shape parameter
+sigma = ROOT.RooRealVar("sigma", "sigma", 0.002, 0.0001, 0.01)  # Width parameter
+gamma = ROOT.RooRealVar("gamma", "gamma", 0.01, -2.0, 2.0)  # Skewness parameter
+delta = ROOT.RooRealVar("delta", "delta", 0.6, 0.001, 3.0)  # Shape parameter
 
 # Create the RooJohnson PDF
-johnson = ROOT.RooJohnson("johnson", "double-sided Crystal Ball using Johnson SU", x, mean, sigma, gamma, delta)
+johnson = ROOT.RooJohnson("johnson", "double-sided Crystal Ball using Johnson SU", x,  mean, sigma, gamma, delta)
 
-mean_gauss = ROOT.RooRealVar("mean_gauss", "Gaussian mean", 0.0)  # Convolution will center the Gaussian at zero
-sigma_gauss = ROOT.RooRealVar("sigma_gauss", "Gaussian width", 0.002, 0.0001, 0.1)
+mean_gauss = ROOT.RooRealVar("mean_gauss", "Gaussian mean", 0.0)  # Convolution will   center the Gaussian at zero
+sigma_gauss = ROOT.RooRealVar("sigma_gauss", "Gaussian width", 0.002, 0.00001, 0.01)
 
 # Create the Gaussian PDF
 gauss = ROOT.RooGaussian("gauss", "Gaussian PDF", x, mean_gauss, sigma_gauss)
@@ -180,7 +186,7 @@ sim_model = RooSimultaneous("sim_model", "Simultaneous model", cat)
 sim_model.addPdf(model_D_plus, "D_plus")
 sim_model.addPdf(model_D_minus, "D_minus")
 
-data_combined = RooDataSet("data_combined", "Combined data", RooArgList(x, w_1, BDT), RooFit.Index(cat),
+data_combined = RooDataSet("data_combined", "Combined data", RooArgList(x, w_1, BDT, Pip_dr, Dp_dz, Dp_cosAngleBetweenMomentumAndVertexVectorInXYPlane,  Dp_cosHelicityAngleMomentum, Dp_CMS_p), RooFit.Index(cat),
                            RooFit.Import("D_plus", data),
                            RooFit.Import("D_minus", data_cc),
                            RooFit.WeightVar('w_1'))
@@ -189,13 +195,15 @@ data_combined = RooDataSet("data_combined", "Combined data", RooArgList(x, w_1, 
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save())
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4), RooFit.Strategy(2), RooFit.Minos(0), RooFit.Hesse(1))
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4), RooFit.Strategy(0), RooFit.Minos(0), RooFit.Hesse(1))
-nll = sim_model.createNLL(data_combined, ROOT.RooFit.Extended(True), ROOT.RooFit.NumCPU(15), RooFit.SumW2Error(True),  ROOT.RooFit.Offset(True))
+#nll = sim_model.createNLL(data_combined, ROOT.RooFit.Extended(True), ROOT.RooFit.NumCPU(15), RooFit.SumW2Error(True),  ROOT.RooFit.Offset(True))
+nll = sim_model.createNLL(data_combined, ROOT.RooFit.Extended(True), ROOT.RooFit.NumCPU(15),  ROOT.RooFit.Offset("initial"))
 
 # Step 2: Perform the Migrad minimization
 minimizer = ROOT.RooMinimizer(nll)
 minimizer.setStrategy(2)
 #minimizer.setStrategy(0)
-minimizer.setPrintLevel(3)
+#minimizer.setPrintLevel(3)
+minimizer.setPrintLevel(1)
 status = minimizer.migrad()
 
 # Check the status of Migrad
@@ -532,7 +540,7 @@ for i in range(0,10):
 
 
 data_combined.Print()
-output_file = TFile("output_file_pipipi.root", "RECREATE")
+output_file = TFile(f"{file_sweight}", "RECREATE")
 
 # Save the RooDataSet to the file
 data_combined.Write("sweight")

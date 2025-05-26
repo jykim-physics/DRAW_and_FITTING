@@ -1,0 +1,20 @@
+universe             = vanilla
+getenv               = true
+output               = log/job_summary_$(Cluster)_$(Process).out
+error                = log/job_summary_$(Cluster)_$(Process).error
+log                  = log/job_summary_$(Cluster)_$(Process).log
+request_cpus         = 2
+request_memory       = 4000
+executable           = python3.sh
+transfer_input_files = $(script)
+arguments            = $(script) $(sign)
+
+queue script, sign from (
+  etapip_gg_offset_novo_CB.py all
+  etapip_gg_offset_novo_CB.py plus
+  etapip_gg_offset_novo_CB.py minus
+  etapip_pipipi_offset_novo_CB.py all
+  etapip_pipipi_offset_novo_CB.py plus
+  etapip_pipipi_offset_novo_CB.py minus
+)
+

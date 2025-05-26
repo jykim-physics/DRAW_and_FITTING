@@ -6,8 +6,8 @@ import math
 
 ROOT.gROOT.LoadMacro('/home/jykim/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
-file_name = "/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_ref_Dp_M_opt_v7_CB_conv_extended_train_Dp_CMS_p_new_FOM.png"
-result_name = "/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_ref_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p_new_FOM.txt"
+file_name = "/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_ref_Dp_M_opt_v7_CB_conv_extended_train_Dp_CMS_p.0.91_new_Ds_correct.png"
+result_name = "/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_ref_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p.0.91_new_Ds_correct.txt"
 
 file_dir = os.path.dirname(file_name)
 result_dir = os.path.dirname(result_name)
@@ -20,6 +20,7 @@ tree_name = "etapip_gg"
 # Define fitting variable and its range
 fit_variable = "Dp_M"
 fit_var_name = "M(D^{+}) [GeV/c^{2}]"
+fit_var_name = "M(#eta_{#gamma#gamma}#pi^{+}) [GeV/c^{2}]"
 fit_range = (1.76, 1.96)
 fit_range = (1.763, 1.963)
 fit_range = (1.78, 1.94)
@@ -44,11 +45,11 @@ Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
-mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_gg/250216_loose_v7/etapip_gg/train_Dp_dz/skimhad/ref/new_FOM/*BCS.root")
+mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_gg/250216_loose_v7/etapip_gg/ref/min_unc_search/new_Ds_v2/0.91/*BCS.root")
 
 tree_name_cc = "etapip_gg"
 mychain_cc = ROOT.TChain(tree_name_cc)
-mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_gg_cc/250216_loose_v7/etapip_gg/train_Dp_dz/skimhad/ref/new_FOM/*BCS.root")
+mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_gg_cc/250216_loose_v7/etapip_gg/ref/min_unc_search/new_Ds_v2/0.91/*BCS.root")
 
 
 # data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")
@@ -124,9 +125,9 @@ result = extended_signal_model.fitTo(
     data,
     ROOT.RooFit.Extended(True),  # Enable extended likelihood fit
     ROOT.RooFit.Range(fit_range[0], fit_range[1]),
-    ROOT.RooFit.NumCPU(4),
+    ROOT.RooFit.NumCPU(8),
     ROOT.RooFit.Save(),
-    ROOT.RooFit.Strategy(2)
+    ROOT.RooFit.Strategy(0)
 )
 result.Print()
 
