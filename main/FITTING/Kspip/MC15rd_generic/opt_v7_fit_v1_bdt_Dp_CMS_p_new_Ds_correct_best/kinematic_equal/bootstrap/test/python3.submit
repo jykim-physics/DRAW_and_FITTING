@@ -1,0 +1,17 @@
+universe             = vanilla
+getenv               = true
+executable           = python3.sh
+output               = log/job_summary_$(Cluster)_$(Process).out
+error                = log/job_summary_$(Cluster)_$(Process).error
+log                  = log/job_summary_$(Cluster)_$(Process).log
+
+arguments            = $(script) $(sign)
+transfer_input_files = $(script)
+request_cpus         = $(cpus)
+request_memory       = $(mem)
+
+queue script, sign, cpus, mem from (
+  Dp_etapip_gg_K.py  plus  2 4000
+  Dp_etapip_gg_K.py  minus 2 4000
+)
+
