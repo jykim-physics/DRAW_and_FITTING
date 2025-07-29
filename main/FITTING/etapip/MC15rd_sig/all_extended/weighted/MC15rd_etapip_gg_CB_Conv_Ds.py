@@ -8,6 +8,7 @@ ROOT.gROOT.LoadMacro('/home/jykim/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
 file_name = "/share/storage/jykim/plots/MC15rd/etapip/gg/MC15rd_6M_etapip_gg_Dp_M_opt_v7_CB_conv_extended_train_Dp_CMS_p_Ds.0.83.new_Ds_correct.png"
 result_name = "/share/storage/jykim/plots/MC15rd/etapip/gg/MC15rd_6M_etapip_gg_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p_Ds.0.83.new_Ds_correct.txt"
+fitresult_root = "/share/storage/jykim/plots/MC15rd/etapip/gg/MC15rd_6M_etapip_gg_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p_Ds.0.83.new_Ds_correct.root"
 
 file_dir = os.path.dirname(file_name)
 result_dir = os.path.dirname(result_name)
@@ -143,6 +144,10 @@ result = extended_signal_model.fitTo(
     ROOT.RooFit.Strategy(0)
 )
 result.Print()
+
+f = ROOT.TFile(fitresult_root, "RECREATE")
+result.Write("jykim")
+f.Close()
 
 fitted_N_signal = N_signal.getVal()
 total_signal_events =  6*1e6

@@ -8,6 +8,7 @@ ROOT.gROOT.LoadMacro('/home/jykim/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
 file_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_opt_v7_CB_conv_extended_train_Dp_CMS_p.0.74_new_Ds_correct.png"
 result_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p.0.74_new_Ds_correct.txt"
+fitresult_root = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p.0.74_new_Ds_correct.root"
 
 file_dir = os.path.dirname(file_name)
 result_dir = os.path.dirname(result_name)
@@ -125,7 +126,7 @@ result = extended_signal_model.fitTo(
     ROOT.RooFit.Range(fit_range[0], fit_range[1]),
     ROOT.RooFit.NumCPU(8),
     ROOT.RooFit.Save(),
-    ROOT.RooFit.Offset(True),
+    ROOT.RooFit.Offset("initial"),
     ROOT.RooFit.Strategy(0)
 )
 #result.Print()
@@ -145,6 +146,10 @@ result = extended_signal_model.fitTo(
 # Get fit results
 #result = minimizer.save()
 result.Print()
+
+f = ROOT.TFile(fitresult_root, "RECREATE")
+result.Write("jykim")
+f.Close()
 
 fitted_N_signal = N_signal.getVal()
 total_signal_events =  6*1e6
@@ -174,7 +179,7 @@ with open(result_name, "w") as f:
     params = result.floatParsFinal()  # This returns the final fitted parameters
     for i in range(params.getSize()):
         param = params[i]
-        f.write(f"{param.GetName()} = {param.getVal()} ± {param.getError()}\n")
+        f.write(f"{param.GetName()} = {param.getVal()} ± {param.getError()}, Err/Val = {param.getError()/param.getVal()}\n")
 
     f.write(f"Fitted number of signal events: {fitted_N_signal}\n")
     f.write(f"Total number of signal events in dataset: {total_signal_events}\n")

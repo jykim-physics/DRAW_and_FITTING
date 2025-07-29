@@ -8,6 +8,7 @@ ROOT.gROOT.LoadMacro('/home/jykim/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
 file_name = "/share/storage/jykim/plots/MC15rd/etaKp/pipipi/MC15rd_6M_etapip_pipipi_K_Dp_M_opt_v7_CB_conv_extended_train_Dp_CMS_p.0.92_new_Ds_correct.png"
 result_name = "/share/storage/jykim/plots/MC15rd/etaKp/pipipi/MC15rd_6M_etapip_pipipi_K_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p.0.92_new_Ds_correct.txt"
+fitresult_root = "/share/storage/jykim/plots/MC15rd/etaKp/pipipi/MC15re_6M_etapip_pipipi_K_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p.0.92_new_Ds_correct.root"
 
 file_dir = os.path.dirname(file_name)
 result_dir = os.path.dirname(result_name)
@@ -77,9 +78,9 @@ sigma = ROOT.RooRealVar("sigma", "sigma", 0.001, 0.0001, 0.01)
 sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.0002, 0.00001, 0.01)
 sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.0001, 0.00001, 0.01)
 alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.2, 0.0, 2.5)
-nL = ROOT.RooRealVar("nL", "nL", 2.0, 0.0, 5.0)
-alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.3, 0.0, 2.5)
-nR = ROOT.RooRealVar("nR", "nR", 2.0, 0.0, 5.0)
+nL = ROOT.RooRealVar("nL", "nL", 2.0, 0.1, 4.0)
+alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.03, 0.0, 2.5)
+nR = ROOT.RooRealVar("nR", "nR", 2.0, 0.1, 4.0)
 
 # Create double-sided Crystal Ball PDF
 #CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
@@ -88,7 +89,7 @@ CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigmaL, sigmaR, alphaL, nL, a
 
 #mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
 mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0)
-sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.008, 0.0001, 0.01)
+sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.004, 0.0001, 0.01)
 # Create a Gaussian distribution
 gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_gaussian)
 
@@ -130,6 +131,10 @@ result = extended_signal_model.fitTo(
 )
 result.Print()
 
+f = ROOT.TFile(fitresult_root, "RECREATE")
+result.Write("jykim")
+f.Close()
+
 fitted_N_signal = N_signal.getVal()
 total_signal_events =  6*1e6
 signal_efficiency = fitted_N_signal / total_signal_events
@@ -158,7 +163,7 @@ with open(result_name, "w") as f:
     params = result.floatParsFinal()  # This returns the final fitted parameters
     for i in range(params.getSize()):
         param = params[i]
-        f.write(f"{param.GetName()} = {param.getVal()} ± {param.getError()}\n")
+        f.write(f"{param.GetName()} = {param.getVal()} ± {param.getError()}, Err/Val = {param.getError()/param.getVal()}\n")
 
     f.write(f"Fitted number of signal events: {fitted_N_signal}\n")
     f.write(f"Total number of signal events in dataset: {total_signal_events}\n")

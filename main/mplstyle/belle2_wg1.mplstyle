@@ -1,0 +1,28 @@
+
+xtick.top           : True
+xtick.minor.visible : True
+xtick.direction     : in
+xtick.labelsize     : 10
+
+
+ytick.right         : True
+ytick.minor.visible : True
+ytick.direction     : in
+ytick.labelsize     : 10
+
+
+axes.labelsize              : 12
+# axes.prop_cycle             : cycler('color', ['#4664aa', '#df9b1b', '#009682', '#a22223', '#a3107c', '#a7822e', '#fce500', '#4e4e4e', '#23a1e0', '#8cb63c'])
+axes.prop_cycle             : cycler('color', ['3465a4', 'f57900', '73d216', 'cc0000', '75507b', 'c17d11', 'edd400', '555753', 'd3d7cf'])
+#axes.prop_cycle             : cycler('color', ['#3465a4', '#f57900', '#73d216', '#cc0000', '#75507b', '#c17d11', '#edd400', '#555753', '#d3d7cf'])
+axes.formatter.limits       : -4, 4
+axes.formatter.use_mathtext : True
+axes.titlesize              : large
+axes.labelpad               : 4.0
+
+
+lines.linewidth : 1.5
+
+legend.frameon : False
+
+errorbar.capsize : 2

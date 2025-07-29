@@ -14,6 +14,8 @@ parser.add_argument("-s","--sign", choices=["plus", "minus","all"], required=Tru
                     help="Specify 'plus' or 'minus'")
 parser.add_argument("-t","--train", required=True,
                     help="Specify train version")
+parser.add_argument("-f","--float_var", required=True,
+                    help="Floating variable")
 #parser.add_argument("-b","--bdt", required=True,
 #                    help="Specify BDT cut")
 
@@ -33,7 +35,7 @@ elif args.sign == "all":
 	Dp_CMS_cosTheta_cut = "Dp_CMS_cosTheta>-10"
 	N_scale = 1
 
-suffix = "new_Ds_correct"
+suffix = f"new_Ds_correct_float_var_{args.float_var}"
 file_name_Dp = f"/share/storage/jykim/plots/MC15rd/etaKp/pipipi/generic/MC15rd_etaKp_pipipi_fit_opt_loose_v7_fitv8_bdt_{args.train}_Dp_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.png"
 file_name_Dm = f"/share/storage/jykim/plots/MC15rd/etaKp/pipipi/generic/MC15rd_etaKp_pipipi_fit_opt_loose_v7_fitv8_bdt_{args.train}_Dm_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.png"
 file_name_Dall = f"/share/storage/jykim/plots/MC15rd/etaKp/pipipi/generic/MC15rd_etaKp_pipipi_fit_opt_loose_v7_fitv8_bdt_{args.train}_Dall_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.png"
@@ -57,10 +59,6 @@ cm_elements = ["15rd_eta_e7_18_4S_v3", "15rd_eta_e20_b26_v1", "15rd_eta_e20_e26_
 tree_name = "etapip_pipipi_K"
 file_list = []
 for element in cm_elements:
-    #pattern = f"{base_path}/{element}/{tree_name}/{args.train}/skimhad/*.BCS.root"
-    #pattern = f"{base_path}/{element}/{tree_name}/train_Dp_dz/skimhad/*.BCS.root"
-    #pattern = f"{base_path}/{element}/{tree_name}/train_Dp_dz/skimhad/re_FoM/*.BCS.root"
-    #pattern = f"{base_path}/{element}/{tree_name}/train_Dp_dz/skimhad/new_FOM/*.BCS.root"
     pattern = f"{base_path}/{element}/{tree_name}/min_unc_search/{BDT_cut}/weighted/*.BCS.root"
     file_list += glob.glob(pattern)
 
@@ -174,6 +172,25 @@ Nbkg_D_minus = RooFormulaVar("Nbkg_D_minus",
     RooArgList(Nbkg_total, Acp_bkg))
 
 mean = ROOT.RooRealVar("mean", "mean", 1.87, 1.85, 1.89)
+scale_factor = ROOT.RooRealVar("scale_factor", "sigma of Gaussian", 1,0,2)
+Ds_mean = ROOT.RooRealVar("Ds_mean", "mean", 1.97, 1.95, 1.99)
+x_bkg1_tau = ROOT.RooRealVar("x_bkg1_tau", "c0",-5, -20, 5)
+
+Acp_mean = ROOT.RooRealVar("Acp_mean", "mean", 0, -1, 1)
+Acp_scale_factor = ROOT.RooRealVar("Acp_scale_factor", "scale", 0, -1, 1)
+Acp_Ds_mean = ROOT.RooRealVar("Acp_Ds_mean", "mean", 0, -1, 1)
+Acp_x_bkg1_tau = ROOT.RooRealVar("Acp_x_bkg1_tau", "c0", 0, -1, 1)
+
+mean_plus = ROOT.RooRealVar("mean_plus", "mean", 1.87, 1.85, 1.89)
+scale_factor_plus = ROOT.RooRealVar("scale_factor_plus", "sigma of Gaussian", 1,0,2)
+Ds_mean_plus = ROOT.RooRealVar("Ds_mean_plus", "mean", 1.97, 1.95, 1.99)
+x_bkg1_tau_plus = ROOT.RooRealVar("x_bkg1_tau_plus", "c0",-5, -20, 5)
+
+mean_minus = RooFormulaVar("mean_minus","mean_plus * (1 - Acp_mean)/(1 + Acp_mean)", RooArgList(mean_plus, Acp_mean))
+scale_factor_minus = RooFormulaVar("scale_factor_minus","scale_factor_plus * (1 - Acp_scale_factor)/(1 + Acp_scale_factor)", RooArgList(scale_factor_plus, Acp_scale_factor))
+Ds_mean_minus = RooFormulaVar("Ds_mean_minus","Ds_mean_plus * (1 - Acp_Ds_mean)/(1 + Acp_Ds_mean)", RooArgList(Ds_mean_plus, Acp_Ds_mean))
+x_bkg1_tau_minus = RooFormulaVar("x_bkg1_tau_minus","x_bkg1_tau_plus * (1 - Acp_x_bkg1_tau)/(1 + Acp_x_bkg1_tau)", RooArgList(x_bkg1_tau_plus, Acp_x_bkg1_tau))
+
 sigmaL = ROOT.RooRealVar("sigmaL", "sigmaL",  0.00029663401427537)
 sigmaR = ROOT.RooRealVar("sigmaR", "sigmaR",  0.000021865122321188424)
 alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.26943592921743414)
@@ -181,27 +198,6 @@ nL = ROOT.RooRealVar("nL", "nL",  2.354990833027334)
 alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.029439771951487188)
 nR = ROOT.RooRealVar("nR", "nR", 2.132855619684709)
 
-# Create double-sided Crystal Ball PDF
-#CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
-CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigmaL,sigmaR, alphaL, nL, alphaR, nR)
-
-#mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -0.1, 0.1)
-mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0)
-#sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.0008, 0.00001, 0.01)
-sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian",  0.004234386268456962)
-
-scale_factor = ROOT.RooRealVar("scale_factor", "sigma of Gaussian", 1,0,2)
-scaled_sigma_gaussian = RooFormulaVar("scaled_sigma_gaussian",
-    "sigma_gaussian * scale_factor",
-    RooArgList(sigma_gaussian, scale_factor))
-
-gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, scaled_sigma_gaussian)
-#gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_gaussian)
-# Convolute the Johnson distribution with Gaussian
-#sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson and Gaussian", x, CB, gaussian)
-sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson and Gaussian", x, CB, gaussian)
-
-Ds_mean = ROOT.RooRealVar("Ds_mean", "mean", 1.97, 1.95, 1.99)
 Ds_sigmaL = ROOT.RooRealVar("Ds_sigmaL", "sigma", 0.005729760586091034)
 Ds_sigmaR = ROOT.RooRealVar("Ds_sigmaR", "sigma", 0.005309382104309244)
 Ds_alphaL = ROOT.RooRealVar("Ds_alphaL", "alphaL",1.5828368281093679)
@@ -209,44 +205,110 @@ Ds_nL = ROOT.RooRealVar("Ds_nL", "nL", 3.137091789353439)
 Ds_alphaR = ROOT.RooRealVar("Ds_alphaR", "alphaR", 1.7221441151113857)
 Ds_nR = ROOT.RooRealVar("Ds_nR", "nR", 2.847491420917265)
 
-# Create double-sided Crystal Ball PDF
-#Ds_CB = ROOT.RooCrystalBall("Ds_CB", "CB_left", x, Ds_mean, Ds_sigma, Ds_alphaL, Ds_nL, Ds_alphaR, Ds_nR)
-Ds_CB = ROOT.RooCrystalBall("Ds_CB", "CB_left", x, Ds_mean, Ds_sigmaL, Ds_sigmaR, Ds_alphaL, Ds_nL, Ds_alphaR, Ds_nR)
-#Ds_CB = ROOT.RooCrystalBall("Ds_CB", "CB_left", x, Ds_mean, sigmaL, sigmaR, alphaL, nL, alphaR, nR)
+mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0)
+sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian",  0.004234386268456962)
 
-#Ds_mean_gaussian = ROOT.RooRealVar("Ds_mean_gaussian", "mean of Gaussian", 0, -0.1, 0.1)
 Ds_mean_gaussian = ROOT.RooRealVar("Ds_mean_gaussian", "mean of Gaussian", 0)
-#Ds_sigma_gaussian = ROOT.RooRealVar("Ds_sigma_gaussian", "sigma of Gaussian", 0.0009, 0.00001, 0.01)
 Ds_sigma_gaussian = ROOT.RooRealVar("Ds_sigma_gaussian", "sigma of Gaussian", 0.00035932503720405333)
 
-scaled_Ds_sigma_gaussian = RooFormulaVar("Ds_scaled_sigma_gaussian",
-    "Ds_sigma_gaussian * scale_factor",
-    RooArgList(Ds_sigma_gaussian, scale_factor))
-# Create a Gaussian distribution
-#Ds_gaussian = ROOT.RooGaussian("Ds_gaussian", "Gaussian PDF", x, Ds_mean_gaussian, Ds_sigma_gaussian)
+'''
+CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigmaL,sigmaR, alphaL, nL, alphaR, nR)
+scaled_sigma_gaussian = RooFormulaVar("scaled_sigma_gaussian","sigma_gaussian * scale_factor",RooArgList(sigma_gaussian, scale_factor))
+gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, scaled_sigma_gaussian)
+sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson and Gaussian", x, CB, gaussian)
+Ds_CB = ROOT.RooCrystalBall("Ds_CB", "CB_left", x, Ds_mean, Ds_sigmaL, Ds_sigmaR, Ds_alphaL, Ds_nL, Ds_alphaR, Ds_nR)
+scaled_Ds_sigma_gaussian = RooFormulaVar("Ds_scaled_sigma_gaussian","Ds_sigma_gaussian * scale_factor",RooArgList(Ds_sigma_gaussian, scale_factor))
 Ds_gaussian = ROOT.RooGaussian("Ds_gaussian", "Gaussian PDF", x, Ds_mean_gaussian, scaled_Ds_sigma_gaussian)
-
-# Convolute the Johnson distribution with Gaussian
 Ds_model = ROOT.RooFFTConvPdf("Ds_model", "Convolution of Johnson and Gaussian", x, Ds_CB, Ds_gaussian)
-
-
-x_bkg1_Cheby_c0 = ROOT.RooRealVar("x_bkg1_Cheby_c0", "c0",0.0, -1.0, 1.0)
-x_bkg1_Cheby_c1 = ROOT.RooRealVar("x_bkg1_Cheby_c1", "c0",0.0, -1.0, 1.0)
-x_bkg1_Cheby_c2 = ROOT.RooRealVar("x_bkg1_Cheby_c2", "c0",0.0, -1.0, 1.0)
-x_bkg1_tau = ROOT.RooRealVar("x_bkg1_tau", "c0",-5, -20, 5)
-
-#bkg_comb = ROOT.RooExponential("bkg_comb", "x_bkg1", x, x_bkg1_tau)
-#model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0, x_bkg1_Cheby_c1, x_bkg1_Cheby_c2))
 model_bkg = ROOT.RooExponential("model_bkg", "x_bkg1", x, x_bkg1_tau)
+'''
+if args.float_var == "mean":
+    CB_plus = ROOT.RooCrystalBall("CB_plus", "CB_left", x, mean_plus, sigmaL,sigmaR, alphaL, nL, alphaR, nR)
+    CB_minus = ROOT.RooCrystalBall("CB_minus", "CB_left", x, mean_minus, sigmaL,sigmaR, alphaL, nL, alphaR, nR)
+    scaled_sigma_gaussian = RooFormulaVar("scaled_sigma_gaussian","sigma_gaussian * scale_factor", RooArgList(sigma_gaussian, scale_factor))
+    gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, scaled_sigma_gaussian)
+    sig_model_plus = ROOT.RooFFTConvPdf("sig_model_plus", "Convolution of Johnson and Gaussian", x, CB_plus, gaussian)
+    sig_model_minus = ROOT.RooFFTConvPdf("sig_model_minus", "Convolution of Johnson and Gaussian", x, CB_minus, gaussian)
 
+    Ds_CB = ROOT.RooCrystalBall("Ds_CB", "CB_left", x, Ds_mean, Ds_sigmaL, Ds_sigmaR, Ds_alphaL, Ds_nL, Ds_alphaR, Ds_nR)
+    scaled_Ds_sigma_gaussian = RooFormulaVar("Ds_scaled_sigma_gaussian", "Ds_sigma_gaussian * scale_factor", RooArgList(Ds_sigma_gaussian, scale_factor))
+    Ds_gaussian = ROOT.RooGaussian("Ds_gaussian", "Gaussian PDF", x, Ds_mean_gaussian, scaled_Ds_sigma_gaussian)
+    Ds_model = ROOT.RooFFTConvPdf("Ds_model", "Convolution of Johnson and Gaussian", x, Ds_CB, Ds_gaussian)
 
-# Define extended PDFs for D+ and D-
-model_D_plus = ROOT.RooAddPdf("model_D_plus", "D+ model",
-                              ROOT.RooArgList(sig_model, Ds_model, model_bkg),
-                              ROOT.RooArgList(Nsig_D_plus, Nsig_Ds_plus, Nbkg_D_plus))
-model_D_minus = ROOT.RooAddPdf("model_D_minus", "D- model",
-                              ROOT.RooArgList(sig_model, Ds_model, model_bkg),
-                              ROOT.RooArgList(Nsig_D_minus, Nsig_Ds_minus, Nbkg_D_minus))
+    model_bkg = ROOT.RooExponential("model_bkg", "x_bkg1", x, x_bkg1_tau)
+
+    model_D_plus = ROOT.RooAddPdf("model_D_plus", "D+ model",
+                                  ROOT.RooArgList(sig_model_plus, Ds_model, model_bkg),
+                                  ROOT.RooArgList(Nsig_D_plus, Nsig_Ds_plus,  Nbkg_D_plus))
+    model_D_minus = ROOT.RooAddPdf("model_D_minus", "D- model",
+                                  ROOT.RooArgList(sig_model_minus, Ds_model,  model_bkg),
+                                  ROOT.RooArgList(Nsig_D_minus, Nsig_Ds_minus,  Nbkg_D_minus))
+elif args.float_var == "scale_factor":
+    CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigmaL,sigmaR, alphaL, nL, alphaR, nR)
+    scaled_sigma_gaussian_plus = RooFormulaVar("scaled_sigma_gaussian_plus","sigma_gaussian * scale_factor_plus", RooArgList(sigma_gaussian, scale_factor_plus))
+    scaled_sigma_gaussian_minus = RooFormulaVar("scaled_sigma_gaussian_minus","sigma_gaussian * scale_factor_minus", RooArgList(sigma_gaussian, scale_factor_minus))
+    gaussian_plus = ROOT.RooGaussian("gaussian_plus", "Gaussian PDF", x, mean_gaussian, scaled_sigma_gaussian_plus)
+    gaussian_minus = ROOT.RooGaussian("gaussian_minus", "Gaussian PDF", x, mean_gaussian, scaled_sigma_gaussian_minus)
+    sig_model_plus = ROOT.RooFFTConvPdf("sig_model_plus", "Convolution of Johnson and Gaussian", x, CB, gaussian_plus)
+    sig_model_minus = ROOT.RooFFTConvPdf("sig_model_minus", "Convolution of Johnson and Gaussian", x, CB, gaussian_minus)
+
+    Ds_CB = ROOT.RooCrystalBall("Ds_CB", "CB_left", x, Ds_mean, Ds_sigmaL, Ds_sigmaR, Ds_alphaL, Ds_nL, Ds_alphaR, Ds_nR)
+    scaled_Ds_sigma_gaussian_plus = RooFormulaVar("Ds_scaled_sigma_gaussian_plus", "Ds_sigma_gaussian * scale_factor_plus", RooArgList(Ds_sigma_gaussian, scale_factor_plus))
+    scaled_Ds_sigma_gaussian_minus = RooFormulaVar("Ds_scaled_sigma_gaussian_minus", "Ds_sigma_gaussian * scale_factor_minus", RooArgList(Ds_sigma_gaussian, scale_factor_minus))
+    Ds_gaussian_plus = ROOT.RooGaussian("Ds_gaussian_plus", "Gaussian PDF", x, Ds_mean_gaussian, scaled_Ds_sigma_gaussian_plus)
+    Ds_gaussian_minus = ROOT.RooGaussian("Ds_gaussian_minus", "Gaussian PDF", x, Ds_mean_gaussian, scaled_Ds_sigma_gaussian_minus)
+    Ds_model_plus = ROOT.RooFFTConvPdf("Ds_model_plus", "Convolution of Johnson and Gaussian", x, Ds_CB, Ds_gaussian_plus)
+    Ds_model_minus = ROOT.RooFFTConvPdf("Ds_model_minus", "Convolution of Johnson and Gaussian", x, Ds_CB, Ds_gaussian_minus)
+
+    model_bkg = ROOT.RooExponential("model_bkg", "x_bkg1", x, x_bkg1_tau)
+
+    model_D_plus = ROOT.RooAddPdf("model_D_plus", "D+ model",
+                                  ROOT.RooArgList(sig_model_plus, Ds_model_plus, model_bkg),
+                                  ROOT.RooArgList(Nsig_D_plus, Nsig_Ds_plus,  Nbkg_D_plus))
+    model_D_minus = ROOT.RooAddPdf("model_D_minus", "D- model",
+                                  ROOT.RooArgList(sig_model_minus, Ds_model_minus,  model_bkg),
+                                  ROOT.RooArgList(Nsig_D_minus, Nsig_Ds_minus,  Nbkg_D_minus))
+elif args.float_var == "Ds_mean":
+    CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigmaL,sigmaR, alphaL, nL, alphaR, nR)
+    scaled_sigma_gaussian = RooFormulaVar("scaled_sigma_gaussian","sigma_gaussian * scale_factor", RooArgList(sigma_gaussian, scale_factor))
+    gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, scaled_sigma_gaussian)
+    sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson and Gaussian", x, CB, gaussian)
+
+    Ds_CB_plus = ROOT.RooCrystalBall("Ds_CB_plus", "CB_left", x, Ds_mean_plus, Ds_sigmaL, Ds_sigmaR, Ds_alphaL, Ds_nL, Ds_alphaR, Ds_nR)
+    Ds_CB_minus = ROOT.RooCrystalBall("Ds_CB_minus", "CB_left", x, Ds_mean_minus, Ds_sigmaL, Ds_sigmaR, Ds_alphaL, Ds_nL, Ds_alphaR, Ds_nR)
+    scaled_Ds_sigma_gaussian = RooFormulaVar("Ds_scaled_sigma_gaussian", "Ds_sigma_gaussian * scale_factor", RooArgList(Ds_sigma_gaussian, scale_factor))
+    Ds_gaussian = ROOT.RooGaussian("Ds_gaussian", "Gaussian PDF", x, Ds_mean_gaussian, scaled_Ds_sigma_gaussian)
+    Ds_model_plus = ROOT.RooFFTConvPdf("Ds_model_plus", "Convolution of Johnson and Gaussian", x, Ds_CB_plus, Ds_gaussian)
+    Ds_model_minus = ROOT.RooFFTConvPdf("Ds_model_minus", "Convolution of Johnson and Gaussian", x, Ds_CB_minus, Ds_gaussian)
+
+    model_bkg = ROOT.RooExponential("model_bkg", "x_bkg1", x, x_bkg1_tau)
+
+    model_D_plus = ROOT.RooAddPdf("model_D_plus", "D+ model",
+                                  ROOT.RooArgList(sig_model, Ds_model_plus, model_bkg),
+                                  ROOT.RooArgList(Nsig_D_plus, Nsig_Ds_plus,  Nbkg_D_plus))
+    model_D_minus = ROOT.RooAddPdf("model_D_minus", "D- model",
+                                  ROOT.RooArgList(sig_model, Ds_model_minus,  model_bkg),
+                                  ROOT.RooArgList(Nsig_D_minus, Nsig_Ds_minus,  Nbkg_D_minus))
+elif args.float_var == "x_bkg1_tau":
+    CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigmaL,sigmaR, alphaL, nL, alphaR, nR)
+    scaled_sigma_gaussian = RooFormulaVar("scaled_sigma_gaussian","sigma_gaussian * scale_factor", RooArgList(sigma_gaussian, scale_factor))
+    gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, scaled_sigma_gaussian)
+    sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson and Gaussian", x, CB, gaussian)
+
+    Ds_CB = ROOT.RooCrystalBall("Ds_CB", "CB_left", x, Ds_mean, Ds_sigmaL, Ds_sigmaR, Ds_alphaL, Ds_nL, Ds_alphaR, Ds_nR)
+    scaled_Ds_sigma_gaussian = RooFormulaVar("Ds_scaled_sigma_gaussian", "Ds_sigma_gaussian * scale_factor", RooArgList(Ds_sigma_gaussian, scale_factor))
+    Ds_gaussian = ROOT.RooGaussian("Ds_gaussian", "Gaussian PDF", x, Ds_mean_gaussian, scaled_Ds_sigma_gaussian)
+    Ds_model = ROOT.RooFFTConvPdf("Ds_model", "Convolution of Johnson and Gaussian", x, Ds_CB, Ds_gaussian)
+
+    model_bkg_plus = ROOT.RooExponential("model_bkg_plus", "x_bkg1", x, x_bkg1_tau_plus)
+    model_bkg_minus = ROOT.RooExponential("model_bkg_minus", "x_bkg1", x, x_bkg1_tau_minus)
+
+    model_D_plus = ROOT.RooAddPdf("model_D_plus", "D+ model",
+                                  ROOT.RooArgList(sig_model, Ds_model, model_bkg_plus),
+                                  ROOT.RooArgList(Nsig_D_plus, Nsig_Ds_plus,  Nbkg_D_plus))
+    model_D_minus = ROOT.RooAddPdf("model_D_minus", "D- model",
+                                  ROOT.RooArgList(sig_model, Ds_model,  model_bkg_minus),
+                                  ROOT.RooArgList(Nsig_D_minus, Nsig_Ds_minus,  Nbkg_D_minus))
 
 # Create a category to distinguish between D+ and D-
 cat = RooCategory("sample", "sample")

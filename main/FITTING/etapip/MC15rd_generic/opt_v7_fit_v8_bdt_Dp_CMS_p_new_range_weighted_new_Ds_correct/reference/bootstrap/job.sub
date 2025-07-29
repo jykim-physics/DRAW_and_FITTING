@@ -1,0 +1,13 @@
+
+universe             = vanilla
+getenv               = true
+output               = log/job_summary_$(Cluster)_$(Process).out
+error                = log/job_summary_$(Cluster)_$(Process).error
+log                  = log/job_summary_$(Cluster)_$(Process).log
+request_cpus         = 14
+request_memory       = 28000
+executable           = python3.sh
+transfer_input_files = $(job_script)
+arguments            = $(job_script) $(sign)
+
+queue job_script, sign from job_list.txt

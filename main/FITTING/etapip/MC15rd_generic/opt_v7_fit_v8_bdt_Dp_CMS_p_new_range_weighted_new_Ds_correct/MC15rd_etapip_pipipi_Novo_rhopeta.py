@@ -7,6 +7,7 @@ ROOT.gROOT.LoadMacro('/home/jykim/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
 plot_file_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_etapip_pipipi_Dp_M_opt_v7_novo_rhopeta_Dp_CMS_p_0.74_new_Ds_correct.png"
 result_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_etapip_pipipi_Dp_M_opt_v7_novo_result_rhopeta_Dp_CMS_p_0.74_new_Ds_correct.txt"
+fitresult_root = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_etapip_pipipi_Dp_M_opt_v7_novo_result_rhopeta_Dp_CMS_p_0.74_new_Ds_correct.root"
 
 file_dir = os.path.dirname(plot_file_name)
 result_dir = os.path.dirname(result_name)
@@ -125,6 +126,10 @@ fraction = ROOT.RooRealVar("fraction", "fraction", 0.5, 0.0, 1.0)
 # Perform the fit
 result = model.fitTo(data, ROOT.RooFit.Range("fitRange"), ROOT.RooFit.NumCPU(4), ROOT.RooFit.Save())
 result.Print()
+
+f = ROOT.TFile(fitresult_root, "RECREATE")
+result.Write("jykim")
+f.Close()
 
 # Print the full fit result
 #result.Print()

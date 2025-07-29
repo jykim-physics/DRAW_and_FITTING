@@ -8,6 +8,7 @@ ROOT.gROOT.LoadMacro('/home/jykim/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
 file_name = "/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_Dp_M_opt_v7_CB_conv_extended_train_Dp_CMS_p_Ds.0.91.weighted.new_Ds_correct.png"
 result_name = "/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p_Ds.0.91.weighted.new_Ds_correct.txt"
+fitresult_root = "/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p_Ds.0.91.weighted.new_Ds_correct.root"
 
 file_dir = os.path.dirname(file_name)
 result_dir = os.path.dirname(result_name)
@@ -81,10 +82,10 @@ mean = ROOT.RooRealVar("mean", "mean", 1.96, 1.94, 1.99)
 sigma = ROOT.RooRealVar("sigma", "sigma", 0.001, 0.0001, 0.01)
 sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.002, 0.0001, 0.01)
 sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.004, 0.00001, 0.01)
-alphaL = ROOT.RooRealVar("alphaL", "alphaL", 1, 0.0, 4.0)
-nL = ROOT.RooRealVar("nL", "nL", 4.0, 0.0, 5.0)
-alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.3, 0.0, 4.0)
-nR = ROOT.RooRealVar("nR", "nR", 3.0, 0.0, 5.0)
+alphaL = ROOT.RooRealVar("alphaL", "alphaL", 1, 0.1, 4.0)
+nL = ROOT.RooRealVar("nL", "nL", 4.0, 0.1, 5.0)
+alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.3, 0.1, 4.0)
+nR = ROOT.RooRealVar("nR", "nR", 3.0, 0.1, 5.0)
 
 # Create double-sided Crystal Ball PDF
 #CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
@@ -131,9 +132,14 @@ result = extended_signal_model.fitTo(
     ROOT.RooFit.NumCPU(4),
     ROOT.RooFit.Save(),
     ROOT.RooFit.Offset("initial"),
-    ROOT.RooFit.Strategy(0)
+    ROOT.RooFit.Strategy(1),
+    #ROOT.RooFit.SumW2Error(True)
 )
 result.Print()
+
+f = ROOT.TFile(fitresult_root, "RECREATE")
+result.Write("jykim")
+f.Close()
 
 fitted_N_signal = N_signal.getVal()
 total_signal_events =  6*1e6
@@ -163,7 +169,7 @@ with open(result_name, "w") as f:
     params = result.floatParsFinal()  # This returns the final fitted parameters
     for i in range(params.getSize()):
         param = params[i]
-        f.write(f"{param.GetName()} = {param.getVal()} ± {param.getError()}\n")
+        f.write(f"{param.GetName()} = {param.getVal()} ± {param.getError()}, Err/Val = {param.getError()/param.getVal()}\n")
 
     f.write(f"Fitted number of signal events: {fitted_N_signal}\n")
     f.write(f"Total number of signal events in dataset: {total_signal_events}\n")
