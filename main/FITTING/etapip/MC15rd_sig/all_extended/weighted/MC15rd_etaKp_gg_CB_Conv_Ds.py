@@ -169,7 +169,7 @@ with open(result_name, "w") as f:
     params = result.floatParsFinal()  # This returns the final fitted parameters
     for i in range(params.getSize()):
         param = params[i]
-        f.write(f"{param.GetName()} = {param.getVal()} ± {param.getError()}, Err/Val = {param.getError()/param.getVal()}\n")
+        f.write(f"{param.GetName()} = {param.getVal()} ± {param.getError()}, Err/Val = {param.getError()/param.getVal()*100:.4f}%\n")
 
     f.write(f"Fitted number of signal events: {fitted_N_signal}\n")
     f.write(f"Total number of signal events in dataset: {total_signal_events}\n")

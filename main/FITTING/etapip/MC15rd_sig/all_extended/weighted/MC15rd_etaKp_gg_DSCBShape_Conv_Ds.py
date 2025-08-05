@@ -4,6 +4,8 @@ import ctypes
 import os
 import math
 
+ROOT.RooRandom.randomGenerator().SetSeed(100)
+
 ROOT.gROOT.LoadMacro('/home/jykim/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
 file_name = "/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_Dp_M_opt_v7_DSCBShape_conv_extended_train_Dp_CMS_p_Ds.0.91.weighted.new_Ds_correct.png"
@@ -79,35 +81,18 @@ N_signal = ROOT.RooRealVar("N_signal", "Number of signal events", N_total, 0.8*N
 
 
 mean = ROOT.RooRealVar("mean", "mean", 1.96, 1.95, 1.98)
-#sigmaLR = ROOT.RooRealVar("sigmaLR", "sigma", 0.005, 0.001, 0.01)
-#alphaL = ROOT.RooRealVar("alphaL", "alphaL", 1.2, 0.1, 3.0)
-#nL = ROOT.RooRealVar("nL", "nL", 3.3, 0.01, 6.0)
-#alphaR = ROOT.RooRealVar("alphaR", "alphaR", 1.5, 0.1, 3.0)
-#nR = ROOT.RooRealVar("nR", "nR", 2.2, 0.01, 6.0)
-
-sigmaLR = ROOT.RooRealVar("sigmaLR", "sigma", 0.005, 0.001, 0.1)
-alphaL = ROOT.RooRealVar("alphaL", "alphaL", 1.2, 0.1, 5.0)
-nL = ROOT.RooRealVar("nL", "nL", 3.3, 0.01, 5.0)
-alphaR = ROOT.RooRealVar("alphaR", "alphaR", 1.5, 0.1, 5.0)
-nR = ROOT.RooRealVar("nR", "nR", 2.2, 0.01, 5.0)
+sigmaLR = ROOT.RooRealVar("sigmaLR", "sigma", 0.005, 0.001, 0.01)
+alphaL = ROOT.RooRealVar("alphaL", "alphaL", 1.1, 0.001, 3.0)
+nL = ROOT.RooRealVar("nL", "nL", 3.0, 0.1, 5.0)
+alphaR = ROOT.RooRealVar("alphaR", "alphaR", 1.2, 0.001, 3.0)
+nR = ROOT.RooRealVar("nR", "nR", 2.0, 0.1, 5.0)
 
 # Create double-sided Crystal Ball PDF
-#CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
 CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigmaLR,  alphaL, nL, alphaR, nR)
 
 
-#mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
 mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0)
-sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.008, 0.001, 0.1)
-
-
-#ratio = ROOT.RooRealVar("ratio", "sigma of Gaussian", 1.0, 0.5, 3)
-#sigma_gaussian  = ROOT.RooFormulaVar("sigma_gaussian","@0*@1", ROOT.RooArgList(ratio,sigmaLR))
-
-
-
-#ratio = ROOT.RooRealVar("ratio", "mean of Gaussian", 0.3, 0.0 , 5.0)
-#sigma_gaussian = ROOT.RooFormulaVar("sigma_gaussian", "@0*@1", ROOT.RooArgList(sigmaLR, ratio))
+sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.008, 0.0001, 0.02)
 
 # Create a Gaussian distribution
 gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_gaussian)
@@ -147,10 +132,12 @@ result = extended_signal_model.fitTo(
     ROOT.RooFit.Save(),
     ROOT.RooFit.Offset("initial"),
     ROOT.RooFit.Strategy(1),
-    #ROOT.RooFit.SumW2Error(True),
+    ROOT.RooFit.SumW2Error(True),
     #ROOT.RooFit.AsymptoticError(True)
 )
 result.Print()
+result.correlationMatrix().Print()
+
 
 f = ROOT.TFile(fitresult_root, "RECREATE")
 result.Write("jykim")
@@ -184,7 +171,7 @@ with open(result_name, "w") as f:
     params = result.floatParsFinal()  # This returns the final fitted parameters
     for i in range(params.getSize()):
         param = params[i]
-        f.write(f"{param.GetName()} = {param.getVal()} ± {param.getError()}, Err/Val = {param.getError()/param.getVal()}\n")
+        f.write(f"{param.GetName()} = {param.getVal()} ± {param.getError()}, Err/Val = {param.getError()/param.getVal()*100:.4f}%\n")
 
     f.write(f"Fitted number of signal events: {fitted_N_signal}\n")
     f.write(f"Total number of signal events in dataset: {total_signal_events}\n")

@@ -1,0 +1,15 @@
+universe             = vanilla
+getenv               = true
+executable           = python3_plus.sh
+output               = log/job_summary_$(Cluster)_$(Process).out
+error                = log/job_summary_$(Cluster)_$(Process).error
+log                  = log/job_summary_$(Cluster)_$(Process).log
+
+arguments            = $(script)
+transfer_input_files = $(script)
+request_cpus         = $(cpus)
+request_memory       = $(mem)
+queue script, cpus, mem from (
+  Kspip_offset_etapip_gg.py          2   4000
+  #Kspip_offset_etapip_pipipi.py     14  28000
+)

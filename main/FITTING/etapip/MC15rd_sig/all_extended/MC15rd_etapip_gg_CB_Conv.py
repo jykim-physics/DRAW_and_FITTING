@@ -76,13 +76,12 @@ N_signal = ROOT.RooRealVar("N_signal", "Number of signal events", N_total, 0.8*N
 
 
 mean = ROOT.RooRealVar("mean", "mean", 1.86, 1.83, 1.89)
-sigma = ROOT.RooRealVar("sigma", "sigma", 0.001, 0.0001, 0.01)
-sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.002, 0.00001, 0.01)
-sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.003, 0.00001, 0.01)
-alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.5, 0.0, 2.0)
-nL = ROOT.RooRealVar("nL", "nL", 3.0, 0.0, 5.0)
-alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.3, 0.0, 2.0)
-nR = ROOT.RooRealVar("nR", "nR", 2.0, 0.0, 5.0)
+sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.002, 0.0001, 0.01)
+sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.003, 0.0001, 0.01)
+alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.5, 0.01, 3.0)
+nL = ROOT.RooRealVar("nL", "nL", 4.0, 0.0, 5.0)
+alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.3, 0.01, 3.0)
+nR = ROOT.RooRealVar("nR", "nR", 3.0, 0.0, 5.0)
 
 # Create double-sided Crystal Ball PDF
 #CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
@@ -129,7 +128,7 @@ result = extended_signal_model.fitTo(
     ROOT.RooFit.NumCPU(8),
     ROOT.RooFit.Save(),
     ROOT.RooFit.Offset(True),
-    ROOT.RooFit.Strategy(2)
+    ROOT.RooFit.Strategy(1)
 )
 result.Print()
 
@@ -165,7 +164,7 @@ with open(result_name, "w") as f:
     params = result.floatParsFinal()  # This returns the final fitted parameters
     for i in range(params.getSize()):
         param = params[i]
-        f.write(f"{param.GetName()} = {param.getVal()} ± {param.getError()}, Err/Val = {param.getError()/param.getVal()}\n")
+        f.write(f"{param.GetName()} = {param.getVal()} ± {param.getError()}, Err/Val = {param.getError()/param.getVal()*100:.4f}%\n")
 
     f.write(f"Fitted number of signal events: {fitted_N_signal}\n")
     f.write(f"Total number of signal events in dataset: {total_signal_events}\n")
