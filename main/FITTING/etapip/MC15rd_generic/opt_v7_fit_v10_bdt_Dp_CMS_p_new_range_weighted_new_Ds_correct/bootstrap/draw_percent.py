@@ -12,15 +12,15 @@ except OSError:
 #branch_name = "delta_Ds_acp"
 #range_min, range_max = -10, 10
 
-mode = "etapip_pipipi_K"
-#branch_name = "delta_acp"
-branch_name = "delta_Ds_acp"
-range_min, range_max = -10, 10
-
-#mode = "etapip_pipipi"
+#mode = "etapip_pipipi_K"
 #branch_name = "delta_acp"
 #branch_name = "delta_Ds_acp"
-#range_min, range_max = -1, 1
+#range_min, range_max = -10, 10
+
+mode = "etapip_pipipi"
+branch_name = "delta_acp"
+#branch_name = "delta_Ds_acp"
+range_min, range_max = -0.1, 0.1
 
 #mode = "etapip_gg"
 #branch_name = "delta_acp"
@@ -33,8 +33,8 @@ print(f"Branch name is {branch_name}")
 # File paths
 #file1 = f"bootstrap_acp_results_{mode}_minus.root"
 #file2 = f"bootstrap_acp_results_{mode}_plus.root"
-file1 = f"bootstrap_acp_results_{mode}_minus_converge_250709.root"
-file2 = f"bootstrap_acp_results_{mode}_plus_converge_250709.root"
+file1 = f"bootstrap_acp_results_{mode}_minus_converge.root"
+file2 = f"bootstrap_acp_results_{mode}_plus_converge.root"
 
 # Parameters
 tree_name = "acp_bootstrap"

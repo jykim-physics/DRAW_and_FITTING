@@ -10,8 +10,8 @@ transfer_input_files = $(script)
 request_cpus         = $(cpus)
 request_memory       = $(mem)
 queue script, cpus, mem from (
-  etapip_gg_offset_novo_CB.py         2 4000
-  etapip_pipipi_offset_novo_CB.py     2 4000
+  etapip_gg_offset_CB.py         2 4000
+  #etapip_pipipi_offset_CB.py     2 4000
   #etapip_gg_K_offset_CB.py             2  4000
   #etapip_pipipi_K_offset_CB.py         2  4000
 )

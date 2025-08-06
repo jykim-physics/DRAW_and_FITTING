@@ -752,7 +752,7 @@ cdata.SaveAs("test_gg.png")
 ROOT.RooRandom.randomGenerator().SetSeed(250805)
 
 ToyMC_all = ROOT.RooMCStudy(sim_model, {x,cat}, Extended(True), FitOptions(Save(True),PrintEvalErrors(0),PrintLevel(1), NumCPU(2), Offset("initial")))
-ToyMC_all.generateAndFit(10)
+ToyMC_all.generateAndFit(1000)
 
 toyMC_frame_Acp = ToyMC_all.plotPull(Acp, Bins(50), Range(-6, 6), FitGauss(True))
 toyMC_frame_Acp_Ds = ToyMC_all.plotPull(Acp_Ds, Bins(50), Range(-6, 6), FitGauss(True))
