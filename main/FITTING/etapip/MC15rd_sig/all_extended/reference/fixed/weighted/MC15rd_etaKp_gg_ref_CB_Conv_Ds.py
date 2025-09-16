@@ -8,12 +8,11 @@ import sys
 #BDT_cut = sys.argv[1]
 BDT_cut = "0.93"
 
-
 ROOT.gROOT.LoadMacro('/home/jykim/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
-file_name = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_ref_Dp_M_opt_v7_CB_conv_extended_train_Dp_CMS_p.{BDT_cut}_new_Ds_correct.png"
-result_name = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_ref_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p.{BDT_cut}_new_Ds_correct.txt"
-fitresult_root = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_ref_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p.{BDT_cut}_new_Ds_correct.root"
+file_name = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_ref_Dp_M_opt_v7_CB_conv_extended_train_Dp_CMS_p.{BDT_cut}_Ds_new_Ds_correct.png"
+result_name = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_ref_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p.{BDT_cut}_Ds_new_Ds_correct.txt"
+fitresult_root = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_ref_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p.{BDT_cut}_Ds_new_Ds_correct.root"
 
 file_dir = os.path.dirname(file_name)
 result_dir = os.path.dirname(result_name)
@@ -25,11 +24,8 @@ tree_name = "etapip_gg"
 
 # Define fitting variable and its range
 fit_variable = "Dp_M"
-fit_var_name = "M(D^{+}) [GeV/c^{2}]"
 fit_var_name = "M(#eta_{#gamma#gamma}#pi^{+}) [GeV/c^{2}]"
-fit_range = (1.76, 1.96)
-fit_range = (1.763, 1.963)
-fit_range = (1.78, 1.94)
+fit_range = (1.88, 2.04)
 rank_var = tree_name + "_rank"
 truth_var = "Dp_isSignal"
 charge_var = "Pip_charge"
@@ -47,30 +43,45 @@ x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
 chiProb_rank = ROOT.RooRealVar(rank_var, rank_var, 0, 30)
 truth_var = ROOT.RooRealVar(truth_var, truth_var, 0, 30)
 Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
+ds_weight = ROOT.RooRealVar("ds_weight", "ds_weight", -1000, 1000)
+
+full_var_set = ROOT.RooArgSet(x, truth_var, Pip_charge, ds_weight)
 
 
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
-mychain.Add(f"/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_gg/250216_loose_v7/etapip_gg/ref/min_unc_search/new_Ds_v2/{BDT_cut}/*BCS.root")
+mychain.Add(f"/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_gg/250216_loose_v7/etapip_gg/ref/min_unc_search/new_Ds_v2/{BDT_cut}/weighted/*BCS.root")
 
 tree_name_cc = "etapip_gg"
 mychain_cc = ROOT.TChain(tree_name_cc)
-mychain_cc.Add(f"/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_gg_cc/250216_loose_v7/etapip_gg/ref/min_unc_search/new_Ds_v2/{BDT_cut}/*BCS.root")
+mychain_cc.Add(f"/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_gg_cc/250216_loose_v7/etapip_gg/ref/min_unc_search/new_Ds_v2/{BDT_cut}/weighted/*BCS.root")
 
 
 # data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")
 print(cuts)
-before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,truth_var, Pip_charge), cuts_Dp)
+#before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,truth_var, Pip_charge), cuts_Dp)
 
 
-w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)
-w_1.setVal(1)
-before_data.addColumn(w_1)
-data = ROOT.RooDataSet(before_data.GetName(), before_data.GetTitle(),before_data, before_data.get(), '' ,  'w_1')
+#w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)
+#w_1.setVal(1)
+#before_data.addColumn(w_1)
+#data = ROOT.RooDataSet(before_data.GetName(), before_data.GetTitle(),before_data, before_data.get(), '' ,  'w_1')
 
-before_data_cc = ROOT.RooDataSet("data_cc","", mychain_cc, ROOT.RooArgSet(x,truth_var, Pip_charge), cuts_Dm)
-before_data_cc.addColumn(w_1)
-data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),before_data_cc, before_data_cc.get(), '' ,  'w_1')
+before_data = ROOT.RooDataSet("data", "", mychain, full_var_set, cuts_Dp)
+#scale = 1/4
+scale = 1
+w_scaled = ROOT.RooFormulaVar("w_scaled", "Scaled Weight", f"{scale}*ds_weight", ROOT.RooArgList(ds_weight))
+before_data.addColumn(w_scaled)
+
+data = ROOT.RooDataSet("data_weighted", "Weighted Data", before_data, before_data.get(), "", "w_scaled")
+
+#before_data_cc = ROOT.RooDataSet("data_cc","", mychain_cc, ROOT.RooArgSet(x,truth_var, Pip_charge), cuts_Dm)
+#before_data_cc.addColumn(w_1)
+#data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),before_data_cc, before_data_cc.get(), '' ,  'w_1')
+
+before_data_cc = ROOT.RooDataSet("data", "", mychain_cc, full_var_set, cuts_Dm)
+before_data_cc.addColumn(w_scaled)
+data_cc = ROOT.RooDataSet("data_weighted_cc", "Weighted Data", before_data_cc, before_data_cc.get(), "", "w_scaled")
 
 data.append(data_cc)
 
@@ -80,20 +91,14 @@ print(N_total)
 N_signal = ROOT.RooRealVar("N_signal", "Number of signal events", N_total, 0.8*N_total, 1.2*N_total)  # Initial guess and bounds
 
 
-mean = ROOT.RooRealVar("mean", "mean", 1.86, 1.74, 1.88)
-#sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.002, 0.0001, 0.01)
-#sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.003, 0.0001, 0.01)
-#alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.2, 0.01, 3.0)
-#nL = ROOT.RooRealVar("nL", "nL", 3.0, 0.0, 5.0)
-#alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.3, 0.01, 3.0)
-#nR = ROOT.RooRealVar("nR", "nR", 2.0, 0.0, 5.0)
+mean = ROOT.RooRealVar("mean", "mean", 1.96, 1.94, 1.99)
+sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.0020559846703471097)
+sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.0009237933352257866)
+alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.4633337688156357)
+nL = ROOT.RooRealVar("nL", "nL", 3.288834841411946 )
+alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.46809904158403737 )
+nR = ROOT.RooRealVar("nR", "nR", 2.484224909042432 )
 
-sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.0020598986330294896)
-sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.0011019526659983637)
-alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.46659820895427667)
-nL = ROOT.RooRealVar("nL", "nL", 3.3581013899955474)
-alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.5401012746051619)
-nR = ROOT.RooRealVar("nR", "nR", 2.5530172633763)
 
 # Create double-sided Crystal Ball PDF
 #CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
@@ -220,7 +225,7 @@ data.plotOn(frame, ROOT.RooFit.Name("data1"), ROOT.RooFit.XErrorSize(0))
 
 #model.plotOn(frame, ROOT.RooFit.Name("Signal"),ROOT.RooFit.Components("CB_left"), ROOT.RooFit.LineStyle(ROOT.kDashed), ROOT.RooFit.LineColor(ROOT.kRed))
 model.plotOn(frame, ROOT.RooFit.Name("fitting"))
-
+frame.SetMinimum(0)
 frame.Draw("PE")
 frame.GetXaxis().CenterTitle(True)
 
