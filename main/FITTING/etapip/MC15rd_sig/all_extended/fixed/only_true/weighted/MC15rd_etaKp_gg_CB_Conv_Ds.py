@@ -6,13 +6,13 @@ import math
 import sys
 
 #BDT_cut = sys.argv[1]
-BDT_cut = "0.89"
+BDT_cut = "0.91"
 
 ROOT.gROOT.LoadMacro('/home/jykim/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
-file_name = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_Dp_M_opt_v7_CB_conv_extended_train_Dp_CMS_p_Ds.{BDT_cut}_Ds_correct.png"
-result_name = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p_Ds.{BDT_cut}.weighted.new_Ds_correct.txt"
-fitresult_root = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p_Ds.{BDT_cut}.weighted.new_Ds_correct.root"
+file_name = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_Dp_M_opt_v7_CB_conv_extended_train_Dp_CMS_p_Ds.{BDT_cut}_Ds_correct_only_true.png"
+result_name = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p_Ds.{BDT_cut}.weighted.new_Ds_correct_only_true.txt"
+fitresult_root = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15rd_6M_etapip_gg_K_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p_Ds.{BDT_cut}.weighted.new_Ds_correct_only_true.root"
 
 file_dir = os.path.dirname(file_name)
 result_dir = os.path.dirname(result_name)
@@ -30,8 +30,16 @@ rank_var = tree_name + "_rank"
 truth_var = "Dp_isSignal"
 charge_var = "Pip_charge"
 cuts = rank_var + "==1"
-cuts_Dp = " Pip_charge==1"
-cuts_Dm = " Pip_charge==-1"
+
+etapipi_Eta_isSignal_var = "etapip_Eta_isSignal"
+Pip_genMotherID_var = "Pip_genMotherID"
+etapip_Eta_genMotherID_var =  "etapip_Eta_genMotherID"
+Pip_genMotherPDG_var = "Pip_genMotherPDG"
+Pip_mcPDG_var = "Pip_mcPDG"
+
+cuts_Dp = " Pip_charge==1 & etapip_Eta_isSignal==1 & Pip_genMotherID==etapip_Eta_genMotherID & Pip_genMotherPDG==431 & Pip_mcPDG==321 "
+cuts_Dm = " Pip_charge==-1 & etapip_Eta_isSignal==1 & Pip_genMotherID==etapip_Eta_genMotherID & Pip_genMotherPDG==-431 & Pip_mcPDG==-321 "
+#cuts_Dm = " Pip_charge==-1"
 
 pi0_dphi_var =  "eta_Pi0_daughterDiffOfPhi_0_1"
 pi0_dangle_var =  "eta_Pi0_daughterAngle_0_1"
@@ -45,7 +53,13 @@ truth_var = ROOT.RooRealVar(truth_var, truth_var, 0, 30)
 Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 ds_weight = ROOT.RooRealVar("ds_weight", "ds_weight", -1000, 1000)
 
-full_var_set = ROOT.RooArgSet(x, truth_var, Pip_charge, ds_weight)
+etapipi_Eta_isSignal = ROOT.RooRealVar(etapipi_Eta_isSignal_var, etapipi_Eta_isSignal_var, -1e9, 1e9)
+Pip_genMotherID = ROOT.RooRealVar(Pip_genMotherID_var, Pip_genMotherID_var, -1e9, 1e9)
+etapip_Eta_genMotherID = ROOT.RooRealVar(etapip_Eta_genMotherID_var, etapip_Eta_genMotherID_var, -1e9, 1e9)
+Pip_genMotherPDG = ROOT.RooRealVar(Pip_genMotherPDG_var, Pip_genMotherPDG_var, -1e9, 1e9)
+Pip_mcPDG  = ROOT.RooRealVar(Pip_mcPDG_var, Pip_mcPDG_var, -1e9, 1e9)
+
+full_var_set = ROOT.RooArgSet(x, truth_var, Pip_charge, etapipi_Eta_isSignal, Pip_genMotherID, etapip_Eta_genMotherID, Pip_genMotherPDG, Pip_mcPDG, ds_weight)
 
 
 # Create a TChain and add all ROOT files
