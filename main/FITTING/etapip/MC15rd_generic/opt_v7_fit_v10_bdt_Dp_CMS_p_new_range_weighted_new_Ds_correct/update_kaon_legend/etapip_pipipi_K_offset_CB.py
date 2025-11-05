@@ -14,13 +14,14 @@ parser.add_argument("-s","--sign", choices=["plus", "minus","all"], required=Tru
                     help="Specify 'plus' or 'minus'")
 parser.add_argument("-t","--train", required=True,
                     help="Specify train version")
-parser.add_argument("-b","--bdt", required=True,
-                    help="Specify BDT cut")
+#parser.add_argument("-b","--bdt", required=True,
+#                    help="Specify BDT cut")
 
 args = parser.parse_args()
 print(f"Dp_CMS_sign is set to: {args.sign}")
 
-BDT_cut = args.bdt
+#BDT_cut = args.bdt
+BDT_cut = 0.92
 
 if args.sign == "plus":
 	Dp_CMS_cosTheta_cut = "Dp_CMS_cosTheta>0"
@@ -32,11 +33,12 @@ elif args.sign == "all":
 	Dp_CMS_cosTheta_cut = "Dp_CMS_cosTheta>-10"
 	N_scale = 1
 
-suffix = "new_Ds_correct"
-file_name_Dp = f"/share/storage/jykim/plots/MC15rd/etaKp/pipipi/generic/MC15rd_etaKp_pipipi_fit_opt_loose_v7_fitv8_bdt_{args.train}_Dp_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.png"
-file_name_Dm = f"/share/storage/jykim/plots/MC15rd/etaKp/pipipi/generic/MC15rd_etaKp_pipipi_fit_opt_loose_v7_fitv8_bdt_{args.train}_Dm_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.png"
-fitresult_name = f"/share/storage/jykim/plots/MC15rd/etaKp/pipipi/generic/fitresult/MC15rd_etaKp_pipipi_fit_opt_loose_v7_fitv8_bdt_{args.train}_{args.sign}_{BDT_cut}_{suffix}_weighted.root"
-fitresult_text = f"/share/storage/jykim/plots/MC15rd/etaKp/pipipi/generic/fitresult/MC15rd_etaKp_pipipi_fit_opt_loose_v7_fitv8_bdt_{args.train}_{args.sign}_{BDT_cut}_{suffix}_weighted.txt"
+suffix = "new_Ds_correct_update_legend"
+file_name_Dp = f"/share/storage/jykim/plots/MC15rd/etaKp/pipipi/generic/MC15rd_etaKp_pipipi_fit_opt_loose_v7_fitv10_bdt_{args.train}_Dp_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.png"
+file_name_Dm = f"/share/storage/jykim/plots/MC15rd/etaKp/pipipi/generic/MC15rd_etaKp_pipipi_fit_opt_loose_v7_fitv10_bdt_{args.train}_Dm_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.png"
+file_name_Dall = f"/share/storage/jykim/plots/MC15rd/etaKp/pipipi/generic/MC15rd_etaKp_pipipi_fit_opt_loose_v7_fitv10_bdt_{args.train}_Dall_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.png"
+fitresult_name = f"/share/storage/jykim/plots/MC15rd/etaKp/pipipi/generic/fitresult/MC15rd_etaKp_pipipi_fit_opt_loose_v7_fitv10_bdt_{args.train}_{args.sign}_{BDT_cut}_{suffix}_weighted.root"
+fitresult_text = f"/share/storage/jykim/plots/MC15rd/etaKp/pipipi/generic/fitresult/MC15rd_etaKp_pipipi_fit_opt_loose_v7_fitv10_bdt_{args.train}_{args.sign}_{BDT_cut}_{suffix}_weighted.txt"
 dir_path = os.path.dirname(file_name_Dp)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
@@ -55,10 +57,6 @@ cm_elements = ["15rd_eta_e7_18_4S_v3", "15rd_eta_e20_b26_v1", "15rd_eta_e20_e26_
 tree_name = "etapip_pipipi_K"
 file_list = []
 for element in cm_elements:
-    #pattern = f"{base_path}/{element}/{tree_name}/{args.train}/skimhad/*.BCS.root"
-    #pattern = f"{base_path}/{element}/{tree_name}/train_Dp_dz/skimhad/*.BCS.root"
-    #pattern = f"{base_path}/{element}/{tree_name}/train_Dp_dz/skimhad/re_FoM/*.BCS.root"
-    #pattern = f"{base_path}/{element}/{tree_name}/train_Dp_dz/skimhad/new_FOM/*.BCS.root"
     pattern = f"{base_path}/{element}/{tree_name}/min_unc_search/{BDT_cut}/weighted/*.BCS.root"
     file_list += glob.glob(pattern)
 
@@ -137,7 +135,6 @@ Num_total_cc = data_cc.sumEntries()
 print(Num_total_cc)
 
 N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 1200*scale*N_scale, 0*scale*N_scale, 5000*scale*N_scale)  # N_total = N_D+ + N_D-
-#N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 2000*scale*N_scale, 0*scale*N_scale, 5000*scale*N_scale)  # N_total = N_D+ + N_D-
 Acp = RooRealVar("Acp", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -172,22 +169,52 @@ Nbkg_D_minus = RooFormulaVar("Nbkg_D_minus",
     "0.5 * Nbkg_total * (1 - Acp_bkg)",
     RooArgList(Nbkg_total, Acp_bkg))
 
+f_sig = ROOT.TFile.Open(f"/share/storage/jykim/plots/MC15rd/etaKp/pipipi/MC15re_6M_etapip_pipipi_K_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p.0.92_new_Ds_correct.root")
+result_object_sig = ROOT.gDirectory.Get("jykim")
+f_sig.Close()
+#result_object_sig.Print("v")
+fit_args_sig = result_object_sig.floatParsFinal()
+#const_args_sig = result_object_sig.constPars()
+
+f_sig_Ds = ROOT.TFile.Open(f"/share/storage/jykim/plots/MC15rd/etaKp/pipipi/MC15rd_6M_etapip_pipipi_K_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p_Ds.0.92.new_Ds_correct.weighted.root")
+result_object_sig_Ds = ROOT.gDirectory.Get("jykim")
+f_sig_Ds.Close()
+#result_object_sig_Ds.Print("v")
+fit_args_sig_Ds = result_object_sig_Ds.floatParsFinal()
+
+fit_sigmaL = fit_args_sig.find("sigmaL")
+fit_sigmaR = fit_args_sig.find("sigmaR")
+fit_alphaL = fit_args_sig.find("alphaL")
+fit_nL = fit_args_sig.find("nL")
+fit_alphaR = fit_args_sig.find("alphaR")
+fit_nR = fit_args_sig.find("nR")
+
+fit_Ds_sigmaL = fit_args_sig_Ds.find("sigmaL")
+fit_Ds_sigmaR = fit_args_sig_Ds.find("sigmaR")
+fit_Ds_alphaL = fit_args_sig_Ds.find("alphaL")
+fit_Ds_nL = fit_args_sig_Ds.find("nL")
+fit_Ds_alphaR = fit_args_sig_Ds.find("alphaR")
+fit_Ds_nR = fit_args_sig_Ds.find("nR")
+
+fit_sigma_gaussian = fit_args_sig.find("sigma_gaussian")
+fit_Ds_sigma_gaussian = fit_args_sig_Ds.find("sigma_gaussian")
+
+
+
 mean = ROOT.RooRealVar("mean", "mean", 1.87, 1.85, 1.89)
-sigmaL = ROOT.RooRealVar("sigmaL", "sigmaL",  0.00029663401427537)
-sigmaR = ROOT.RooRealVar("sigmaR", "sigmaR",  0.000021865122321188424)
-alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.26943592921743414)
-nL = ROOT.RooRealVar("nL", "nL",  2.354990833027334)
-alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.029439771951487188)
-nR = ROOT.RooRealVar("nR", "nR", 2.132855619684709)
+sigmaL = ROOT.RooRealVar("sigmaL", "sigma",  fit_sigmaL.getVal())
+sigmaR = ROOT.RooRealVar("sigmaR", "sigma",  fit_sigmaR.getVal())
+alphaL = ROOT.RooRealVar("alphaL", "alphaL", fit_alphaL.getVal())
+nL = ROOT.RooRealVar("nL", "nL",  fit_nL.getVal())
+alphaR = ROOT.RooRealVar("alphaR", "alphaR", fit_alphaR.getVal())
+nR = ROOT.RooRealVar("nR", "nR", fit_nR.getVal())
+sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian",  fit_sigma_gaussian.getVal())
+
 
 # Create double-sided Crystal Ball PDF
-#CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
-CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigmaL,sigmaR, alphaL, nL, alphaR, nR)
+CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigmaL, sigmaR, alphaL, nL, alphaR, nR)
 
-#mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -0.1, 0.1)
 mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0)
-#sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.0008, 0.00001, 0.01)
-sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian",  0.004234386268456962)
 
 scale_factor = ROOT.RooRealVar("scale_factor", "sigma of Gaussian", 1,0,2)
 scaled_sigma_gaussian = RooFormulaVar("scaled_sigma_gaussian",
@@ -195,28 +222,22 @@ scaled_sigma_gaussian = RooFormulaVar("scaled_sigma_gaussian",
     RooArgList(sigma_gaussian, scale_factor))
 
 gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, scaled_sigma_gaussian)
-#gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_gaussian)
-# Convolute the Johnson distribution with Gaussian
-#sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson and Gaussian", x, CB, gaussian)
 sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson and Gaussian", x, CB, gaussian)
 
 Ds_mean = ROOT.RooRealVar("Ds_mean", "mean", 1.97, 1.95, 1.99)
-Ds_sigmaL = ROOT.RooRealVar("Ds_sigmaL", "sigma", 0.005729760586091034)
-Ds_sigmaR = ROOT.RooRealVar("Ds_sigmaR", "sigma", 0.005309382104309244)
-Ds_alphaL = ROOT.RooRealVar("Ds_alphaL", "alphaL",1.5828368281093679)
-Ds_nL = ROOT.RooRealVar("Ds_nL", "nL", 3.137091789353439)
-Ds_alphaR = ROOT.RooRealVar("Ds_alphaR", "alphaR", 1.7221441151113857)
-Ds_nR = ROOT.RooRealVar("Ds_nR", "nR", 2.847491420917265)
+
+Ds_sigmaL = ROOT.RooRealVar("Ds_sigmaL", "sigma", fit_Ds_sigmaL.getVal())
+Ds_sigmaR = ROOT.RooRealVar("Ds_sigmaR", "sigma", fit_Ds_sigmaR.getVal())
+Ds_alphaL = ROOT.RooRealVar("Ds_alphaL", "alphaL", fit_Ds_alphaL.getVal())
+Ds_nL = ROOT.RooRealVar("Ds_nL", "nL", fit_Ds_nL.getVal() )
+Ds_alphaR = ROOT.RooRealVar("Ds_alphaR", "alphaR", fit_Ds_alphaR.getVal() )
+Ds_nR = ROOT.RooRealVar("Ds_nR", "nR", fit_Ds_nR.getVal())
+Ds_sigma_gaussian = ROOT.RooRealVar("Ds_sigma_gaussian", "sigma of Gaussian", fit_Ds_sigma_gaussian.getVal())
 
 # Create double-sided Crystal Ball PDF
-#Ds_CB = ROOT.RooCrystalBall("Ds_CB", "CB_left", x, Ds_mean, Ds_sigma, Ds_alphaL, Ds_nL, Ds_alphaR, Ds_nR)
-Ds_CB = ROOT.RooCrystalBall("Ds_CB", "CB_left", x, Ds_mean, Ds_sigmaL, Ds_sigmaR, Ds_alphaL, Ds_nL, Ds_alphaR, Ds_nR)
-#Ds_CB = ROOT.RooCrystalBall("Ds_CB", "CB_left", x, Ds_mean, sigmaL, sigmaR, alphaL, nL, alphaR, nR)
+Ds_CB = ROOT.RooCrystalBall("Ds_CB", "CB_left", x, Ds_mean, Ds_sigmaL,  Ds_sigmaR, Ds_alphaL, Ds_nL, Ds_alphaR, Ds_nR)
 
-#Ds_mean_gaussian = ROOT.RooRealVar("Ds_mean_gaussian", "mean of Gaussian", 0, -0.1, 0.1)
 Ds_mean_gaussian = ROOT.RooRealVar("Ds_mean_gaussian", "mean of Gaussian", 0)
-#Ds_sigma_gaussian = ROOT.RooRealVar("Ds_sigma_gaussian", "sigma of Gaussian", 0.0009, 0.00001, 0.01)
-Ds_sigma_gaussian = ROOT.RooRealVar("Ds_sigma_gaussian", "sigma of Gaussian", 0.00035932503720405333)
 
 scaled_Ds_sigma_gaussian = RooFormulaVar("Ds_scaled_sigma_gaussian",
     "Ds_sigma_gaussian * scale_factor",
@@ -268,7 +289,7 @@ data_combined = RooDataSet("data_combined", "Combined data", full_var_set,RooFit
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4), RooFit.Strategy(2), RooFit.Minos(0), RooFit.Hesse(1))
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4), RooFit.Strategy(0), RooFit.Minos(0), RooFit.Hesse(1))
 #nll = sim_model.createNLL(data_combined, ROOT.RooFit.Extended(True), ROOT.RooFit.NumCPU(15), RooFit.SumW2Error(True),  ROOT.RooFit.Offset("initial"))
-nll = sim_model.createNLL(data_combined, ROOT.RooFit.Extended(True), ROOT.RooFit.NumCPU(15),   ROOT.RooFit.Offset("initial"))
+nll = sim_model.createNLL(data_combined, ROOT.RooFit.Extended(True), ROOT.RooFit.NumCPU(15),   ROOT.RooFit.Offset("initial") )
 
 # Step 2: Perform the Migrad minimization
 minimizer = ROOT.RooMinimizer(nll)
@@ -333,28 +354,16 @@ frame_D_plus = x.frame(ROOT.RooFit.Title("D+ fit"))
 #simPdf.plotOn(frame1, Slice(sample, "plus"), ProjWData(sample, combData));
 slicedData_Dp = data_combined.reduce(Cut="sample==sample::D_plus")
 slicedData_Dp.plotOn(frame_D_plus, Name="data")
-sim_model.plotOn(frame_D_plus, Name="Background", Components="model_bkg", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kGreen+2, LineStyle=ROOT.kDashDotted)
-#sim_model.plotOn(frame_D_plus, Name="D+",Components="sig_model", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kRed, LineStyle=ROOT.kDashDotted)
-#sim_model.plotOn(frame_D_plus, Name="Ds+",Components="Ds_model", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kBlue+2, LineStyle=ROOT.kDashDotted)
+sim_model.plotOn(frame_D_plus, Name="Background", Components="model_bkg", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kGreen+2)
 sim_model.plotOn(frame_D_plus, Name="Fitting",ProjWData=(cat, slicedData_Dp))
 frame_D_plus.Draw("PE")
 frame_D_plus.GetXaxis().CenterTitle(True)
 
 leg1 = ROOT.TLegend(0.2, 0.65, 0.4, 0.90)
-# leg1.SetFillColor(ROOT.kWhite)
-#leg1.SetFillColor(0)
 leg1.SetFillColorAlpha(ROOT.kWhite, 0)
-
-    # leg1.SetHeader("The Legend title","C")
-leg1.AddEntry("data", "MC", "PE")
-leg1.AddEntry("Fitting", "Fit", "l")
-#leg1.AddEntry("D+", "D^{+}", "l")
-#leg1.AddEntry("Ds+", "D_{s}^{+}", "l")
-leg1.AddEntry("Background", "Bkg", "l")
-
-# leg1.SetTextSize(0.05)
-# leg1.SetTextAlign(13)
-
+leg1.AddEntry("data", "#scale[1.33]{#font[42]{MC}}", "PE")
+leg1.AddEntry("Fitting", "#scale[1.33]{#font[42]{Fit}}", "l")
+leg1.AddEntry("Background", "#scale[1.33]{#font[42]{Combinatorial}}", "l")
 leg1.SetBorderSize(0)
 leg1.Draw()
 
@@ -423,30 +432,16 @@ canvas_D_minus.cd(1)
 frame_D_minus = x.frame(ROOT.RooFit.Title("D+ fit"))
 slicedData_Dm = data_combined.reduce(Cut="sample==sample::D_minus")
 slicedData_Dm.plotOn(frame_D_minus, Name="data")
-sim_model.plotOn(frame_D_minus, Name="Background", Components="model_bkg", ProjWData=(cat, slicedData_Dm),LineColor=ROOT.kGreen+2, LineStyle=ROOT.kDashDotted)
-#sim_model.plotOn(frame_D_minus, Name="D+",Components="sig_model", ProjWData=(cat, slicedData_Dm),LineColor=ROOT.kRed, LineStyle=ROOT.kDashDotted)
-#sim_model.plotOn(frame_D_minus, Name="Ds+",Components="Ds_model", ProjWData=(cat, slicedData_Dm),LineColor=ROOT.kBlue+2, LineStyle=ROOT.kDashDotted)
+sim_model.plotOn(frame_D_minus, Name="Background", Components="model_bkg", ProjWData=(cat, slicedData_Dm),LineColor=ROOT.kGreen+2)
 sim_model.plotOn(frame_D_minus, Name="Fitting",ProjWData=(cat, slicedData_Dm))
 frame_D_minus.Draw("PE")
-# frame_D_minus.GetXaxis().SetRangeUser(plot_x_range[0], plot_x_range[1])
-
 frame_D_minus.GetXaxis().CenterTitle(True)
 
 leg1 = ROOT.TLegend(0.2, 0.65, 0.4, 0.90)
-# leg1.SetFillColor(ROOT.kWhite)
-#leg1.SetFillColor(0)
 leg1.SetFillColorAlpha(ROOT.kWhite, 0)
-
-    # leg1.SetHeader("The Legend title","C")
-leg1.AddEntry("data", "MC", "PE")
-leg1.AddEntry("Fitting", "Fit", "l")
-#leg1.AddEntry("D+", "D^{+}", "l")
-#leg1.AddEntry("Ds+", "D_{s}^{+}", "l")
-leg1.AddEntry("Background", "Bkg", "l")
-
-# leg1.SetTextSize(0.05)
-# leg1.SetTextAlign(13)
-
+leg1.AddEntry("data", "#scale[1.33]{#font[42]{MC}}", "PE")
+leg1.AddEntry("Fitting", "#scale[1.33]{#font[42]{Fit}}", "l")
+leg1.AddEntry("Background", "#scale[1.33]{#font[42]{Combinatorial}}", "l")
 leg1.SetBorderSize(0)
 leg1.Draw()
 
@@ -492,6 +487,83 @@ line2.Draw("SAME")
 
 canvas_D_minus.Update()
 canvas_D_minus.SaveAs(file_name_Dm)
+
+canvas_D_all = ROOT.TCanvas("canvas_D_all", "D+ fit", 800, 600)
+xlow = ctypes.c_double()
+ylow = ctypes.c_double()
+xup = ctypes.c_double()
+yup = ctypes.c_double()
+canvas_D_all.GetPad(0).GetPadPar(xlow, ylow, xup, yup)
+canvas_D_all.Divide(1,2)
+
+xlow = xlow.value
+ylow = ylow.value
+xup = xup.value
+yup = yup.value
+
+upPad = canvas_D_all.GetPad(1)
+upPad.SetPad(xlow, ylow+0.25*(yup-ylow),xup,yup)
+
+dwPad = canvas_D_all.GetPad(2)
+dwPad.SetPad(xlow, ylow,xup,ylow+0.25*(yup-ylow))
+
+canvas_D_all.cd(1)
+
+frame_D_all = x.frame(ROOT.RooFit.Title("D+ fit"))
+frame_D_all.GetXaxis().SetTitle("M(#eta_{3#pi}K^{+}) [GeV/c^{2}]")
+
+data_combined.plotOn(frame_D_all, Name="data")
+sim_model.plotOn(frame_D_all, Name="Background", Components="model_bkg", ProjWData=(cat, data_combined),LineColor=ROOT.kGreen+2)
+sim_model.plotOn(frame_D_all, Name="Fitting",ProjWData=(cat, data_combined))
+frame_D_all.Draw("PE")
+frame_D_all.GetXaxis().CenterTitle(True)
+
+leg1 = ROOT.TLegend(0.2, 0.65, 0.4, 0.90)
+leg1.SetFillColorAlpha(ROOT.kWhite, 0)
+leg1.AddEntry("data", "#scale[1.33]{#font[42]{MC}}", "PE")
+leg1.AddEntry("Fitting", "#scale[1.33]{#font[42]{Fit}}", "l")
+leg1.AddEntry("Background", "#scale[1.33]{#font[42]{Combinatorial}}", "l")
+leg1.SetBorderSize(0)
+leg1.Draw()
+
+hpull = frame_D_all.pullHist()
+hpull.SetFillStyle(1001)
+hpull.SetFillColor(1);
+for i in range(0,hpull.GetN()):#(int i=0;i<hpull.GetN();++i):
+    hpull.SetPointError(i,0.0,0.0,0.0,0.0)
+pullplot = x.frame()
+pullplot.SetTitle("")
+pullplot.addPlotable(hpull,"BE")
+pullplot.SetYTitle("Pull")
+pullplot.GetXaxis().SetTitleSize(0)
+pullplot.GetYaxis().SetTitleSize(0.22)
+pullplot.GetYaxis().CenterTitle(True)
+pullplot.GetYaxis().SetTitleOffset(0.2)
+pullplot.SetMinimum(-5.)
+pullplot.SetMaximum(5.)
+pullplot.GetXaxis().SetLabelSize(0.15)
+pullplot.GetYaxis().SetLabelSize(0.105)
+canvas_D_all.cd(2)
+pullplot.Draw()
+
+xmin1 = ctypes.c_double(fit_range[0])
+xmax1 = ctypes.c_double(fit_range[1])
+line = ROOT.TLine(xmin1,0.0,xmax1,0.0)
+line1 = ROOT.TLine(xmin1,3.0,xmax1,3.0)
+line2 = ROOT.TLine(xmin1,-3.0,xmax1,-3.0)
+
+line.SetLineColor(ROOT.kGray+1)
+line.SetLineWidth(3)
+line1.SetLineColor(ROOT.kBlack)
+line2.SetLineColor(ROOT.kGray+1)
+line1.SetLineStyle(2)
+line2.SetLineStyle(2)
+line.Draw("SAME")
+line1.Draw("SAME")
+line2.Draw("SAME")
+
+canvas_D_all.Update()
+canvas_D_all.SaveAs(file_name_Dall)
 
 f = ROOT.TFile(fitresult_name, "RECREATE")
 fit_result.Write("jykim")

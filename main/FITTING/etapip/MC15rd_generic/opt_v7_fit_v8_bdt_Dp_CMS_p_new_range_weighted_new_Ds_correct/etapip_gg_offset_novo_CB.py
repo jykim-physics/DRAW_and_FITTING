@@ -171,8 +171,8 @@ data_cc = ROOT.RooDataSet("data_weighted_cc", "Weighted Data", before_data_cc, b
 Num_total_cc = data_cc.sumEntries()
 print(Num_total_cc)
 
-N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 110000*scale*N_scale, 50000*scale*N_scale, 200000*scale*N_scale)  # N_total = N_D+ + N_D-
-#N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 90000*scale*N_scale, scale*N_scale*corresponding_Nscale, scale*N_scale*corresponding_Nscale2)  # N_total = N_D+ + N_D-
+#N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 110000*scale*N_scale, 50000*scale*N_scale, 200000*scale*N_scale)  # N_total = N_D+ + N_D-
+N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 70000*scale*N_scale, 30000*scale*N_scale, 200000*scale*N_scale)  # N_total = N_D+ + N_D-
 Acp = RooRealVar("Acp", "Acp", 0, -0.2, 0.2)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -184,8 +184,8 @@ Nsig_D_minus = RooFormulaVar("Nsig_D_minus",
     "0.5 * N_total * (1 - Acp)",
     RooArgList(N_total, Acp))
 
-N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 210000*scale*N_scale, 80000*scale*N_scale, 520000*scale*N_scale)  # N_total = N_D+ + N_D-
-#N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 160000*scale*N_scale, scale*N_scale*corresponding_Nscale3, scale*N_scale*corresponding_Nscale4)  # N_total = N_D+ + N_D-
+#N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 210000*scale*N_scale, 80000*scale*N_scale, 520000*scale*N_scale)  # N_total = N_D+ + N_D-
+N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 150000*scale*N_scale, 80000*scale*N_scale, 520000*scale*N_scale)  # N_total = N_D+ + N_D-
 Acp_Ds = RooRealVar("Acp_Ds", "Acp", 0, -0.2, 0.2)  # A_Cp as a fit parameter
 
 # Use Acp and N_total to define the expected signal yields for D+ and D-
@@ -198,9 +198,8 @@ Nsig_Ds_minus = RooFormulaVar("Nsig_Ds_minus",
     RooArgList(N_total_Ds, Acp_Ds))
 
 
-#Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 480000*scale*N_scale, 250000*scale*N_scale,1000000*scale*N_scale)
-Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 600000*scale*N_scale, 100000*scale*N_scale,1000000*scale*N_scale)
-#Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 300000*scale*N_scale, scale*N_scale*corresponding_Nscale5,scale*N_scale*corresponding_Nscale6)
+#Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 600000*scale*N_scale, 100000*scale*N_scale,1000000*scale*N_scale)
+Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 300000*scale*N_scale, 100000*scale*N_scale,1000000*scale*N_scale)
 Acp_bkg = RooRealVar("Acp_bkg", "Acp", 0, -0.2, 0.2)  # A_Cp as a fit parameter
 Nbkg_D_plus = RooFormulaVar("Nbkg_D_plus",
     "0.5 * Nbkg_total * (1 + Acp_bkg)",

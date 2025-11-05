@@ -3,12 +3,14 @@ import os
 import fnmatch
 
 
-gg_or_pipipi = "pipipi"
-#gg_or_pipipi = "gg"
+#gg_or_pipipi = "pipipi"
+gg_or_pipipi = "gg"
 Kp_or_pip = "pip"
 #Kp_or_pip = "Kp"
 input_dir = f"/share/storage/jykim/plots/MC15rd/eta{Kp_or_pip}/{gg_or_pipipi}/generic/fitresult/"
 output_file = f"fitv8_results_MC15rd_{Kp_or_pip}_{gg_or_pipipi}.txt"
+#output_file = f"test.txt"
+#output_file = f"fitv10_results_MC15rd_{Kp_or_pip}_{gg_or_pipipi}.txt"
 
 max_acp_ratio = max_acp_ds_ratio = max_n_total_ratio = max_n_total_ds_ratio = -1
 min_acp_error = min_acp_ds_error = float('inf')
@@ -24,6 +26,7 @@ root_files = []
 # Regular expression to match filenames with two decimal places after the "0."
 #pattern = f"MC15rd_eta{Kp_or_pip}_{gg_or_pipipi}_fit_opt_loose_v7_fitv1_bdt_train_Dp_CMS_p_all_0\.\d{{2}}\.root"
 pattern = f"MC15rd_eta{Kp_or_pip}_{gg_or_pipipi}_fit_opt_loose_v7_fitv8_bdt_train_Dp_CMS_p_all_0.[0-9][0-9]_new_Ds_correct_weighted.root"
+#pattern = f"MC15rd_eta{Kp_or_pip}_{gg_or_pipipi}_fit_opt_loose_v7_fitv10_bdt_train_Dp_CMS_p_all_0.[0-9][0-9]_new_Ds_correct_weighted.root"
 
 for root_file in os.listdir(input_dir):
     if fnmatch.fnmatch(root_file, pattern):
