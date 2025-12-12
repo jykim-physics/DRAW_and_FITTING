@@ -1,0 +1,17 @@
+jykim@login-0-1:~/DRAW_and_FITTING/main/ANALYSIS/BCS_eff:> python3 run_Dsp.py
+=== Weighted BCS Performance Metrics (Method A) ===
+1. Multi-Candidate Event Fraction (%)       : 2.01
+2. Signal Contained in Multi-Cands (%)      : 98.34
+3. Signal Chosen Among Multi-Cands (%)      : 81.47
+4. Overall BCS Efficiency (%)               : 99.53
+
+
+jykim@login-0-1:~/DRAW_and_FITTING/main/ANALYSIS/BCS_eff:> python3 run_Dsp_chiProb.py
+=== Weighted BCS Performance Metrics (Ds, chiProb-based, pick: highest) ===
+1. Multi-Candidate Event Fraction (%)       : 2.00
+2. Signal Contained in Multi-Cands (%)      : 98.34
+3. Signal Chosen Among Multi-Cands (%)      : 64.24
+4. Overall BCS Efficiency (%)               : 99.23
+
+[CHECK] multi_cand_fraction vs histogram (weighted)
+metric=1.998534  hist=1.998534  diff=0.000001

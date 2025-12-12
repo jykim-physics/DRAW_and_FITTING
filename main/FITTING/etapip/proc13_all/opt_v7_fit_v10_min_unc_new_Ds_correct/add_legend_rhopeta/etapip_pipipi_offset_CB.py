@@ -357,6 +357,31 @@ N_total_error = N_total.getError()
 
 print(f"N_total = {N_total_value:.0f} ± {N_total_error:.3f}")
 
+def add_lumi_prelim(canvas, lumi_fb=428, left_text="#splitline{#font[62]{Belle II}}{#font[52]{Preliminary}}"):
+    # top pad = pad(1) (your canvas is divided into 2 pads: 1=plot, 2=pull)
+    canvas.cd(1)
+
+    # left label (Belle II Preliminary)
+    latex_left = ROOT.TLatex()
+    latex_left.SetNDC(True)
+    latex_left.SetTextFont(62)     # bold
+    latex_left.SetTextSize(0.042)  # adjust if needed
+    latex_left.SetTextAlign(13)    # left-top
+    latex_left.DrawLatex(0.79, 0.90, left_text)
+
+    # right label (integrated luminosity)
+    latex_right = ROOT.TLatex()
+    latex_right.SetNDC(True)
+    #latex_right.SetTextFont(42)
+    latex_right.SetTextSize(0.042)
+    latex_right.SetTextAlign(13)   # right-top
+    latex_right.DrawLatex(0.79, 0.80, f"#int L dt = {lumi_fb} fb^{{-1}}")
+
+    # keep references to avoid GC before SaveAs
+    if not hasattr(canvas, "_labels"):
+        canvas._labels = []
+    canvas._labels.extend([latex_left, latex_right])
+
 # Create plots for D+ and D-
 canvas_D_plus = ROOT.TCanvas("canvas_D_plus", "D+ fit", 800, 600)
 xlow = ctypes.c_double()
@@ -456,6 +481,8 @@ line.Draw("SAME")
 line1.Draw("SAME")
 line2.Draw("SAME")
 
+canvas_D_plus.Update()
+add_lumi_prelim(canvas_D_plus, lumi_fb=428)
 canvas_D_plus.Update()
 canvas_D_plus.SaveAs(file_name_Dp)
 
@@ -559,6 +586,8 @@ line1.Draw("SAME")
 line2.Draw("SAME")
 
 canvas_D_minus.Update()
+add_lumi_prelim(canvas_D_minus, lumi_fb=428)
+canvas_D_minus.Update()
 canvas_D_minus.SaveAs(file_name_Dm)
 
 canvas_D_all = ROOT.TCanvas("canvas_D_all", "D+ fit", 800, 600)
@@ -657,6 +686,8 @@ line.Draw("SAME")
 line1.Draw("SAME")
 line2.Draw("SAME")
 
+canvas_D_all.Update()
+add_lumi_prelim(canvas_D_all, lumi_fb=428)
 canvas_D_all.Update()
 canvas_D_all.SaveAs(file_name_Dall)
 

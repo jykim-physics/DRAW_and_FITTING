@@ -1,0 +1,23 @@
+jykim@login-0-1:~/DRAW_and_FITTING/main/ANALYSIS/BCS_eff:> python3 run_Dp.py
+=== BCS Performance Metrics ===
+1. Multi-Candidate Event Fraction (%)       : 5.56
+2. Signal Contained in Multi-Cands (%)      : 92.88
+3. Signal Chosen Among Multi-Cands (%)      : 69.67
+4. Overall BCS Efficiency (%)               : 98.38
+
+
+jykim@login-0-0:~/DRAW_and_FITTING/main/ANALYSIS/BCS_eff:> python3 run_Dp_chiProb.py
+=== BCS Performance Metrics (chiProb-based, pick: highest) ===
+1. Multi-Candidate Event Fraction (%)       : 5.56
+2. Signal Contained in Multi-Cands (%)      : 92.88
+3. Signal Chosen Among Multi-Cands (%)      : 75.90
+4. Overall BCS Efficiency (%)               : 98.57
+multi_cand_fraction (earlier): 5.557076
+multi_cand_fraction (from hist): 5.442111
+abs diff: 0.11496527880132845
+[CHECK] 이벤트 내 multiplicity가 서로 다른 경우: 550
+[CHECK] 해당 이벤트가 모두 NaN인 경우: 0
+[CHECK] multi_cand_fraction (exact)        : 5.557076
+[CHECK] multi_cand_fraction (from bins)    : 5.557076
+[CHECK] abs diff                           : 0.000000
+[INFO] Saved histogram as 'multiplicity_hist.png'

@@ -16,16 +16,18 @@ import sys
 base_path = "/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC"
 tree_name = "etapip_gg"
 elements = ["Dptoetapip_gg", "Dptoetapip_gg_cc"]
-BDT_cut = 0.83
-tree_name = "etapip_pipipi"
-elements = ["Dptoetapip_pipipi", "Dptoetapip_pipipi_cc"]
-BDT_cut = 0.74
-tree_name = "etapip_gg_K"
-elements = ["DptoetaKp_gg", "DptoetaKp_gg_cc"]
 BDT_cut = 0.91
-tree_name = "etapip_pipipi_K"
-elements = ["DptoetaKp_pipipi", "DptoetaKp_pipipi_cc"]
-BDT_cut = 0.92
+#BDT_cut = 0.83
+#tree_name = "etapip_pipipi"
+#elements = ["Dptoetapip_pipipi", "Dptoetapip_pipipi_cc"]
+#BDT_cut = 0.74
+#BDT_cut = 0.92
+#tree_name = "etapip_gg_K"
+#elements = ["DptoetaKp_gg", "DptoetaKp_gg_cc"]
+#BDT_cut = 0.91
+#tree_name = "etapip_pipipi_K"
+#elements = ["DptoetaKp_pipipi", "DptoetaKp_pipipi_cc"]
+#BDT_cut = 0.92
 
 Dp_M_range = "Dp_M > 0"
 #Dp_M_range = "Dp_M > 1.78 and Dp_M < 1.94"
@@ -35,13 +37,18 @@ Dp_M_range = "Dp_M > 0"
 #BDT_cut = 0.74
 
 file_list = []
-for element in elements:
-    pattern = f"{base_path}/{element}/250216_loose_v7/{tree_name}/no_BCS/{BDT_cut}/*.no_BCS.root"
-    file_list += glob.glob(pattern)
+if tree_name == "etapip_gg_K" or tree_name == "etapip_pipipi_K":
+    for element in elements:
+        pattern = f"{base_path}/{element}/250216_loose_v7/{tree_name}/no_BCS/{BDT_cut}/*.no_BCS.root"
+        file_list += glob.glob(pattern)
+elif tree_name == "etapip_gg" or tree_name == "etapip_pipipi":
+    for element in elements:
+        pattern = f"{base_path}/{element}/250216_loose_v7/{tree_name}/ref/no_BCS/{BDT_cut}/*.no_BCS.root"
+        file_list += glob.glob(pattern)
 # Initialize an empty list to hold DataFrames
 dataframes = []
 branches_all = ["__experiment__", "__run__", "__event__", "__production__",\
-             'multiplicity','Dp_isSignal','rank', 'Dp_M']
+             'multiplicity','Dp_isSignal','rank', 'Dp_M', 'Dp_chiProb']
 # Process each file
 for file_name in file_list:
     # Load the ROOT file and tree
