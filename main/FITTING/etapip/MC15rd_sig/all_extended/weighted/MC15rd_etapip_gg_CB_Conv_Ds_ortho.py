@@ -1,0 +1,306 @@
+import ROOT
+import glob
+import ctypes
+import os
+import math
+
+ROOT.gROOT.LoadMacro('/home/jykim/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
+ROOT.SetBelle2Style()
+file_name = "/share/storage/jykim/plots/MC15rd/etapip/gg/MC15rd_6M_etapip_gg_Dp_M_opt_v7_CB_conv_ortho_extended_train_Dp_CMS_p_Ds.0.83.new_Ds_correct.png"
+result_name = "/share/storage/jykim/plots/MC15rd/etapip/gg/MC15rd_6M_etapip_gg_Dp_M_opt_v7_CB_conv_ortho_result_extended_train_Dp_CMS_p_Ds.0.83.new_Ds_correct.txt"
+fitresult_root = "/share/storage/jykim/plots/MC15rd/etapip/gg/MC15rd_6M_etapip_gg_Dp_M_opt_v7_CB_conv_ortho_result_extended_train_Dp_CMS_p_Ds.0.83.new_Ds_correct.root"
+
+file_dir = os.path.dirname(file_name)
+result_dir = os.path.dirname(result_name)
+os.makedirs(file_dir, exist_ok=True)
+os.makedirs(result_dir, exist_ok=True)
+
+# Get the tree from the file
+tree_name = "etapip_gg"
+
+# Define fitting variable and its range
+fit_variable = "Dp_M"
+fit_var_name = "M(#eta_{#gamma#gamma}#pi^{+}) [GeV/c^{2}]"
+fit_range = (1.88, 2.04)
+rank_var = tree_name + "_rank"
+truth_var = "Dp_isSignal"
+charge_var = "Pip_charge"
+cuts = rank_var + "==1"
+cuts_Dp = " Pip_charge==1"
+cuts_Dm = " Pip_charge==-1"
+
+pi0_dphi_var =  "eta_Pi0_daughterDiffOfPhi_0_1"
+pi0_dangle_var =  "eta_Pi0_daughterAngle_0_1"
+g1_p_var = "etapip_pi0_gamma1_p"
+g2_p_var = "etapip_pi0_gamma2_p"
+
+# Create a RooRealVar for the fitting variable
+x = ROOT.RooRealVar(fit_variable, fit_var_name, fit_range[0], fit_range[1])
+chiProb_rank = ROOT.RooRealVar(rank_var, rank_var, 0, 30)
+truth_var = ROOT.RooRealVar(truth_var, truth_var, 0, 30)
+Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
+ds_weight = ROOT.RooRealVar("ds_weight", "ds_weight", -1000, 1000)
+
+full_var_set = ROOT.RooArgSet(x, truth_var, Pip_charge, ds_weight)
+
+
+# Create a TChain and add all ROOT files
+mychain = ROOT.TChain(tree_name)
+mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_gg/250216_loose_v7/etapip_gg/min_unc_search/new_Ds_v2/0.83/weighted/*BCS.root")
+
+tree_name_cc = "etapip_gg"
+mychain_cc = ROOT.TChain(tree_name_cc)
+mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_gg_cc/250216_loose_v7/etapip_gg/min_unc_search/new_Ds_v2/0.83/weighted/*BCS.root")
+
+
+# data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")
+print(cuts)
+#before_data = ROOT.RooDataSet("data","", mychain, ROOT.RooArgSet(x,truth_var, Pip_charge), cuts_Dp)
+
+
+#w_1 = ROOT.RooRealVar('w_1', 'w', 0,1)
+#w_1.setVal(1)
+#before_data.addColumn(w_1)
+#data = ROOT.RooDataSet(before_data.GetName(), before_data.GetTitle(),before_data, before_data.get(), '' ,  'w_1')
+
+before_data = ROOT.RooDataSet("data", "", mychain, full_var_set, cuts_Dp)
+#scale = 1/4
+scale = 1
+w_scaled = ROOT.RooFormulaVar("w_scaled", "Scaled Weight", f"{scale}*ds_weight", ROOT.RooArgList(ds_weight))
+before_data.addColumn(w_scaled)
+
+data = ROOT.RooDataSet("data_weighted", "Weighted Data", before_data, before_data.get(), "", "w_scaled")
+
+#before_data_cc = ROOT.RooDataSet("data_cc","", mychain_cc, ROOT.RooArgSet(x,truth_var, Pip_charge), cuts_Dm)
+#before_data_cc.addColumn(w_1)
+#data_cc = ROOT.RooDataSet(before_data_cc.GetName(), before_data_cc.GetTitle(),before_data_cc, before_data_cc.get(), '' ,  'w_1')
+
+before_data_cc = ROOT.RooDataSet("data", "", mychain_cc, full_var_set, cuts_Dm)
+before_data_cc.addColumn(w_scaled)
+data_cc = ROOT.RooDataSet("data_weighted_cc", "Weighted Data", before_data_cc, before_data_cc.get(), "", "w_scaled")
+
+data.append(data_cc)
+
+N_total = data.sumEntries()
+print(N_total)
+
+N_signal = ROOT.RooRealVar("N_signal", "Number of signal events", N_total, 0.5*N_total, 1.2*N_total)  # Initial guess and bounds
+
+
+mean = ROOT.RooRealVar("mean", "mean", 1.96, 1.9, 2.0)
+sigma = ROOT.RooRealVar("sigma", "sigma", 0.001, 0.0001, 0.01)
+nL = ROOT.RooRealVar("nL", "nL", 4.0, 0.0, 5.0)
+nR = ROOT.RooRealVar("nR", "nR", 3.0, 0.0, 5.0)
+alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.5, 0.01, 3.0)
+alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.3, 0.01, 3.0)
+# 1. 새로운 파라미터 정의 (Orthogonal parameters)
+# sigma_bulk: 전체적인 폭 (기존 sigmaL 근처 값으로 초기화)
+sigma_bulk = ROOT.RooRealVar("sigma_bulk", "Bulk Width", 0.002, 0.0001, 0.01)
+
+# sigma_ratio: 좌우 비대칭 비율 (1.0 = 대칭, >1 = 오른쪽이 더 넓음)
+sigma_ratio = ROOT.RooRealVar("sigma_ratio", "Width Ratio (R/L)", 1.5, 0.1, 5.0)
+
+# 2. 기존 sigmaL, sigmaR을 수식(Formula)으로 연결
+# sigmaL은 sigma_bulk 그대로 사용 (혹은 sigma_bulk / sqrt(ratio) 등 취향에 따라)
+sigmaL_new = ROOT.RooFormulaVar("sigmaL_new", "@0", ROOT.RooArgList(sigma_bulk))
+
+# sigmaR은 sigma_bulk * sigma_ratio
+sigmaR_new = ROOT.RooFormulaVar("sigmaR_new", "@0*@1", ROOT.RooArgList(sigma_bulk, sigma_ratio))
+
+# 3. PDF 생성 시 수식 변수 사용
+# 주의: 사용하시는 RooCrystalBall이 정말 2개의 Sigma를 받는지 확인 필요 (아래 주의사항 참고)
+CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigmaL_new, sigmaR_new, alphaL, nL, alphaR, nR)
+
+# Create double-sided Crystal Ball PDF
+#CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
+#CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigmaL, sigmaR, alphaL, nL, alphaR, nR)
+
+
+#mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
+mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0)
+mean_gaussian.setConstant(True)
+sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.008, 0.0001, 0.05)
+# Create a Gaussian distribution
+gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_gaussian)
+
+# Convolute the Johnson distribution with Gaussian
+model = ROOT.RooFFTConvPdf("CB_left", "Convolution of Johnson and Gaussian", x, CB, gaussian)
+
+extended_signal_model = ROOT.RooAddPdf(
+    "extended_signal_model",
+    "Extended Signal Model",
+    ROOT.RooArgList(model),
+    ROOT.RooArgList(N_signal)
+)
+
+
+# Define parameters for the 1st-order polynomial PDF
+a0 = ROOT.RooRealVar("a0", "a0", 0.0, -1.0, 1.0)
+a1 = ROOT.RooRealVar("a1", "a1", 0.0, -1.0, 1.0)
+
+# Create 1st-order polynomial PDF
+polynomial = ROOT.RooPolynomial("polynomial", "polynomial", x, ROOT.RooArgList(a0, a1))
+
+# Combine the two PDFs
+fraction = ROOT.RooRealVar("fraction", "fraction", 0.5, 0.0, 1.0)
+#model = ROOT.RooAddPdf("model", "model", ROOT.RooArgList(CB_left, polynomial), ROOT.RooArgList(fraction))
+#model = CB_lef
+
+# Perform the fit
+#result = model.fitTo(data, ROOT.RooFit.Range(fit_range[0], fit_range[1]), ROOT.RooFit.NumCPU(4), ROOT.RooFit.Save())
+#result.Print()
+
+result = extended_signal_model.fitTo(
+    data,
+    ROOT.RooFit.Extended(True),  # Enable extended likelihood fit
+    ROOT.RooFit.Range(fit_range[0], fit_range[1]),
+    ROOT.RooFit.NumCPU(8),
+    ROOT.RooFit.Save(),
+    ROOT.RooFit.Offset(True),
+    ROOT.RooFit.Strategy(2),
+    ROOT.RooFit.SumW2Error(1),
+    #ROOT.RooFit.Hesse(1)
+)
+result.Print()
+
+f = ROOT.TFile(fitresult_root, "RECREATE")
+result.Write("jykim")
+f.Close()
+
+fitted_N_signal = N_signal.getVal()
+total_signal_events =  6*1e6
+signal_efficiency = fitted_N_signal / total_signal_events
+
+def calculate_sig_eff_err(eff, N_gen):
+
+    error = math.sqrt(eff * (1 - eff) / N_gen)
+    return error
+
+# Open a text file in write mode
+with open(result_name, "w") as f:
+
+    # Print the full fit result to the file
+    f.write("Full fit result summary:\n")
+    result.Print("v")  # Verbose print (prints more details)
+
+    # Alternatively, write specific attributes to the file
+    f.write("\nSpecific fit result details:\n")
+    f.write(f"Status: {result.status()}\n")
+    f.write(f"Covariance quality: {result.covQual()}\n")
+    f.write(f"EDM (Estimated Distance to Minimum): {result.edm()}\n")
+    f.write(f"Min NLL: {result.minNll()}\n")
+
+    # Access and write parameter values and errors to the file
+    f.write("\nFitted Parameters:\n")
+    params = result.floatParsFinal()  # This returns the final fitted parameters
+    for i in range(params.getSize()):
+        param = params[i]
+        f.write(f"{param.GetName()} = {param.getVal()} ± {param.getError()}, Err/Val = {param.getError()/param.getVal()*100:.4f}%\n")
+
+    f.write(f"Fitted number of signal events: {fitted_N_signal}\n")
+    f.write(f"Total number of signal events in dataset: {total_signal_events}\n")
+    f.write(f"Signal efficiency: {signal_efficiency:.6f}\n")
+    f.write(f"Signal efficiency stats. error: {calculate_sig_eff_err(signal_efficiency,total_signal_events):.8f}\n")
+
+    f.write(f"Counting Signal efficiency: {N_total/total_signal_events:.6f}\n")
+
+    # Optionally print a completion message
+    f.write("\nFit result saved successfully.\n")
+
+# Plot the result
+#canvas = ROOT.TCanvas("canvas", "canvas", 800, 555)
+canv = ROOT.TCanvas("canvas", "canvas", 700, 640)
+xlow = ctypes.c_double()
+ylow = ctypes.c_double()
+xup = ctypes.c_double()
+yup = ctypes.c_double()
+
+canv.GetPad(0).GetPadPar(xlow, ylow, xup, yup)
+canv.Divide(1,2)
+
+xlow = xlow.value
+ylow = ylow.value
+xup = xup.value
+yup = yup.value
+
+upPad = canv.GetPad(1)
+upPad.SetPad(xlow, ylow+0.25*(yup-ylow),xup,yup)
+
+dwPad = canv.GetPad(2)
+dwPad.SetPad(xlow, ylow,xup,ylow+0.25*(yup-ylow))
+
+canv.cd(1)
+frame = x.frame()
+
+#frame.GetYaxis().SetTitleOffset(0.2)
+
+data.plotOn(frame, ROOT.RooFit.Name("data1"), ROOT.RooFit.XErrorSize(0))
+
+
+#model.plotOn(frame, ROOT.RooFit.Name("Signal"),ROOT.RooFit.Components("CB_left"), ROOT.RooFit.LineStyle(ROOT.kDashed), ROOT.RooFit.LineColor(ROOT.kRed))
+model.plotOn(frame, ROOT.RooFit.Name("fitting"))
+frame.SetMinimum(0)
+frame.Draw("PE")
+frame.GetXaxis().CenterTitle(True)
+
+leg1 = ROOT.TLegend(0.68, 0.65, 0.93, 0.9)
+# leg1.SetFillColor(ROOT.kWhite)
+leg1.SetFillColor(0)
+
+    # leg1.SetHeader("The Legend title","C")
+leg1.AddEntry("data1", "MC", "PE")
+leg1.AddEntry("fitting", "Fit", "l")
+#leg1.AddEntry("Signal", "Signal", "l")
+# leg1.AddEntry("fitx_bkg3", "bkg3", "l")
+
+# leg1.SetTextSize(0.05)
+# leg1.SetTextAlign(13)
+
+leg1.SetBorderSize(0)
+leg1.Draw()
+
+hpull = frame.pullHist()
+hpull.SetFillStyle(1001)
+hpull.SetFillColor(1);
+for i in range(0,hpull.GetN()):#(int i=0;i<hpull.GetN();++i):
+    hpull.SetPointError(i,0.0,0.0,0.0,0.0)
+pullplot = x.frame()
+pullplot.SetTitle("")
+pullplot.addPlotable(hpull,"BE")
+    # pullplot.addPlotable(hpull,"PE")
+
+pullplot.SetYTitle("Pull")
+pullplot.GetXaxis().SetTitleSize(0)
+pullplot.GetYaxis().SetTitleSize(0.22)
+pullplot.GetYaxis().CenterTitle(True)
+pullplot.GetYaxis().SetTitleOffset(0.2)
+pullplot.SetMinimum(-4.)
+pullplot.SetMaximum(4.)
+pullplot.GetXaxis().SetLabelSize(0.15)
+pullplot.GetYaxis().SetLabelSize(0.105)
+canv.cd(2)
+pullplot.Draw()
+
+xmin1 = ctypes.c_double(fit_range[0])
+xmax1 = ctypes.c_double(fit_range[1])
+line = ROOT.TLine(xmin1,0.0,xmax1,0.0)
+line1 = ROOT.TLine(xmin1,3.0,xmax1,3.0)
+line2 = ROOT.TLine(xmin1,-3.0,xmax1,-3.0)
+
+line.SetLineColor(ROOT.kGray+1)
+line.SetLineWidth(3)
+line1.SetLineColor(ROOT.kBlack)
+line2.SetLineColor(ROOT.kGray+1)
+line1.SetLineStyle(2)
+line2.SetLineStyle(2)
+line.Draw("SAME")
+line1.Draw("SAME")
+line2.Draw("SAME")
+
+canv.Update()
+
+canv.Draw()
+canv.SaveAs(file_name)
+
+# Save the final figure as .png
+#canv.SaveAs("fit_result_with_pull.png")

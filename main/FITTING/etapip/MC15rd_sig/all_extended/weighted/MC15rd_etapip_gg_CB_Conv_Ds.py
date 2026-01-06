@@ -46,11 +46,13 @@ full_var_set = ROOT.RooArgSet(x, truth_var, Pip_charge, ds_weight)
 
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
-mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_gg/250216_loose_v7/etapip_gg/min_unc_search/new_Ds_v2/0.83/weighted/*BCS.root")
+#mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_gg/250216_loose_v7/etapip_gg/min_unc_search/new_Ds_v2/0.83/weighted/*BCS.root")
+mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_gg/250216_loose_v7/etapip_gg/min_unc_search/new_Ds_v2/0.83/weighted_251229_noscale/*BCS.root")
 
 tree_name_cc = "etapip_gg"
 mychain_cc = ROOT.TChain(tree_name_cc)
-mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_gg_cc/250216_loose_v7/etapip_gg/min_unc_search/new_Ds_v2/0.83/weighted/*BCS.root")
+#mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_gg_cc/250216_loose_v7/etapip_gg/min_unc_search/new_Ds_v2/0.83/weighted/*BCS.root")
+mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_gg_cc/250216_loose_v7/etapip_gg/min_unc_search/new_Ds_v2/0.83/weighted_251229_noscale/*BCS.root")
 
 
 # data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")
@@ -84,8 +86,7 @@ data.append(data_cc)
 N_total = data.sumEntries()
 print(N_total)
 
-N_signal = ROOT.RooRealVar("N_signal", "Number of signal events", N_total, 0.5*N_total, 1.2*N_total)  # Initial guess and bounds
-
+N_signal = ROOT.RooRealVar("N_signal", "Number of signal events", N_total, 0.8*N_total, 1.2*N_total)  # Initial guess and bounds
 
 mean = ROOT.RooRealVar("mean", "mean", 1.96, 1.9, 2.0)
 sigma = ROOT.RooRealVar("sigma", "sigma", 0.001, 0.0001, 0.01)
@@ -103,7 +104,9 @@ CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigmaL, sigmaR, alphaL, nL, a
 
 #mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
 mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0)
+mean_gaussian.setConstant(True)
 sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.008, 0.0001, 0.05)
+
 # Create a Gaussian distribution
 gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_gaussian)
 
@@ -141,7 +144,9 @@ result = extended_signal_model.fitTo(
     ROOT.RooFit.NumCPU(8),
     ROOT.RooFit.Save(),
     ROOT.RooFit.Offset(True),
-    ROOT.RooFit.Strategy(1)
+    ROOT.RooFit.Strategy(1),
+    ROOT.RooFit.SumW2Error(1),
+    #ROOT.RooFit.Hesse(1)
 )
 result.Print()
 

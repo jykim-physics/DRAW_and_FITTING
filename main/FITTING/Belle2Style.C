@@ -97,8 +97,8 @@ TStyle* Belle2Style()
   belle2Style->SetOptFit(0);
 
   // put tick marks on top and RHS of plots
-  belle2Style->SetPadTickX(0);
-  belle2Style->SetPadTickY(0);
+  belle2Style->SetPadTickX(1);
+  belle2Style->SetPadTickY(1);
 
   belle2Style->SetFrameLineWidth(2);
     

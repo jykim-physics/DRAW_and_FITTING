@@ -32,11 +32,11 @@ elif args.sign == "all":
 	N_scale = 1
 
 suffix = "new_Ds_correct"
-file_name_Dp = f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/MC15rd_etapip_pipipi_ref_bdt_fit_opt_loose_v7_fitv10_bdt_{args.train}_Dp_CMS_{args.sign}_{BDT_cut}_weighted.png"
-file_name_Dm = f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/MC15rd_etapip_pipipi_ref_bdt_fit_opt_loose_v7_fitv10_bdt_{args.train}_Dm_CMS_{args.sign}_{BDT_cut}_weighted.png"
-file_name_Dall = f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/MC15rd_etapip_pipipi_ref_bdt_fit_opt_loose_v7_fitv10_bdt_{args.train}_Dall_CMS_{args.sign}_{BDT_cut}_weighted.png"
-fitresult_name = f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/fitresult/MC15rd_etapip_pipipi_ref_bdt_fit_opt_loose_v7_fitv10_bdt_{args.train}_{args.sign}_{BDT_cut}_weighted.root"
-fitresult_text = f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/fitresult/MC15rd_etapip_pipipi_ref_bdt_fit_opt_loose_v7_fitv10_bdt_{args.train}_{args.sign}_{BDT_cut}_weighted.txt"
+file_name_Dp = f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/MC15rd_etapip_pipipi_ref_bdt_fit_opt_loose_v7_fitv10_bdt_{args.train}_Dp_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.png"
+file_name_Dm = f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/MC15rd_etapip_pipipi_ref_bdt_fit_opt_loose_v7_fitv10_bdt_{args.train}_Dm_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.png"
+file_name_Dall = f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/MC15rd_etapip_pipipi_ref_bdt_fit_opt_loose_v7_fitv10_bdt_{args.train}_Dall_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.png"
+fitresult_name = f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/fitresult/MC15rd_etapip_pipipi_ref_bdt_fit_opt_loose_v7_fitv10_bdt_{args.train}_{args.sign}_{BDT_cut}_{suffix}_weighted.root"
+fitresult_text = f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/fitresult/MC15rd_etapip_pipipi_ref_bdt_fit_opt_loose_v7_fitv10_bdt_{args.train}_{args.sign}_{BDT_cut}_{suffix}_weighted.txt"
 
 dir_path = os.path.dirname(file_name_Dp)
 if not os.path.exists(dir_path):

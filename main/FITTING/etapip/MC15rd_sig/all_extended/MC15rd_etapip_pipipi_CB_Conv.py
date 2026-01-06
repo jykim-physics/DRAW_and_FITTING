@@ -127,7 +127,7 @@ result = extended_signal_model.fitTo(
     ROOT.RooFit.Range(fit_range[0], fit_range[1]),
     ROOT.RooFit.NumCPU(8),
     ROOT.RooFit.Save(),
-    #ROOT.RooFit.Offset("initial"),
+    ROOT.RooFit.Offset(True),
     ROOT.RooFit.Strategy(0)
 )
 #result.Print()

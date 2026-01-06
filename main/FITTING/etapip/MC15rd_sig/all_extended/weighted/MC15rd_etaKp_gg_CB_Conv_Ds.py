@@ -46,11 +46,11 @@ full_var_set = ROOT.RooArgSet(x, truth_var, Pip_charge, ds_weight)
 
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
-mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DsptoetaKp_gg/250216_loose_v7/etapip_gg_K/min_unc_search/new_Ds_v2/0.91/weighted/*BCS.root")
+mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DsptoetaKp_gg/250216_loose_v7/etapip_gg_K/min_unc_search/new_Ds_v2/0.91/weighted_251229_noscale/*BCS.root")
 
 tree_name_cc = "etapip_gg_K"
 mychain_cc = ROOT.TChain(tree_name_cc)
-mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DsptoetaKp_gg_cc/250216_loose_v7/etapip_gg_K/min_unc_search/new_Ds_v2/0.91/weighted/*BCS.root")
+mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DsptoetaKp_gg_cc/250216_loose_v7/etapip_gg_K/min_unc_search/new_Ds_v2/0.91/weighted_251229_noscale/*BCS.root")
 
 
 # data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")
@@ -133,7 +133,7 @@ result = extended_signal_model.fitTo(
     ROOT.RooFit.Save(),
     ROOT.RooFit.Offset("initial"),
     ROOT.RooFit.Strategy(1),
-    #ROOT.RooFit.SumW2Error(True)
+    ROOT.RooFit.SumW2Error(True)
 )
 result.Print()
 

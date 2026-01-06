@@ -36,8 +36,8 @@ pad1.Draw()
 pad2.Draw()
 
 
-h_data = ROOT.TH1F("h_data", "Data Histogram", 50, float(min_bin), float(max_bin))
-h_MC = ROOT.TH1F("h_MC", "MC Histogram", 50, float(min_bin), float(max_bin))
+h_data = ROOT.TH1F("h_data", "Data Histogram", 100, float(min_bin), float(max_bin))
+h_MC = ROOT.TH1F("h_MC", "MC Histogram", 100, float(min_bin), float(max_bin))
 
 h_data.Sumw2()
 h_MC.Sumw2()

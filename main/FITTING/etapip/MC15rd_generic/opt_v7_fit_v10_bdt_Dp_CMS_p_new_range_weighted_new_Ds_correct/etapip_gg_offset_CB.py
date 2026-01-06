@@ -364,7 +364,9 @@ frame_D_plus = x.frame(ROOT.RooFit.Title("D+ fit"))
 #simPdf.plotOn(frame1, Slice(sample, "plus"), Components("bkg"), ProjWData(sample, combData), LineStyle(kDashed));
 #simPdf.plotOn(frame1, Slice(sample, "plus"), ProjWData(sample, combData));
 slicedData_Dp = data_combined.reduce(Cut="sample==sample::D_plus")
-slicedData_Dp.plotOn(frame_D_plus, Name="data")
+#slicedData_Dp.plotOn(frame_D_plus, Name="data")
+#slicedData_Dp.plotOn(frame_D_plus, Name="data", DataError="Poisson")
+slicedData_Dp.plotOn(frame_D_plus, Name="data", DataError="SumW2")
 sim_model.plotOn(frame_D_plus, Name="Background", Components="model_bkg", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kGreen+2, LineStyle=ROOT.kDashDotted)
 #sim_model.plotOn(frame_D_plus, Name="D+",Components="sig_model", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kRed, LineStyle=ROOT.kDashDotted)
 #sim_model.plotOn(frame_D_plus, Name="Ds+",Components="Ds_model", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kBlue+2, LineStyle=ROOT.kDashDotted)

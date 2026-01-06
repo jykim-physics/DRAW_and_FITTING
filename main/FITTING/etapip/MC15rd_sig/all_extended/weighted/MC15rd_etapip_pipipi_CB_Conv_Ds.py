@@ -47,11 +47,13 @@ full_var_set = ROOT.RooArgSet(x, truth_var, Pip_charge, ds_weight)
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
 #mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_pipipi/250216_loose_v7/etapip_pipipi/ref/min_unc_search/0.88/weighted/*BCS.root")
-mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_pipipi/250216_loose_v7/etapip_pipipi/min_unc_search/new_Ds_v2/0.74/weighted/*BCS.root")
+#mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_pipipi/250216_loose_v7/etapip_pipipi/min_unc_search/new_Ds_v2/0.74/weighted/*BCS.root")
+mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_pipipi/250216_loose_v7/etapip_pipipi/min_unc_search/new_Ds_v2/0.74/weighted_251229_noscale/*BCS.root")
 
 tree_name_cc = "etapip_pipipi"
 mychain_cc = ROOT.TChain(tree_name_cc)
-mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_pipipi_cc/250216_loose_v7/etapip_pipipi/min_unc_search/new_Ds_v2/0.74/weighted/*BCS.root")
+#mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_pipipi_cc/250216_loose_v7/etapip_pipipi/min_unc_search/new_Ds_v2/0.74/weighted/*BCS.root")
+mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_pipipi_cc/250216_loose_v7/etapip_pipipi/min_unc_search/new_Ds_v2/0.74/weighted_251229_noscale/*BCS.root")
 
 
 # data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")
@@ -90,13 +92,22 @@ print(N_total)
 N_signal = ROOT.RooRealVar("N_signal", "Number of signal events", N_total, 0.8*N_total, 1.2*N_total)  # Initial guess and bounds
 
 
-mean = ROOT.RooRealVar("mean", "mean", 1.96, 1.94, 1.98)
-sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.0002, 0.00001, 0.001)
-sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.0003, 0.00001, 0.001)
-alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.2, 0.0, 2.)
-nL = ROOT.RooRealVar("nL", "nL", 2.0, 0.01, 3.5)
-alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.3, 0., 2.)
-nR = ROOT.RooRealVar("nR", "nR", 2.0, 0.01, 3.5)
+#mean = ROOT.RooRealVar("mean", "mean", 1.96, 1.94, 1.98)
+#sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.0002, 0.00001, 0.001)
+#sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.0003, 0.00001, 0.001)
+#alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.2, 0.0, 2.)
+#nL = ROOT.RooRealVar("nL", "nL", 2.0, 0.01, 3.5)
+#alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.3, 0., 2.)
+#nR = ROOT.RooRealVar("nR", "nR", 2.0, 0.01, 3.5)
+
+mean = ROOT.RooRealVar("mean", "mean", 1.96, 1.9, 2.0)
+sigma = ROOT.RooRealVar("sigma", "sigma", 0.001, 0.0001, 0.01)
+sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.002, 0.0001, 0.01)
+sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.003, 0.0001, 0.01)
+alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.5, 0.01, 3.0)
+nL = ROOT.RooRealVar("nL", "nL", 4.0, 0.0, 5.0)
+alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.3, 0.01, 3.0)
+nR = ROOT.RooRealVar("nR", "nR", 3.0, 0.0, 5.0)
 
 # Create double-sided Crystal Ball PDF
 #CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
@@ -105,7 +116,8 @@ CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigmaL, sigmaR, alphaL, nL, a
 
 #mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
 mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0)
-sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.004, 0.001, 0.01)
+#sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.004, 0.001, 0.01)
+sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.008, 0.0001, 0.05)
 # Create a Gaussian distribution
 gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_gaussian)
 
@@ -142,8 +154,9 @@ result = extended_signal_model.fitTo(
     ROOT.RooFit.Range(fit_range[0], fit_range[1]),
     ROOT.RooFit.NumCPU(8),
     ROOT.RooFit.Save(),
-    ROOT.RooFit.Offset("initial"),
-    ROOT.RooFit.Strategy(0)
+    #ROOT.RooFit.Offset(True),
+    ROOT.RooFit.Strategy(2),
+    ROOT.RooFit.SumW2Error(1)
 )
 result.Print()
 

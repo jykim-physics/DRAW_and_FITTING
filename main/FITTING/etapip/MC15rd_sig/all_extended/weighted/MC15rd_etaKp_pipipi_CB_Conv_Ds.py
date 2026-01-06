@@ -76,17 +76,24 @@ data.append(data_cc)
 N_total = data.sumEntries()
 print(N_total)
 
-N_signal = ROOT.RooRealVar("N_signal", "Number of signal events", N_total, 0.8*N_total, 1.2*N_total)  # Initial guess and bounds
+N_signal = ROOT.RooRealVar("N_signal", "Number of signal events", N_total, 0.85*N_total, 1.15*N_total)  # Initial guess and bounds
 
 
 mean = ROOT.RooRealVar("mean", "mean", 1.96, 1.94, 1.98)
-sigma = ROOT.RooRealVar("sigma", "sigma", 0.001, 0.0001, 0.01)
 sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.0002, 0.00001, 0.01)
 sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.0001, 0.00001, 0.01)
-alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.2, 0.0, 2.5)
+alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.2, 0.0001, 2.5)
 nL = ROOT.RooRealVar("nL", "nL", 2.0, 0.1, 4.0)
-alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.03, 0.0, 2.5)
-nR = ROOT.RooRealVar("nR", "nR", 2.0, 0.1, 4.0)
+alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.3, 0.0001, 2.5)
+nR = ROOT.RooRealVar("nR", "nR", 3.0, 0.1, 4.0)
+
+#sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.002, 0.0001, 0.01)
+#sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.003, 0.0001, 0.01)
+#alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.05, 0.001, 3.0)
+#nL = ROOT.RooRealVar("nL", "nL", 4.0, 0.0, 5.0)
+#alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.3, 0.01, 3.0)
+#nR = ROOT.RooRealVar("nR", "nR", 3.0, 0.0, 5.0)
+
 
 # Create double-sided Crystal Ball PDF
 #CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
@@ -135,8 +142,8 @@ result = extended_signal_model.fitTo(
     ROOT.RooFit.NumCPU(8),
     ROOT.RooFit.Save(),
     #ROOT.RooFit.Offset(True),
-    ROOT.RooFit.Strategy(2),
-    #ROOT.RooFit.SumW2Error(True),
+    ROOT.RooFit.Strategy(1),
+    ROOT.RooFit.SumW2Error(True),
 )
 result.Print()
 

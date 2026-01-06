@@ -1,0 +1,7 @@
+python3 check_fit_results_proc13_v2.py gg pip
+python3 check_fit_results_proc13_v2.py pipipi pip
+
+python3 plot_bdt_scan_FOM_proc13.py fitv11_results_proc13_pip_gg.txt etapip_gg
+python3 plot_bdt_scan_FOM_proc13.py fitv11_results_proc13_pip_pipipi.txt etapip_pipipi
+python3 plot_bdt_scan_FOM_proc13_Ds.py fitv11_results_proc13_pip_gg.txt etapip_gg
+python3 plot_bdt_scan_FOM_proc13_Ds.py fitv11_results_proc13_pip_pipipi.txt etapip_pipipi

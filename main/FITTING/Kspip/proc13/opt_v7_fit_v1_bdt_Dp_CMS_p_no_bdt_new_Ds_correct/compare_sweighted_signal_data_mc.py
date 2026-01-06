@@ -27,8 +27,8 @@ MC_combined.Print()
 cdata_mc = ROOT.TCanvas("cdata_mc", "Data and MC Histogram", 800, 600)
 
 
-h_data = ROOT.TH1F("h_data", "Data Histogram", 50, float(min_bin), float(max_bin))
-h_MC = ROOT.TH1F("h_MC", "MC Histogram", 50, float(min_bin), float(max_bin))
+h_data = ROOT.TH1F("h_data", "Data Histogram", 100, float(min_bin), float(max_bin))
+h_MC = ROOT.TH1F("h_MC", "MC Histogram", 100, float(min_bin), float(max_bin))
 
 h_data.Sumw2()
 h_MC.Sumw2()
