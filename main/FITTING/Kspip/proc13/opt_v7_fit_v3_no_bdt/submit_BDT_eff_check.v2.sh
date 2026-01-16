@@ -53,57 +53,56 @@ run_bdt_check \
     "/share/storage/jykim/sweight/proc13/Kspip/gg/proc13_Kspip_gg_fit_opt_loose_v7_fitv3_Dp_no_bdt_etapip_gg_K_BDT.root" \
     "/share/storage/jykim/sweight/MC15rd/Kspip/gg/MC15rd_Kspip_gg_fit_opt_loose_v7_fitv3_Dp_no_bdt_etapip_gg_K_BDT.root" \
     "./BDT_eff_check/Dp_etaKp_gg_Dp_KsPip" \
-    0.88 0.01 0.96
+    0.82 0.01 0.92
 
 # --- Config : KsPip (Standard, Dp region, etaKp_pipipi BDT) ---
 run_bdt_check \
     "/share/storage/jykim/sweight/proc13/Kspip/pipipi/proc13_Kspip_pipipi_fit_opt_loose_v7_fitv3_Dp_no_bdt_etapip_pipipi_K_BDT.root" \
     "/share/storage/jykim/sweight/MC15rd/Kspip/pipipi/MC15rd_Kspip_pipipi_fit_opt_loose_v7_fitv3_Dp_no_bdt_etapip_pipipi_K_BDT.root" \
     "./BDT_eff_check/Dp_etaKp_pipipi_Dp_KsPip" \
-    0.88 0.01 0.96
+    0.73 0.01 0.81
 
 # --- Config : KsKp gg (Standard, Dp region) ---
 run_bdt_check \
     "/share/storage/jykim/sweight/proc13/KsKp/gg/proc13_Kspip_gg_K_fit_opt_loose_v7_fitv3_Dpregion_no_bdt.root" \
     "/share/storage/jykim/sweight/MC15rd/KsKp/gg/MC15rd_Kspip_gg_K_fit_opt_loose_v7_fitv3_Dpregion_no_bdt.root" \
     "./BDT_eff_check/Dp_etaKp_gg_Dp_KsKp" \
-    0.88 0.01 0.96
+    0.82 0.01 0.92
 
 # --- Config : KsKp pipipi (Standard, Dp region) ---
 run_bdt_check \
     "/share/storage/jykim/sweight/proc13/KsKp/pipipi/proc13_Kspip_pipipi_K_fit_opt_loose_v7_fitv3_Dpregion_no_bdt.root" \
     "/share/storage/jykim/sweight/MC15rd/KsKp/pipipi/MC15rd_Kspip_pipipi_K_fit_opt_loose_v7_fitv3_Dpregion_no_bdt.root" \
     "./BDT_eff_check/Dp_etaKp_pipipi_Dp_KsKp" \
-    0.88 0.01 0.96
+    0.73 0.01 0.91
 
-exit 0
 # --- Config 1: KsKp gg (Standard) ---
 run_bdt_check \
     "/share/storage/jykim/sweight/proc13/KsKp/gg/proc13_Kspip_gg_K_fit_opt_loose_v7_fitv3_Ds_no_bdt.root" \
     "/share/storage/jykim/sweight/MC15rd/KsKp/gg/MC15rd_Kspip_gg_K_fit_opt_loose_v7_fitv3_Ds_no_bdt_new_Ds_correct.root" \
     "./BDT_eff_check/etaKp_gg" \
-    0.88 0.01 0.96
+    0.82 0.01 0.92
 
 # --- Config 2: KsKp gg (Weighted) ---
 run_bdt_check \
     "/share/storage/jykim/sweight/proc13/KsKp/gg/proc13_Kspip_gg_K_fit_opt_loose_v7_fitv3_Ds_no_bdt.root" \
     "/share/storage/jykim/sweight/MC15rd/KsKp/gg/MC15rd_Kspip_gg_K_fit_opt_loose_v7_fitv3_Ds_no_bdt_weighted.root" \
     "./BDT_eff_check/weighted_etaKp_gg" \
-    0.88 0.01 0.96
+    0.82 0.01 0.92
 
 # --- Config 3: KsKp pipipi (Standard) ---
 run_bdt_check \
     "/share/storage/jykim/sweight/proc13/KsKp/pipipi/proc13_Kspip_pipipi_K_fit_opt_loose_v7_fitv3_Ds_no_bdt.root" \
     "/share/storage/jykim/sweight/MC15rd/KsKp/pipipi/MC15rd_Kspip_pipipi_K_fit_opt_loose_v7_fitv3_Ds_no_bdt_new_Ds_correct.root" \
     "./BDT_eff_check/etaKp_pipipi" \
-    0.88 0.01 0.96
+    0.73 0.01 0.81
 
 # --- Config 4: KsKp pipipi (Weighted) ---
 run_bdt_check \
     "/share/storage/jykim/sweight/proc13/KsKp/pipipi/proc13_Kspip_pipipi_K_fit_opt_loose_v7_fitv3_Ds_no_bdt.root" \
     "/share/storage/jykim/sweight/MC15rd/KsKp/pipipi/MC15rd_Kspip_pipipi_K_fit_opt_loose_v7_fitv3_Ds_no_bdt_weighted.root" \
     "./BDT_eff_check/weighted_etaKp_pipipi" \
-    0.88 0.01 0.96
+    0.73 0.01 0.81
 
 # --- Config 5: Kspip gg ---
 # Note: Different BDT Range
@@ -111,7 +110,7 @@ run_bdt_check \
     "/share/storage/jykim/sweight/proc13/Kspip/gg/proc13_Kspip_gg_fit_opt_loose_v7_fitv3_Dp_no_bdt.root" \
     "/share/storage/jykim/sweight/MC15rd/Kspip/gg/MC15rd_Kspip_gg_fit_opt_loose_v7_fitv3_Dp_no_bdt.root" \
     "./BDT_eff_check/etapip_gg" \
-    0.81 0.01 0.85
+    0.76 0.01 0.84
 
 # --- Config 6: Kspip pipipi ---
 # Note: Different BDT Range
@@ -119,4 +118,4 @@ run_bdt_check \
     "/share/storage/jykim/sweight/proc13/Kspip/pipipi/proc13_Kspip_pipipi_fit_opt_loose_v7_fitv3_Dp_no_bdt.root" \
     "/share/storage/jykim/sweight/MC15rd/Kspip/pipipi/MC15rd_Kspip_pipipi_fit_opt_loose_v7_fitv3_Dp_no_bdt.root" \
     "./BDT_eff_check/etapip_pipipi" \
-    0.72 0.01 0.76
+    0.68 0.01 0.76
