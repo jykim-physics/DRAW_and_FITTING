@@ -3,12 +3,16 @@ import glob
 import ctypes
 import os
 import math
+import sys
+
+#BDT_cut = sys.argv[1]
+BDT_cut = "0.92"
 
 ROOT.gROOT.LoadMacro('/home/jykim/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
-file_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_ref_Dp_M_opt_v7_CB_conv_extended_train_Dp_CMS_p.0.92.weighted_new_Ds_correct.png"
-result_name = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_ref_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p_Ds_p.0.92.weighted_new_Ds_correct.txt"
-fitresult_root = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_ref_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p_Ds_p.0.92.weighted_new_Ds_correct.root"
+file_name = f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_ref_Dp_M_opt_v7_CB_conv_extended_train_Dp_CMS_p.{BDT_cut}.weighted_new_Ds_correct_only_true.png"
+result_name = f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_ref_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p_Ds_p.{BDT_cut}.weighted_new_Ds_correct_only_true.txt"
+fitresult_root = f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_ref_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p_Ds_p.{BDT_cut}.weighted_new_Ds_correct_only_true.root"
 
 file_dir = os.path.dirname(file_name)
 result_dir = os.path.dirname(result_name)
@@ -27,8 +31,19 @@ rank_var = tree_name + "_rank"
 truth_var = "Dp_isSignal"
 charge_var = "Pip_charge"
 cuts = rank_var + "==1"
-cuts_Dp = " Pip_charge==1"
-cuts_Dm = " Pip_charge==-1"
+
+
+etapipi_Eta_isSignal_var = "etapip_Eta_isSignal"
+Pip_genMotherID_var = "Pip_genMotherID"
+etapip_Eta_genMotherID_var =  "etapip_Eta_genMotherID"
+Pip_genMotherPDG_var = "Pip_genMotherPDG"
+Pip_mcPDG_var = "Pip_mcPDG"
+
+cuts_Dp = " Pip_charge==1 & etapip_Eta_isSignal==1 & Pip_genMotherID==etapip_Eta_genMotherID & Pip_genMotherPDG==431 & Pip_mcPDG==211 "
+cuts_Dm = " Pip_charge==-1 & etapip_Eta_isSignal==1 & Pip_genMotherID==etapip_Eta_genMotherID & Pip_genMotherPDG==-431 & Pip_mcPDG==-211 "
+
+#cuts_Dp = " Pip_charge==1"
+#cuts_Dm = " Pip_charge==-1"
 
 pi0_dphi_var =  "eta_Pi0_daughterDiffOfPhi_0_1"
 pi0_dangle_var =  "eta_Pi0_daughterAngle_0_1"
@@ -41,16 +56,23 @@ truth_var = ROOT.RooRealVar(truth_var, truth_var, 0, 30)
 Pip_charge = ROOT.RooRealVar(charge_var, charge_var, -1, 1)
 ds_weight = ROOT.RooRealVar("ds_weight", "ds_weight", -1000, 1000)
 
-full_var_set = ROOT.RooArgSet(x, truth_var, Pip_charge, ds_weight)
+
+etapipi_Eta_isSignal = ROOT.RooRealVar(etapipi_Eta_isSignal_var, etapipi_Eta_isSignal_var, -1e9, 1e9)
+Pip_genMotherID = ROOT.RooRealVar(Pip_genMotherID_var, Pip_genMotherID_var, -1e9, 1e9)
+etapip_Eta_genMotherID = ROOT.RooRealVar(etapip_Eta_genMotherID_var, etapip_Eta_genMotherID_var, -1e9, 1e9)
+Pip_genMotherPDG = ROOT.RooRealVar(Pip_genMotherPDG_var, Pip_genMotherPDG_var, -1e9, 1e9)
+Pip_mcPDG  = ROOT.RooRealVar(Pip_mcPDG_var, Pip_mcPDG_var, -1e9, 1e9)
+
+full_var_set = ROOT.RooArgSet(x, truth_var, Pip_charge, ds_weight, etapipi_Eta_isSignal, Pip_genMotherID, etapip_Eta_genMotherID, Pip_genMotherPDG, Pip_mcPDG)
 
 
 # Create a TChain and add all ROOT files
 mychain = ROOT.TChain(tree_name)
-mychain.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_pipipi/250216_loose_v7/etapip_pipipi/ref/min_unc_search/new_Ds_v2/0.92/weighted/*BCS.root")
+mychain.Add(f"/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_pipipi/250216_loose_v7/etapip_pipipi/ref/min_unc_search/new_Ds_v2/{BDT_cut}/weighted/*BCS.root")
 
 tree_name_cc = "etapip_pipipi"
 mychain_cc = ROOT.TChain(tree_name_cc)
-mychain_cc.Add("/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_pipipi_cc/250216_loose_v7/etapip_pipipi/ref/min_unc_search/new_Ds_v2/0.92/weighted/*BCS.root")
+mychain_cc.Add(f"/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dsptoetapip_pipipi_cc/250216_loose_v7/etapip_pipipi/ref/min_unc_search/new_Ds_v2/{BDT_cut}/weighted/*BCS.root")
 
 
 # data = ROOT.RooDataSet("data","", ROOT.RooArgSet(x,y,z), ROOT.RooFit.Import(mychain), Cut=" D0_M>1.68 & D0_M<2.05 & Belle2Pi0Veto_75MeV > 0.022 ")
@@ -89,22 +111,13 @@ print(N_total)
 N_signal = ROOT.RooRealVar("N_signal", "Number of signal events", N_total, 0.8*N_total, 1.2*N_total)  # Initial guess and bounds
 
 
-mean = ROOT.RooRealVar("mean", "mean", 1.96, 1.94, 1.98)
-sigma = ROOT.RooRealVar("sigma", "sigma", 0.001, 0.0001, 0.01)
-sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.002, 0.0001, 0.01)
-sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.003, 0.0001, 0.01)
-alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.5, 0.0, 3.0)
-nL = ROOT.RooRealVar("nL", "nL", 2.0, 0.0, 5.0)
-alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.4, 0.0, 3.0)
-nR = ROOT.RooRealVar("nR", "nR", 2.2, 0.0, 5.0)
-
-#sigma = ROOT.RooRealVar("sigma", "sigma", 0.001, 0.0001, 0.01)
-#sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.002, 0.00001, 0.01)
-#sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.003, 0.00001, 0.01)
-#alphaL = ROOT.RooRealVar("alphaL", "alphaL", 1.2, 0.0, 5.0)
-#nL = ROOT.RooRealVar("nL", "nL", 2.0, 0.0, 5.0)
-#alphaR = ROOT.RooRealVar("alphaR", "alphaR", 1.5, 0.0, 5.0)
-#nR = ROOT.RooRealVar("nR", "nR", 1.0, 0.0, 5.0)
+mean = ROOT.RooRealVar("mean", "mean", 1.96, 1.93, 1.99)
+sigmaL = ROOT.RooRealVar("sigmaL", "sigma", 0.00043690238007956854)
+sigmaR = ROOT.RooRealVar("sigmaR", "sigma", 0.00024606699731560274)
+alphaL = ROOT.RooRealVar("alphaL", "alphaL", 0.23734630082787544)
+nL = ROOT.RooRealVar("nL", "nL", 2.6505314073415525)
+alphaR = ROOT.RooRealVar("alphaR", "alphaR", 0.2100686632942425)
+nR = ROOT.RooRealVar("nR", "nR", 2.3490320664081663)
 
 # Create double-sided Crystal Ball PDF
 #CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigma, alphaL, nL, alphaR, nR)
@@ -113,7 +126,9 @@ CB = ROOT.RooCrystalBall("CB", "CB_left", x, mean, sigmaL, sigmaR, alphaL, nL, a
 
 #mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0, -1, 1)
 mean_gaussian = ROOT.RooRealVar("mean_gaussian", "mean of Gaussian", 0)
-sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.004, 0.001, 0.01)
+sigma_gaussian = ROOT.RooRealVar("sigma_gaussian", "sigma of Gaussian", 0.0045, 0.001, 0.01)
+
+
 # Create a Gaussian distribution
 gaussian = ROOT.RooGaussian("gaussian", "Gaussian PDF", x, mean_gaussian, sigma_gaussian)
 
@@ -148,10 +163,11 @@ result = extended_signal_model.fitTo(
     data,
     ROOT.RooFit.Extended(True),  # Enable extended likelihood fit
     ROOT.RooFit.Range(fit_range[0], fit_range[1]),
-    ROOT.RooFit.NumCPU(4),
+    ROOT.RooFit.NumCPU(8),
     ROOT.RooFit.Save(),
-    #ROOT.RooFit.Offset(True),
-    ROOT.RooFit.Strategy(2)
+    ROOT.RooFit.Offset("initial"),
+    ROOT.RooFit.Strategy(0),
+    #ROOT.RooFit.SumW2Error(True)
 )
 result.Print()
 
@@ -187,7 +203,7 @@ with open(result_name, "w") as f:
     params = result.floatParsFinal()  # This returns the final fitted parameters
     for i in range(params.getSize()):
         param = params[i]
-        f.write(f"{param.GetName()} = {param.getVal()} ± {param.getError()}\n")
+        f.write(f"{param.GetName()} = {param.getVal()} ± {param.getError()}, Err/Val = {param.getError()/param.getVal()*100:.4f}%\n")
 
     f.write(f"Fitted number of signal events: {fitted_N_signal}\n")
     f.write(f"Total number of signal events in dataset: {total_signal_events}\n")

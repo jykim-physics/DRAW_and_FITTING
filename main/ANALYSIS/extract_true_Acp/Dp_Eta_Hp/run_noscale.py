@@ -12,16 +12,15 @@ import glob
 import sys
 
 tree_name = sys.argv[1]
-BDT_cut = sys.argv[2]
+BDT_cut = str(sys.argv[2])
 
 if tree_name == "etapip_gg_K" or tree_name == "etapip_pipipi_K":
     Dsp_cut = "(etapip_Eta_isSignal == 1) & (Pip_genMotherID == etapip_Eta_genMotherID) & ((Pip_genMotherPDG == 431 and Pip_mcPDG == 321) | (Pip_genMotherPDG == -431 and Pip_mcPDG == -321) )"
 elif tree_name == "etapip_gg" or tree_name == "etapip_pipipi":
     Dsp_cut = "(etapip_Eta_isSignal == 1) & (Pip_genMotherID == etapip_Eta_genMotherID) & ((Pip_genMotherPDG == 431 and Pip_mcPDG == 211) | (Pip_genMotherPDG == -431 and Pip_mcPDG == -211) )"
 
-gen_MC_name = "/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15rd/etapip_eteeta/MC15rd_etaetapip_loose_v7_250122_skimhad_if_true_Dp_CMS_p_v3"
-base_path = gen_MC_name
-cm_elements = ["15rd_eta_e7_18_4S_v3", "15rd_eta_e20_b26_v1", "15rd_eta_e20_e26_4S_v2", "15rd_eta_e21_5S_scan_v1", "15rd_eta_mori_off_v1"]
+base_path = "/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15rd/EtaHp/MC15rd_loose_v7_260108_nopi0veto"
+cm_elements = ["15rd_jae_e7_18_4S_v3", "15rd_jae_e20_b26_v1", "15rd_jae_e20_e26_4S_v2", "15rd_jae_e21_5S_scan_v1", "15rd_jae_mori_off_v1"]
 #tree_name = "etapip_gg_K"
 #tree_name = "etapip_gg"
 #tree_name = "etapip_pipipi"
@@ -30,7 +29,7 @@ cm_elements = ["15rd_eta_e7_18_4S_v3", "15rd_eta_e20_b26_v1", "15rd_eta_e20_e26_
 
 file_list = []
 for element in cm_elements:
-    pattern = f"{base_path}/{element}/{tree_name}/min_unc_search/{BDT_cut}/weighted/*.BCS.root"
+    pattern = f"{base_path}/{element}/{tree_name}/min_unc_search/{BDT_cut}/weighted/*BDT.root"
     file_list += glob.glob(pattern)
 # Initialize an empty list to hold DataFrames
 dataframes = []
@@ -39,7 +38,7 @@ branches_all = ["__experiment__", "__run__", "__event__",\
              'etapip_Eta_M','etapip_Eta_isSignal',\
              'etapip_Eta_genMotherPDG','etapip_Eta_genMotherID',\
              'Pip_mcPDG',\
-             'Pip_genMotherPDG','Pip_genMotherID', "Pip_charge", "ds_weight"]
+             'Pip_genMotherPDG','Pip_genMotherID', "Pip_charge", "ds_weight", "rank_Dp_chiProb"]
 # Process each file
 for file_name in file_list:
     # Load the ROOT file and tree
@@ -53,8 +52,12 @@ for file_name in file_list:
     dataframes.append(df_temp)
 
 df_all = pd.concat(dataframes, ignore_index=True)
+df_all = df_all.query("rank_Dp_chiProb==1")
 
-df_all = df_all.query("Dp_M > 1.71 and Dp_M < 2.06")
+if tree_name == "etapip_gg_K" or tree_name == "etapip_pipipi_K":
+  df_all = df_all.query("Dp_M > 1.75 and Dp_M < 2.045")
+elif tree_name == "etapip_gg" or tree_name == "etapip_pipipi":
+  df_all = df_all.query("Dp_M > 1.71 and Dp_M < 2.06")
 
 df_Dp_signal = df_all.query("Dp_isSignal==1").copy()
 #df_Dsp_signal = df_all.query("(etapip_Eta_isSignal == 1) & (Pip_genMotherID == etapip_Eta_genMotherID) & ((Pip_genMotherPDG == 431 and Pip_mcPDG == 321) | (Pip_genMotherPDG == -431 and Pip_mcPDG == -321) )").copy()
