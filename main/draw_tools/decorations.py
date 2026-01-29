@@ -30,7 +30,7 @@ def watermark(t=None,logo="Belle II", px=0.033, py=0.915, fontsize=16, alpha=0.8
              fontsize=fontsize,
              style=bstyle,
              alpha=alpha_logo,
-             weight='bold',
+             weight='light',
              *args, **kwargs,
              # fontproperties=font,
              # bbox={'facecolor':'#377eb7', 'alpha':0.1, 'pad':10}
