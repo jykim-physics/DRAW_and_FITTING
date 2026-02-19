@@ -31,21 +31,21 @@ elif args.sign == "all":
 	Dp_CMS_cosTheta_cut = "Dp_CMS_cosTheta>-10"
 	N_scale = 1
 
-suffix = "sumw2fixed"
+suffix = "sumw2fixed_mass_asym_pad"
 file_name_Dp = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_bdt_{args.train}_Dp_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.png"
 file_name_Dm = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_bdt_{args.train}_Dm_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.png"
 file_name_Dall = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_bdt_{args.train}_Dall_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.pdf"
-fitresult_name = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_bdt_{args.train}_{args.sign}_{BDT_cut}_{suffix}_weighted.root"
+#fitresult_name = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_bdt_{args.train}_{args.sign}_{BDT_cut}_{suffix}_weighted.root"
 fitresult_text = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_bdt_{args.train}_{args.sign}_{BDT_cut}_{suffix}_weighted.txt"
 file_sweight = f"/share/storage/jykim/sweight/proc13/etaKp/gg/proc13_etapip_gg_K_fit_opt_loose_v7_fitv12_Ds_weighted.root"
 dir_path = os.path.dirname(file_name_Dp)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
 print("Directory created:", dir_path)
-dir_path = os.path.dirname(fitresult_name)
-if not os.path.exists(dir_path):
-    os.makedirs(dir_path)
-print("Directory created:", dir_path)
+#dir_path = os.path.dirname(fitresult_name)
+#if not os.path.exists(dir_path):
+#    os.makedirs(dir_path)
+#print("Directory created:", dir_path)
 dir_path = os.path.dirname(file_sweight)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
@@ -509,6 +509,107 @@ leg1.AddEntry("Background", "#scale[1.33]{#font[42]{Combinatorial}}", "l")
 leg1.SetBorderSize(0)
 leg1.Draw()
 
+# Use the binning count from your pull plot for consistency
+hpull = frame_D_all.pullHist()
+Nbins = hpull.GetN()
+# 'data' and 'data_cc' are your D+ and D- datasets
+h_plus = data.createHistogram("hp", x, ROOT.RooFit.Binning(Nbins))
+h_minus = data_cc.createHistogram("hm", x, ROOT.RooFit.Binning(Nbins))
+# This computes (h_plus - h_minus) / (h_plus + h_minus)
+h_asym = h_plus.GetAsymmetry(h_minus)
+h_asym.SetName("hA")
+
+frame_p = x.frame()
+sim_model.plotOn(frame_p,
+                 ROOT.RooFit.Slice(cat, "D_plus"),
+                 ROOT.RooFit.ProjWData(cat, data_combined))
+curve_plus = frame_p.getCurve()
+
+frame_m = x.frame()
+sim_model.plotOn(frame_m,
+                 ROOT.RooFit.Slice(cat, "D_minus"),
+                 ROOT.RooFit.ProjWData(cat, data_combined))
+curve_minus = frame_m.getCurve()
+
+h_curve_asym = h_asym.Clone("hCA")
+h_curve_asym.Reset() # Clear content, keep structure
+
+for i in range(1, h_asym.GetNbinsX() + 1):
+    invm = h_asym.GetBinCenter(i)
+
+    val_p = curve_plus.Eval(invm)
+    val_m = curve_minus.Eval(invm)
+    if (val_p + val_m) > 0:
+        asy_val = (val_p - val_m) / (val_p + val_m)
+        h_curve_asym.SetBinContent(i, asy_val)
+    else:
+        h_curve_asym.SetBinContent(i, 0)
+
+canvas_D_all.cd(2)
+
+h_asym.SetMarkerStyle(20)
+h_asym.SetMarkerSize(0.8)
+h_asym.SetYTitle("Asymmetry")
+h_asym.SetMinimum(-0.4)
+h_asym.SetMaximum(0.4)
+
+h_asym.GetYaxis().SetTitleSize(0.12)
+h_asym.GetYaxis().SetTitleOffset(0.4)
+h_asym.GetYaxis().SetLabelSize(0.08)
+h_asym.GetXaxis().SetLabelSize(0.15)
+h_asym.GetYaxis().CenterTitle(True)
+
+h_asym.GetXaxis().SetTitleSize(0)
+h_asym.Draw("P")
+
+h_curve_asym.SetLineColor(ROOT.kBlue)
+h_curve_asym.SetLineWidth(2)
+h_curve_asym.Draw("L SAME")
+
+line_zero = ROOT.TLine(fit_range[0], 0.0, fit_range[1], 0.0)
+line_zero.SetLineStyle(2)
+line_zero.SetLineWidth(2)
+line_zero.SetLineColor(ROOT.kGray+2)
+line_zero.Draw("SAME")
+
+"""
+xlow = ctypes.c_double()
+ylow = ctypes.c_double()
+xup = ctypes.c_double()
+yup = ctypes.c_double()
+canvas_D_all.GetPad(0).GetPadPar(xlow, ylow, xup, yup)
+canvas_D_all.Divide(1,2)
+
+xlow = xlow.value
+ylow = ylow.value
+xup = xup.value
+yup = yup.value
+
+upPad = canvas_D_all.GetPad(1)
+upPad.SetPad(xlow, ylow+0.25*(yup-ylow),xup,yup)
+
+dwPad = canvas_D_all.GetPad(2)
+dwPad.SetPad(xlow, ylow,xup,ylow+0.25*(yup-ylow))
+
+canvas_D_all.cd(1)
+
+frame_D_all = x.frame(ROOT.RooFit.Title("D+ fit"))
+frame_D_all.GetXaxis().SetTitle("M(#eta_{#gamma#gamma}K^{+}) [GeV/c^{2}]")
+
+data_combined.plotOn(frame_D_all, Name="data")
+sim_model.plotOn(frame_D_all, Name="Background", Components="model_bkg", ProjWData=(cat, data_combined),LineColor=ROOT.kGreen+2)
+sim_model.plotOn(frame_D_all, Name="Fitting",ProjWData=(cat, data_combined))
+frame_D_all.Draw("PE")
+frame_D_all.GetXaxis().CenterTitle(True)
+
+leg1 = ROOT.TLegend(0.2, 0.65, 0.4, 0.90)
+leg1.SetFillColorAlpha(ROOT.kWhite, 0)
+leg1.AddEntry("data", "#scale[1.33]{#font[42]{MC}}", "PE")
+leg1.AddEntry("Fitting", "#scale[1.33]{#font[42]{Fit}}", "l")
+leg1.AddEntry("Background", "#scale[1.33]{#font[42]{Combinatorial}}", "l")
+leg1.SetBorderSize(0)
+leg1.Draw()
+
 hpull = frame_D_all.pullHist()
 hpull.SetFillStyle(1001)
 hpull.SetFillColor(1);
@@ -539,19 +640,20 @@ line.SetLineColor(ROOT.kGray+1)
 line.SetLineWidth(3)
 line1.SetLineColor(ROOT.kBlack)
 line2.SetLineColor(ROOT.kGray+1)
-line1.SetLineStyle(2)
+li
 line2.SetLineStyle(2)
 line.Draw("SAME")
 line1.Draw("SAME")
 line2.Draw("SAME")
+"""
 
 canvas_D_all.Update()
 canvas_D_all.SaveAs(file_name_Dall)
 
 
-f = ROOT.TFile(fitresult_name, "RECREATE")
-fit_result.Write("jykim")
-f.Close()
+#f = ROOT.TFile(fitresult_name, "RECREATE")
+#fit_result.Write("jykim")
+#f.Close()
 
 # Open a text file in write mode
 with open(fitresult_text, "w") as f:
