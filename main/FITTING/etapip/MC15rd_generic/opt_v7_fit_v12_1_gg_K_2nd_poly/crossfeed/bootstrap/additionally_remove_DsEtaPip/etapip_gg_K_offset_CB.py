@@ -43,7 +43,7 @@ elif args.sign == "all":
 	N_scale = 1
 
 suffix = "sumw2fixed"
-file_name_Dall = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/crossfeed/Dp_Ds_removed_bootstrap_sys_MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_bdt_{args.train}_Dall_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted_Dall"
+file_name_Dall = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/crossfeed/Dp_Ds_removed_bootstrap_sys_MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_1_bdt_{args.train}_Dall_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted_Dall"
 dir_path = os.path.dirname(file_name_Dall)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
@@ -162,7 +162,7 @@ Nbkg_D_minus = RooFormulaVar("Nbkg_D_minus",
     "0.5 * Nbkg_total * (1 - Acp_bkg)",
     RooArgList(Nbkg_total, Acp_bkg))
 
-f = ROOT.TFile.Open(f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_bdt_train_Dp_CMS_p_{args.sign}_0.86_sumw2fixed_weighted.root")
+f = ROOT.TFile.Open(f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_1_bdt_train_Dp_CMS_p_{args.sign}_0.86_sumw2fixed_weighted.root")
 result_object = ROOT.gDirectory.Get("jykim")
 f.Close()
 #result_object.Print("v")
@@ -172,7 +172,8 @@ const_args = result_object.constPars()
 mean = fit_args.find("mean")
 scale_factor = fit_args.find("scale_factor")
 Ds_mean = fit_args.find("Ds_mean")
-x_bkg1_tau = fit_args.find("x_bkg1_tau")
+x_bkg1_c1 = fit_args.find("x_bkg1_c1")
+x_bkg1_c2 = fit_args.find("x_bkg1_c2")
 
 sigmaL = const_args.find("sigmaL")
 sigmaR = const_args.find("sigmaR")
@@ -206,7 +207,7 @@ def nominal_fit_extract_Acp(data_Dp, data_Dm):
   Ds_gaussian = ROOT.RooGaussian("Ds_gaussian", "Gaussian PDF", x, Ds_mean_gaussian, scaled_Ds_sigma_gaussian)
   Ds_model = ROOT.RooFFTConvPdf("Ds_model", "Convolution of Johnson and Gaussian", x, Ds_CB, Ds_gaussian)
 
-  model_bkg = ROOT.RooExponential("model_bkg", "x_bkg1", x, x_bkg1_tau)
+  model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_c1, x_bkg1_c2))
 
 
   model_D_plus = ROOT.RooAddPdf("model_D_plus", "D+ model",
@@ -275,7 +276,7 @@ scale_factor_var = ROOT.RooRealVar("scale_factor_var", "sigma of Gaussian", 1,0,
 Ds_mean_var = ROOT.RooRealVar("Ds_mean_var", "mean", 1.97, 1.95, 1.99)
 x_bkg1_tau_var = ROOT.RooRealVar("x_bkg1_tau_var", "c0",-5, -20, 5)
 
-g = ROOT.TFile.Open(f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_bdt_train_Dp_CMS_p_{args.sign}_0.86_sumw2fixed_weighted.root")
+g = ROOT.TFile.Open(f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_1_bdt_train_Dp_CMS_p_{args.sign}_0.86_sumw2fixed_weighted.root")
 result_object_var = ROOT.gDirectory.Get("jykim")
 g.Close()
 #result_object.Print("v")
@@ -285,7 +286,8 @@ const_args_var = result_object_var.constPars()
 mean_var = fit_args_var.find("mean")
 scale_factor_var = fit_args_var.find("scale_factor")
 Ds_mean_var = fit_args_var.find("Ds_mean")
-x_bkg1_tau_var = fit_args_var.find("x_bkg1_tau")
+x_bkg1_c1_var = fit_args_var.find("x_bkg1_c1")
+x_bkg1_c2_var = fit_args_var.find("x_bkg1_c2")
 
 sigmaL_var = const_args_var.find("sigmaL")
 sigmaR_var = const_args_var.find("sigmaR")
@@ -324,7 +326,7 @@ def nominal_fit_to_non_crossfeed(data_Dp, data_Dm, n_bootstrap):
   Ds_gaussian_var= ROOT.RooGaussian("Ds_gaussian_var", "Gaussian PDF", x, Ds_mean_gaussian_var, scaled_Ds_sigma_gaussian_var)
   Ds_model_var = ROOT.RooFFTConvPdf("Ds_model_var", "Convolution of Johnson and Gaussian", x, Ds_CB_var, Ds_gaussian_var)
 
-  model_bkg_var= ROOT.RooExponential("model_bkg_var", "x_bkg1", x, x_bkg1_tau_var)
+  model_bkg_var= ROOT.RooPolynomial("model_bkg_var", "x_bkg1", x,  ROOT.RooArgList(x_bkg1_c1_var, x_bkg1_c2_var))
 
   model_D_plus_var= ROOT.RooAddPdf("model_D_plus_var", "D+ model",
                                 ROOT.RooArgList(sig_model_var, Ds_model_var, model_bkg_var),
@@ -478,19 +480,12 @@ while success_count < n_bootstrap:
         data_boot_Dm.add(data_cc.get(idx), data_cc.weight())
 
     fit_outputs_before = nominal_fit_extract_Acp(data_boot_Dp, data_boot_Dm)
-
-    #crossfeed_cut = "(Pip_genMotherID!=etapip_Eta_genMotherID || abs(etapip_Eta_genMotherPDG)!=411 || abs(Pip_mcPDG)!=211)"
-    #crossfeed_cut_plus = "(etapip_Eta_isSignal!=1 || Pip_genMotherID!=etapip_Eta_genMotherID || etapip_Eta_genMotherPDG!=411 ||  Pip_mcPDG!=211)"
-    #crossfeed_cut_minus = "(etapip_Eta_isSignal!=1 || Pip_genMotherID!=etapip_Eta_genMotherID || etapip_Eta_genMotherPDG!=-411 ||  Pip_mcPDG!=-211)"
     crossfeed_cut_plus = "!(etapip_Eta_isSignal==1 && Pip_genMotherID==etapip_Eta_genMotherID && etapip_Eta_genMotherPDG==411 && Pip_mcPDG==211)"
     crossfeed_cut_minus = "!(etapip_Eta_isSignal==1 && Pip_genMotherID==etapip_Eta_genMotherID && etapip_Eta_genMotherPDG==-411 && Pip_mcPDG==-211)"
 
     data_boot_Dp_clean = data_boot_Dp.reduce(crossfeed_cut_plus)
     data_boot_Dm_clean = data_boot_Dm.reduce(crossfeed_cut_minus)
 
-    #crossfeed_cut_Ds = "(Pip_genMotherID!=etapip_Eta_genMotherID || abs(etapip_Eta_genMotherPDG)!=431 || abs(Pip_mcPDG)!=211)"
-    #crossfeed_cut_Ds_plus = "(etapip_Eta_isSignal!=1 || Pip_genMotherID!=etapip_Eta_genMotherID || etapip_Eta_genMotherPDG!=431 ||  Pip_mcPDG!=211)"
-    #crossfeed_cut_Ds_minus = "(etapip_Eta_isSignal!=1 || Pip_genMotherID!=etapip_Eta_genMotherID || etapip_Eta_genMotherPDG!=-431 ||  Pip_mcPDG!=-211)"
     crossfeed_cut_Ds_plus = "!(etapip_Eta_isSignal==1 && Pip_genMotherID==etapip_Eta_genMotherID && etapip_Eta_genMotherPDG==431 && Pip_mcPDG==211)"
     crossfeed_cut_Ds_minus = "!(etapip_Eta_isSignal==1 && Pip_genMotherID==etapip_Eta_genMotherID && etapip_Eta_genMotherPDG==-431 && Pip_mcPDG==-211)"
 

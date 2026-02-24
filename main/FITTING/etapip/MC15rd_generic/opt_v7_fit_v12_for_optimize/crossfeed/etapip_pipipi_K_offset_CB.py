@@ -102,11 +102,12 @@ Pip_genMotherID = ROOT.RooRealVar("Pip_genMotherID", "Pip_genMotherID", -1E9, 1E
 etapip_Eta_genMotherID = ROOT.RooRealVar("etapip_Eta_genMotherID", "etapip_Eta_genMotherID", -1E9, 1E9)
 etapip_Eta_genMotherPDG = ROOT.RooRealVar("etapip_Eta_genMotherPDG", "etapip_Eta_genMotherPDG", -1E9, 1E9)
 Pip_mcPDG = ROOT.RooRealVar("Pip_mcPDG", "Pip_mcPDG", -1E9, 1E9)
+etapip_Eta_isSignal = ROOT.RooRealVar("etapip_Eta_isSignal", "etapip_Eta_isSignal", -1E9, 1E9)
 
 full_var_set = ROOT.RooArgSet(x, Pip_charge, Dp_CMS_cosTheta, BDT, Pip_dr, Dp_dz,
                               Dp_cosAngleBetweenMomentumAndVertexVectorInXYPlane,
                               Dp_cosHelicityAngleMomentum,
-                              Dp_CMS_p,rank_Dp_chiProb,ds_weight, Pip_genMotherID, etapip_Eta_genMotherID, etapip_Eta_genMotherPDG, Pip_mcPDG)
+                              Dp_CMS_p,rank_Dp_chiProb,ds_weight, Pip_genMotherID, etapip_Eta_genMotherID, etapip_Eta_genMotherPDG, Pip_mcPDG, etapip_Eta_isSignal)
 
 before_data = ROOT.RooDataSet("before_data","Data before weighting",full_var_set,ROOT.RooFit.Import(mychain),ROOT.RooFit.Cut(cuts_Dp))
 scale = 1
@@ -143,11 +144,14 @@ mychain_ccbar_cc= ROOT.TChain(tree_name)
 for i in file_list:
     mychain_ccbar_cc.Add(i)
 
-before_data_ccbar = ROOT.RooDataSet("before_data_ccbar","Data before weighting",full_var_set,ROOT.RooFit.Import(mychain_ccbar),ROOT.RooFit.Cut(cuts_Dp + ' && (Pip_genMotherID!=etapip_Eta_genMotherID || abs(etapip_Eta_genMotherPDG)!=411 || abs(Pip_mcPDG)!=211)'))
+crossfeed_cut_plus = "!(etapip_Eta_isSignal==1 && Pip_genMotherID==etapip_Eta_genMotherID && etapip_Eta_genMotherPDG==411 && Pip_mcPDG==211)"
+crossfeed_cut_minus = "!(etapip_Eta_isSignal==1 && Pip_genMotherID==etapip_Eta_genMotherID && etapip_Eta_genMotherPDG==-411 && Pip_mcPDG==-211)"
+
+before_data_ccbar = ROOT.RooDataSet("before_data_ccbar","Data before weighting",full_var_set,ROOT.RooFit.Import(mychain_ccbar),ROOT.RooFit.Cut(cuts_Dp +  f' && {crossfeed_cut_plus}'))
 before_data_ccbar.addColumn(w_scaled)
 data_ccbar = ROOT.RooDataSet("data_weighted","Weighted Data",before_data_ccbar,before_data_ccbar.get(),"","w_scaled")
 
-before_data_ccbar_cc = ROOT.RooDataSet("before_data_ccbar_cc","Data before weighting",full_var_set,ROOT.RooFit.Import(mychain_ccbar_cc),ROOT.RooFit.Cut(cuts_Dm + ' && (Pip_genMotherID!=etapip_Eta_genMotherID || abs(etapip_Eta_genMotherPDG)!=411 || abs(Pip_mcPDG)!=211)'))
+before_data_ccbar_cc = ROOT.RooDataSet("before_data_ccbar_cc","Data before weighting",full_var_set,ROOT.RooFit.Import(mychain_ccbar_cc),ROOT.RooFit.Cut(cuts_Dm +  f' && {crossfeed_cut_minus}'))
 before_data_ccbar_cc.addColumn(w_scaled)
 data_ccbar_cc = ROOT.RooDataSet("data_weighted","Weighted Data",before_data_ccbar_cc,before_data_ccbar_cc.get(),"","w_scaled")
 

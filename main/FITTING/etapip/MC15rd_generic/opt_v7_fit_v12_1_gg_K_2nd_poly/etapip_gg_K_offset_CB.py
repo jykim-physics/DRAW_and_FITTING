@@ -31,13 +31,13 @@ elif args.sign == "all":
 	Dp_CMS_cosTheta_cut = "Dp_CMS_cosTheta>-10"
 	N_scale = 1
 
-suffix = "sumw2fixed_crossfeed_DpEtaPip_removed"
-file_name_Dp = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_bdt_{args.train}_Dp_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.png"
-file_name_Dm = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_bdt_{args.train}_Dm_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.png"
-file_name_Dall = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_bdt_{args.train}_Dall_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.pdf"
-fitresult_name = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_bdt_{args.train}_{args.sign}_{BDT_cut}_{suffix}_weighted.root"
-fitresult_text = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_bdt_{args.train}_{args.sign}_{BDT_cut}_{suffix}_weighted.txt"
-file_sweight = f"/share/storage/jykim/sweight/proc13/etaKp/gg/proc13_etapip_gg_K_fit_opt_loose_v7_fitv12_Ds_weighted.root"
+suffix = "sumw2fixed"
+file_name_Dp = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_1_bdt_{args.train}_Dp_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.png"
+file_name_Dm = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_1_bdt_{args.train}_Dm_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.png"
+file_name_Dall = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_1_bdt_{args.train}_Dall_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.pdf"
+fitresult_name = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_1_bdt_{args.train}_{args.sign}_{BDT_cut}_{suffix}_weighted.root"
+fitresult_text = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_1_bdt_{args.train}_{args.sign}_{BDT_cut}_{suffix}_weighted.txt"
+file_sweight = f"/share/storage/jykim/sweight/proc13/etaKp/gg/proc13_etapip_gg_K_fit_opt_loose_v7_fitv12_1_Ds_weighted.root"
 dir_path = os.path.dirname(file_name_Dp)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
@@ -61,11 +61,7 @@ tree_name = "etapip_gg_K"
 file_list = []
 for element in cm_elements:
     pattern = f"{base_path}/{element}/{tree_name}/min_unc_search/{BDT_cut}/weighted/*BDT.root"
-    matched_files = glob.glob(pattern)
-
-    for f in matched_files:
-        if "ccbar" not in f:
-            file_list.append(f)
+    file_list += glob.glob(pattern)
 
 print(file_list)
 mychain = ROOT.TChain(tree_name)
@@ -101,16 +97,11 @@ Dp_cosHelicityAngleMomentum = ROOT.RooRealVar("Dp_cosHelicityAngleMomentum", "Dp
 Dp_CMS_p = ROOT.RooRealVar("Dp_CMS_p", "Dp_CMS_p", 0, 100)
 ds_weight = ROOT.RooRealVar("ds_weight", "ds_weight", -1000, 1000)
 rank_Dp_chiProb = ROOT.RooRealVar("rank_Dp_chiProb", "rank_Dp_chiProb", 0, 1000)
-Pip_genMotherID = ROOT.RooRealVar("Pip_genMotherID", "Pip_genMotherID", -1E9, 1E9)
-etapip_Eta_genMotherID = ROOT.RooRealVar("etapip_Eta_genMotherID", "etapip_Eta_genMotherID", -1E9, 1E9)
-etapip_Eta_genMotherPDG = ROOT.RooRealVar("etapip_Eta_genMotherPDG", "etapip_Eta_genMotherPDG", -1E9, 1E9)
-Pip_mcPDG = ROOT.RooRealVar("Pip_mcPDG", "Pip_mcPDG", -1E9, 1E9)
-etapip_Eta_isSignal = ROOT.RooRealVar("etapip_Eta_isSignal", "etapip_Eta_isSignal", -1E9, 1E9)
 
 full_var_set = ROOT.RooArgSet(x, Pip_charge, Dp_CMS_cosTheta, BDT, Pip_dr, Dp_dz,
                               Dp_cosAngleBetweenMomentumAndVertexVectorInXYPlane,
                               etapip_Eta_Easym, Dp_cosHelicityAngleMomentum,
-                              Dp_CMS_p,rank_Dp_chiProb,ds_weight, Pip_genMotherID, etapip_Eta_genMotherID, etapip_Eta_genMotherPDG, Pip_mcPDG, etapip_Eta_isSignal)
+                              Dp_CMS_p,rank_Dp_chiProb,ds_weight)
 
 before_data = ROOT.RooDataSet("before_data","Data before weighting",full_var_set,ROOT.RooFit.Import(mychain),ROOT.RooFit.Cut(cuts_Dp))
 scale = 1
@@ -130,68 +121,6 @@ data_cc = ROOT.RooDataSet("data_weighted_cc","Weighted Data CC",before_data_cc,b
 # Verify the weight is applied
 print(f"Unweighted events: {before_data_cc.sumEntries()}")
 print(f"Weighted events: {data_cc.sumEntries()}")
-
-nAllSigCascDcyBr_3 = ROOT.RooRealVar("nAllSigCascDcyBr_3", "nAllSigCascDcyBr_3", -1E9, 1E9)
-nAllSigCascDcyBr_7 = ROOT.RooRealVar("nAllSigCascDcyBr_7", "nAllSigCascDcyBr_7", -1E9, 1E9)
-full_var_set_topo = ROOT.RooArgSet(x, Pip_charge, Dp_CMS_cosTheta, BDT, Pip_dr, Dp_dz,
-                              Dp_cosAngleBetweenMomentumAndVertexVectorInXYPlane,
-                              etapip_Eta_Easym, Dp_cosHelicityAngleMomentum,
-                              Dp_CMS_p,rank_Dp_chiProb,ds_weight, nAllSigCascDcyBr_3, nAllSigCascDcyBr_7)
-
-file_list = []
-for element in cm_elements:
-    pattern = f"{base_path}/{element}/{tree_name}/min_unc_search/{BDT_cut}/weighted/*ccbar*BDT.root"
-    matched_files = glob.glob(pattern)
-
-    for f in matched_files:
-         file_list.append(f)
-    #for f in matched_files:
-    #    if "ccbar" in f:
-    #        file_list.append(f)
-print("here")
-print(file_list)
-print(f"Number of ccbar files: {len(file_list)}")
-mychain_ccbar = ROOT.TChain(tree_name)
-for i in file_list:
-    mychain_ccbar.Add(i)
-mychain_ccbar_cc= ROOT.TChain(tree_name)
-for i in file_list:
-    mychain_ccbar_cc.Add(i)
-
-crossfeed_cut_plus = "!(etapip_Eta_isSignal==1 && Pip_genMotherID==etapip_Eta_genMotherID && etapip_Eta_genMotherPDG==411 && Pip_mcPDG==211)"
-crossfeed_cut_minus = "!(etapip_Eta_isSignal==1 && Pip_genMotherID==etapip_Eta_genMotherID && etapip_Eta_genMotherPDG==-411 && Pip_mcPDG==-211)"
-#before_data_ccbar = ROOT.RooDataSet("before_data_ccbar","Data before weighting",full_var_set,ROOT.RooFit.Import(mychain_ccbar),ROOT.RooFit.Cut(cuts_Dp + ' && (etapip_Eta_isSignal!=1 || Pip_genMotherID!=etapip_Eta_genMotherID || abs(etapip_Eta_genMotherPDG)!=411 ||  abs(Pip_mcPDG)!=211)'))
-before_data_ccbar = ROOT.RooDataSet("before_data_ccbar","Data before weighting",full_var_set,ROOT.RooFit.Import(mychain_ccbar),ROOT.RooFit.Cut(cuts_Dp + f' && {crossfeed_cut_plus}'))
-before_data_ccbar.addColumn(w_scaled)
-data_ccbar = ROOT.RooDataSet("data_weighted","Weighted Data",before_data_ccbar,before_data_ccbar.get(),"","w_scaled")
-
-before_data_ccbar_cc = ROOT.RooDataSet("before_data_ccbar_cc","Data before weighting",full_var_set,ROOT.RooFit.Import(mychain_ccbar_cc),ROOT.RooFit.Cut(cuts_Dm + f' && {crossfeed_cut_minus}'))
-before_data_ccbar_cc.addColumn(w_scaled)
-data_ccbar_cc = ROOT.RooDataSet("data_weighted","Weighted Data",before_data_ccbar_cc,before_data_ccbar_cc.get(),"","w_scaled")
-"""
-mychain_ccbar = ROOT.TChain(tree_name)
-mychain_ccbar.Add("/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15rd/EtaHp/MC15rd_loose_v7_260108_nopi0veto/topo_basic/15rd_jae_e7_18_4S_v3/resultfile/result_etapip_gg_K/standard.root")
-mychain_ccbar.Add("/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15rd/EtaHp/MC15rd_loose_v7_260108_nopi0veto/topo_basic/15rd_jae_e20_b26_v1/resultfile/result_etapip_gg_K/standard.root")
-mychain_ccbar.Add("/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15rd/EtaHp/MC15rd_loose_v7_260108_nopi0veto/topo_basic/15rd_jae_e20_e26_4S_v2/resultfile/result_etapip_gg_K/standard.root")
-mychain_ccbar.Add("/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15rd/EtaHp/MC15rd_loose_v7_260108_nopi0veto/topo_basic/15rd_jae_e21_5S_scan_v1/resultfile/result_etapip_gg_K/standard.root")
-mychain_ccbar.Add("/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15rd/EtaHp/MC15rd_loose_v7_260108_nopi0veto/topo_basic/15rd_jae_mori_off_v1/resultfile/result_etapip_gg_K/standard.root")
-before_data_ccbar = ROOT.RooDataSet("before_data_ccbar","Data before weighting",full_var_set_topo,ROOT.RooFit.Import(mychain_ccbar),ROOT.RooFit.Cut(cuts_Dp + ' && nAllSigCascDcyBr_3 <= 0 && nAllSigCascDcyBr_7 <= 0'))
-before_data_ccbar.addColumn(w_scaled)
-data_ccbar = ROOT.RooDataSet("data_weighted","Weighted Data",before_data_ccbar,before_data_ccbar.get(),"","w_scaled")
-
-mychain_ccbar_cc= ROOT.TChain(tree_name)
-mychain_ccbar_cc.Add("/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15rd/EtaHp/MC15rd_loose_v7_260108_nopi0veto/topo_basic/15rd_jae_e7_18_4S_v3/resultfile/result_etapip_gg_K/standard.root")
-mychain_ccbar_cc.Add("/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15rd/EtaHp/MC15rd_loose_v7_260108_nopi0veto/topo_basic/15rd_jae_e20_b26_v1/resultfile/result_etapip_gg_K/standard.root")
-mychain_ccbar_cc.Add("/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15rd/EtaHp/MC15rd_loose_v7_260108_nopi0veto/topo_basic/15rd_jae_e20_e26_4S_v2/resultfile/result_etapip_gg_K/standard.root")
-mychain_ccbar_cc.Add("/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15rd/EtaHp/MC15rd_loose_v7_260108_nopi0veto/topo_basic/15rd_jae_e21_5S_scan_v1/resultfile/result_etapip_gg_K/standard.root")
-mychain_ccbar_cc.Add("/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15rd/EtaHp/MC15rd_loose_v7_260108_nopi0veto/topo_basic/15rd_jae_mori_off_v1/resultfile/result_etapip_gg_K/standard.root")
-before_data_ccbar_cc = ROOT.RooDataSet("before_data_ccbar_cc","Data before weighting",full_var_set_topo,ROOT.RooFit.Import(mychain_ccbar_cc),ROOT.RooFit.Cut(cuts_Dm + ' && nAllSigCascDcyBr_3 <= 0 && nAllSigCascDcyBr_7 <=  0'))
-before_data_ccbar_cc.addColumn(w_scaled)
-data_ccbar_cc = ROOT.RooDataSet("data_weighted_cc","Weighted Data",before_data_ccbar_cc,before_data_ccbar_cc.get(),"","w_scaled")
-"""
-
-data.append(data_ccbar)
-data_cc.append(data_ccbar_cc)
 
 
 N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 2500*scale*N_scale, 0*scale*N_scale, 6000*scale*N_scale)  # N_total = N_D+ + N_D-
@@ -220,7 +149,7 @@ Nsig_Ds_minus = RooFormulaVar("Nsig_Ds_minus",
 
 
 Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 40000*scale*N_scale, 0*scale*N_scale,200000*scale*N_scale)
-Acp_bkg = RooRealVar("Acp_bkg", "Acp", 0, -0.5, 0.5)  # A_Cp as a fit parameter
+Acp_bkg = RooRealVar("Acp_bkg", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 Nbkg_D_plus = RooFormulaVar("Nbkg_D_plus",
     "0.5 * Nbkg_total * (1 + Acp_bkg)",
     RooArgList(Nbkg_total, Acp_bkg))
@@ -308,16 +237,9 @@ Ds_gaussian = ROOT.RooGaussian("Ds_gaussian", "Gaussian PDF", x, Ds_mean_gaussia
 # Convolute the Johnson distribution with Gaussian
 Ds_model = ROOT.RooFFTConvPdf("Ds_model", "Convolution of Johnson and Gaussian", x, Ds_CB, Ds_gaussian)
 
-
-x_bkg1_Cheby_c0 = ROOT.RooRealVar("x_bkg1_Cheby_c0", "c0",0.1, -1.0, 1.0)
-x_bkg1_Cheby_c1 = ROOT.RooRealVar("x_bkg1_Cheby_c1", "c0",0.1, -1.0, 1.0)
-x_bkg1_Cheby_c2 = ROOT.RooRealVar("x_bkg1_Cheby_c2", "c0",0.1, -1.0, 1.0)
-x_bkg1_tau = ROOT.RooRealVar("x_bkg1_tau", "c0",-5, -20, 5)
-
-#bkg_comb = ROOT.RooExponential("bkg_comb", "x_bkg1", x, x_bkg1_tau)
-#model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0, x_bkg1_Cheby_c1, x_bkg1_Cheby_c2))
-model_bkg = ROOT.RooExponential("model_bkg", "x_bkg1", x, x_bkg1_tau)
-#model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_Cheby_c0, x_bkg1_Cheby_c1))
+x_bkg1_c1 = ROOT.RooRealVar("x_bkg1_c1", "c0",0.5, -1.0, 1.0)
+x_bkg1_c2 = ROOT.RooRealVar("x_bkg1_c2", "c0",0.5, -1.0, 1.0)
+model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_c1, x_bkg1_c2))
 
 
 # Define extended PDFs for D+ and D-

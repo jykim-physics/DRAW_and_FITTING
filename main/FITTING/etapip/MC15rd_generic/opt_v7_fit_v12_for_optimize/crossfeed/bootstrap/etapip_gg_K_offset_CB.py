@@ -99,11 +99,12 @@ Pip_genMotherID = ROOT.RooRealVar("Pip_genMotherID", "Pip_genMotherID", -1E9, 1E
 etapip_Eta_genMotherID = ROOT.RooRealVar("etapip_Eta_genMotherID", "etapip_Eta_genMotherID", -1E9, 1E9)
 etapip_Eta_genMotherPDG = ROOT.RooRealVar("etapip_Eta_genMotherPDG", "etapip_Eta_genMotherPDG", -1E9, 1E9)
 Pip_mcPDG = ROOT.RooRealVar("Pip_mcPDG", "Pip_mcPDG", -1E9, 1E9)
+etapip_Eta_isSignal = ROOT.RooRealVar("etapip_Eta_isSignal", "etapip_Eta_isSignal", -1E9, 1E9)
 
 full_var_set = ROOT.RooArgSet(x, Pip_charge, Dp_CMS_cosTheta, BDT, Pip_dr, Dp_dz,
                               Dp_cosAngleBetweenMomentumAndVertexVectorInXYPlane,
                               etapip_Eta_Easym, Dp_cosHelicityAngleMomentum,
-                              Dp_CMS_p,rank_Dp_chiProb,ds_weight, Pip_genMotherID, etapip_Eta_genMotherID, etapip_Eta_genMotherPDG, Pip_mcPDG)
+                              Dp_CMS_p,rank_Dp_chiProb,ds_weight, Pip_genMotherID, etapip_Eta_genMotherID, etapip_Eta_genMotherPDG, Pip_mcPDG, etapip_Eta_isSignal)
 
 before_data = ROOT.RooDataSet("before_data","Data before weighting",full_var_set,ROOT.RooFit.Import(mychain),ROOT.RooFit.Cut(cuts_Dp))
 scale = 1/4
@@ -478,10 +479,14 @@ while success_count < n_bootstrap:
 
     fit_outputs_before = nominal_fit_extract_Acp(data_boot_Dp, data_boot_Dm)
 
-    crossfeed_cut = "(Pip_genMotherID!=etapip_Eta_genMotherID || abs(etapip_Eta_genMotherPDG)!=411 || abs(Pip_mcPDG)!=211)"
+    #crossfeed_cut = "(Pip_genMotherID!=etapip_Eta_genMotherID || abs(etapip_Eta_genMotherPDG)!=411 || abs(Pip_mcPDG)!=211)"
+    #crossfeed_cut_plus = "(etapip_Eta_isSignal!=1 || Pip_genMotherID!=etapip_Eta_genMotherID || etapip_Eta_genMotherPDG!=411 ||  Pip_mcPDG!=211)"
+    #crossfeed_cut_minus = "(etapip_Eta_isSignal!=1 || Pip_genMotherID!=etapip_Eta_genMotherID || etapip_Eta_genMotherPDG!=-411 ||  Pip_mcPDG!=-211)"
+    crossfeed_cut_plus = "!(etapip_Eta_isSignal==1 && Pip_genMotherID==etapip_Eta_genMotherID && etapip_Eta_genMotherPDG==411 && Pip_mcPDG==211)"
+    crossfeed_cut_minus = "!(etapip_Eta_isSignal==1 && Pip_genMotherID==etapip_Eta_genMotherID && etapip_Eta_genMotherPDG==-411 && Pip_mcPDG==-211)"
 
-    data_boot_Dp_clean = data_boot_Dp.reduce(crossfeed_cut)
-    data_boot_Dm_clean = data_boot_Dm.reduce(crossfeed_cut)
+    data_boot_Dp_clean = data_boot_Dp.reduce(crossfeed_cut_plus)
+    data_boot_Dm_clean = data_boot_Dm.reduce(crossfeed_cut_minus)
 
     fit_outputs_after = nominal_fit_to_non_crossfeed(data_boot_Dp_clean, data_boot_Dm_clean, iteration)
 
