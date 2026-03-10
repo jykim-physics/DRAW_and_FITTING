@@ -569,7 +569,8 @@ h_curve_asym.Draw("L SAME")
 line_zero = ROOT.TLine(fit_range[0], 0.0, fit_range[1], 0.0)
 line_zero.SetLineStyle(2)
 line_zero.SetLineWidth(2)
-line_zero.SetLineColor(ROOT.kGray+2)
+#line_zero.SetLineColor(ROOT.kGray+2)
+line_zero.SetLineColor(ROOT.kRed)
 line_zero.Draw("SAME")
 
 """

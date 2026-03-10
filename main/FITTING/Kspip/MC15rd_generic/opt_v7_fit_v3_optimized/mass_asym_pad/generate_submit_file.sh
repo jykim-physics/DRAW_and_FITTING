@@ -12,8 +12,8 @@ arguments            = \$(job_script) \$(sign)
 " > job.sub
 
 rm -f job_list.txt
-#for script in KsKp_offset_etapip_gg_Ds.py KsKp_offset_etapip_pipipi_Ds.py Kspip_offset_etapip_gg.py Kspip_offset_etapip_pipipi.py; do
-for script in Kspip_offset_etapip_gg.py Kspip_offset_etapip_pipipi.py; do
+for script in KsKp_offset_etapip_gg_Ds.py KsKp_offset_etapip_pipipi_Ds.py Kspip_offset_etapip_gg.py Kspip_offset_etapip_pipipi.py; do
+#for script in Kspip_offset_etapip_gg.py Kspip_offset_etapip_pipipi.py; do
     echo "$script plus " >> job_list.txt
     echo "$script minus " >> job_list.txt
 done
