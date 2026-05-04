@@ -302,11 +302,18 @@ data_combined = RooDataSet("data_combined", "Combined data", full_var_set,RooFit
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8))
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8), RooFit.Strategy(1))
 fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8), RooFit.Strategy(1), ROOT.RooFit.Offset(True))
+#fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8), RooFit.Strategy(1), ROOT.RooFit.Offset(False))
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8), RooFit.Strategy(2), ROOT.RooFit.Offset(True))
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8), RooFit.Strategy(2))
 
 # Print fit results
 fit_result.Print()
+print("minNll =", fit_result.minNll())
+
+corr_matrix = fit_result.correlationMatrix()
+corr_matrix.Print()
+print("Correlation between N_total and x_bkg1_tau =", fit_result.correlation("N_total", "x_bkg1_tau"))
+print("Correlation between N_total_Ds and x_bkg1_tau =", fit_result.correlation("N_total_Ds", "x_bkg1_tau"))
 
 # Output the Acp value and its error
 Acp_value = Acp.getVal()
@@ -358,7 +365,16 @@ frame_D_plus = x.frame(ROOT.RooFit.Title("D+ fit"))
 slicedData_Dp = data_combined.reduce(Cut="sample==sample::D_plus")
 slicedData_Dp.plotOn(frame_D_plus, Name="data")
 
-sim_model.plotOn(frame_D_plus, Name="Background", Components="model_bkg", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kGreen+2)
+sim_model.plotOn(
+    frame_D_plus,
+    Name="Combinatorial",
+    Components="model_bkg",
+    ProjWData=(cat, slicedData_Dp),
+    LineColor=ROOT.kGray,
+    FillColor=ROOT.kGray,
+    DrawOption="F",
+    MoveToBack=True)
+#sim_model.plotOn(frame_D_plus, Name="Background", Components="model_bkg", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kGreen+2)
 sim_model.plotOn(frame_D_plus, Name="DpEtaPip", Components="kde_model", ProjWData=(cat, slicedData_Dp),LineColor=ROOT.kMagenta+1)
 sim_model.plotOn(frame_D_plus, Name="Fitting",ProjWData=(cat, slicedData_Dp))
 frame_D_plus.Draw("PE")
@@ -368,8 +384,8 @@ leg1 = ROOT.TLegend(0.2, 0.65, 0.4, 0.90)
 leg1.SetFillColorAlpha(ROOT.kWhite, 0)
 leg1.AddEntry("data", "#scale[1.33]{#font[42]{MC}}", "PE")
 leg1.AddEntry("Fitting", "#scale[1.33]{#font[42]{Fit}}", "l")
-leg1.AddEntry("Background", "#scale[1.33]{#font[42]{Combinatorial}}", "l")
 leg1.AddEntry("DpEtaPip", "#scale[1.33]{#font[42]{D^{+} #rightarrow #eta #pi^{+}}}", "l")
+leg1.AddEntry("Combinatorial", "#scale[1.33]{#font[42]{Combinatorial}}", "f")
 leg1.SetBorderSize(0)
 leg1.Draw()
 
@@ -438,7 +454,16 @@ canvas_D_minus.cd(1)
 frame_D_minus = x.frame(ROOT.RooFit.Title("D+ fit"))
 slicedData_Dm = data_combined.reduce(Cut="sample==sample::D_minus")
 slicedData_Dm.plotOn(frame_D_minus, Name="data")
-sim_model.plotOn(frame_D_minus, Name="Background", Components="model_bkg", ProjWData=(cat, slicedData_Dm),LineColor=ROOT.kGreen+2)
+sim_model.plotOn(
+    frame_D_minus,
+    Name="Combinatorial",
+    Components="model_bkg",
+    ProjWData=(cat, slicedData_Dm),
+    LineColor=ROOT.kGray,
+    FillColor=ROOT.kGray,
+    DrawOption="F",
+    MoveToBack=True)
+#sim_model.plotOn(frame_D_minus, Name="Background", Components="model_bkg", ProjWData=(cat, slicedData_Dm),LineColor=ROOT.kGreen+2)
 sim_model.plotOn(frame_D_minus, Name="DpEtaPip", Components="kde_model", ProjWData=(cat, slicedData_Dm),LineColor=ROOT.kMagenta+2)
 sim_model.plotOn(frame_D_minus, Name="Fitting",ProjWData=(cat, slicedData_Dm))
 frame_D_minus.Draw("PE")
@@ -448,8 +473,8 @@ leg1 = ROOT.TLegend(0.2, 0.65, 0.4, 0.90)
 leg1.SetFillColorAlpha(ROOT.kWhite, 0)
 leg1.AddEntry("data", "#scale[1.33]{#font[42]{MC}}", "PE")
 leg1.AddEntry("Fitting", "#scale[1.33]{#font[42]{Fit}}", "l")
-leg1.AddEntry("Background", "#scale[1.33]{#font[42]{Combinatorial}}", "l")
 leg1.AddEntry("DpEtaPip", "#scale[1.33]{#font[42]{D^{+} #rightarrow #eta #pi^{+}}}", "l")
+leg1.AddEntry("Combinatorial", "#scale[1.33]{#font[42]{Combinatorial}}", "f")
 leg1.SetBorderSize(0)
 leg1.Draw()
 
@@ -521,7 +546,16 @@ frame_D_all = x.frame(ROOT.RooFit.Title("D+ fit"))
 frame_D_all.GetXaxis().SetTitle("M(#eta_{#gamma#gamma}K^{+}) [GeV/c^{2}]")
 
 data_combined.plotOn(frame_D_all, Name="data")
-sim_model.plotOn(frame_D_all, Name="Background", Components="model_bkg", ProjWData=(cat, data_combined),LineColor=ROOT.kGreen+2)
+sim_model.plotOn(
+    frame_D_all,
+    Name="Combinatorial",
+    Components="model_bkg",
+    ProjWData=(cat, data_combined),
+    LineColor=ROOT.kGray,
+    FillColor=ROOT.kGray,
+    DrawOption="F",
+    MoveToBack=True)
+#sim_model.plotOn(frame_D_all, Name="Background", Components="model_bkg", ProjWData=(cat, data_combined),LineColor=ROOT.kGreen+2)
 sim_model.plotOn(frame_D_all, Name="DpEtaPip", Components="kde_model", ProjWData=(cat, data_combined),LineColor=ROOT.kMagenta+1)
 sim_model.plotOn(frame_D_all, Name="Fitting",ProjWData=(cat, data_combined))
 frame_D_all.Draw("PE")
@@ -531,8 +565,8 @@ leg1 = ROOT.TLegend(0.2, 0.65, 0.4, 0.90)
 leg1.SetFillColorAlpha(ROOT.kWhite, 0)
 leg1.AddEntry("data", "#scale[1.33]{#font[42]{MC}}", "PE")
 leg1.AddEntry("Fitting", "#scale[1.33]{#font[42]{Fit}}", "l")
-leg1.AddEntry("Background", "#scale[1.33]{#font[42]{Combinatorial}}", "l")
 leg1.AddEntry("DpEtaPip", "#scale[1.33]{#font[42]{D^{+} #rightarrow #eta #pi^{+}}}", "l")
+leg1.AddEntry("Combinatorial", "#scale[1.33]{#font[42]{Combinatorial}}", "f")
 leg1.SetBorderSize(0)
 leg1.Draw()
 

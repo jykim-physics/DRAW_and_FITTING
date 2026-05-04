@@ -370,10 +370,9 @@ sim_model.plotOn(
     Name="COMB",
     Components="bkg_comb",
     ProjWData=(cat, slicedData_Dp),
-    LineColor=ROOT.kGreen+2,
-    FillColor=ROOT.kWhite,
-    FillStyle=1001,
-    DrawOption="LF",
+    LineColor=ROOT.kGray,
+    FillColor=ROOT.kGray,
+    DrawOption="F",
     MoveToBack=True)
 sim_model.plotOn(
     frame_D_plus,
@@ -396,7 +395,7 @@ leg1.SetFillColorAlpha(ROOT.kWhite, 0)
 leg1.AddEntry("data", "#font[42]{MC}", "PE")
 leg1.AddEntry("Fitting", "#font[42]{Fit}", "l")
 leg1.AddEntry("RHOETA", "#font[42]{D_{s}^{+} #rightarrow #rho^{+} #eta}", "f")
-leg1.AddEntry("COMB", "#font[42]{Combinatorial}", "l")
+leg1.AddEntry("COMB", "#font[42]{Combinatorial}", "f")
 leg1.SetBorderSize(0)
 leg1.Draw()
 
@@ -471,10 +470,9 @@ sim_model.plotOn(
     Name="COMB",
     Components="bkg_comb",
     ProjWData=(cat, slicedData_Dm),
-    LineColor=ROOT.kGreen+2,
-    FillColor=ROOT.kWhite,
-    FillStyle=1001,
-    DrawOption="LF",
+    LineColor=ROOT.kGray,
+    FillColor=ROOT.kGray,
+    DrawOption="F",
     MoveToBack=True)
 sim_model.plotOn(
     frame_D_minus,
@@ -497,7 +495,7 @@ leg1.SetFillColorAlpha(ROOT.kWhite, 0)
 leg1.AddEntry("data", "#font[42]{MC}", "PE")
 leg1.AddEntry("Fitting", "#font[42]{Fit}", "l")
 leg1.AddEntry("RHOETA", "#font[42]{D_{s}^{+} #rightarrow #rho^{+} #eta}", "f")
-leg1.AddEntry("COMB", "#font[42]{Combinatorial}", "l")
+leg1.AddEntry("COMB", "#font[42]{Combinatorial}", "f")
 leg1.SetBorderSize(0)
 leg1.Draw()
 
@@ -574,10 +572,9 @@ sim_model.plotOn(
     Name="COMB",
     Components="bkg_comb",
     ProjWData=(cat, data_combined),
-    LineColor=ROOT.kGreen+2,
-    FillColor=ROOT.kWhite,
-    FillStyle=1001,
-    DrawOption="LF",
+    LineColor=ROOT.kGray,
+    FillColor=ROOT.kGray,
+    DrawOption="F",
     MoveToBack=True)
 sim_model.plotOn(
     frame_D_all,
@@ -600,7 +597,7 @@ leg1.SetFillColorAlpha(ROOT.kWhite, 0)
 leg1.AddEntry("data", "#font[42]{MC}", "PE")
 leg1.AddEntry("Fitting", "#font[42]{Fit}", "l")
 leg1.AddEntry("RHOETA", "#font[42]{D_{s}^{+} #rightarrow #rho^{+} #eta}", "f")
-leg1.AddEntry("COMB", "#font[42]{Combinatorial}", "l")
+leg1.AddEntry("COMB", "#font[42]{Combinatorial}", "f")
 leg1.SetBorderSize(0)
 leg1.Draw()
 
