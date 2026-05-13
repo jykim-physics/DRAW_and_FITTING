@@ -119,7 +119,7 @@ data_cc = ROOT.RooDataSet("data_weighted_cc","Weighted Data CC",before_data_cc,b
 print(f"Unweighted events: {before_data_cc.sumEntries()}")
 print(f"Weighted events: {data_cc.sumEntries()}")
 
-N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 1200*scale*N_scale, 0*scale*N_scale, 50000*scale*N_scale)  # N_total = N_D+ + N_D-
+N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 1200*scale*N_scale, 0*scale*N_scale, 20000*scale*N_scale)  # N_total = N_D+ + N_D-
 #N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 2400*scale*N_scale, 0*scale*N_scale, 50000*scale*N_scale)  # N_total = N_D+ + N_D-
 Acp = RooRealVar("Acp", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
@@ -133,7 +133,7 @@ Nsig_D_minus = RooFormulaVar("Nsig_D_minus",
     RooArgList(N_total, Acp))
 
 #N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 8000*scale*N_scale, 0*scale*N_scale,100000*scale*N_scale)  # N_total = N_D+ + N_D-
-N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 4000*scale*N_scale, 0*scale*N_scale,100000*scale*N_scale)  # N_total = N_D+ + N_D-
+N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 8000*scale*N_scale, 0*scale*N_scale,50000*scale*N_scale)  # N_total = N_D+ + N_D-
 #N_total_Ds = RooRealVar("N_total_Ds", "N_total (N_Ds+ + N_Ds-)", 16000*scale*N_scale, 0*scale*N_scale,100000*scale*N_scale)  # N_total = N_D+ + N_D-
 Acp_Ds = RooRealVar("Acp_Ds", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 
@@ -147,7 +147,8 @@ Nsig_Ds_minus = RooFormulaVar("Nsig_Ds_minus",
     RooArgList(N_total_Ds, Acp_Ds))
 
 
-Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 6000*scale*N_scale, 0*scale*N_scale,100000*scale*N_scale)
+Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 30000*scale*N_scale, 0*scale*N_scale,100000*scale*N_scale)
+#Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 6000*scale*N_scale, 0*scale*N_scale,100000*scale*N_scale)
 #Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 12000*scale*N_scale, 0*scale*N_scale,100000*scale*N_scale)
 Acp_bkg = RooRealVar("Acp_bkg", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 Nbkg_D_plus = RooFormulaVar("Nbkg_D_plus",
@@ -166,6 +167,7 @@ elif args.sign == "all":
     N_peak_bkg_total = ROOT.RooRealVar("N_peak_bkg_total", "Number of background events", 569.9998807723211)
 
 Acp_peak_bkg = RooRealVar("Acp_peak_bkg", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
+#Acp_peak_bkg = RooRealVar("Acp_peak_bkg", "Acp", 0)  # A_Cp as a fit parameter
 N_peak_bkg_D_plus = RooFormulaVar("N_peak_bkg_D_plus",
     "0.5 * N_peak_bkg_total * (1 + Acp_peak_bkg)",
     RooArgList(N_peak_bkg_total, Acp_peak_bkg))
@@ -300,8 +302,8 @@ data_combined = RooDataSet("data_combined", "Combined data", full_var_set,RooFit
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4), RooFit.Strategy(2), RooFit.Minos(0), RooFit.Hesse(1))
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(4), RooFit.Strategy(0), RooFit.Minos(0), RooFit.Hesse(1))
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8), RooFit.Strategy(1))
-fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8), RooFit.Strategy(1))
-#fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8), RooFit.Strategy(1), ROOT.RooFit.Offset(True))
+#fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8), RooFit.Strategy(2))
+fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8), RooFit.Strategy(1), ROOT.RooFit.Offset(True))
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8), RooFit.Strategy(2), ROOT.RooFit.Offset(True))
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8))
 
@@ -524,7 +526,7 @@ dwPad.SetPad(xlow, ylow,xup,ylow+0.25*(yup-ylow))
 canvas_D_all.cd(1)
 
 frame_D_all = x.frame(ROOT.RooFit.Title("D+ fit"))
-frame_D_all.GetXaxis().SetTitle("M(#eta_{3#pi}K^{+}) [GeV/c^{2}]")
+frame_D_all.GetXaxis().SetTitle("M(#eta_{#pi#pi#pi}K^{+}) [GeV/c^{2}]")
 
 data_combined.plotOn(frame_D_all, Name="data")
 sim_model.plotOn(

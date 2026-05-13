@@ -262,7 +262,7 @@ Nsig_Ds_minus_var = RooFormulaVar("Nsig_Ds_minus_var",
 
 
 Nbkg_total_var = ROOT.RooRealVar("Nbkg_total_var", "Number of background events for D+",  40000*scale*N_scale, 0*scale*N_scale,120000*scale*N_scale)
-Acp_bkg_var= RooRealVar("Acp_bkg_var", "Acp", 0, -0.5, 0.5)  # A_Cp as a fit parameter
+Acp_bkg_var= RooRealVar("Acp_bkg_var", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
 Nbkg_D_plus_var = RooFormulaVar("Nbkg_D_plus_var",
     "0.5 * Nbkg_total_var * (1 + Acp_bkg_var)",
     RooArgList(Nbkg_total_var, Acp_bkg_var))
@@ -532,7 +532,7 @@ while success_count < n_bootstrap:
     sh_a = fit_outputs_after[2]
 
     # Check if both fits converged properly
-    if sm_b == 0 and (sh_b == 3 or sh_b == 2) and sm_a == 0 and (sh_a == 3 or sh_b ==2):
+    if sm_b == 0 and (sh_b == 3 or sh_b == 2) and sm_a == 0 and (sh_a == 3 or sh_a ==2):
         acp_before = fit_outputs_before[0]
         acp_after = fit_outputs_after[0]
         delta_acp = acp_after - acp_before

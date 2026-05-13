@@ -521,7 +521,7 @@ while success_count < n_bootstrap:
     sh_a = fit_outputs_after[2]
 
     # Check if both fits converged properly
-    if sm_b == 0 and (sh_b == 3 or sh_b == 2) and sm_a == 0 and (sh_a == 3 or sh_b ==2):
+    if sm_b == 0 and (sh_b == 3 or sh_b == 2) and sm_a == 0 and (sh_a == 3 or sh_a ==2):
         acp_before = fit_outputs_before[0]
         acp_after = fit_outputs_after[0]
         delta_acp = acp_after - acp_before

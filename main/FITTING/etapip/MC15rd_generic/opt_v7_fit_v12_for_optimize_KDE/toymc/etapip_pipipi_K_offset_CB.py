@@ -45,7 +45,7 @@ elif args.sign == "all":
 	Dp_CMS_cosTheta_cut = "Dp_CMS_cosTheta>-10"
 	N_scale = 1
 
-suffix = "KDE"
+suffix = "KDE_trialv2"
 file_name_Dall = f"/share/storage/jykim/plots/MC15rd/etaKp/pipipi/generic/boostrap/bootstrap_sys_MC15rd_etaKp_pipipi_fit_opt_loose_v7_fitv12_bdt_{args.train}_Dall_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted_Dall"
 dir_path = os.path.dirname(file_name_Dall)
 if not os.path.exists(dir_path):
@@ -165,6 +165,8 @@ N_peak_bkg_D_plus = RooFormulaVar("N_peak_bkg_D_plus",
 N_peak_bkg_D_minus = RooFormulaVar("N_peak_bkg_D_minus",
     "0.5 * N_peak_bkg_total * (1 - Acp_peak_bkg)",
     RooArgList(N_peak_bkg_total, Acp_peak_bkg))
+print("N_peak_bkg_total =", N_peak_bkg_total.getVal())
+print("Acp_peak_bkg =", Acp_peak_bkg.getVal())
 
 f_in = ROOT.TFile("/share/storage/jykim/plots/MC15rd/etaKp/pipipi/MC15re_6M_etapip_pipipi_Dp_M_v12_result_true_extended_train_Dp_CMS_p.0.77_workspace.root", "READ")
 ws = f_in.Get("ws_kde")
@@ -231,7 +233,12 @@ data_combined = RooDataSet("data_combined", "Combined", full_var_set, RooFit.Ind
                               RooFit.Import("D_plus", data),
                               RooFit.Import("D_minus", data_cc),
                               RooFit.WeightVar("w_scaled"))
-ToyMC_all = ROOT.RooMCStudy(sim_model, {x,cat}, Extended(True), SumW2Error(True), FitOptions(Save(True),PrintEvalErrors(0),PrintLevel(1), NumCPU(4), Offset("initial")))
+# fixed seed for reproducibility
+seed = 202605
+ROOT.RooRandom.randomGenerator().SetSeed(seed)
+print(f"ToyMC random seed = {seed}")
+
+ToyMC_all = ROOT.RooMCStudy(sim_model, {x,cat}, Extended(True), SumW2Error(True), FitOptions(Save(True),PrintEvalErrors(0),PrintLevel(1), NumCPU(4), Offset(True)))
 ToyMC_all.generateAndFit(1000)
 #ToyMC_all.generateAndFit(10)
 

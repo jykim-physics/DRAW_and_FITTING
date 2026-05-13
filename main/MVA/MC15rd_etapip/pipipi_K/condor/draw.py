@@ -199,8 +199,8 @@ for i, feature in enumerate(feature_labels.keys(), 1):
     plt.xlabel(feature_labels[feature])
     plt.ylabel("Normalized Frequency")
     plt.xlim(xmin, xmax)  # Set the x-range
-    if feature in log_scale_features:
-        plt.yscale("log")
+    #if feature in log_scale_features:
+    #    plt.yscale("log")
 
     plt.legend()
 

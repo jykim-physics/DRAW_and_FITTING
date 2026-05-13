@@ -226,7 +226,11 @@ data_combined = RooDataSet("data_combined", "Combined", full_var_set, RooFit.Ind
                               RooFit.Import("D_plus", data),
                               RooFit.Import("D_minus", data_cc),
                               RooFit.WeightVar("w_scaled"))
-ToyMC_all = ROOT.RooMCStudy(sim_model, {x,cat}, Extended(True), SumW2Error(True), FitOptions(Save(True),PrintEvalErrors(0),PrintLevel(1), NumCPU(4), Offset("initial")))
+# fixed seed for reproducibility
+seed = 202605
+ROOT.RooRandom.randomGenerator().SetSeed(seed)
+print(f"ToyMC random seed = {seed}")
+ToyMC_all = ROOT.RooMCStudy(sim_model, {x,cat}, Extended(True), SumW2Error(True), FitOptions(Save(True),PrintEvalErrors(0),PrintLevel(1), NumCPU(4), Offset(True)))
 ToyMC_all.generateAndFit(1000)
 #ToyMC_all.generateAndFit(100)
 
