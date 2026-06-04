@@ -11,7 +11,7 @@ parser = argparse.ArgumentParser(description="Process Dp_CMS_sign argument")
 file_name_Dp = f"Dp_etaeta_pipi_tag.png"
 file_name_Dm = f"Dm_etaeta_pipi_tag.png"
 file_name_Dall = f"Dall_etaeta_pipi_tag.png"
-fitresult_name = f"etaeta_pipi_tag.result"
+fitresult_name = f"etaeta_pipi_tag.result.root"
 fitresult_text = f"etaeta_pipi_tag.txt"
 file_sweight = f"etaeta_pipi_tag_sweight.root"
 #file_name_Dall = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_bdt_{args.train}_Dall_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.pdf"

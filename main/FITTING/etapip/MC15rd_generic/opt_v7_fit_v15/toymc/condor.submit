@@ -1,0 +1,30 @@
+# Shared configuration for all jobs
+universe             = vanilla
+getenv               = true
+output               = log/job_summary_$(Cluster)_$(Process).out
+error                = log/job_summary_$(Cluster)_$(Process).error
+log                  = log/job_summary_$(Cluster)_$(Process).log
+#request_cpus         = 2
+#request_memory       = 4000
+request_cpus         = 14
+request_memory       = 28000
+
+#executable           = python3.sh
+#transfer_input_files = etapip_gg_K.py
+#arguments            = etapip_gg_K.py
+#queue
+
+executable           = python3.sh
+transfer_input_files = etapip_pipipi_K.py
+arguments            = etapip_pipipi_K.py
+queue
+
+#executable           = python3.sh
+#transfer_input_files = etapip_gg_K_Ds.py
+#arguments            = etapip_gg_K_Ds.py
+#queue
+
+executable           = python3.sh
+transfer_input_files = etapip_pipipi_K_Ds.py
+arguments            = etapip_pipipi_K_Ds.py
+queue

@@ -11,7 +11,7 @@ parser = argparse.ArgumentParser(description="Process Dp_CMS_sign argument")
 file_name_Dp = f"Dp_etaeta_gg_untag.png"
 file_name_Dm = f"Dm_etaeta_gg_untag.png"
 file_name_Dall = f"Dall_etaeta_gg_untag.png"
-fitresult_name = f"etaeta_gg_untag.result"
+fitresult_name = f"etaeta_gg_untag.result.root"
 fitresult_text = f"etaeta_gg_untag.txt"
 file_sweight = f"etaeta_gg_untag_sweight.root"
 
@@ -31,13 +31,14 @@ print(file_list)
 mychain = ROOT.TChain(tree_name)
 for i in file_list:
     mychain.Add(i)
-print(file_list)
+#print(file_list)
 print(f"Numer of files: {len(file_list)}")
 
 # Define variable and its range
-fit_variable = "D0_M"
+fit_variable = "untag_D0_M"
 fit_var_name = "M(#eta_{#gamma#gamma}#eta_{#gamma#gamma}) [GeV/c^{2}]"
-fit_range = (1.60, 2.1)
+#fit_range = (1.60, 2.1)
+fit_range = (1.70, 2.0)
 #fit_range = (1.74, 2.0)
 #fit_range = (1.755, 2.045)
 
@@ -57,27 +58,28 @@ data = ROOT.RooDataSet("data","Data",full_var_set,ROOT.RooFit.Import(mychain),RO
 
 scale=1
 N_scale=1
-N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 2500*scale*N_scale, 0*scale*N_scale, 15000*scale*N_scale)  # N_total = N_D+ + N_D-
+N_total = RooRealVar("N_total", "N_total (N_D+ + N_D-)", 15000*scale*N_scale, 10000*scale*N_scale, 50000*scale*N_scale)  # N_total = N_D+ + N_D-
 
-Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 10000*scale*N_scale, 0*scale*N_scale,200000*scale*N_scale)
+Nbkg_total = ROOT.RooRealVar("Nbkg_total", "Number of background events for D+", 500000*scale*N_scale, 200000*scale*N_scale,1000000*scale*N_scale)
 
 mean = ROOT.RooRealVar("mean", "mean", 1.87, 1.82, 1.88)  # Central value
-sigma = ROOT.RooRealVar("sigma", "sigma", 0.002, 0.0001, 0.01)  # Width parameter
-gamma = ROOT.RooRealVar("gamma", "gamma", 0.01, -2.0, 2.0)  # Skewness parameter
+sigma = ROOT.RooRealVar("sigma", "sigma", 0.002, 0.00001, 0.1)  # Width parameter
+gamma = ROOT.RooRealVar("gamma", "gamma", 0.01, -8.0, 8.0)  # Skewness parameter
 delta = ROOT.RooRealVar("delta", "delta", 0.6, 0.001, 3.0)  # Shape parameter
 
 # Create the RooJohnson PDF
-johnson = ROOT.RooJohnson("johnson", "double-sided Crystal Ball using Johnson SU", x,  mean, sigma, gamma, delta)
+#johnson = ROOT.RooJohnson("johnson", "double-sided Crystal Ball using Johnson SU", x,  mean, sigma, gamma, delta)
+sig_model  = ROOT.RooJohnson("sig_model", "double-sided Crystal Ball using Johnson SU", x,  mean, sigma, gamma, delta)
 
 mean_gauss = ROOT.RooRealVar("mean_gauss", "Gaussian mean", 0.0)  # Convolution will   center the Gaussian at zero
-sigma_gauss = ROOT.RooRealVar("sigma_gauss", "Gaussian width", 0.002, 0.00001, 0.01)
+sigma_gauss = ROOT.RooRealVar("sigma_gauss", "Gaussian width", 0.002, 0.000001, 0.1)
 
 
 # Create the Gaussian PDF
 gauss = ROOT.RooGaussian("gauss", "Gaussian PDF", x, mean_gauss, sigma_gauss)
 
 # Perform the convolution
-sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson SU and Gaussian", x, johnson, gauss)
+#sig_model = ROOT.RooFFTConvPdf("sig_model", "Convolution of Johnson SU and Gaussian", x, johnson, gauss)
 
 
 x_bkg1_Cheby_c0 = ROOT.RooRealVar("x_bkg1_Cheby_c0", "c0",0.1, -1.0, 1.0)
@@ -98,10 +100,10 @@ model_D_all = ROOT.RooAddPdf("model_D_all", "D model",
 
 # Fit the model
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8), RooFit.Strategy(2))
-fit_result = model_D_all.fitTo(data.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8), RooFit.Strategy(1), ROOT.RooFit.Offset(True))
+fit_result = model_D_all.fitTo(data, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8), RooFit.Strategy(2), ROOT.RooFit.Offset(True))
 
 # Print fit results
-fit_result.Print()
+fit_result.Print("v")
 
 # Output N_total
 N_total_value = N_total.getVal()
@@ -133,13 +135,14 @@ canvas_D_all.cd(1)
 frame_D_all = x.frame(ROOT.RooFit.Title("D0 fit"))
 frame_D_all.GetXaxis().SetTitle("M(#eta_{#gamma#gamma}#eta_{#gamma#gamma}) [GeV/c^{2}]")
 
-data_combined.plotOn(frame_D_all, Name="data")
-sim_model.plotOn(frame_D_all, Name="Background", Components="model_bkg",  data,LineColor=ROOT.kGreen+2)
-sim_model.plotOn(frame_D_all, Name="Fitting", data)
+data.plotOn(frame_D_all, Name="data")
+model_D_all.plotOn(frame_D_all, Name="Background", Components="model_bkg", LineColor=ROOT.kGreen+2)
+model_D_all.plotOn(frame_D_all, Name="Fitting")
 frame_D_all.Draw("PE")
 frame_D_all.GetXaxis().CenterTitle(True)
 
-leg1 = ROOT.TLegend(0.2, 0.65, 0.4, 0.90)
+#leg1 = ROOT.TLegend(0.2, 0.65, 0.4, 0.90)
+leg1 = ROOT.TLegend(0.2, 0.2, 0.4, 0.45)
 leg1.SetFillColorAlpha(ROOT.kWhite, 0)
 leg1.AddEntry("data", "#scale[1.33]{#font[42]{MC}}", "PE")
 leg1.AddEntry("Fitting", "#scale[1.33]{#font[42]{Fit}}", "l")
@@ -230,70 +233,3 @@ with open(fitresult_text, "w") as f:
 
 # # Generate and fit 10 toys
 # mcstudy1.generateAndFit(10)
-sPlot = RooStats.SPlot("sPlot", "sPlot", data_combined,
-                       sim_model,
-                       RooArgList(N_total,  Nbkg_total))
-
-# Extract sWeights
-# sWeights are stored in a RooDataSet as an additional variable
-sWeights = sPlot.GetSDataSet()
-
-# Print or access the sWeights
-print("sWeights dataset:")
-sWeights.Print()
-
-#print("sPlot dataset:")
-#sPlot.Print()
-
-N_total_sWeight = sPlot.GetYieldFromSWeight("N_total")
-Nbkg_total_sWeight = sPlot.GetYieldFromSWeight("Nbkg_total")
-
-print(f"Yield N_total is {N_total.getVal()}. From sWeights it is {N_total_sWeight}")
-print(f"Yield Nbkg_total is {Nbkg_total.getVal()}. From sWeights it is {Nbkg_total_sWeight}")
-
-# Optionally, you can get the sWeight for each event
-#sWeight_variable = sWeights.addColumn("sWeight")  # This is optional, to make the column available
-#for i in range(sWeights.numEntries()):
-for i in range(0,10):
-    print(f"Entry {i}: sWeight = {sWeights.get(i).getRealValue('sWeight')}")
-for i in range(0,10):
-    N_total_sWeight = sPlot.GetSWeight(i, "N_total")
-    print(f"Entry {i}: N_total sWeight = {N_total_sWeight}")
-    Nbkg_total_sWeight = sPlot.GetSWeight(i, "Nbkg_total")
-    print(f"Entry {i}: Nbkg_total sWeight = {Nbkg_total_sWeight}")
-    Total_sWeight = sPlot.GetSumOfEventSWeight(i)
-    print(f"Entry {i}: Total sWeight = {Total_sWeight}")
-    print("======================")
-
-
-data_combined.Print()
-
-output_file = TFile(f"{file_sweight}", "RECREATE")
-
-# Save the RooDataSet to the file
-data_combined.Write("sweight")
-
-# Close the file
-output_file.Close()
-
-cdata = ROOT.TCanvas("sPlot", "sPlot demo", 600, 600)
-cdata.Divide(1, 2)
-cdata.cd(0)
-
-sdata_Pip_p = ROOT.RooDataSet(data_combined.GetName(), data_combined.GetTitle(), data_combined, data_combined.get(), "", "N_total_sw")
-#sdata_Pip_p = ROOT.RooDataSet(data_combined.GetName(), data_combined.GetTitle(), data_combined, data_combined.get(), "", "N_total_Ds_sw")
-
-#Pip_p_frame = BDT.frame(0, 1, 50)
-#Pip_p_frame = Dp_CMS_p.frame(2.5, 5.2, 50)
-Pip_p_frame = rank_Dstarp_chiProb.frame(0, 1, 50)
-#Pip_p_frame.SetMinimum(0)  # Set y-axis minimum to 0
-#Pip_p_frame.SetAxisRange(0,5.2)
-#Pip_p_frame.SetAxisRange(0,,"Y")
-
-sdata_Pip_p.plotOn(Pip_p_frame, ROOT.RooFit.DataError(ROOT.RooAbsData.SumW2))
-#Pip_p_frame.GetYaxis().SetRangeUser(0,)  # Set y-axis minimum to 0
-Pip_p_frame.GetYaxis().SetRangeUser(0, Pip_p_frame.GetMaximum())
-Pip_p_frame.SetTitle("sWeighted BDT")
-Pip_p_frame.Draw()
-
-cdata.SaveAs("test_gg.png")

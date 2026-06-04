@@ -51,6 +51,8 @@ if not os.path.exists(dir_path):
     os.makedirs(dir_path)
 print("Directory created:", dir_path)
 
+print(fitresult_text)
+
 ROOT.gROOT.LoadMacro('/home/jykim/workspace/DRAW_and_FITTING/main/FITTING/Belle2Style.C')
 ROOT.SetBelle2Style()
 
@@ -265,13 +267,19 @@ x_bkg1_c0 = ROOT.RooRealVar("x_bkg1_c0", "c0",0.1, -1.0, 1.0)
 x_bkg1_c1 = ROOT.RooRealVar("x_bkg1_c1", "c0",0.1, -1.0, 1.0)
 x_bkg1_c2 = ROOT.RooRealVar("x_bkg1_c2", "c0",0.5 -1.0, 1.0)
 x_bkg1_tau = ROOT.RooRealVar("x_bkg1_tau", "c0",-1, -10, 10)
-x_bkg1_tau2 = ROOT.RooRealVar("x_bkg1_tau2", "c0",-1, -10, -0.00001)
+x_bkg1_tau2 = ROOT.RooRealVar("x_bkg1_tau2", "c0",-1, -10, 10)
 
 #bkg_comb = ROOT.RooExponential("bkg_comb", "x_bkg1", x, x_bkg1_tau)
-model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_c0, x_bkg1_c1, x_bkg1_c2))
+#model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_c0, x_bkg1_c1, x_bkg1_c2))
 #model_bkg = ROOT.RooExponential("model_bkg", "x_bkg1", x, x_bkg1_tau)
 #model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_c1, x_bkg1_c2))
+#model_bkg = ROOT.RooGenericPdf("model_bkg","exp(@1*(@0-1.87) + @2*(@0-1.87)*(@0-1.87))",ROOT.RooArgList(x, x_bkg1_tau, x_bkg1_tau2))
+#model_bkg = ROOT.RooGenericPdf("model_bkg","exp(@1*(@0-1.8697) + @2*(@0-1.8697)*(@0-1.8697))",ROOT.RooArgList(x, x_bkg1_tau, x_bkg1_tau2))
+#model_bkg = ROOT.RooGenericPdf("model_bkg","exp(@1*(@0-1.9683) + @2*(@0-1.9683)*(@0-1.9683))",ROOT.RooArgList(x, x_bkg1_tau, x_bkg1_tau2))
+model_bkg = ROOT.RooGenericPdf("model_bkg","exp(@1*(@0-1.919) + @2*(@0-1.919)*(@0-1.919))",ROOT.RooArgList(x, x_bkg1_tau, x_bkg1_tau2))
+#model_bkg = ROOT.RooGenericPdf("model_bkg","exp(@1*(@0-1.92) + @2*(@0-1.92)*(@0-1.92))",ROOT.RooArgList(x, x_bkg1_tau, x_bkg1_tau2))
 #model_bkg = ROOT.RooGenericPdf("model_bkg","exp(@1*@0 + @2*@0*@0)",ROOT.RooArgList(x, x_bkg1_tau, x_bkg1_tau2))
+
 #model_bkg = ROOT.RooGenericPdf("model_bkg","1 + @1*@0",ROOT.RooArgList(x,x_bkg1_c1))
 #model_bkg = ROOT.RooPolynomial("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_c1))
 #model_bkg = ROOT.RooChebychev("model_bkg", "x_bkg1", x, ROOT.RooArgList(x_bkg1_c1, x_bkg1_c2))
