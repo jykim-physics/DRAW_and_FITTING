@@ -20,7 +20,6 @@ rm -f job_list.txt
 #done
 
 for script in etapip_gg_K_offset_CB.py etapip_pipipi_K_offset_CB.py; do
-#for script in etapip_pipipi_K_offset_CB.py; do
     for sign in plus minus all; do
         echo "$script $sign" >> job_list.txt
     done

@@ -240,12 +240,15 @@ print(f"ToyMC random seed = {seed}")
 
 ToyMC_all = ROOT.RooMCStudy(sim_model, {x,cat}, Extended(True), SumW2Error(True), FitOptions(Save(True),PrintEvalErrors(0),PrintLevel(1), NumCPU(4), Offset(True)))
 ToyMC_all.generateAndFit(1000)
-#ToyMC_all.generateAndFit(10)
+#ToyMC_all.generateAndFit(100)
 
 toyMC_frame_Acp = ToyMC_all.plotPull(Acp, Bins(50), Range(-6, 6), FitGauss(True))
 toyMC_frame_Acp_Ds = ToyMC_all.plotPull(Acp_Ds, Bins(50), Range(-6, 6), FitGauss(True))
 toyMC_frame_N_total = ToyMC_all.plotPull(N_total, Bins(50), Range(-6, 6), FitGauss(True))
 toyMC_frame_N_total_Ds = ToyMC_all.plotPull(N_total_Ds, Bins(50), Range(-6, 6), FitGauss(True))
+
+toyMC_frame_Acp_peak_bkg = ToyMC_all.plotPull(Acp_peak_bkg, Bins(50), Range(-6, 6), FitGauss(True))
+
 #toyMC_frame_Acp = ToyMC_all.plotPull(Acp,  FitGauss(True))
 #toyMC_frame_Acp_Ds = ToyMC_all.plotPull(Acp_Ds,  FitGauss(True))
 #toyMC_frame_N_total = ToyMC_all.plotPull(N_total,  FitGauss(True))
@@ -257,6 +260,7 @@ toyMC_frame_Acp_Ds.GetXaxis().SetTitle("A_{CP}(D^{#pm}_{s})" +  f" {common_title
 toyMC_frame_N_total.GetXaxis().SetTitle("N_{sig}(D^{+}+D^{-})" +  f" {common_title}")
 toyMC_frame_N_total_Ds.GetXaxis().SetTitle("N_{sig}(D^{+}_{s}+D^{-}_{s})" +  f" {common_title}")
 
+toyMC_frame_Acp_peak_bkg.GetXaxis().SetTitle("A_{CP}(misID)" +  f" {common_title}")
 
 toyMC_canvas = ROOT.TCanvas("toyMC_canvas", "D+ fit", 800, 600)
 toyMC_frame_Acp.Draw()
@@ -273,3 +277,7 @@ toyMC_canvas_N_total.SaveAs(f"toy_N_total_{tree_name}_{args.sign}.png")
 toyMC_canvas_N_total_Ds = ROOT.TCanvas("toyMC_canvas_N_total_Ds", "D+ fit", 800, 600)
 toyMC_frame_N_total_Ds.Draw()
 toyMC_canvas_N_total_Ds.SaveAs(f"toy_N_total_Ds_{tree_name}_{args.sign}.png")
+
+toyMC_canvas_peak_bkg = ROOT.TCanvas("toyMC_canvas_peak_bkg", "D+ fit", 800, 600)
+toyMC_frame_Acp_peak_bkg.Draw()
+toyMC_canvas_peak_bkg.SaveAs(f"toy_Acp_peak_bkg_{tree_name}_{args.sign}.png")

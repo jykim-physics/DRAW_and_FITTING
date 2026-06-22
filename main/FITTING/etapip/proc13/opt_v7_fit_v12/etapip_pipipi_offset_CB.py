@@ -32,7 +32,7 @@ elif args.sign == "all":
 	Dp_CMS_cosTheta_cut = "Dp_CMS_cosTheta>-10"
 	N_scale = 1
 
-suffix = "sumw2fixed"
+suffix = "sumw2fixed_pdf_fixed"
 file_name_Dp = f"/share/storage/jykim/plots/proc_all/etapip/pipipi/generic/proc13_etapip_pipipi_fit_opt_loose_v7_fitv12_bdt_{args.train}_Dp_CMS_{args.sign}_{BDT_cut}_{suffix}.png"
 file_name_Dm = f"/share/storage/jykim/plots/proc_all/etapip/pipipi/generic/proc13_etapip_pipipi_fit_opt_loose_v7_fitv12_bdt_{args.train}_Dm_CMS_{args.sign}_{BDT_cut}_{suffix}.png"
 file_name_Dall = f"/share/storage/jykim/plots/proc_all/etapip/pipipi/generic/proc13_etapip_pipipi_fit_opt_loose_v7_fitv12_bdt_{args.train}_Dall_CMS_{args.sign}_{BDT_cut}_{suffix}.pdf"
@@ -176,20 +176,23 @@ Nbkg_D_minus = RooFormulaVar("Nbkg_D_minus",
     RooArgList(Nbkg_total, Acp_bkg))
 
 
-f_sig = ROOT.TFile.Open(f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p.0.74_new_Ds_correct.root")
+#f_sig = ROOT.TFile.Open(f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p.0.74_new_Ds_correct.root")
+f_sig = ROOT.TFile.Open(f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_v12_CB_conv_result_extended_train_Dp_CMS_p.0.72.root")
 result_object_sig = ROOT.gDirectory.Get("jykim")
 f_sig.Close()
 #result_object_sig.Print("v")
 fit_args_sig = result_object_sig.floatParsFinal()
 #const_args_sig = result_object_sig.constPars()
 
-f_sig_Ds = ROOT.TFile.Open(f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p_Ds_p.0.74.weighted.new_Ds_correct.root")
+#f_sig_Ds = ROOT.TFile.Open(f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_opt_v7_CB_conv_result_extended_train_Dp_CMS_p_Ds_p.0.74.weighted.new_Ds_correct.root")
+f_sig_Ds = ROOT.TFile.Open(f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_6M_etapip_pipipi_Dp_M_v12_CB_conv_result_extended_train_Dp_CMS_p_Ds_p.0.72.weighted.root")
 result_object_sig_Ds = ROOT.gDirectory.Get("jykim")
 f_sig_Ds.Close()
 #result_object_sig_Ds.Print("v")
 fit_args_sig_Ds = result_object_sig_Ds.floatParsFinal()
 
-f_rhopeta = ROOT.TFile.Open(f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_etapip_pipipi_Dp_M_opt_v7_novo_result_rhopeta_Dp_CMS_p_0.74_new_Ds_correct.root")
+#f_rhopeta = ROOT.TFile.Open(f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_etapip_pipipi_Dp_M_opt_v7_novo_result_rhopeta_Dp_CMS_p_0.74_new_Ds_correct.root")
+f_rhopeta = ROOT.TFile.Open(f"/share/storage/jykim/plots/MC15rd/etapip/pipipi/MC15rd_etapip_pipipi_Dp_M_fit_v12_novo_result_rhopeta_Dp_CMS_p_0.72.root")
 result_object_rhopeta = ROOT.gDirectory.Get("jykim")
 f_rhopeta.Close()
 fit_args_rhopeta = result_object_rhopeta.floatParsFinal()
