@@ -4,18 +4,18 @@ set -euo pipefail
 PYTHON_SCRIPT="./compare_two_sigmc_combined_batch.py"
 
 #SAMPLE1_PLUS_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_gg/260107_loose_v7_less_vars_ntuple/etapip_gg/ref/no_bdt/*BDT.root"
-#SAMPLE1_PLUS_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_gg/260107_loose_v7_less_vars_ntuple/etapip_gg/ref/min_unc_search/0.86/*BDT.root"
+#SAMPLE1_PLUS_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_gg/260602_loose_v7_eta_theta_var/etapip_gg/ref/min_unc_search/0.86/*BDT.root"
 #SAMPLE1_PLUS_TREE="etapip_gg"
 #SAMPLE1_CC_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_gg_cc/260107_loose_v7_less_vars_ntuple/etapip_gg/ref/no_bdt/*BDT.root"
-#SAMPLE1_CC_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_gg_cc/260107_loose_v7_less_vars_ntuple/etapip_gg/ref/min_unc_search/0.86/*BDT.root"
+#SAMPLE1_CC_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_gg_cc/260602_loose_v7_eta_theta_var/etapip_gg/ref/min_unc_search/0.86/*BDT.root"
 #SAMPLE1_CC_TREE="etapip_gg"
 #SAMPLE1_LABEL="D^{+} #rightarrow #eta_{#gamma#gamma} #pi^{+}"
 
 #SAMPLE2_PLUS_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DptoetaKp_gg/260107_loose_v7_less_vars_ntuple/etapip_gg_K/no_bdt/*BDT.root"
-#SAMPLE2_PLUS_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DptoetaKp_gg/260107_loose_v7_less_vars_ntuple/etapip_gg_K/min_unc_search/0.86/*BDT.root"
+#SAMPLE2_PLUS_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DptoetaKp_gg/260602_loose_v7_eta_theta_var/etapip_gg_K/min_unc_search/0.86/*BDT.root"
 #SAMPLE2_PLUS_TREE="etapip_gg_K"
 #SAMPLE2_CC_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DptoetaKp_gg_cc/260107_loose_v7_less_vars_ntuple/etapip_gg_K/no_bdt/*BDT.root"
-#SAMPLE2_CC_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DptoetaKp_gg_cc/260107_loose_v7_less_vars_ntuple/etapip_gg_K/min_unc_search/0.86/*BDT.root"
+#SAMPLE2_CC_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DptoetaKp_gg_cc/260602_loose_v7_eta_theta_var/etapip_gg_K/min_unc_search/0.86/*BDT.root"
 #SAMPLE2_CC_TREE="etapip_gg_K"
 #SAMPLE2_LABEL="D^{+} #rightarrow #eta_{#gamma#gamma} K^{+}"
 
@@ -24,21 +24,23 @@ PYTHON_SCRIPT="./compare_two_sigmc_combined_batch.py"
 
 
 #SAMPLE1_PLUS_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_pipipi/260107_loose_v7_less_vars_ntuple/etapip_pipipi/ref/no_bdt/*BDT.root"
-SAMPLE1_PLUS_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_pipipi/260107_loose_v7_less_vars_ntuple/etapip_pipipi/ref/min_unc_search/0.77/*BDT.root"
+#SAMPLE1_CC_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_pipipi_cc/260107_loose_v7_less_vars_ntuple/etapip_pipipi/ref/no_bdt/*BDT.root"
+
+SAMPLE1_PLUS_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_pipipi/260602_loose_v7_eta_theta_var/etapip_pipipi/ref/min_unc_search/0.77/*BDT.root"
 SAMPLE1_PLUS_TREE="etapip_pipipi"
 
-#SAMPLE1_CC_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_pipipi_cc/260107_loose_v7_less_vars_ntuple/etapip_pipipi/ref/no_bdt/*BDT.root"
-SAMPLE1_CC_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_pipipi_cc/260107_loose_v7_less_vars_ntuple/etapip_pipipi/ref/min_unc_search/0.77/*BDT.root"
+SAMPLE1_CC_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/Dptoetapip_pipipi_cc/260602_loose_v7_eta_theta_var/etapip_pipipi/ref/min_unc_search/0.77/*BDT.root"
 SAMPLE1_CC_TREE="etapip_pipipi"
 
 SAMPLE1_LABEL="D^{+} #rightarrow #eta_{3#pi} #pi^{+}"
 
 #SAMPLE2_PLUS_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DptoetaKp_pipipi/260107_loose_v7_less_vars_ntuple/etapip_pipipi_K/no_bdt/*BDT.root"
-SAMPLE2_PLUS_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DptoetaKp_pipipi/260107_loose_v7_less_vars_ntuple/etapip_pipipi_K/min_unc_search/0.77/*BDT.root"
+#SAMPLE2_CC_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DptoetaKp_pipipi_cc/260107_loose_v7_less_vars_ntuple/etapip_pipipi_K/no_bdt/*BDT.root"
+
+SAMPLE2_PLUS_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DptoetaKp_pipipi/260602_loose_v7_eta_theta_var/etapip_pipipi_K/min_unc_search/0.77/*BDT.root"
 SAMPLE2_PLUS_TREE="etapip_pipipi_K"
 
-#SAMPLE2_CC_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DptoetaKp_pipipi_cc/260107_loose_v7_less_vars_ntuple/etapip_pipipi_K/no_bdt/*BDT.root"
-SAMPLE2_CC_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DptoetaKp_pipipi_cc/260107_loose_v7_less_vars_ntuple/etapip_pipipi_K/min_unc_search/0.77/*BDT.root"
+SAMPLE2_CC_PATTERN="/share/storage/jykim/storage_ghi/Ntuples_ghi_2/MC15rd_sigMC/DptoetaKp_pipipi_cc/260602_loose_v7_eta_theta_var/etapip_pipipi_K/min_unc_search/0.77/*BDT.root"
 SAMPLE2_CC_TREE="etapip_pipipi_K"
 
 SAMPLE2_LABEL="D^{+} #rightarrow #eta_{3#pi} K^{+}"

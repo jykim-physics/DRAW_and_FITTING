@@ -17,10 +17,11 @@ VARIABLES = [
     #("Dp_CMS_p", 2.5, 5.2, "p^{*}(D^{+}_{(s)})", "right", False, "Dp_CMS_p"),
     #("etapip_Eta_daughterAngle_0_1", 0.0, 2.0, "Opening angle(#gamma, #gamma)", "right", False, "etapip_Eta_daughterAngle_0_1"),
     #("etapip_Eta_daughterDiffOfPhi_0_1", 0.0, 3.15, "|#Delta#phi(#gamma, #gamma)|", "right", False, "etapip_Eta_daughterDiffOfPhi_0_1_abs"),
-    ("etapip_Eta_p", 0.0, 6.5, "p(#eta_{#gamma #gamma})", "right", False, "etapip_Eta_p"),
-    ("eta_Pi0_daughterAngle_0_1", 0.0, 2.0, "Opening angle(#gamma, #gamma)", "right", False, "eta_Pi0_daughterAngle_0_1"),
-    ("eta_Pi0_daughterDiffOfPhi_0_1", 0.0, 3.15, "|#Delta#phi(#gamma, #gamma)|", "right", False, "eta_Pi0_daughterDiffOfPhi_0_1_abs"),
-    ("eta_Pi0_p", 0.0, 4.0, "p(#pi^{0})", "right", False, "eta_Pi0_p"),
+    ("etapip_Eta_p", 0.0, 6.5, "p(#eta)", "right", False, "etapip_Eta_p"),
+    #("eta_Pi0_daughterAngle_0_1", 0.0, 2.0, "Opening angle(#gamma, #gamma)", "right", False, "eta_Pi0_daughterAngle_0_1"),
+    #("eta_Pi0_daughterDiffOfPhi_0_1", 0.0, 3.15, "|#Delta#phi(#gamma, #gamma)|", "right", False, "eta_Pi0_daughterDiffOfPhi_0_1_abs"),
+    #("eta_Pi0_p", 0.0, 4.0, "p(#pi^{0})", "right", False, "eta_Pi0_p"),
+    ("etapip_Eta_cosTheta", -1, 1, "cos#theta(#eta)", "left", False, "etapip_Eta_cosTheta"),
 ]
 
 
