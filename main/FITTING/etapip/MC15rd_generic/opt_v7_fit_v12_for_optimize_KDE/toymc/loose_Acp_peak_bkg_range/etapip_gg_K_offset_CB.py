@@ -42,8 +42,8 @@ elif args.sign == "all":
 	Dp_CMS_cosTheta_cut = "Dp_CMS_cosTheta>-10"
 	N_scale = 1
 
-suffix = "KDE_fixed_2nd_cheby"
-file_name_Dall = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/bootstrap/bootstrap_sys_MC15rd_etaKp_gg_fit_opt_loose_v7_fitv15_bdt_{args.train}_Dall_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted_Dall"
+suffix = "KDE"
+file_name_Dall = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/bootstrap/bootstrap_sys_MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_bdt_{args.train}_Dall_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted_Dall"
 dir_path = os.path.dirname(file_name_Dall)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
@@ -121,8 +121,7 @@ data_cc = ROOT.RooDataSet("data_weighted_cc","Weighted Data CC",before_data_cc,b
 print(f"Unweighted events: {before_data_cc.sumEntries()}")
 print(f"Weighted events: {data_cc.sumEntries()}")
 
-
-f = ROOT.TFile.Open(f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv15_bdt_train_Dp_CMS_p_{args.sign}_0.86_KDE_fixed_2nd_cheby_weighted.root")
+f = ROOT.TFile.Open(f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv12_1_bdt_train_Dp_CMS_p_{args.sign}_0.86_KDE_weighted.root")
 result_object = ROOT.gDirectory.Get("jykim")
 f.Close()
 #result_object.Print("v")
@@ -155,8 +154,7 @@ Nbkg_D_minus = RooFormulaVar("Nbkg_D_minus",
     RooArgList(Nbkg_total, Acp_bkg))
 
 N_peak_bkg_total = const_args.find("N_peak_bkg_total")
-#Acp_peak_bkg = fit_args.find("Acp_peak_bkg")
-Acp_peak_bkg = const_args.find("Acp_peak_bkg")
+Acp_peak_bkg = fit_args.find("Acp_peak_bkg")
 N_peak_bkg_D_plus = RooFormulaVar("N_peak_bkg_D_plus",
     "0.5 * N_peak_bkg_total * (1 + Acp_peak_bkg)",
     RooArgList(N_peak_bkg_total, Acp_peak_bkg))
@@ -174,9 +172,7 @@ kde_model.SetName("kde_model")
 mean = fit_args.find("mean")
 scale_factor = fit_args.find("scale_factor")
 Ds_mean = fit_args.find("Ds_mean")
-x_bkg1_c1_plus = fit_args.find("x_bkg1_c1_plus")
-x_bkg1_c1_minus = fit_args.find("x_bkg1_c1_minus")
-x_bkg1_c2 = fit_args.find("x_bkg1_c2")
+x_bkg1_tau = fit_args.find("x_bkg1_tau")
 
 sigmaL = const_args.find("sigmaL")
 sigmaR = const_args.find("sigmaR")
@@ -209,15 +205,14 @@ Ds_CB = ROOT.RooCrystalBall("Ds_CB", "CB_left", x, Ds_mean, Ds_sigmaL, Ds_sigmaR
 Ds_gaussian = ROOT.RooGaussian("Ds_gaussian", "Gaussian PDF", x, Ds_mean_gaussian, scaled_Ds_sigma_gaussian)
 Ds_model = ROOT.RooFFTConvPdf("Ds_model", "Convolution of Johnson and Gaussian", x, Ds_CB, Ds_gaussian)
 
-model_bkg_plus = ROOT.RooChebychev("model_bkg_plus", "x_bkg1", x, ROOT.RooArgList(x_bkg1_c1_plus, x_bkg1_c2))
-model_bkg_minus = ROOT.RooChebychev("model_bkg_minus", "x_bkg1", x, ROOT.RooArgList(x_bkg1_c1_minus, x_bkg1_c2))
+model_bkg = ROOT.RooExponential("model_bkg", "x_bkg1", x, x_bkg1_tau)
 
 
 model_D_plus = ROOT.RooAddPdf("model_D_plus", "D+ model",
-                              ROOT.RooArgList(sig_model, Ds_model, model_bkg_plus, kde_model),
+                              ROOT.RooArgList(sig_model, Ds_model, model_bkg, kde_model),
                               ROOT.RooArgList(Nsig_D_plus, Nsig_Ds_plus, Nbkg_D_plus, N_peak_bkg_D_plus))
 model_D_minus = ROOT.RooAddPdf("model_D_minus", "D- model",
-                              ROOT.RooArgList(sig_model, Ds_model, model_bkg_minus, kde_model),
+                              ROOT.RooArgList(sig_model, Ds_model, model_bkg, kde_model),
                               ROOT.RooArgList(Nsig_D_minus, Nsig_Ds_minus, Nbkg_D_minus, N_peak_bkg_D_minus))
 # Create a category to distinguish between D+ and D-
 cat = RooCategory("sample", "sample")
@@ -231,19 +226,21 @@ data_combined = RooDataSet("data_combined", "Combined", full_var_set, RooFit.Ind
                               RooFit.Import("D_plus", data),
                               RooFit.Import("D_minus", data_cc),
                               RooFit.WeightVar("w_scaled"))
-
 # fixed seed for reproducibility
-seed = 202606
+seed = 202605
 ROOT.RooRandom.randomGenerator().SetSeed(seed)
 print(f"ToyMC random seed = {seed}")
 ToyMC_all = ROOT.RooMCStudy(sim_model, {x,cat}, Extended(True), SumW2Error(True), FitOptions(Save(True),PrintEvalErrors(0),PrintLevel(1), NumCPU(4), Offset(True)))
 ToyMC_all.generateAndFit(1000)
-#ToyMC_all.generateAndFit(10)
+#ToyMC_all.generateAndFit(100)
 
 toyMC_frame_Acp = ToyMC_all.plotPull(Acp, Bins(50), Range(-6, 6), FitGauss(True))
 toyMC_frame_Acp_Ds = ToyMC_all.plotPull(Acp_Ds, Bins(50), Range(-6, 6), FitGauss(True))
 toyMC_frame_N_total = ToyMC_all.plotPull(N_total, Bins(50), Range(-6, 6), FitGauss(True))
 toyMC_frame_N_total_Ds = ToyMC_all.plotPull(N_total_Ds, Bins(50), Range(-6, 6), FitGauss(True))
+
+toyMC_frame_Acp_peak_bkg = ToyMC_all.plotPull(Acp_peak_bkg, Bins(50), Range(-6, 6), FitGauss(True))
+
 #toyMC_frame_Acp = ToyMC_all.plotPull(Acp,  FitGauss(True))
 #toyMC_frame_Acp_Ds = ToyMC_all.plotPull(Acp_Ds,  FitGauss(True))
 #toyMC_frame_N_total = ToyMC_all.plotPull(N_total,  FitGauss(True))
@@ -254,6 +251,8 @@ toyMC_frame_Acp.GetXaxis().SetTitle("A_{CP}(D^{#pm})" +  f" {common_title}")
 toyMC_frame_Acp_Ds.GetXaxis().SetTitle("A_{CP}(D^{#pm}_{s})" +  f" {common_title}")
 toyMC_frame_N_total.GetXaxis().SetTitle("N_{sig}(D^{+}+D^{-})" +  f" {common_title}")
 toyMC_frame_N_total_Ds.GetXaxis().SetTitle("N_{sig}(D^{+}_{s}+D^{-}_{s})" +  f" {common_title}")
+
+toyMC_frame_Acp_peak_bkg.GetXaxis().SetTitle("A_{CP}(misID)" +  f" {common_title}")
 
 
 toyMC_canvas = ROOT.TCanvas("toyMC_canvas", "D+ fit", 800, 600)
@@ -271,3 +270,7 @@ toyMC_canvas_N_total.SaveAs(f"toy_N_total_{tree_name}_{args.sign}.png")
 toyMC_canvas_N_total_Ds = ROOT.TCanvas("toyMC_canvas_N_total_Ds", "D+ fit", 800, 600)
 toyMC_frame_N_total_Ds.Draw()
 toyMC_canvas_N_total_Ds.SaveAs(f"toy_N_total_Ds_{tree_name}_{args.sign}.png")
+
+toyMC_canvas_peak_bkg = ROOT.TCanvas("toyMC_canvas_peak_bkg", "D+ fit", 800, 600)
+toyMC_frame_Acp_peak_bkg.Draw()
+toyMC_canvas_peak_bkg.SaveAs(f"toy_Acp_peak_bkg_{tree_name}_{args.sign}.png")

@@ -1,5 +1,5 @@
 import ROOT
-from ROOT import RooFit, RooRealVar, RooDataSet, RooArgList, RooAddPdf, RooGaussian, RooFormulaVar, RooSimultaneous, RooCategory
+from ROOT import RooFit, RooRealVar, RooDataSet, RooArgList, RooAddPdf, RooGaussian, RooFormulaVar, RooSimultaneous, RooCategory, RooStats, TFile
 from ROOT.RooFit import Extended, FitOptions, Save, PrintEvalErrors, PrintLevel, Bins, FitGauss,    NumCPU, Strategy, Offset, SumW2Error, Range
 import glob
 import ctypes
@@ -12,23 +12,20 @@ import random
 import uproot
 import awkward as ak
 
-#ROOT.RooRandom.randomGenerator().SetSeed(12345)
-
-
 parser = argparse.ArgumentParser(description="Process Dp_CMS_sign argument")
 parser.add_argument("-s","--sign", choices=["plus", "minus","all"], required=True,
                     help="Specify 'plus' or 'minus'")
 parser.add_argument("-t","--train", required=True,
                     help="Specify train version")
 #parser.add_argument("-b","--bdt", required=True,
-#                    help="Specify BDT cut")
+#                    help="Specify BDT value")
 
 args = parser.parse_args()
 print(f"Dp_CMS_sign is set to: {args.sign}")
 
-#BDT_cut = str(args.bdt)
-BDT_cut = "0.77"
 
+#BDT_cut = str(args.bdt)
+BDT_cut = "0.86"
 def sample_param(mu, sigma):
   seed = int(time.time_ns())  # current time in nanoseconds
   rng = np.random.default_rng(seed)
@@ -46,7 +43,7 @@ elif args.sign == "all":
 	N_scale = 1
 
 suffix = "KDE_fixed_2nd_cheby"
-file_name_Dall = f"/share/storage/jykim/plots/MC15rd/etaKp/pipipi/generic/boostrap/bootstrap_sys_MC15rd_etaKp_pipipi_fit_opt_loose_v7_fitv15_bdt_{args.train}_Dall_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted_Dall"
+file_name_Dall = f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/bootstrap/bootstrap_sys_MC15rd_etaKp_gg_fit_opt_loose_v7_fitv15_bdt_{args.train}_Dall_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted_Dall"
 dir_path = os.path.dirname(file_name_Dall)
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
@@ -58,7 +55,7 @@ ROOT.SetBelle2Style()
 base_path = "/share/storage/jykim/storage_b2/storage/reduced_ntuples/MC15rd/EtaHp/MC15rd_loose_v7_260108_nopi0veto"
 cm_elements = ["15rd_jae_e7_18_4S_v3", "15rd_jae_e20_b26_v1", "15rd_jae_e20_e26_4S_v2", "15rd_jae_e21_5S_scan_v1", "15rd_jae_mori_off_v1"]
 
-tree_name = "etapip_pipipi_K"
+tree_name = "etapip_gg_K"
 file_list = []
 for element in cm_elements:
     pattern = f"{base_path}/{element}/{tree_name}/min_unc_search/{BDT_cut}/weighted/*BDT.root"
@@ -73,7 +70,7 @@ print(f"Numer of files: {len(file_list)}")
 
 # Define variable and its range
 fit_variable = "Dp_M"
-fit_var_name = "M(#eta_{#pi#pi#pi}K^{+}) [GeV/c^{2}]"
+fit_var_name = "M(#eta_{#gamma#gamma}K^{+}) [GeV/c^{2}]"
 fit_range = (1.75, 2.045)
 #fit_range = (1.755, 2.045)
 truth_var = "Dp_isSignal"
@@ -93,7 +90,7 @@ BDT = ROOT.RooRealVar("BDT", "BDT", 0, 1)
 Pip_dr = ROOT.RooRealVar("Pip_dr", "Pip_dr", -10000, 10000)
 Dp_dz = ROOT.RooRealVar("Dp_dz", "Dp_dz", -10000, 10000)
 Dp_cosAngleBetweenMomentumAndVertexVectorInXYPlane = ROOT.RooRealVar("Dp_cosAngleBetweenMomentumAndVertexVectorInXYPlane", "Dp_cosAngleBetweenMomentumAndVertexVectorInXYPlane'", -1,1)
-#etapip_Eta_Easym = ROOT.RooRealVar("etapip_Eta_Easym", "etapip_Eta_Easym", 0, 1)
+etapip_Eta_Easym = ROOT.RooRealVar("etapip_Eta_Easym", "etapip_Eta_Easym", 0, 1)
 Dp_cosHelicityAngleMomentum = ROOT.RooRealVar("Dp_cosHelicityAngleMomentum", "Dp_cosHelicityAngleMomentum", -1, 1)
 Dp_CMS_p = ROOT.RooRealVar("Dp_CMS_p", "Dp_CMS_p", 0, 100)
 ds_weight = ROOT.RooRealVar("ds_weight", "ds_weight", -1000, 1000)
@@ -101,7 +98,7 @@ rank_Dp_chiProb = ROOT.RooRealVar("rank_Dp_chiProb", "rank_Dp_chiProb", 0, 1000)
 
 full_var_set = ROOT.RooArgSet(x, Pip_charge, Dp_CMS_cosTheta, BDT, Pip_dr, Dp_dz,
                               Dp_cosAngleBetweenMomentumAndVertexVectorInXYPlane,
-                              Dp_cosHelicityAngleMomentum,
+                              etapip_Eta_Easym, Dp_cosHelicityAngleMomentum,
                               Dp_CMS_p,rank_Dp_chiProb,ds_weight)
 
 before_data = ROOT.RooDataSet("before_data","Data before weighting",full_var_set,ROOT.RooFit.Import(mychain),ROOT.RooFit.Cut(cuts_Dp))
@@ -125,12 +122,13 @@ print(f"Unweighted events: {before_data_cc.sumEntries()}")
 print(f"Weighted events: {data_cc.sumEntries()}")
 
 
-f = ROOT.TFile.Open(f"/share/storage/jykim/plots/MC15rd/etaKp/pipipi/generic/fitresult/MC15rd_etaKp_pipipi_fit_opt_loose_v7_fitv15_bdt_train_Dp_CMS_p_{args.sign}_0.77_KDE_fixed_2nd_cheby_weighted.root")
+f = ROOT.TFile.Open(f"/share/storage/jykim/plots/MC15rd/etaKp/gg/generic/fitresult/MC15rd_etaKp_gg_fit_opt_loose_v7_fitv15_bdt_train_Dp_CMS_p_{args.sign}_0.86_KDE_fixed_2nd_cheby_weighted.root")
 result_object = ROOT.gDirectory.Get("jykim")
 f.Close()
 #result_object.Print("v")
 fit_args = result_object.floatParsFinal()
 const_args = result_object.constPars()
+
 N_total = fit_args.find("N_total")
 Acp = fit_args.find("Acp")
 Nsig_D_plus = RooFormulaVar("Nsig_D_plus",
@@ -166,13 +164,12 @@ N_peak_bkg_D_plus = RooFormulaVar("N_peak_bkg_D_plus",
 N_peak_bkg_D_minus = RooFormulaVar("N_peak_bkg_D_minus",
     "0.5 * N_peak_bkg_total * (1 - Acp_peak_bkg)",
     RooArgList(N_peak_bkg_total, Acp_peak_bkg))
-print("N_peak_bkg_total =", N_peak_bkg_total.getVal())
-print("Acp_peak_bkg =", Acp_peak_bkg.getVal())
 
-f_in = ROOT.TFile("/share/storage/jykim/plots/MC15rd/etaKp/pipipi/MC15re_6M_etapip_pipipi_Dp_M_v12_result_true_extended_train_Dp_CMS_p.0.77_workspace.root", "READ")
+f_in = ROOT.TFile("/share/storage/jykim/plots/MC15rd/etaKp/gg/MC15re_6M_etapip_gg_Dp_M_v12_result_true_extended_train_Dp_CMS_p.0.86_workspace.root", "READ")
 ws = f_in.Get("ws_kde")
 kde_model = ws.pdf("model")
 kde_model.SetName("kde_model")
+
 
 mean = fit_args.find("mean")
 scale_factor = fit_args.find("scale_factor")
@@ -180,7 +177,6 @@ Ds_mean = fit_args.find("Ds_mean")
 x_bkg1_c1_plus = fit_args.find("x_bkg1_c1_plus")
 x_bkg1_c1_minus = fit_args.find("x_bkg1_c1_minus")
 x_bkg1_c2 = fit_args.find("x_bkg1_c2")
-#x_bkg1_tau = fit_args.find("x_bkg1_tau")
 
 sigmaL = const_args.find("sigmaL")
 sigmaR = const_args.find("sigmaR")
@@ -188,7 +184,6 @@ alphaL = const_args.find("alphaL")
 nL = const_args.find("nL")
 alphaR = const_args.find("alphaR")
 nR = const_args.find("nR")
-
 
 Ds_sigmaL = const_args.find("Ds_sigmaL")
 Ds_sigmaR = const_args.find("Ds_sigmaR")
@@ -236,44 +231,114 @@ data_combined = RooDataSet("data_combined", "Combined", full_var_set, RooFit.Ind
                               RooFit.Import("D_plus", data),
                               RooFit.Import("D_minus", data_cc),
                               RooFit.WeightVar("w_scaled"))
-
 # fixed seed for reproducibility
-seed = 202606
-ROOT.RooRandom.randomGenerator().SetSeed(seed)
-print(f"ToyMC random seed = {seed}")
+#seed = 202606
+#ROOT.RooRandom.randomGenerator().SetSeed(seed)
+#print(f"ToyMC random seed = {seed}")
 
-ToyMC_all = ROOT.RooMCStudy(sim_model, {x,cat}, Extended(True), SumW2Error(True), FitOptions(Save(True),PrintEvalErrors(0),PrintLevel(1), NumCPU(4), Offset(True)))
-ToyMC_all.generateAndFit(1000)
-#ToyMC_all.generateAndFit(10)
+N_total_value = N_total.getVal()
+N_total_error = N_total.getError()
 
-toyMC_frame_Acp = ToyMC_all.plotPull(Acp, Bins(50), Range(-6, 6), FitGauss(True))
-toyMC_frame_Acp_Ds = ToyMC_all.plotPull(Acp_Ds, Bins(50), Range(-6, 6), FitGauss(True))
-toyMC_frame_N_total = ToyMC_all.plotPull(N_total, Bins(50), Range(-6, 6), FitGauss(True))
-toyMC_frame_N_total_Ds = ToyMC_all.plotPull(N_total_Ds, Bins(50), Range(-6, 6), FitGauss(True))
-#toyMC_frame_Acp = ToyMC_all.plotPull(Acp,  FitGauss(True))
-#toyMC_frame_Acp_Ds = ToyMC_all.plotPull(Acp_Ds,  FitGauss(True))
-#toyMC_frame_N_total = ToyMC_all.plotPull(N_total,  FitGauss(True))
-#toyMC_frame_N_total_Ds = ToyMC_all.plotPull(N_total_Ds,  FitGauss(True))
+def Linearity_test(sim_model, cat, N_Input=100, N_gen=500, N_total=N_total):
+  N_total.setVal(N_Input)
+  ToyMC_all = ROOT.RooMCStudy(sim_model, {x,cat}, Extended(True), SumW2Error(True), FitOptions(Save(True),PrintEvalErrors(0),PrintLevel(1), NumCPU(8), Offset(True)))
+  ToyMC_all.generateAndFit(N_gen)
 
-common_title = "Pull"
-toyMC_frame_Acp.GetXaxis().SetTitle("A_{CP}(D^{#pm})" +  f" {common_title}")
-toyMC_frame_Acp_Ds.GetXaxis().SetTitle("A_{CP}(D^{#pm}_{s})" +  f" {common_title}")
-toyMC_frame_N_total.GetXaxis().SetTitle("N_{sig}(D^{+}+D^{-})" +  f" {common_title}")
-toyMC_frame_N_total_Ds.GetXaxis().SetTitle("N_{sig}(D^{+}_{s}+D^{-}_{s})" +  f" {common_title}")
+  toyMC_frame_N_total_pull = ToyMC_all.plotPull(N_total, Bins(20))
+  pullMean = ROOT.RooRealVar("pullMean","",0,-10,10)
+  pullSigma = ROOT.RooRealVar("pullSigma","",1,0.1,5)
+  pullMean.setPlotLabel("#mu")
+  pullSigma.setPlotLabel("#sigma")
 
+  pullGauss = ROOT.RooGaussian("pullGauss", "", toyMC_frame_N_total_pull.getPlotVar() , pullMean, pullSigma)
+  r_pull = pullGauss.fitTo(ToyMC_all.fitParDataSet(),NumCPU=6,PrintLevel=-1)
 
-toyMC_canvas = ROOT.TCanvas("toyMC_canvas", "D+ fit", 800, 600)
-toyMC_frame_Acp.Draw()
-toyMC_canvas.SaveAs(f"toy_Acp_{tree_name}_{args.sign}.png")
+  pullGauss.plotOn(toyMC_frame_N_total_pull)
+  pullGauss.paramOn(toyMC_frame_N_total_pull, ROOT.RooFit.Layout(0.60, 0.80, 0.9), ROOT.RooFit.Format("NE",ROOT.RooFit.AutoPrecision(1)))
+  toyMC_canvas = ROOT.TCanvas("toyMC_canvas", "D+ fit", 1600, 600)
+  toyMC_canvas.Divide(2,1)
+  toyMC_canvas.cd(1)
+  toyMC_frame_N_total_pull.Draw("PE")
 
-toyMC_canvas_Ds = ROOT.TCanvas("toyMC_canvas_Ds", "D+ fit", 800, 600)
-toyMC_frame_Acp_Ds.Draw()
-toyMC_canvas_Ds.SaveAs(f"toy_Acp_Ds_{tree_name}_{args.sign}.png")
+  toyMC_frame_N_total = ToyMC_all.plotParam(N_total, Bins(20))
+  Mean = ROOT.RooRealVar("Mean","",N_Input, 0.5*N_Input, 1.5*N_Input)
+  Sigma = ROOT.RooRealVar("Sigma","",N_Input**0.5, N_Input**0.5/4, N_Input*0.8)
+  Mean.setPlotLabel("#mu")
+  Sigma.setPlotLabel("#sigma")
 
-toyMC_canvas_N_total = ROOT.TCanvas("toyMC_canvas_N_total", "D+ fit", 800, 600)
-toyMC_frame_N_total.Draw()
-toyMC_canvas_N_total.SaveAs(f"toy_N_total_{tree_name}_{args.sign}.png")
+  Gauss = ROOT.RooGaussian("Gauss", "", toyMC_frame_N_total.getPlotVar() , Mean, Sigma)
+  r_N_total_pull = Gauss.fitTo(ToyMC_all.fitParDataSet(),NumCPU=6,PrintLevel=-1)
 
-toyMC_canvas_N_total_Ds = ROOT.TCanvas("toyMC_canvas_N_total_Ds", "D+ fit", 800, 600)
-toyMC_frame_N_total_Ds.Draw()
-toyMC_canvas_N_total_Ds.SaveAs(f"toy_N_total_Ds_{tree_name}_{args.sign}.png")
+  Gauss.plotOn(toyMC_frame_N_total)
+  Gauss.paramOn(toyMC_frame_N_total, ROOT.RooFit.Layout(0.60, 0.80, 0.9), ROOT.RooFit.Format("NE",ROOT.RooFit.AutoPrecision(1)))
+  toyMC_canvas.cd(2)
+  toyMC_frame_N_total.Draw("PE")
+  toyMC_canvas.SaveAs(f"toy_{tree_name}_{N_Input:.3f}.png")
+
+  Nsig_mean = Mean.getVal()
+  Nsig_mean_error = Mean.getError()
+
+  return Nsig_mean, Nsig_mean_error
+
+expected_values = np.linspace(N_total_value-N_total_error*3, N_total_value+N_total_error*3, 27)
+N_input = list()
+N_predict = list()
+Fit_error = list()
+for i in expected_values:
+    N_input.append(i)
+
+    N_fit, temp_fit_error = Linearity_test(sim_model, cat, N_Input=i,N_gen=1000)
+    #N_fit, temp_fit_error = Linearity_test(sim_model, cat, N_Input=i,N_gen=1)
+    N_predict.append(N_fit)
+    Fit_error.append(temp_fit_error)
+
+    print(f'Prediction: {N_fit}, Input: {i}, Error: {temp_fit_error}')
+
+import matplotlib.pyplot as plt
+# everything in iminuit is done through the Minuit object, so we import it
+import iminuit
+from iminuit import Minuit
+from iminuit.cost import LeastSquares
+print("iminuit version:", iminuit.__version__)
+def line(x, c0, c1):
+    return c0 + x * c1
+
+least_squares = LeastSquares(N_input, N_predict, Fit_error, line)
+
+m = Minuit(least_squares, c0=0, c1=0)  # starting values for α and β
+m.migrad()  # finds minimum of least_squares function
+m.hesse()
+# # plt.scatter(N_input, N_predict)
+plt.errorbar(N_input, N_predict, yerr=Fit_error, fmt="o",label='Data')
+# N_input = np.array(N_input)
+N_start = N_input[0]
+N_end = N_input[-1]
+np_N_input = np.linspace(N_start*0.97,N_end*1.03,101)
+
+plt.plot(np_N_input, line(np_N_input, *m.values), label=r"Fit($y=c_0+c_1x$)")
+# plt.plot([N_start*0.9,N_end*1.05], line([N_start*0.9,N_end*1.05], *m.values), label=r"Fit($y=c_0+c_1x$)")
+# plt.xlim(N_start*0.9,N_end*1.05)
+# plt.ylim(N_start*0.9,N_end*1.05)
+plt.plot([N_start*0.97,N_end*1.03], [N_start*0.97,N_end*1.03], label='y=x')
+
+fit_info = [
+    f"$\\chi^2$/$n_\\mathrm{{dof}}$ = {m.fval:.1f} / {m.ndof:.0f} = {m.fmin.reduced_chi2:.1f}",
+]
+for p, v, e in zip(m.parameters, m.values, m.errors):
+    if p=='c0':
+        p = r'$c_0$'
+    elif p=='c1':
+        p = r'$c_1$'
+    fit_info.append(f"{p} = ${v:.3f} \\pm {e:.3f}$")
+
+plt.legend(title="\n".join(fit_info), frameon=False, fontsize=13)
+
+plt.xlabel("Input")
+plt.ylabel("Prediction")
+plt.xlim(N_start*0.97,N_end*1.03)
+plt.ylim(N_start*0.97,N_end*1.03)
+# plt.xlim(N_start,N_end)
+# plt.ylim(N_start,N_end)
+plt.tight_layout()
+plt.savefig(f"Linearity_{tree_name}_fit.png")
+plt.show();

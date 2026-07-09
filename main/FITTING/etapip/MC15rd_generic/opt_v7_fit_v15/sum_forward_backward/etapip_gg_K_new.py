@@ -811,13 +811,13 @@ if args.blind:
 # -----------------------------------------------------------------------------
 def add_lumi_prelim(canvas, lumi_fb=428, is_preliminary=True):
     canvas.cd(1)
-    pos_x = 0.78
+    pos_x = 0.79
     top_y = 0.90
     line_spacing = 0.05
 
-    header = "#font[62]{Belle II}"
+    header = "#font[42]{Belle II}"
     if is_preliminary:
-        left_text = f"#splitline{{{header}}}{{#font[52]{{Preliminary}}}}"
+        left_text = f"#splitline{{{header}}}{{#font[42]{{Preliminary}}}}"
         lumi_y = top_y - (line_spacing * 2.2)
     else:
         left_text = header
@@ -825,15 +825,15 @@ def add_lumi_prelim(canvas, lumi_fb=428, is_preliminary=True):
 
     latex_left = ROOT.TLatex()
     latex_left.SetNDC(True)
-    latex_left.SetTextSize(0.042)
+    latex_left.SetTextSize(FONT_SIZE_UP)
     latex_left.SetTextAlign(13)
     latex_left.DrawLatex(pos_x, top_y, left_text)
 
     latex_right = ROOT.TLatex()
     latex_right.SetNDC(True)
-    latex_right.SetTextSize(0.042)
+    latex_right.SetTextSize(FONT_SIZE_UP)
     latex_right.SetTextAlign(13)
-    latex_right.DrawLatex(pos_x, lumi_y, f"#int L dt = {lumi_fb} fb^{{-1}}")
+    latex_right.DrawLatex(pos_x, lumi_y, f"{lumi_fb} fb^{{-1}}")
 
     if not hasattr(canvas, "_labels"):
         canvas._labels = []
@@ -855,25 +855,42 @@ yup = yup.value
 
 upPad = canvas.GetPad(1)
 upPad.SetPad(xlow, ylow + 0.25 * (yup - ylow), xup, yup)
+upPad.SetBottomMargin(0.146)
 
 dwPad = canvas.GetPad(2)
 dwPad.SetPad(xlow, ylow, xup, ylow + 0.25 * (yup - ylow))
+
+TEXT_FONT = 42
+FONT_SIZE_UP = 0.053
+
+up_height = yup - (ylow + 0.25 * (yup - ylow))
+dw_height = (ylow + 0.25 * (yup - ylow)) - ylow
+FONT_SIZE_DW = FONT_SIZE_UP * up_height / dw_height
 
 canvas.cd(1)
 
 h_data_all.SetStats(0)
 h_data_all.SetTitle("")
+
 h_data_all.GetXaxis().SetTitle(fit_var_name)
-h_data_all.GetXaxis().CenterTitle(True)
-h_data_all.GetXaxis().SetTitleSize(0.06)
-h_data_all.GetXaxis().SetTitleOffset(1.2)
-h_data_all.GetXaxis().SetTitleFont(42)
-h_data_all.GetYaxis().SetTitle(f"Events / ( {bin_width:.5f} )")
+h_data_all.GetYaxis().SetTitle(f"Candidates per {1000.0 * bin_width:.2f} MeV/c^{{2}}")
+
+for axis in [h_data_all.GetXaxis(), h_data_all.GetYaxis()]:
+    axis.SetTitleFont(TEXT_FONT)
+    axis.SetLabelFont(TEXT_FONT)
+    axis.SetTitleSize(FONT_SIZE_UP)
+    axis.SetLabelSize(FONT_SIZE_UP)
+    axis.CenterTitle(True)
+
+h_data_all.GetXaxis().SetTitleSize(FONT_SIZE_UP)
+h_data_all.GetXaxis().SetTitleOffset(1.3)
+h_data_all.GetYaxis().SetTitleOffset(1.35)
+
 h_data_all.SetMarkerStyle(20)
 h_data_all.SetMarkerSize(0.8)
 
-#max_y = max(h_data_all.GetMaximum(), max(y_fit) if y_fit else 0.0)
-#h_data_all.SetMaximum(1.25 * max_y)
+max_y = max(h_data_all.GetMaximum(), max(y_fit) if y_fit else 0.0)
+h_data_all.SetMaximum(1.2 * max_y)
 h_data_all.SetMinimum(0.0)
 h_data_all.Draw("PE")
 
@@ -897,11 +914,15 @@ h_data_all.Draw("PE SAME")
 leg1 = ROOT.TLegend(0.2, 0.65, 0.42, 0.90)
 leg1.SetFillColorAlpha(ROOT.kWhite, 0)
 leg1.SetBorderSize(0)
+leg1.SetTextFont(TEXT_FONT)
+leg1.SetTextSize(FONT_SIZE_UP)
 leg1.AddEntry(h_data_all, "#font[42]{MC}", "PE")
 leg1.AddEntry(g_fit, "#font[42]{Fit}", "l")
 leg1.AddEntry(g_peak, "#font[42]{D^{+} #rightarrow #eta #pi^{+}}", "l")
 leg1.AddEntry(g_comb, "#font[42]{Combinatorial}", "f")
 leg1.Draw()
+
+upPad.RedrawAxis()
 
 canvas.cd(2)
 
@@ -910,14 +931,21 @@ hA_avg.SetTitle("")
 hA_avg.SetMarkerStyle(20)
 hA_avg.SetMarkerSize(0.8)
 hA_avg.SetYTitle("Asymmetry")
-hA_avg.SetMinimum(-0.2)
-hA_avg.SetMaximum(0.2)
-hA_avg.GetYaxis().SetTitleSize(0.12)
-hA_avg.GetYaxis().SetTitleOffset(0.4)
-hA_avg.GetYaxis().SetLabelSize(0.08)
-hA_avg.GetYaxis().CenterTitle(True)
-hA_avg.GetXaxis().SetLabelSize(0.15)
+
+for axis in [hA_avg.GetXaxis(), hA_avg.GetYaxis()]:
+    axis.SetTitleFont(TEXT_FONT)
+    axis.SetLabelFont(TEXT_FONT)
+    axis.SetTitleSize(FONT_SIZE_DW)
+    axis.SetLabelSize(FONT_SIZE_DW)
+    axis.CenterTitle(True)
+
 hA_avg.GetXaxis().SetTitleSize(0)
+hA_avg.GetXaxis().SetLabelSize(0)
+hA_avg.GetYaxis().SetTitleOffset(0.43)
+hA_avg.GetXaxis().SetTitleOffset(1.0)
+
+hA_avg.SetMinimum(-0.15)
+hA_avg.SetMaximum(0.15)
 hA_avg.Draw("PE")
 
 g_asym = make_line_graph("g_asym_avg", xvals, y_asym)

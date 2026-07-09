@@ -3,11 +3,11 @@ import math
 
 
 # etapip_gg
-#file_mc = "/share/storage/jykim/plots/MC15rd/etapip/gg/generic/fitresult/MC15rd_etapip_gg_ref_fit_loose_v7_fitv12_bdt_train_Dp_CMS_p_all_0.86_sumw2fixed_weighted.root"
-#file_proc13 = "/share/storage/jykim/plots/proc_all/etapip/gg/generic/fitresult/proc13_etapip_gg_ref_fit_opt_loose_v7_fitv12_bdt_train_Dp_CMS_p_all_0.86_sumw2fixed.root"
+file_mc = "/share/storage/jykim/plots/MC15rd/etapip/gg/generic/fitresult/MC15rd_etapip_gg_ref_fit_loose_v7_fitv12_bdt_train_Dp_CMS_p_all_0.86_sumw2fixed_weighted.root"
+file_proc13 = "/share/storage/jykim/plots/proc_all/etapip/gg/generic/fitresult/proc13_etapip_gg_ref_fit_opt_loose_v7_fitv12_bdt_train_Dp_CMS_p_all_0.86_sumw2fixed.root"
 # etapip_pipipi
-file_mc = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/fitresult/MC15rd_etapip_pipipi_ref_bdt_fit_loose_v7_fitv12_bdt_train_Dp_CMS_p_all_0.77_sumw2fixed_weighted.root"
-file_proc13 = "/share/storage/jykim/plots/proc_all/etapip/pipipi/generic/fitresult/proc13_etapip_pipipi_ref_fit_opt_loose_v7_fitv12_bdt_train_Dp_CMS_p_all_0.77_sumw2fixed.root"
+#file_mc = "/share/storage/jykim/plots/MC15rd/etapip/pipipi/generic/fitresult/MC15rd_etapip_pipipi_ref_bdt_fit_loose_v7_fitv12_bdt_train_Dp_CMS_p_all_0.77_sumw2fixed_weighted.root"
+#file_proc13 = "/share/storage/jykim/plots/proc_all/etapip/pipipi/generic/fitresult/proc13_etapip_pipipi_ref_fit_opt_loose_v7_fitv12_bdt_train_Dp_CMS_p_all_0.77_sumw2fixed.root"
 
 key = "jykim"
 

@@ -31,7 +31,7 @@ elif args.sign == "all":
 	Dp_CMS_cosTheta_cut = "Dp_CMS_cosTheta>-10"
 	N_scale = 1
 
-suffix = "KDE_fixed_2nd_cheby"
+suffix = "KDE_fixed_2nd_cheby_unblind"
 file_name_Dp = f"/share/storage/jykim/plots/proc_all/etaKp/gg/generic/proc13_etaKp_gg_fit_opt_loose_v7_fitv15_bdt_{args.train}_Dp_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.png"
 file_name_Dm = f"/share/storage/jykim/plots/proc_all/etaKp/gg/generic/proc13_etaKp_gg_fit_opt_loose_v7_fitv15_bdt_{args.train}_Dm_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.png"
 file_name_Dall = f"/share/storage/jykim/plots/proc_all/etaKp/gg/generic/proc13_etaKp_gg_fit_opt_loose_v7_fitv15_bdt_{args.train}_Dall_CMS_{args.sign}_{BDT_cut}_{suffix}_weighted.pdf"
@@ -158,7 +158,7 @@ KDE_result_object = ROOT.gDirectory.Get("jykim")
 KDE_fit_result.Close()
 KDE_fit_args = KDE_result_object.floatParsFinal()
 N_peak_bkg_total_RooRealVar = KDE_fit_args.find("N_total")
-N_peak_bkg_total = ROOT.RooRealVar("N_peak_bkg_total", "Number of background events",1.300 * N_peak_bkg_total_RooRealVar.getVal())
+N_peak_bkg_total = ROOT.RooRealVar("N_peak_bkg_total", "Number of background events",0.25 * 1.300 * N_peak_bkg_total_RooRealVar.getVal())
 print("N_peak_bkg_total  =", N_peak_bkg_total)
 
 #Acp_peak_bkg = RooRealVar("Acp_peak_bkg", "Acp", 0, -1, 1)  # A_Cp as a fit parameter
@@ -293,7 +293,7 @@ data_combined = RooDataSet("data_combined", "Combined data", full_var_set,RooFit
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8), RooFit.Strategy(2))
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8))
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8), RooFit.Strategy(1))
-fit_result = sim_model.fitTo(data_combined, RooFit.Save(True), RooFit.Extended(True),  ROOT.RooFit.NumCPU(8), RooFit.Strategy(1), ROOT.RooFit.Offset(True))
+fit_result = sim_model.fitTo(data_combined, RooFit.Save(True), RooFit.Extended(True),  ROOT.RooFit.NumCPU(8), RooFit.Strategy(2), ROOT.RooFit.Offset(True))
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(True), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8), RooFit.Strategy(1), ROOT.RooFit.Offset(False))
 
 #fit_result = sim_model.fitTo(data_combined, RooFit.Save(), RooFit.Extended(True), RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(8), RooFit.Strategy(2), ROOT.RooFit.Offset(True))
@@ -321,6 +321,36 @@ N_total_value = N_total.getVal()
 N_total_error = N_total.getError()
 
 print(f"N_total = {N_total_value:.0f} ± {N_total_error:.3f}")
+
+def add_lumi_prelim(canvas, lumi_fb=428, is_preliminary=True):
+    canvas.cd(1)
+    pos_x = 0.78
+    top_y = 0.90
+    line_spacing = 0.05
+
+    header = "#font[62]{Belle II}"
+    if is_preliminary:
+        left_text = f"#splitline{{{header}}}{{#font[52]{{Preliminary}}}}"
+        lumi_y = top_y - (line_spacing * 2.2)
+    else:
+        left_text = header
+        lumi_y = top_y - (line_spacing * 1.2)
+
+    latex_left = ROOT.TLatex()
+    latex_left.SetNDC(True)
+    latex_left.SetTextSize(0.042)
+    latex_left.SetTextAlign(13)
+    latex_left.DrawLatex(pos_x, top_y, left_text)
+
+    latex_right = ROOT.TLatex()
+    latex_right.SetNDC(True)
+    latex_right.SetTextSize(0.042)
+    latex_right.SetTextAlign(13)
+    latex_right.DrawLatex(pos_x, lumi_y, f"#int L dt = {lumi_fb} fb^{{-1}}")
+
+    if not hasattr(canvas, "_labels"):
+        canvas._labels = []
+    canvas._labels.extend([latex_left, latex_right])
 
 # Create the Likelihood (nll)
 nll = sim_model.createNLL(data_combined, ROOT.RooFit.Extended(True), ROOT.RooFit.Offset(True))
@@ -602,6 +632,7 @@ line1.Draw("SAME")
 line2.Draw("SAME")
 
 canvas_D_all.Update()
+add_lumi_prelim(canvas_D_all, lumi_fb=428)
 canvas_D_all.SaveAs(file_name_Dall)
 
 

@@ -231,114 +231,43 @@ data_combined = RooDataSet("data_combined", "Combined", full_var_set, RooFit.Ind
                               RooFit.Import("D_plus", data),
                               RooFit.Import("D_minus", data_cc),
                               RooFit.WeightVar("w_scaled"))
+
 # fixed seed for reproducibility
-#seed = 202606
-#ROOT.RooRandom.randomGenerator().SetSeed(seed)
-#print(f"ToyMC random seed = {seed}")
+seed = 202606
+ROOT.RooRandom.randomGenerator().SetSeed(seed)
+print(f"ToyMC random seed = {seed}")
+ToyMC_all = ROOT.RooMCStudy(sim_model, {x,cat}, Extended(True), SumW2Error(True), FitOptions(Save(True),PrintEvalErrors(0),PrintLevel(1), NumCPU(4), Offset(True)))
+ToyMC_all.generateAndFit(1000)
+#ToyMC_all.generateAndFit(10)
 
-N_total_value = N_total.getVal()
-N_total_error = N_total.getError()
+toyMC_frame_Acp = ToyMC_all.plotPull(Acp, Bins(50), Range(-6, 6), FitGauss(True))
+toyMC_frame_Acp_Ds = ToyMC_all.plotPull(Acp_Ds, Bins(50), Range(-6, 6), FitGauss(True))
+toyMC_frame_N_total = ToyMC_all.plotPull(N_total, Bins(50), Range(-6, 6), FitGauss(True))
+toyMC_frame_N_total_Ds = ToyMC_all.plotPull(N_total_Ds, Bins(50), Range(-6, 6), FitGauss(True))
+#toyMC_frame_Acp = ToyMC_all.plotPull(Acp,  FitGauss(True))
+#toyMC_frame_Acp_Ds = ToyMC_all.plotPull(Acp_Ds,  FitGauss(True))
+#toyMC_frame_N_total = ToyMC_all.plotPull(N_total,  FitGauss(True))
+#toyMC_frame_N_total_Ds = ToyMC_all.plotPull(N_total_Ds,  FitGauss(True))
 
-def Linearity_test(sim_model, cat, N_Input=100, N_gen=500, N_total=N_total):
-  N_total.setVal(N_Input)
-  ToyMC_all = ROOT.RooMCStudy(sim_model, {x,cat}, Extended(True), SumW2Error(True), FitOptions(Save(True),PrintEvalErrors(0),PrintLevel(1), NumCPU(8), Offset(True)))
-  ToyMC_all.generateAndFit(N_gen)
+common_title = "Pull"
+toyMC_frame_Acp.GetXaxis().SetTitle("A_{CP}(D^{#pm})" +  f" {common_title}")
+toyMC_frame_Acp_Ds.GetXaxis().SetTitle("A_{CP}(D^{#pm}_{s})" +  f" {common_title}")
+toyMC_frame_N_total.GetXaxis().SetTitle("N_{sig}(D^{+}+D^{-})" +  f" {common_title}")
+toyMC_frame_N_total_Ds.GetXaxis().SetTitle("N_{sig}(D^{+}_{s}+D^{-}_{s})" +  f" {common_title}")
 
-  toyMC_frame_N_total_pull = ToyMC_all.plotPull(N_total, Bins(20))
-  pullMean = ROOT.RooRealVar("pullMean","",0,-10,10)
-  pullSigma = ROOT.RooRealVar("pullSigma","",1,0.1,5)
-  pullMean.setPlotLabel("#mu")
-  pullSigma.setPlotLabel("#sigma")
 
-  pullGauss = ROOT.RooGaussian("pullGauss", "", toyMC_frame_N_total_pull.getPlotVar() , pullMean, pullSigma)
-  r_pull = pullGauss.fitTo(ToyMC_all.fitParDataSet(),NumCPU=6,PrintLevel=-1)
+toyMC_canvas = ROOT.TCanvas("toyMC_canvas", "D+ fit", 800, 600)
+toyMC_frame_Acp.Draw()
+toyMC_canvas.SaveAs(f"toy_Acp_{tree_name}_{args.sign}.png")
 
-  pullGauss.plotOn(toyMC_frame_N_total_pull)
-  pullGauss.paramOn(toyMC_frame_N_total_pull, ROOT.RooFit.Layout(0.60, 0.80, 0.9), ROOT.RooFit.Format("NE",ROOT.RooFit.AutoPrecision(1)))
-  toyMC_canvas = ROOT.TCanvas("toyMC_canvas", "D+ fit", 1600, 600)
-  toyMC_canvas.Divide(2,1)
-  toyMC_canvas.cd(1)
-  toyMC_frame_N_total_pull.Draw("PE")
+toyMC_canvas_Ds = ROOT.TCanvas("toyMC_canvas_Ds", "D+ fit", 800, 600)
+toyMC_frame_Acp_Ds.Draw()
+toyMC_canvas_Ds.SaveAs(f"toy_Acp_Ds_{tree_name}_{args.sign}.png")
 
-  toyMC_frame_N_total = ToyMC_all.plotParam(N_total, Bins(20))
-  Mean = ROOT.RooRealVar("Mean","",N_Input, 0.5*N_Input, 1.5*N_Input)
-  Sigma = ROOT.RooRealVar("Sigma","",N_Input**0.5, N_Input**0.5/4, N_Input*0.8)
-  Mean.setPlotLabel("#mu")
-  Sigma.setPlotLabel("#sigma")
+toyMC_canvas_N_total = ROOT.TCanvas("toyMC_canvas_N_total", "D+ fit", 800, 600)
+toyMC_frame_N_total.Draw()
+toyMC_canvas_N_total.SaveAs(f"toy_N_total_{tree_name}_{args.sign}.png")
 
-  Gauss = ROOT.RooGaussian("Gauss", "", toyMC_frame_N_total.getPlotVar() , Mean, Sigma)
-  r_N_total_pull = Gauss.fitTo(ToyMC_all.fitParDataSet(),NumCPU=6,PrintLevel=-1)
-
-  Gauss.plotOn(toyMC_frame_N_total)
-  Gauss.paramOn(toyMC_frame_N_total, ROOT.RooFit.Layout(0.60, 0.80, 0.9), ROOT.RooFit.Format("NE",ROOT.RooFit.AutoPrecision(1)))
-  toyMC_canvas.cd(2)
-  toyMC_frame_N_total.Draw("PE")
-  toyMC_canvas.SaveAs(f"toy_{tree_name}_{N_Input:.3f}.png")
-
-  Nsig_mean = Mean.getVal()
-  Nsig_mean_error = Mean.getError()
-
-  return Nsig_mean, Nsig_mean_error
-
-expected_values = np.linspace(N_total_value-N_total_error*3, N_total_value+N_total_error*3, 27)
-N_input = list()
-N_predict = list()
-Fit_error = list()
-for i in expected_values:
-    N_input.append(i)
-
-    N_fit, temp_fit_error = Linearity_test(sim_model, cat, N_Input=i,N_gen=1000)
-    #N_fit, temp_fit_error = Linearity_test(sim_model, cat, N_Input=i,N_gen=1)
-    N_predict.append(N_fit)
-    Fit_error.append(temp_fit_error)
-
-    print(f'Prediction: {N_fit}, Input: {i}, Error: {temp_fit_error}')
-
-import matplotlib.pyplot as plt
-# everything in iminuit is done through the Minuit object, so we import it
-import iminuit
-from iminuit import Minuit
-from iminuit.cost import LeastSquares
-print("iminuit version:", iminuit.__version__)
-def line(x, c0, c1):
-    return c0 + x * c1
-
-least_squares = LeastSquares(N_input, N_predict, Fit_error, line)
-
-m = Minuit(least_squares, c0=0, c1=0)  # starting values for α and β
-m.migrad()  # finds minimum of least_squares function
-m.hesse()
-# # plt.scatter(N_input, N_predict)
-plt.errorbar(N_input, N_predict, yerr=Fit_error, fmt="o",label='Data')
-# N_input = np.array(N_input)
-N_start = N_input[0]
-N_end = N_input[-1]
-np_N_input = np.linspace(N_start*0.97,N_end*1.03,101)
-
-plt.plot(np_N_input, line(np_N_input, *m.values), label=r"Fit($y=c_0+c_1x$)")
-# plt.plot([N_start*0.9,N_end*1.05], line([N_start*0.9,N_end*1.05], *m.values), label=r"Fit($y=c_0+c_1x$)")
-# plt.xlim(N_start*0.9,N_end*1.05)
-# plt.ylim(N_start*0.9,N_end*1.05)
-plt.plot([N_start*0.97,N_end*1.03], [N_start*0.97,N_end*1.03], label='y=x')
-
-fit_info = [
-    f"$\\chi^2$/$n_\\mathrm{{dof}}$ = {m.fval:.1f} / {m.ndof:.0f} = {m.fmin.reduced_chi2:.1f}",
-]
-for p, v, e in zip(m.parameters, m.values, m.errors):
-    if p=='c0':
-        p = r'$c_0$'
-    elif p=='c1':
-        p = r'$c_1$'
-    fit_info.append(f"{p} = ${v:.3f} \\pm {e:.3f}$")
-
-plt.legend(title="\n".join(fit_info), frameon=False, fontsize=13)
-
-plt.xlabel("Input")
-plt.ylabel("Prediction")
-plt.xlim(N_start*0.97,N_end*1.03)
-plt.ylim(N_start*0.97,N_end*1.03)
-# plt.xlim(N_start,N_end)
-# plt.ylim(N_start,N_end)
-plt.tight_layout()
-plt.savefig(f"Linearity_{tree_name}_fit.png")
-plt.show();
+toyMC_canvas_N_total_Ds = ROOT.TCanvas("toyMC_canvas_N_total_Ds", "D+ fit", 800, 600)
+toyMC_frame_N_total_Ds.Draw()
+toyMC_canvas_N_total_Ds.SaveAs(f"toy_N_total_Ds_{tree_name}_{args.sign}.png")
