@@ -437,25 +437,25 @@ for i in range(1, h_asym.GetNbinsX() + 1):
 blind_min = 1.83
 blind_max = 2.02
 
-for i in range(1, h_asym.GetNbinsX() + 1):
-    bin_center = h_asym.GetBinCenter(i)
+#for i in range(1, h_asym.GetNbinsX() + 1):
+#    bin_center = h_asym.GetBinCenter(i)
 
     # Check if the bin center falls within the blinding window
-    if bin_center >= blind_min and bin_center <= blind_max:
+#    if bin_center >= blind_min and bin_center <= blind_max:
         # Blind the data points
-        h_asym.SetBinContent(i, 0)
-        h_asym.SetBinError(i, 0)
+#        h_asym.SetBinContent(i, 0)
+#        h_asym.SetBinError(i, 0)
 
-        h_curve_asym.SetBinContent(i, 0)
-        h_curve_asym.SetBinError(i, 0)
+#        h_curve_asym.SetBinContent(i, 0)
+#        h_curve_asym.SetBinError(i, 0)
 
 canvas_D_all.cd(2)
 
 h_asym.SetMarkerStyle(20)
 h_asym.SetMarkerSize(0.8)
 h_asym.SetYTitle("Asymmetry")
-h_asym.SetMinimum(-0.2)
-h_asym.SetMaximum(0.2)
+h_asym.SetMinimum(-0.3)
+h_asym.SetMaximum(0.3)
 
 h_asym.GetYaxis().SetTitleSize(0.12)
 h_asym.GetYaxis().SetTitleOffset(0.4)
