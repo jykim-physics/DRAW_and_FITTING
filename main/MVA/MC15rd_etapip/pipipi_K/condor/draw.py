@@ -193,14 +193,14 @@ for i, feature in enumerate(feature_labels.keys(), 1):
     bins = np.linspace(xmin, xmax, 50)
 
     # Plot signal (y_train == 1) and background (y_train == 0)
-    plt.hist(X_train[feature][y_train == 1], bins=bins, density=True, alpha=0.5, color='r', label='Signal')
-    plt.hist(X_train[feature][y_train == 0], bins=bins, density=True, alpha=0.5, color='b', label='Background')
+    plt.hist(X_train[feature][y_train == 1], bins=bins, density=True, alpha=0.5, color='green', label='Signal')
+    plt.hist(X_train[feature][y_train == 0], bins=bins, density=True, alpha=0.5, color='red', label='Background')
 
     plt.xlabel(feature_labels[feature])
     plt.ylabel("Normalized Frequency")
     plt.xlim(xmin, xmax)  # Set the x-range
-    #if feature in log_scale_features:
-    #    plt.yscale("log")
+    if feature in log_scale_features:
+        plt.yscale("log")
 
     plt.legend()
 
